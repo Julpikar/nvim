@@ -7,8 +7,23 @@
       "command": "gopls",
       "rootPatterns": ["go.mod"],
       "trace.server": "verbose",
-      "filetypes": ["go"]
+      "filetypes": ["go"],
     },
+    "julia": {
+        "command": "julia",
+        "args" : [
+            "--startup-file=no",
+            "--history-file=no",
+            "-e",
+            "using LanguageServer; server = LanguageServer.LanguageServerInstance(STDIN, STDOUT, false); server.runlinter = true; run(server);"],
+        "filetypes": ["julia"],
+    }
   },
-  "html.autoClosingTags": true,
+  "python": {
+      "pythonPath": "~/Miniconda3/python.exe",
+      "jediEnabled": false
+  },
+  "html": {
+      "autoClosingTags": true,
+  },
 }

@@ -19,6 +19,7 @@ call plug#begin('~/AppData/Local/nvim-data/site/autoload')
     Plug 'sainnhe/forest-night'
     Plug 'sainnhe/sonokai'
     Plug 'morhetz/gruvbox'
+    Plug 'ghifarit53/tokyonight-vim'
     Plug 'kaicataldo/material.vim'
     Plug 'glepnir/oceanic-material'
     Plug 'joshdick/onedark.vim'
@@ -63,6 +64,9 @@ call plug#begin('~/AppData/Local/nvim-data/site/autoload')
     " go
     Plug 'fatih/vim-go',{ 'on_ft' : 'go' }
 
+    " julia
+    Plug 'JuliaEditorSupport/julia-vim'
+
     " php
     Plug 'StanAngeloff/php.vim',{ 'on_ft' : 'php'}
     Plug '2072/PHP-Indenting-for-VIm',{ 'on_ft' : 'php'}
@@ -83,6 +87,8 @@ call plug#begin('~/AppData/Local/nvim-data/site/autoload')
 
     " python
     Plug 'cjrh/vim-conda'
+    Plug 'numirias/semshi', {'do': ':UpdateRemotePlugins'}
+    Plug 'Vimjas/vim-python-pep8-indent'
 
     " sql
     Plug 'tpope/vim-dadbod',{'merged' : 0}
@@ -122,21 +128,28 @@ endif
 " Look n Feel
 " ----------------------------------------------------------------------------
 " ColorScheme
-colorscheme quantum
+"colorscheme quantum
 "colorscheme deus
-"colorscheme oceanic_material
+colorscheme oceanic_material
 "colorscheme space_vim_theme
 "colorscheme material
 "let g:material_theme_style = 'palenight'
 "let g:material_terminal_italics = 1
 "colorscheme gruvbox
-set background=dark
-set guifont =SauceCodePro\ NF:h11
+set background =dark
+
+" Font
+set guifont =SauceCodePro\ NF:h11   "cANSI
 "set guifont =JuliaMono:h10
+"set linespace =1
+
+set guioptions-=T "remove toolbar
+set guioptions-=r "remove right-hand scroll bar
+set guioptions-=L
 
 " Statusline and Tabline
 let g:lightline = {
-	\'colorscheme': 'quantum',
+	\'colorscheme': 'material',
 	\'active': {
 		\'left' :[['mode', 'paste' ],
 			\['fugitive', 'readonly' ],
@@ -167,16 +180,16 @@ let g:lightline = {
 	\}
 
 let g:lightline.separator = {
-    \'left': "\uE0B0", 'right': "\uE0B2"
+    \'left': "", 'right': ""
     \}
 
 let g:lightline.subseparator = {
-	\'left': "\uE0B1", 'right': "\uE0B3"
+	\'left': "|", 'right': "|"
 	\}
 
 let g:lightline.tabline = {
 	\'left': [['buffers']],
-    \'right': [["username"],["bufferstitle"]]
+    \'right': [["username"],["bufferstitle"]],
 	\}
 
 let g:lightline.component_expand = {
