@@ -1,2 +1,5 @@
+require 'plugin'
+require 'integration'
+require 'editing'
 require 'treesitter'
 require 'lsp'
