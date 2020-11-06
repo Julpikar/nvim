@@ -16,8 +16,8 @@ let g:NERDTreeGitStatusIndicatorMapCustom = {
 	\'Clean'     :'✔︎',
 	\'Unknown'   :'?',
 	\}
-	
-let g:NERDTreeGitStatusUseNerdFonts = 1 
+
+let g:NERDTreeGitStatusUseNerdFonts = 1
 
 " Startify
 let g:startify_lists = [

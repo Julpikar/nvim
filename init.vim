@@ -23,7 +23,6 @@ augroup vimrc                " Source vim configuration upon save
 augroup END
 
 lua require 'init'
-"source ~/AppData/Local/nvim/viml/appearance.vim
 source ~/AppData/Local/nvim/viml/line.vim
 source ~/AppData/Local/nvim/viml/navigation.vim
 source ~/AppData/Local/nvim/viml/keymapping.vim

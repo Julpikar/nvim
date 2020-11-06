@@ -75,6 +75,12 @@ lsp_status.config({
     spinner_frames = { '⣾', '⣽', '⣻', '⢿', '⡿', '⣟', '⣯', '⣷' },
 })
 
+nvim_lsp.diagnosticls.setup {
+    on_attach = on_attach,
+    capabilities = lsp_status.capabilities,
+    filetypes = {"go","python"}
+}
+
 nvim_lsp.gopls.setup {
     cmd = {"gopls", "serve"},
     settings = {
