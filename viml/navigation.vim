@@ -46,5 +46,5 @@ let g:vista#renderer#icons = {
 	\}
 
 function! NearestMethodOrFunction() abort
-  return get(b:, 'vista_nearest_method_or_function', '')
+    return get(b:, 'vista_nearest_method_or_function', '')
 endfunction

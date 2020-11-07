@@ -5,7 +5,6 @@ let g:lightline = {
 			\['fugitive', 'readonly' ],
 			\['filename', 'modified' ],
 			\['method'],
-			\['lspStatus']
             \],
 		\'right':[
 			\['linter_checking', 'linter_errors', 'linter_warnings', 'linter_infos', 'linter_ok'],

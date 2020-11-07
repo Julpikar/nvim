@@ -27,6 +27,7 @@ return require('packer').startup(function()
 
         -- Utilities
         use {'ryanoasis/vim-devicons'}
+        use {'airblade/vim-rooter'}
         use {'cjrh/vim-conda'}
         use {
             'itchyny/lightline.vim',
@@ -62,6 +63,9 @@ return require('packer').startup(function()
                 {'RishabhRD/nvim-lsputils'}, -- plugin focuses on making such LSP actions highly user friendly
             }
         }
+
+        -- COC
+        use {'neoclide/coc.nvim'}
 
         -- Linter
         use {

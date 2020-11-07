@@ -21,20 +21,39 @@ nnoremap <Leader>p <cmd>lua require'telescope.builtin'.find_files{}<CR>
 nnoremap <Leader>f <cmd>lua require'telescope.builtin'.find_files(require('telescope.themes').get_dropdown({ winblend = 10 }))<CR>
 nnoremap <Leader>c <cmd>lua require'telescope.builtin'.treesitter{}<CR>
 
-" Lsp
-nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
-nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
-nnoremap <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
-nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
-nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
-nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
-nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
-nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
-nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
-nnoremap <silent> ga    <cmd>lua vim.lsp.buf.code_action()<CR>
-
-" Trigger completion with <Tab>
+" CoC
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
+ 
 inoremap <silent><expr> <TAB>
- 	\ pumvisible() ? "\<C-n>" :
-  	\ <SID>check_back_space() ? "\<TAB>" :
-  	\ completion#trigger_completion()
+    \pumvisible() ? "\<C-n>" :
+    \<SID>check_back_space() ? "\<TAB>" :
+    \coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  	let col = col('.') - 1
+  	return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+augroup mygroup
+	autocmd!
+	" Setup formatexpr specified filetype(s).
+	autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+	" Update signature help on jump placeholder.
+	autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  	if (index(['vim','help'], &filetype) >= 0)
+    	execute 'h '.expand('<cword>')
+  	elseif (coc#rpc#ready())
+    	call CocActionAsync('doHover')
+  	else
+    	execute '!' . &keywordprg . " " . expand('<cword>')
+  	endif
+endfunction
