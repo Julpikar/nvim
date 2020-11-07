@@ -1,6 +1,8 @@
+require 'linter'
 require 'plugin'
 require 'appearance'
 require 'integration'
 require 'editing'
 require 'treesitter'
 require 'lsp'
+require 'git'

@@ -15,7 +15,7 @@ vim.g.completion_enable_snippet = 'UltiSnips'
 vim.o.updatetime = 300
 
 -- Show diagnostic popup on cursor hold
-vim.cmd("autocmd CursorHold * lua vim.lsp.util.show_line_diagnostics()")
+vim.cmd('autocmd CursorHold * lua vim.lsp.util.show_line_diagnostics()')
 vim.cmd(
     [===[
     function! LspStatus() abort
@@ -51,6 +51,13 @@ vim.lsp.callbacks['textDocument/implementation'] = require'lsputil.locations'.im
 vim.lsp.callbacks['textDocument/documentSymbol'] = require'lsputil.symbols'.document_handler
 vim.lsp.callbacks['workspace/symbol'] = require'lsputil.symbols'.workspace_handler
 
+vim.cmd(
+    [===[
+        nmap <tab> <Plug>(completion_smart_tab)
+        nmap <s-tab> <Plug>(completion_smart_s_tab)
+    ]===]
+)
+
 local lsp_status = require('lsp-status')
 local diagnostic = require('diagnostic')
 local completion = require('completion')
@@ -75,14 +82,8 @@ lsp_status.config({
     spinner_frames = { '⣾', '⣽', '⣻', '⢿', '⡿', '⣟', '⣯', '⣷' },
 })
 
-nvim_lsp.diagnosticls.setup {
-    on_attach = on_attach,
-    capabilities = lsp_status.capabilities,
-    filetypes = {"go","python"}
-}
-
 nvim_lsp.gopls.setup {
-    cmd = {"gopls", "serve"},
+    cmd = {'gopls', 'serve'},
     settings = {
         gopls = {
             analyses = {
@@ -101,6 +102,11 @@ nvim_lsp.jedi_language_server.setup {
 }
 
 nvim_lsp.rust_analyzer.setup {
+    on_attach = on_attach,
+    capabilities = lsp_status.capabilities
+}
+
+nvim_lsp.tsserver.setup {
     on_attach = on_attach,
     capabilities = lsp_status.capabilities
 }

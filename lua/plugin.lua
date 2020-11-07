@@ -62,6 +62,15 @@ return require('packer').startup(function()
                 {'RishabhRD/nvim-lsputils'}, -- plugin focuses on making such LSP actions highly user friendly
             }
         }
+
+        -- Linter
+        use {
+            'dense-analysis/ale',
+            requires = {
+                {'maximbaz/lightline-ale'}
+            }
+        }
+
         -- Snippets
         use {
             'SirVer/ultisnips',
@@ -85,4 +94,5 @@ return require('packer').startup(function()
 
         -- Rust
         use {'rust-lang/rust.vim', ft = {'rust'}}
+
     end)

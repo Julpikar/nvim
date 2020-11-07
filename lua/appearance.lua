@@ -10,7 +10,7 @@ vim.cmd(
 		set guioptions-=r "remove right-hand scroll bar
 		set guioptions-=L
 		set guioptions-=set number
-		
+
 		augroup Numbertoggle
 		    autocmd!
 		    autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
