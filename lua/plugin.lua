@@ -18,6 +18,16 @@ return require('packer').startup(function()
         use {'tyrannicaltoucan/vim-quantum'}
 
         -- Editing
+        use {
+            'editorconfig/editorconfig',
+            setup = function()
+            vim.g.EditorConfig_exclude_patterns = {
+                'fugitive://.*',
+                'scp://.*'
+            }
+            end
+        }
+
         use {'jiangmiao/auto-pairs'}
         use {'junegunn/vim-easy-align'}
         use {'ntpeters/vim-better-whitespace'} -- whitespace
@@ -27,8 +37,17 @@ return require('packer').startup(function()
 
         -- Utilities
         use {'ryanoasis/vim-devicons'}
-        use {'airblade/vim-rooter'}
         use {'cjrh/vim-conda'}
+        use {
+            'airblade/vim-rooter',
+            setup = function()
+                vim.g.rooter_pattern = {
+                    '.git/',
+                    'package.json',
+                    'Cargo.toml'
+                }
+            end
+        }
         use {
             'itchyny/lightline.vim',
             requires = {
@@ -38,7 +57,10 @@ return require('packer').startup(function()
         use {'preservim/nerdcommenter'}
         use {
         	'preservim/nerdtree',
-        	requires = {'Xuyuanp/nerdtree-git-plugin'}
+            requires = {
+                {'Xuyuanp/nerdtree-git-plugin'},
+                {'tiagofumo/vim-nerdtree-syntax-highlight'}
+            }
         }
         use {'mhinz/vim-startify'}
         use {'liuchengxu/vista.vim'}
@@ -50,19 +72,6 @@ return require('packer').startup(function()
             }
         }
         use {'nvim-treesitter/nvim-treesitter'}
-
-        -- LSP
-        use {
-            'neovim/nvim-lspconfig', --  Collection of common configurations for the Nvim LSP client
-            requires = {
-                {'tjdevries/lsp_extensions.nvim'}, -- Extensions to built-in LSP, for example, providing type inlay hints
-                {'nvim-lua/completion-nvim'}, -- Autocompletion framework for built-in LSP
-                {'nvim-lua/diagnostic-nvim'}, -- Diagnostic navigation and settings for built-in LSP
-                {'nvim-lua/lsp-status.nvim'}, -- generating statusline components from the built-in LSP client
-                {'RishabhRD/popfix'},
-                {'RishabhRD/nvim-lsputils'}, -- plugin focuses on making such LSP actions highly user friendly
-            }
-        }
 
         -- COC
         use {'neoclide/coc.nvim'}

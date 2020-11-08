@@ -18,7 +18,7 @@ vim.o.shortmess = vim.o.shortmess..'c'
 -- Always show the signcolumn, otherwise it would shift the text each time
 -- diagnostics appear/become resolved.
 -- " Recently vim can merge signcolumn and number column into one
-vim.o.signcolumn = 'number'
+vim.o.signcolumn = 'yes'
 
 -- Highlight the symbol and its references when holding the cursor.
 vim.cmd("autocmd CursorHold * silent call CocActionAsync('highlight')")
