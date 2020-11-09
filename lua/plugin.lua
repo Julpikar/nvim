@@ -74,7 +74,12 @@ return require('packer').startup(function()
         use {'nvim-treesitter/nvim-treesitter'}
 
         -- COC
-        use {'neoclide/coc.nvim'}
+        use {
+            'neoclide/coc.nvim',
+            requires = {
+                {'josa42/vim-lightline-coc'}
+            }
+        }
 
         -- Linter
         use {

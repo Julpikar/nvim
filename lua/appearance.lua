@@ -1,5 +1,4 @@
 vim.cmd("colorscheme oceanic_material")
-vim.o.background = 'dark'
 
 vim.o.guifont = 'SauceCodePro NF:h11'
 vim.o.number = true

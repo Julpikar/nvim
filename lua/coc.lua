@@ -20,9 +20,6 @@ vim.o.shortmess = vim.o.shortmess..'c'
 -- " Recently vim can merge signcolumn and number column into one
 vim.o.signcolumn = 'yes'
 
--- Highlight the symbol and its references when holding the cursor.
-vim.cmd("autocmd CursorHold * silent call CocActionAsync('highlight')")
-
 -- Add `:Format` command to format current buffer.
 vim.cmd("command! -nargs=0 Format :call CocAction('format')")
 

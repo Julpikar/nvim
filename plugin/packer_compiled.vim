@@ -6,6 +6,12 @@ endif
 
 lua << END
 local plugins = {
+  editorconfig = {
+    loaded = false,
+    only_sequence = true,
+    only_setup = true,
+    path = "C:\\Users\\benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\opt\\editorconfig"
+  },
   ["packer.nvim"] = {
     loaded = false,
     only_sequence = false,
@@ -23,6 +29,12 @@ local plugins = {
     only_sequence = false,
     only_setup = false,
     path = "C:\\Users\\benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\opt\\vim-go"
+  },
+  ["vim-rooter"] = {
+    loaded = false,
+    only_sequence = true,
+    only_setup = true,
+    path = "C:\\Users\\benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\opt\\vim-rooter"
   }
 }
 
@@ -146,6 +158,12 @@ end
 -- Runtimepath customization
 
 -- Pre-load configuration
+-- Setup for: vim-rooter
+loadstring("\27LJ\2\2R\0\0\2\0\4\0\0056\0\0\0009\0\1\0005\1\3\0=\1\2\0K\0\1\0\1\4\0\0\n.git/\17package.json\15Cargo.toml\19rooter_pattern\6g\bvim\0")()
+vim.cmd("packadd vim-rooter")
+-- Setup for: editorconfig
+loadstring('\27LJ\2\2Z\0\0\2\0\4\0\0056\0\0\0009\0\1\0005\1\3\0=\1\2\0K\0\1\0\1\3\0\0\18fugitive://.*\rscp://.*"EditorConfig_exclude_patterns\6g\bvim\0')()
+vim.cmd("packadd editorconfig")
 -- Post-load configuration
 -- Conditional loads
 -- Load plugins in order defined by `after`

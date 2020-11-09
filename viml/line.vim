@@ -5,6 +5,7 @@ let g:lightline = {
 			\['fugitive', 'readonly' ],
 			\['filename', 'modified' ],
 			\['method'],
+            \['coc_status'],
             \],
 		\'right':[
 			\['linter_checking', 'linter_errors', 'linter_warnings', 'linter_infos', 'linter_ok'],
@@ -50,6 +51,7 @@ let g:lightline.component_expand = {
     \'linter_warnings': 'lightline#ale#warnings',
     \'linter_errors': 'lightline#ale#errors',
     \'linter_ok': 'lightline#ale#ok',
+    \'coc_status': 'lightline#coc#status',
 	\}
 
 let g:lightline.component_type = {
