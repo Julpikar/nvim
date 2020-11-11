@@ -81,14 +81,6 @@ return require('packer').startup(function()
             }
         }
 
-        -- Linter
-        use {
-            'dense-analysis/ale',
-            requires = {
-                {'maximbaz/lightline-ale'}
-            }
-        }
-
         -- Snippets
         use {
             'SirVer/ultisnips',

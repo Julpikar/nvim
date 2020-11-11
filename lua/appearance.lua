@@ -1,3 +1,9 @@
+--vim.cmd("colorscheme edge")
+--vim.cmd("colorscheme forest-night")
+--vim.cmd("colorscheme sonokai")
+--vim.cmd("colorscheme tokyonight")
+--vim.cmd("colorscheme deus")
+--vim.cmd("colorscheme quantum")
 vim.cmd("colorscheme oceanic_material")
 
 vim.o.guifont = 'SauceCodePro NF:h11'

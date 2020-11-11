@@ -8,7 +8,7 @@ let g:lightline = {
             \['coc_status'],
             \],
 		\'right':[
-			\['linter_checking', 'linter_errors', 'linter_warnings', 'linter_infos', 'linter_ok'],
+			\[ 'coc_errors', 'coc_warnings', 'coc_ok' ],
 			\['lineinfo' ],
 			\['percent' ],
 			\['filetype', 'fileencoding', 'fileformat' ]
@@ -46,21 +46,17 @@ let g:lightline.component_expand = {
 	\'buffers': 'lightline#bufferline#buffers',
     \'username': 'LightlineGitUserName',
     \'bufferstitle': 'BufferTitle',
-    \'linter_checking': 'lightline#ale#checking',
-    \'linter_infos': 'lightline#ale#infos',
-    \'linter_warnings': 'lightline#ale#warnings',
-    \'linter_errors': 'lightline#ale#errors',
-    \'linter_ok': 'lightline#ale#ok',
+    \'coc_warnings': 'lightline#coc#warnings',
+  	\'coc_errors': 'lightline#coc#errors',
+  	\'coc_ok': 'lightline#coc#ok',
     \'coc_status': 'lightline#coc#status',
 	\}
 
 let g:lightline.component_type = {
 	\'buffers': 'tabsel',
-	\'linter_checking': 'right',
-    \'linter_infos': 'right',
-    \'linter_warnings': 'warning',
-    \'linter_errors': 'error',
-    \'linter_ok': 'right',
+	\'coc_warnings': 'warning',
+  	\'coc_errors': 'error',
+  	\'coc_ok': 'left',
 	\}
 
 let g:lightline#bufferline#unnamed ="Untitled"
@@ -71,11 +67,9 @@ let g:lightline#bufferline#unicode_symbols = 1
 let g:lightline#bufferline#clickable = 1
 let g:lightline.component_raw = {'buffers': 1}
 
-let g:lightline#ale#indicator_checking = "\uf110\u0020"
-let g:lightline#ale#indicator_infos = "\uf129\u0020"
-let g:lightline#ale#indicator_warnings = "\uf071\u0020"
-let g:lightline#ale#indicator_errors = "\uf05e\u0020"
-let g:lightline#ale#indicator_ok = "\uf00c\u0020"
+let g:lightline#coc#indicator_warnings = "\uf071\u0020"
+let g:lightline#coc#indicator_errors = "\uf05e\u0020"
+let g:lightline#coc#indicator_ok = "\uf00c"
 
 function! LightlineModified()
 	return &modified ? '●' : ''
