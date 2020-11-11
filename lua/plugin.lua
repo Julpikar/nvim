@@ -99,6 +99,9 @@ return require('packer').startup(function()
         }
         use {'airblade/vim-gitgutter'}
 
+        -- Testing
+        use {'vim-test/vim-test'}
+
         -- Golang
         use {'fatih/vim-go', ft = {'go'}}
 
