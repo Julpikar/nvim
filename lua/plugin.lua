@@ -90,11 +90,11 @@ return require('packer').startup(function()
         }
 
         -- Git
-        use {'jreybert/vimagit'}
         use {
             'tpope/vim-fugitive',
             requires = {
-                {'tpope/vim-rhubarb'}
+                {'tpope/vim-rhubarb'},
+                {'sodapopcan/vim-twiggy'}
             }
         }
         use {'airblade/vim-gitgutter'}

@@ -174,3 +174,10 @@ function! s:show_hover_doc()
 endfunction
 
 autocmd CursorHold * :call <SID>show_hover_doc()
+
+" vim-test
+nmap <silent> t<C-n> :TestNearest<CR>
+nmap <silent> t<C-f> :TestFile<CR>
+nmap <silent> t<C-s> :TestSuite<CR>
+nmap <silent> t<C-l> :TestLast<CR>
+nmap <silent> t<C-g> :TestVisit<CR>
