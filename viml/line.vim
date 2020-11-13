@@ -1,7 +1,7 @@
 set noshowmode
 
 let g:lightline = {
-	\'colorscheme': 'material',
+	\'colorscheme': 'forest_night',
 	\'active': {
 		\'left' :[['mode', 'paste' ],
 			\['fugitive', 'readonly' ],

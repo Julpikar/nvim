@@ -102,6 +102,12 @@ return require('packer').startup(function()
         -- Testing
         use {'vim-test/vim-test'}
 
+        -- Cmake
+        use {'ilyachur/cmake4vim'}
+
+        -- C & C++
+        use {'rhysd/vim-clang-format'}
+
         -- Golang
         use {'fatih/vim-go', ft = {'go'}}
 
