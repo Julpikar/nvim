@@ -32,12 +32,20 @@ let g:lightline = {
 	\}
 
 let g:lightline.separator = {
-    \'left': "", 'right': ""
+    \'left': "\ue0b8", 'right': "\ue0ba"
     \}
 
 let g:lightline.subseparator = {
-	\'left': "|", 'right': "|"
+	\'left': "\ue0b9", 'right': "\ue0bb"
 	\}
+
+let g:lightline.tabline_separator =  {
+    \'left': "\ue0bc", 'right': "\ue0be"
+    \}
+
+let g:lightline.tabline_subseparator =  {
+    \'left': "\ue0bb", 'right': "\ue0b9"
+    \}
 
 let g:lightline.tabline = {
 	\'left': [['buffers']],
@@ -98,7 +106,7 @@ function! LightlineFiletype()
 endfunction
 
 function! LightlineGitUserName()
-    return "\uF1D3\u0020".matchstr(system('git config user.name'),'[A-Za-z0-9]*')
+    return "\uf084\u0020".matchstr(system('git config user.name'),'[A-Za-z0-9]*')
 endfunction
 
 function! BufferTitle()
