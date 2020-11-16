@@ -1,7 +1,7 @@
 " Nerdtree
-nnoremap <silent><F3> :NERDTreeToggle<CR>
-inoremap <silent><F3> :NERDTreeToggle<CR>
-vnoremap <silent><F3> :NERDTreeToggle<CR>
+nnoremap <silent><F3> :NERDTree<CR>
+inoremap <silent><F3> :NERDTree<CR>
+vnoremap <silent><F3> :NERDTree<CR>
 
 nnoremap <silent><F4> :NERDTreeToggleVCS<CR>
 inoremap <silent><F4> :NERDTreeToggleVCS<CR>

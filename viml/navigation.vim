@@ -4,7 +4,7 @@ let g:NERDTreeDirArrowCollapsible = '├▸'
 let NERDTreeChDirMode=2
 let NERDTreeShowHidden=1
 let NERDTreeHijackNetrw=1
-
+let NERDTreeNodeDelimiter="😀"
 let g:NERDTreeGitStatusIndicatorMapCustom = {
 	\'Modified'  :'✹',
 	\'Staged'    :'✚',
