@@ -1,5 +1,6 @@
 {
     "coc.preferences.colorSupport": true,
+    "diagnostic.checkCurrentLine": true,
     "clangd.arguments": [
         "--compile-commands-dir=build",
         "--compile_args_from=filesystem",

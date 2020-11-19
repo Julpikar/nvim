@@ -106,7 +106,7 @@ function! LightlineFiletype()
 endfunction
 
 function! LightlineGitUserName()
-    return "\uf084\u0020".matchstr(system('git config user.name'),'[A-Za-z0-9]*')
+    return "\uf1d3\u0020".matchstr(system('git config user.name'),'[A-Za-z0-9]*')
 endfunction
 
 function! BufferTitle()

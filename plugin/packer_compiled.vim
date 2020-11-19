@@ -24,6 +24,12 @@ local plugins = {
     only_setup = false,
     path = "C:\\Users\\benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\opt\\rust.vim"
   },
+  ["vim-clang-format"] = {
+    loaded = false,
+    only_sequence = false,
+    only_setup = false,
+    path = "C:\\Users\\benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\opt\\vim-clang-format"
+  },
   ["vim-go"] = {
     loaded = false,
     only_sequence = false,
@@ -181,6 +187,8 @@ endfunction
 augroup packer_load_aucmds
   au!
   " Filetype lazy-loads
+  au FileType table: 0x174e4508 ++once call s:load(['vim-clang-format'], { "ft": "table: 0x174e4508" })
+  au FileType table: 0x174ee148 ++once call s:load(['vim-clang-format'], { "ft": "table: 0x174ee148" })
   au FileType rust ++once call s:load(['rust.vim'], { "ft": "rust" })
   au FileType go ++once call s:load(['vim-go'], { "ft": "go" })
   " Event lazy-loads

@@ -106,7 +106,13 @@ return require('packer').startup(function()
         use {'ilyachur/cmake4vim'}
 
         -- C & C++
-        use {'rhysd/vim-clang-format'}
+        use {
+            'rhysd/vim-clang-format',
+            ft = {
+                {'c'},
+                {'cpp'}
+            }
+        }
 
         -- Golang
         use {'fatih/vim-go', ft = {'go'}}
