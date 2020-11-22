@@ -4,7 +4,6 @@ let g:NERDTreeDirArrowCollapsible = '├▸'
 let NERDTreeChDirMode=2
 let NERDTreeShowHidden=1
 let NERDTreeHijackNetrw=1
-let NERDTreeNodeDelimiter="😀"
 let g:NERDTreeGitStatusIndicatorMapCustom = {
 	\'Modified'  :'✹',
 	\'Staged'    :'✚',
@@ -29,7 +28,7 @@ let g:startify_lists = [
 	\]
 
 let g:startify_bookmarks = [
-	\{'Config':"~\AppData\Local\nvim\init.vim"},
+	\{'Config':"~/AppData/Local/nvim/init.vim"},
 	\]
 
 let g:startify_session_delete_buffers = 1
