@@ -7,6 +7,7 @@ vim.cmd("colorscheme forest-night")
 --vim.cmd("colorscheme oceanic_material")
 
 vim.o.guifont = 'SauceCodePro NF:h11'
+--vim.o.guifont = 'FiraCode:h11'
 vim.o.number = true
 vim.cmd(
 	[===[

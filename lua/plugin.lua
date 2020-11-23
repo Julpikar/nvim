@@ -32,7 +32,7 @@ return require('packer').startup(function()
         use {'junegunn/vim-easy-align'}
         use {'ntpeters/vim-better-whitespace'} -- whitespace
         use {'farmergreg/vim-lastplace'} -- "reopen files at your last edit position
-        use {'mg979/vim-visual-multi'}
+        use {'mg979/vim-visual-multi',branch = 'master',}
         use {'tpope/vim-surround'}
 
         -- Utilities
