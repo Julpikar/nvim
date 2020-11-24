@@ -1,11 +1,11 @@
 " Nerdtree
-nnoremap <silent><F3> :NERDTree<CR>
-inoremap <silent><F3> :NERDTree<CR>
-vnoremap <silent><F3> :NERDTree<CR>
+nnoremap <silent><F3> :NERDTreeFind<CR>
+inoremap <silent><F3> :NERDTreeFind<CR>
+vnoremap <silent><F3> :NERDTreeFind<CR>
 
-nnoremap <silent><F3> :NERDTreeToggle<CR>
-inoremap <silent><F3> :NERDTreeToggle<CR>
-vnoremap <silent><F3> :NERDTreeToggle<CR>
+nnoremap <silent><F2> :NERDTreeToggle<CR>
+inoremap <silent><F2> :NERDTreeToggle<CR>
+vnoremap <silent><F2> :NERDTreeToggle<CR>
 
 nnoremap <silent><F4> :NERDTreeToggleVCS<CR>
 inoremap <silent><F4> :NERDTreeToggleVCS<CR>
@@ -21,8 +21,13 @@ inoremap <silent><F9> :Vista!!<CR>
 vnoremap <silent><F9> :Vista!!<CR>
 
 " Telescope
-nnoremap <Leader>p <cmd>lua require'telescope.builtin'.find_files{}<CR>
-nnoremap <Leader>f <cmd>lua require'telescope.builtin'.find_files(require('telescope.themes').get_dropdown({ winblend = 10 }))<CR>
+nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
+nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
+nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
+nnoremap <leader>ff <cmd>lua require('telescope.builtin').help_tags()<cr>
+nnoremap <Leader>f :lua require'telescope.builtin'.find_files(require('telescope.themes').get_dropdown({}))<cr>
+" Change an option
+nnoremap <Leader>f :lua require'telescope.builtin'.find_files(require('telescope.themes').get_dropdown({ winblend = 10 }))<cr>
 nnoremap <Leader>c <cmd>lua require'telescope.builtin'.treesitter{}<CR>
 
 " CoC

@@ -102,6 +102,9 @@ return require('packer').startup(function()
         -- Testing
         use {'vim-test/vim-test'}
 
+        -- Docker
+        use {'kkvh/vim-docker-tools'}
+
         -- Cmake
         use {'ilyachur/cmake4vim'}
 

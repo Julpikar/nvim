@@ -1,6 +1,7 @@
 require 'editing'
 require 'coc'
 require 'appearance'
+require 'telescope'
 require 'integration'
 require 'treesitter'
 require 'git'
