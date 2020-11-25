@@ -5,9 +5,6 @@ return require('packer').startup(function()
         -- Packer can manage itself as an optional plugin
         use {'wbthomason/packer.nvim', opt = true}
 
-        -- Write your .vimrc in Lua!
-        use {'svermeulen/vimpeccable'}
-
         -- Colorscheme
         use {'sainnhe/edge'}
         use {'sainnhe/forest-night'}
@@ -35,6 +32,14 @@ return require('packer').startup(function()
         use {'mg979/vim-visual-multi',branch = 'master',}
         use {'tpope/vim-surround'}
         use {'luochen1990/rainbow'}
+
+        -- Focusing
+        use {'junegunn/goyo.vim'}
+        use {'junegunn/limelight.vim'}
+
+        -- Color
+        use {'norcalli/nvim-colorizer.lua'}
+        use {'norcalli/nvim-terminal.lua'}
 
         -- Utilities
         use {'ryanoasis/vim-devicons'}
@@ -72,13 +77,20 @@ return require('packer').startup(function()
                 {'nvim-lua/plenary.nvim'}
             }
         }
-        use {'nvim-treesitter/nvim-treesitter'}
 
-        -- COC
+        -- Treesitter
+        use {'nvim-treesitter/nvim-treesitter'}
+        use {'nvim-treesitter/completion-treesitter'}
+
+        -- Neovim Builtin LSP
         use {
-            'neoclide/coc.nvim',
+            'neovim/nvim-lspconfig',
             requires = {
-                {'josa42/vim-lightline-coc'}
+                {'nvim-lua/lsp_extensions.nvim'},
+                {'nvim-lua/completion-nvim'},
+                {'nvim-lua/lsp-status.nvim'},
+                {'RishabhRD/popfix'},
+                {'RishabhRD/nvim-lsputils'}
             }
         }
 

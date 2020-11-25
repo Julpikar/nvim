@@ -21,7 +21,9 @@ augroup vimrc                " Source vim configuration upon save
 	autocmd! BufWritePost $VIMINIT if has('gui_running') | so % | echom "Reloaded " . $VIMINIT | endif | redraw
 augroup END
 
+source ~/AppData/Local/nvim/viml/base.vim
 lua require 'init'
 source ~/AppData/Local/nvim/viml/line.vim
 source ~/AppData/Local/nvim/viml/navigation.vim
+source ~/AppData/Local/nvim/viml/focusing.vim
 source ~/AppData/Local/nvim/viml/keymapping.vim
