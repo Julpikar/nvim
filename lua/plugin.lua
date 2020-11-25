@@ -34,6 +34,7 @@ return require('packer').startup(function()
         use {'farmergreg/vim-lastplace'} -- "reopen files at your last edit position
         use {'mg979/vim-visual-multi',branch = 'master',}
         use {'tpope/vim-surround'}
+        use {'luochen1990/rainbow'}
 
         -- Utilities
         use {'ryanoasis/vim-devicons'}
