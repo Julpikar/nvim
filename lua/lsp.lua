@@ -20,8 +20,18 @@ vim.g.completion_enable_snippet = 'UltiSnips'
 -- 300ms of no cursor movement to trigger CursorHold
 vim.o.updatetime = 300
 
+function _G.diagnostic_or_doc()
+    if not vim.tbl_isempty(vim.lsp.buf_get_clients()) then
+        if not vim.tbl_isempty(vim.lsp.diagnostic.get_line_diagnostics()) then
+            vim.lsp.diagnostic.show_line_diagnostics()
+        else
+            vim.wait(1000,vim.lsp.buf.hover())
+        end
+    end
+end
+
 -- Show diagnostic popup on cursor hold
-vim.cmd('autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics()')
+vim.cmd('autocmd CursorHold * lua diagnostic_or_doc()')
 vim.cmd(
     [===[
     function! LspStatus() abort
