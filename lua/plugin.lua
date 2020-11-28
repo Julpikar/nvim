@@ -5,6 +5,9 @@ return require('packer').startup(function()
         -- Packer can manage itself as an optional plugin
         use {'wbthomason/packer.nvim', opt = true}
 
+        -- Lua keymapping
+        use {'svermeulen/vimpeccable'}
+
         -- Colorscheme
         use {'sainnhe/edge'}
         use {'sainnhe/forest-night'}
@@ -111,9 +114,6 @@ return require('packer').startup(function()
             }
         }
         use {'airblade/vim-gitgutter'}
-
-        -- Testing
-        use {'vim-test/vim-test'}
 
         -- Cmake
         use {'ilyachur/cmake4vim'}

@@ -1,10 +1,11 @@
+local vimp = require('vimp')
 local lsp_status = require('lsp-status')
 local completion = require('completion')
 local lspconfig = require('lspconfig')
 local configs = require('lspconfig/configs')
 local util = require('lspconfig/util')
 
-vim.o.completeopt = 'menuone,noinsert,noselect'
+vim.o.completeopt = 'menuone,noinsert'
 
 -- Avoid showing message extra message when using completion
 vim.o.shortmess = vim.o.shortmess..'c'
@@ -15,6 +16,8 @@ vim.g.diagnostic_show_sign = 1
 
 vim.g.completion_enable_auto_paren = 1
 vim.g.completion_enable_snippet = 'UltiSnips'
+
+vimp.inoremap({'expr'},'<CR>',[[pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"]])
 
 -- Set updatetime for CursorHold
 -- 300ms of no cursor movement to trigger CursorHold
@@ -106,13 +109,6 @@ vim.lsp.callbacks['textDocument/implementation'] = require'lsputil.locations'.im
 vim.lsp.callbacks['textDocument/documentSymbol'] = require'lsputil.symbols'.document_handler
 vim.lsp.callbacks['workspace/symbol'] = require'lsputil.symbols'.workspace_handler
 
-vim.cmd(
-    [===[
-        nmap <tab> <Plug>(completion_smart_tab)
-        nmap <s-tab> <Plug>(completion_smart_s_tab)
-    ]===]
-)
-
 local on_attach = function(client, bufnr)
   	lsp_status.on_attach(client, bufnr)
     completion.on_attach(client, bufnr)
@@ -128,6 +124,11 @@ lsp_status.config({
     indicator_ok = '',
     spinner_frames = { '⣾', '⣽', '⣻', '⢿', '⡿', '⣟', '⣯', '⣷' },
 })
+
+lspconfig.clangd.setup{
+    on_attach = on_attach,
+    capabilities = lsp_status.capabilities,
+}
 
 lspconfig.gopls.setup {
     cmd = {'gopls', 'serve'},
