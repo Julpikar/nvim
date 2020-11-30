@@ -5,7 +5,7 @@ return require('packer').startup(function()
         -- Packer can manage itself as an optional plugin
         use {'wbthomason/packer.nvim', opt = true}
 
-        -- Lua keymapping
+        -- Lua keymapping helper
         use {'svermeulen/vimpeccable'}
 
         -- Colorscheme
@@ -35,6 +35,7 @@ return require('packer').startup(function()
         use {'mg979/vim-visual-multi',branch = 'master',}
         use {'tpope/vim-surround'}
         use {'luochen1990/rainbow'}
+        use {'antoinemadec/FixCursorHold.nvim'}
 
         -- Focusing
         use {'junegunn/goyo.vim'}
@@ -91,6 +92,7 @@ return require('packer').startup(function()
             requires = {
                 {'nvim-lua/lsp_extensions.nvim'},
                 {'nvim-lua/completion-nvim'},
+                {'steelsojka/completion-buffers'},
                 {'nvim-lua/lsp-status.nvim'},
                 {'RishabhRD/popfix'},
                 {'RishabhRD/nvim-lsputils'}

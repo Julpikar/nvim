@@ -28,13 +28,16 @@ function _G.diagnostic_or_doc()
         if not vim.tbl_isempty(vim.lsp.diagnostic.get_line_diagnostics()) then
             vim.lsp.diagnostic.show_line_diagnostics()
         else
-            vim.wait(1000,vim.lsp.buf.hover())
+            vim.wait(1000, vim.lsp.buf.hover())
         end
+    else
+        return
     end
 end
 
 -- Show diagnostic popup on cursor hold
-vim.cmd('autocmd CursorHold * lua diagnostic_or_doc()')
+vim.g.cursorhold_updatetime = 1000
+vim.cmd('autocmd CursorHold * silent! lua diagnostic_or_doc()')
 vim.cmd(
     [===[
     function! LspStatus() abort
@@ -128,6 +131,58 @@ lsp_status.config({
 lspconfig.clangd.setup{
     on_attach = on_attach,
     capabilities = lsp_status.capabilities,
+    handlers = lsp_status.extensions.clangd.setup(),
+}
+
+lspconfig.cmake.setup{
+    on_attach = on_attach,
+    capabilities = lsp_status.capabilities,
+}
+
+lspconfig.diagnosticls.setup{
+    on_attach = on_attach,
+    capabilities = lsp_status.capabilities,
+    filetypes = {'python'},
+    init_options = {
+        filetypes = {
+                python = 'pylint',
+            },
+        linters = {
+            pylint = {
+                sourceName = "pylint",
+                command = "pylint",
+                args = {
+                    "--output-format",
+                    "text",
+                    "--score",
+                    "no",
+                    "--msg-template",
+                    "'{line}:{column}:{category}:{msg} ({msg_id}:{symbol})'",
+                    "%file"
+                },
+                rootPatterns = {".git", "pyproject.toml", "setup.py"},
+                formatPattern = {
+                    "^(\\d+?):(\\d+?):([a-z]+?):(.*)$",
+                    {
+                        line = 1,
+                        column = 2,
+                        message = 3,
+                        security = 4
+                    }
+                },
+                securities = {
+                    informational = "hint",
+                    refactor = "info",
+                    convention = "info",
+                    warning = "warning",
+                    error = "error",
+                    fatal = "error"
+                },
+                offsetColumn = 1,
+                formatLines = 1
+            }
+        }
+    },
 }
 
 lspconfig.gopls.setup {
@@ -141,10 +196,28 @@ lspconfig.gopls.setup {
         },
     },
     on_attach = on_attach,
+    capabilities = lsp_status.capabilities
+}
+
+lspconfig.jedi_language_server.setup {
+    on_attach = on_attach,
     capabilities = lsp_status.capabilities,
+    init_options = {
+        diagnostics = {
+            enable = false,
+        },
+        completion = {
+            disableSnippets = true,
+        },
+  },
 }
 
 lspconfig.rust_analyzer.setup {
+    on_attach = on_attach,
+    capabilities = lsp_status.capabilities
+}
+
+lspconfig.vimls.setup{
     on_attach = on_attach,
     capabilities = lsp_status.capabilities,
 }
