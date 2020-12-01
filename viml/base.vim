@@ -15,11 +15,6 @@ if has('nvim-0.4')
     set wildoptions+=pum
 else
     set wildmode=longest,list,full
-
-    " Vim Galore recommended mappings
-    " Make next and previous use smart history
-    cnoremap <C-N> <Up>
-    cnoremap <C-P> <Down>
 end
 
 set formatoptions-=a    " Auto formatting is BAD.
@@ -34,4 +29,3 @@ set formatoptions-=2    " I'm not in gradeschool anymore
 set nojoinspaces        " Two spaces and grade school, we're done
 
 set incsearch                         " Makes search act like search in modern browsers
-set cursorline                        " Highlight the current line

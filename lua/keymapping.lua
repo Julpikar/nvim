@@ -32,15 +32,5 @@ vimp.nnoremap('<leader>fb', '<CMD> lua require (\'telescope.builtin\').buffers()
 vimp.nnoremap('<leader>ft', '<CMD> lua require (\'telescope.builtin\').help_tags()<CR>')
 vimp.nnoremap('<Leader>c', '<CMD> lua require (\'telescope.builtin\').treesitter{}<CR>')
 
--- Neovim builtin LSP
--- Code navigation shortcuts
-vimp.nnoremap({'silent'}, '<c-]>', '<CMD>lua vim.lsp.buf.definition()<CR>')
-vimp.nnoremap({'silent'}, 'K', '<CMD>lua vim.lsp.buf.hover()<CR>')
-vimp.nnoremap({'silent'}, 'gD', '<CMD>lua vim.lsp.buf.implementation()<CR>')
-vimp.nnoremap({'silent'}, '<c-k>', '<CMD>lua vim.lsp.buf.signature_help()<CR>')
-vimp.nnoremap({'silent'}, '1gD', '<CMD>lua vim.lsp.buf.type_definition()<CR>')
-vimp.nnoremap({'silent'}, 'gr', '<CMD>lua vim.lsp.buf.references()<CR>')
-vimp.nnoremap({'silent'}, 'g0', '<CMD>lua vim.lsp.buf.document_symbol()<CR>')
-vimp.nnoremap({'silent'}, 'gW', '<CMD>lua vim.lsp.buf.workspace_symbol()<CR>')
-vimp.nnoremap({'silent'}, 'gd', '<CMD>lua vim.lsp.buf.declaration()<CR>')
-vimp.nnoremap({'silent'}, 'ga', '<CMD>lua vim.lsp.buf.code_action()<CR>')
+-- COC
+
