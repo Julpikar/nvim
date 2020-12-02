@@ -1,22 +1,3 @@
-" tjdevries inspiration
-set wildignore+=*.o,*~,*.pyc,*pycache* " Ignore compiled files
-set wildignore+=__pycache__
-
-if has('nvim-0.4')
-    " Use cool floating wildmenu options
-    set pumblend=17
-
-    set wildmode-=list
-    set wildmode+=longest
-    set wildmode+=full
-
-    " Makes floating PopUpMenu for completing stuff on the command line.
-    "     Very similar to completing in insert mode.
-    set wildoptions+=pum
-else
-    set wildmode=longest,list,full
-end
-
 set formatoptions-=a    " Auto formatting is BAD.
 set formatoptions-=t    " Don't auto format my code. I got linters for that.
 set formatoptions+=c    " In general, I like it when comments respect textwidth

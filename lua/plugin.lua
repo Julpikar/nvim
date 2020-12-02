@@ -94,12 +94,7 @@ return require('packer').startup(function()
         }
 
         -- Snippets
-        use {
-            'SirVer/ultisnips',
-            requires = {
-                {'honza/vim-snippets'}
-            }
-        }
+        use {'honza/vim-snippets'}
 
         -- Git
         use {

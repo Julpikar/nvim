@@ -25,4 +25,3 @@ source ~/AppData/Local/nvim/viml/base.vim
 lua require 'init'
 source ~/AppData/Local/nvim/viml/line.vim
 source ~/AppData/Local/nvim/viml/navigation.vim
-source ~/AppData/Local/nvim/viml/focusing.vim

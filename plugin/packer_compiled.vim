@@ -187,8 +187,8 @@ endfunction
 augroup packer_load_aucmds
   au!
   " Filetype lazy-loads
-  au FileType table: 0x0516bdb0 ++once call s:load(['vim-clang-format'], { "ft": "table: 0x0516bdb0" })
-  au FileType table: 0x0516bde8 ++once call s:load(['vim-clang-format'], { "ft": "table: 0x0516bde8" })
+  au FileType table: 0x05188cf0 ++once call s:load(['vim-clang-format'], { "ft": "table: 0x05188cf0" })
+  au FileType table: 0x05188d28 ++once call s:load(['vim-clang-format'], { "ft": "table: 0x05188d28" })
   au FileType rust ++once call s:load(['rust.vim'], { "ft": "rust" })
   au FileType go ++once call s:load(['vim-go'], { "ft": "go" })
   " Event lazy-loads
