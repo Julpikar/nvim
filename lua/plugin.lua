@@ -28,14 +28,12 @@ return require('packer').startup(function()
             end
         }
 
-        use {'jiangmiao/auto-pairs'}
         use {'junegunn/vim-easy-align'}
         use {'ntpeters/vim-better-whitespace'} -- whitespace
         use {'farmergreg/vim-lastplace'} -- "reopen files at your last edit position
         use {'mg979/vim-visual-multi',branch = 'master',}
         use {'tpope/vim-surround'}
         use {'luochen1990/rainbow'}
-        use {'antoinemadec/FixCursorHold.nvim'}
 
         -- Focusing
         use {'junegunn/goyo.vim'}
@@ -90,7 +88,7 @@ return require('packer').startup(function()
             'neoclide/coc.nvim',
             requires = {
                 {'josa42/vim-lightline-coc'}
-            }
+            },
         }
 
         -- Snippets
