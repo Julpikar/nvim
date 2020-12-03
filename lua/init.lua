@@ -1,5 +1,4 @@
 require 'editing'
-require 'coc'
 require 'plugin'
 require 'appearance'
 require 'telescope'
@@ -9,3 +8,5 @@ require 'git'
 require 'project'
 require 'focusing'
 require 'keymapping'
+
+require 'lsp'

@@ -33,6 +33,7 @@ return require('packer').startup(function()
         use {'farmergreg/vim-lastplace'} -- "reopen files at your last edit position
         use {'mg979/vim-visual-multi',branch = 'master',}
         use {'tpope/vim-surround'}
+        use {'Raimondi/delimitMate'}
         use {'luochen1990/rainbow'}
 
         -- Focusing
@@ -79,16 +80,22 @@ return require('packer').startup(function()
                 {'nvim-lua/plenary.nvim'}
             }
         }
+        use {'antoinemadec/FixCursorHold.nvim'}
 
         -- Treesitter
         use {'nvim-treesitter/nvim-treesitter'}
 
-        -- COC
+        -- Neovim Builtin LSP
         use {
-            'neoclide/coc.nvim',
+            'neovim/nvim-lspconfig',
             requires = {
-                {'josa42/vim-lightline-coc'}
-            },
+                {'nvim-lua/lsp_extensions.nvim'},
+                {'nvim-lua/completion-nvim'},
+                {'steelsojka/completion-buffers'},
+                {'nvim-lua/lsp-status.nvim'},
+                {'RishabhRD/popfix'},
+                {'RishabhRD/nvim-lsputils'}
+            }
         }
 
         -- Snippets

@@ -6,11 +6,9 @@ let g:lightline = {
 		\'left' :[['mode', 'paste' ],
 			\['fugitive', 'readonly' ],
 			\['filename', 'modified' ],
-			\['method'],
-            \['coc_status'],
+			\['method']
             \],
 		\'right':[
-			\[ 'coc_errors', 'coc_warnings', 'coc_ok' ],
 			\['lineinfo' ],
 			\['percent' ],
 			\['filetype', 'fileencoding', 'fileformat' ]
@@ -55,18 +53,11 @@ let g:lightline.tabline = {
 let g:lightline.component_expand = {
 	\'buffers': 'lightline#bufferline#buffers',
     \'username': 'LightlineGitUserName',
-    \'bufferstitle': 'BufferTitle',
-    \'coc_warnings': 'lightline#coc#warnings',
-  	\'coc_errors': 'lightline#coc#errors',
-  	\'coc_ok': 'lightline#coc#ok',
-    \'coc_status': 'lightline#coc#status',
+    \'bufferstitle': 'BufferTitle'
 	\}
 
 let g:lightline.component_type = {
-	\'buffers': 'tabsel',
-	\'coc_warnings': 'warning',
-  	\'coc_errors': 'error',
-  	\'coc_ok': 'left',
+	\'buffers': 'tabsel'
 	\}
 
 let g:lightline#bufferline#unnamed ="Untitled"
@@ -76,10 +67,6 @@ let g:lightline#bufferline#enable_nerdfont = 1
 let g:lightline#bufferline#unicode_symbols = 1
 let g:lightline#bufferline#clickable = 1
 let g:lightline.component_raw = {'buffers': 1}
-
-let g:lightline#coc#indicator_warnings = "\uf071\u0020"
-let g:lightline#coc#indicator_errors = "\uf05e\u0020"
-let g:lightline#coc#indicator_ok = "\uf00c"
 
 function! LightlineModified()
 	return &modified ? '●' : ''
