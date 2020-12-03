@@ -1,6 +1,7 @@
 require 'editing'
 require 'plugin'
 require 'appearance'
+require 'navigation'
 require 'telescope'
 require 'integration'
 require 'treesitter'
@@ -8,5 +9,4 @@ require 'git'
 require 'project'
 require 'focusing'
 require 'keymapping'
-
 require 'lsp'

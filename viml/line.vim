@@ -5,8 +5,7 @@ let g:lightline = {
 	\'active': {
 		\'left' :[['mode', 'paste' ],
 			\['fugitive', 'readonly' ],
-			\['filename', 'modified' ],
-			\['method']
+			\['filename', 'modified' ]
             \],
 		\'right':[
             \['lsp_errors', 'lsp_warnings', 'lsp_ok' ],
@@ -20,7 +19,6 @@ let g:lightline = {
 		\'filename': '%<%f'
 		\},
 	\'component_function': {
-		\'method': 'NearestMethodOrFunction',
 		\'lspStatus': 'LspStatus',
 		\'fugitive': 'LightlineFugitive',
 		\'readonly': 'LightlineReadonly',
