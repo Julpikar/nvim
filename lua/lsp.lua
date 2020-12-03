@@ -151,6 +151,11 @@ lspconfig.gopls.setup {
     capabilities = lsp_status.capabilities
 }
 
+lspconfig.pyright.setup {
+    on_attach = on_attach,
+    capabilities = lsp_status.capabilities
+}
+
 lspconfig.rust_analyzer.setup {
     on_attach = on_attach,
     capabilities = lsp_status.capabilities

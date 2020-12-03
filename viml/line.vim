@@ -9,6 +9,7 @@ let g:lightline = {
 			\['method']
             \],
 		\'right':[
+            \['lsp_errors', 'lsp_warnings', 'lsp_ok' ],
 			\['lineinfo' ],
 			\['percent' ],
 			\['filetype', 'fileencoding', 'fileformat' ]
@@ -24,9 +25,25 @@ let g:lightline = {
 		\'fugitive': 'LightlineFugitive',
 		\'readonly': 'LightlineReadonly',
 		\'modified': 'LightlineModified',
-		\'fileformat': 'MyFileformat',
-		\'filetype': 'MyFiletype',
+		\'fileformat': 'LightlineFileformat',
+		\'filetype': 'LightlineFiletype',
+        \'lsp_warnings': 'LightlineLSPWarnings',
+        \'lsp_errors': 'LightlineLSPErrors',
+        \'lsp_ok': 'LightlineLSPOk'
 		\}
+	\}
+
+let g:lightline.component_expand = {
+	\'buffers': 'lightline#bufferline#buffers',
+    \'username': 'LightlineGitUserName',
+    \'bufferstitle': 'BufferTitle'
+	\}
+
+let g:lightline.component_type = {
+	\'buffers': 'tabsel',
+    \'lsp_warnings': 'warning',
+    \'lsp_errors':'error',
+    \'lsp_ok':'middle',
 	\}
 
 let g:lightline.separator = {
@@ -48,16 +65,6 @@ let g:lightline.tabline_subseparator =  {
 let g:lightline.tabline = {
 	\'left': [['buffers']],
     \'right': [["username"],["bufferstitle"]],
-	\}
-
-let g:lightline.component_expand = {
-	\'buffers': 'lightline#bufferline#buffers',
-    \'username': 'LightlineGitUserName',
-    \'bufferstitle': 'BufferTitle'
-	\}
-
-let g:lightline.component_type = {
-	\'buffers': 'tabsel'
 	\}
 
 let g:lightline#bufferline#unnamed ="Untitled"
@@ -100,11 +107,17 @@ function! BufferTitle()
     return "\uE257\u0020BUFFERS"
 endfunction
 
-" autoreload
-command! LightlineReload call LightlineReload()
+function! LightlineLSPWarnings() abort
+    let l:counts = luaeval('vim.lsp.diagnostic.get_count(0,"Warning")')
+    return l:counts == 0 ? '' : printf("\uf071 %d", l:counts)
+endfunction
 
-function! LightlineReload()
-	call lightline#init()
-	call lightline#colorscheme()
-	call lightline#update()
+function! LightlineLSPErrors() abort
+    let l:counts = luaeval('vim.lsp.diagnostic.get_count(0,"Error")')
+    return l:counts == 0 ? '' : printf("\uf655 %d", l:counts)
+endfunction
+
+function! LightlineLSPOk() abort
+    let l:total = luaeval("vim.lsp.diagnostic.get_count(0,'Error')") + luaeval("vim.lsp.diagnostic.get_count(0,'Warning')")
+    return l:total == 0 ? "\uf42e" : ''
 endfunction
