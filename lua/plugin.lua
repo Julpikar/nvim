@@ -83,7 +83,13 @@ return require('packer').startup(function()
         use {'antoinemadec/FixCursorHold.nvim'}
 
         -- Treesitter
-        use {'nvim-treesitter/nvim-treesitter'}
+        use {
+            'nvim-treesitter/nvim-treesitter',
+            requires = {
+                {'p00f/nvim-ts-rainbow'},
+                {'nvim-treesitter/nvim-treesitter-refactor'}
+            }
+        }
 
         -- Neovim Builtin LSP
         use {

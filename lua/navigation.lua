@@ -28,6 +28,7 @@ vim.g.startify_lists = {
 
 vim.g.startify_bookmarks = {
 	{Config = "~/AppData/Local/nvim/init.vim"},
+    {Code = "D:/sources"}
 }
 
 vim.g.startify_session_delete_buffers = 0

@@ -1,3 +1,4 @@
+-- Load module
 local vimp = require('vimp')
 local lsp_status = require('lsp-status')
 local completion = require('completion')
@@ -5,19 +6,49 @@ local lspconfig = require('lspconfig')
 local configs = require('lspconfig/configs')
 local util = require('lspconfig/util')
 
-vim.o.completeopt = 'menuone,noinsert'
+-- Completion setting
+vim.o.completeopt = 'menuone,noinsert,noselect'
+vim.g.completion_enable_auto_paren = 1
+vim.g.completion_enable_snippet = 'UltiSnips'
+vim.g.completion_customize_lsp_label = {
+    Function = '',
+    Method = '',
+    Reference = '',
+    Keyword = '',
+    Variable = '',
+    Folder = '',
+    Snippet = '',
+    UltiSnips = '',
+    Operator = '',
+    Module = '',
+    Text = '',
+    Class = '',
+    Interface = '',
+}
+vim.g.completion_chain_complete_list = {
+    default = {
+		default = {
+			{complete_items = {'lsp', 'snippet'}},
+			{mode = 'file'}
+        },
+		comment = {},
+		string = {}
+	},
+    python = {
+		{ complete_items = {'lsp', 'snippet', 'ts'}}
+    }
+}
+-- Use completion-nvim in every buffer
+vim.cmd("autocmd BufEnter * lua require'completion'.on_attach()")
+vim.cmd([[imap <expr> <CR> pumvisible() ? complete_info()["selected"] != "-1" ? "\<Plug>(completion_confirm_completion)" : "\<C-e>\<CR>" : "\<CR>"]])
 
 -- Avoid showing message extra message when using completion
 vim.o.shortmess = vim.o.shortmess..'c'
 
+-- Diagnostic setting
 vim.g.diagnostic_enable_virtual_text = 1
 vim.g.diagnostic_insert_delay = 1
 vim.g.diagnostic_show_sign = 1
-
-vim.g.completion_enable_auto_paren = 1
-vim.g.completion_enable_snippet = 'UltiSnips'
-
-vimp.inoremap({'expr'},'<CR>',[[pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"]])
 
 -- Set updatetime for CursorHold
 -- 300ms of no cursor movement to trigger CursorHold
@@ -110,9 +141,11 @@ vim.lsp.callbacks['textDocument/implementation'] = require'lsputil.locations'.im
 vim.lsp.callbacks['textDocument/documentSymbol'] = require'lsputil.symbols'.document_handler
 vim.lsp.callbacks['workspace/symbol'] = require'lsputil.symbols'.workspace_handler
 
+-- Lsp feature attach
 local on_attach = function(client, bufnr)
   	lsp_status.on_attach(client, bufnr)
     completion.on_attach(client, bufnr)
+    vim.api.nvim_buf_set_option(0, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 end
 
 lsp_status.register_progress()
@@ -126,6 +159,7 @@ lsp_status.config({
     spinner_frames = { '⣾', '⣽', '⣻', '⢿', '⡿', '⣟', '⣯', '⣷' },
 })
 
+-- Lsp Integration
 lspconfig.clangd.setup{
     on_attach = on_attach,
     capabilities = lsp_status.capabilities,
