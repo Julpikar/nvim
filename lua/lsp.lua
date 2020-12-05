@@ -50,19 +50,15 @@ vim.g.diagnostic_enable_virtual_text = 1
 vim.g.diagnostic_insert_delay = 1
 vim.g.diagnostic_show_sign = 1
 
--- Set updatetime for CursorHold
--- 300ms of no cursor movement to trigger CursorHold
-vim.o.updatetime = 300
-
 function _G.diagnostic_or_doc()
     if not vim.tbl_isempty(vim.lsp.buf_get_clients()) then
         if not vim.tbl_isempty(vim.lsp.diagnostic.get_line_diagnostics()) then
             vim.lsp.diagnostic.show_line_diagnostics()
+            return
         else
             vim.wait(1000, vim.lsp.buf.hover())
+            return
         end
-    else
-        return
     end
 end
 
@@ -76,10 +72,6 @@ vim.cmd(
             return luaeval("require('lsp-status').status()")
         endif
         return ''
-    endfunction
-    function! s:check_back_space() abort
-        let col = col('.') - 1
-        return !col || getline('.')[col - 1]  =~ '\s'
     endfunction
     " Enable type inlay hints
     autocmd CursorMoved,InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *

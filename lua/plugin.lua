@@ -34,7 +34,6 @@ return require('packer').startup(function()
         use {'mg979/vim-visual-multi',branch = 'master',}
         use {'tpope/vim-surround'}
         use {'Raimondi/delimitMate'}
-        use {'luochen1990/rainbow'}
 
         -- Focusing
         use {'junegunn/goyo.vim'}

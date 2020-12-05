@@ -8,7 +8,7 @@ vim.g.forest_night_diagnostic_line_highlight = 1
 --vim.cmd("colorscheme oceanic_material")
 
 vim.o.guifont = 'SauceCodePro NF:h11'
---vim.o.guifont = 'Fira Code iCursive S12:h10'
+--vim.o.guifont = 'Fira Code:h10'
 vim.o.number = true
 vim.cmd(
 	[===[

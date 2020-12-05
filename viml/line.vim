@@ -5,7 +5,8 @@ let g:lightline = {
 	\'active': {
 		\'left' :[['mode', 'paste' ],
 			\['fugitive', 'readonly' ],
-			\['filename', 'modified' ]
+			\['filename', 'modified' ],
+            \['lspStatus']
             \],
 		\'right':[
             \['lsp_errors', 'lsp_warnings', 'lsp_ok' ],
