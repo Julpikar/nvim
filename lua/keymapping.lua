@@ -1,5 +1,6 @@
 -- Load Vimpeccable
 local vimp = require 'vimp'
+
 -- Nerdtree
 vimp.inoremap({'silent'}, '<F2>', ':NERDTreeFind<CR>')
 vimp.nnoremap({'silent'}, '<F2>', ':NERDTreeFind<CR>')

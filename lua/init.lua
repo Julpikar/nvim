@@ -1,6 +1,7 @@
 require 'editing'
 require 'plugin'
 require 'appearance'
+require 'line'
 require 'navigation'
 require 'telescope'
 require 'integration'

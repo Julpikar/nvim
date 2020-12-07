@@ -1,4 +1,6 @@
 --vim.cmd("colorscheme edge")
+--vim.cmd('colorscheme zephyr')
+--require('zephyr').get_zephyr_color()
 vim.cmd("colorscheme forest-night")
 vim.g.forest_night_diagnostic_line_highlight = 1
 --vim.cmd("colorscheme sonokai")
@@ -34,15 +36,3 @@ vim.o.fdl = 1
 vim.o.foldlevel = 99
 vim.o.splitright = true
 vim.o.splitbelow = true
-
-vim.cmd(
-	[===[
-		function! MyFiletype()
-		    return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
-		endfunction
-
-		function! MyFileformat()
-		    return winwidth(0) > 70 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
-		endfunction
-	]===]
-)

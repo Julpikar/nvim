@@ -7,7 +7,7 @@ local configs = require('lspconfig/configs')
 local util = require('lspconfig/util')
 
 -- Completion setting
-vim.o.completeopt = 'menuone,noinsert,noselect'
+vim.o.completeopt = 'menuone,noinsert'
 vim.g.completion_enable_auto_paren = 1
 vim.g.completion_enable_snippet = 'UltiSnips'
 vim.g.completion_customize_lsp_label = {
@@ -40,7 +40,7 @@ vim.g.completion_chain_complete_list = {
 }
 -- Use completion-nvim in every buffer
 vim.cmd("autocmd BufEnter * lua require'completion'.on_attach()")
-vim.cmd([[imap <expr> <CR> pumvisible() ? complete_info()["selected"] != "-1" ? "\<Plug>(completion_confirm_completion)" : "\<C-e>\<CR>" : "\<CR>"]])
+--vim.cmd([[imap <expr> <CR> pumvisible() ? complete_info()["selected"] != "-1" ? "\<Plug>(completion_confirm_completion)" : "\<C-e>\<CR>" : "\<CR>"]])
 
 -- Avoid showing message extra message when using completion
 vim.o.shortmess = vim.o.shortmess..'c'
@@ -67,12 +67,6 @@ vim.g.cursorhold_updatetime = 1000
 vim.cmd('autocmd CursorHold * silent! lua diagnostic_or_doc()')
 vim.cmd(
     [===[
-    function! LspStatus() abort
-        if luaeval('#vim.lsp.buf_get_clients() > 0')
-            return luaeval("require('lsp-status').status()")
-        endif
-        return ''
-    endfunction
     " Enable type inlay hints
     autocmd CursorMoved,InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *
         \ lua require'lsp_extensions'.inlay_hints{

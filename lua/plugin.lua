@@ -16,6 +16,7 @@ return require('packer').startup(function()
         use {'glepnir/oceanic-material'}
         use {'ajmwagar/vim-deus'}
         use {'tyrannicaltoucan/vim-quantum'}
+        use {'glepnir/zephyr-nvim'}
 
         -- Editing
         use {
@@ -45,6 +46,7 @@ return require('packer').startup(function()
 
         -- Utilities
         use {'ryanoasis/vim-devicons'}
+        use {'kyazdani42/nvim-web-devicons', cmd = 'require\'nvim-web-devicons\'.setup {default = true}'}
         use {'cjrh/vim-conda'}
         use {
             'airblade/vim-rooter',
@@ -56,11 +58,11 @@ return require('packer').startup(function()
                 }
             end
         }
+
+        use {'akinsho/nvim-bufferline.lua'}
         use {
-            'itchyny/lightline.vim',
-            requires = {
-                {'mengelbrecht/lightline-bufferline'}
-            }
+            'glepnir/galaxyline.nvim',
+            branch = 'main',
         }
         use {'preservim/nerdcommenter'}
         use {
@@ -120,6 +122,14 @@ return require('packer').startup(function()
             }
         }
         use {'airblade/vim-gitgutter'}
+
+        -- Database
+        use {
+            'tpope/vim-dadbod',
+            requires = {
+                {'kristijanhusak/vim-dadbod-ui'}
+            }
+        }
 
         -- Cmake
         use {'ilyachur/cmake4vim'}
