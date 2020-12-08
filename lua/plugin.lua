@@ -46,7 +46,7 @@ return require('packer').startup(function()
 
         -- Utilities
         use {'ryanoasis/vim-devicons'}
-        use {'kyazdani42/nvim-web-devicons', cmd = 'require\'nvim-web-devicons\'.setup {default = true}'}
+        use {'kyazdani42/nvim-web-devicons'}
         use {'cjrh/vim-conda'}
         use {
             'airblade/vim-rooter',

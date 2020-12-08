@@ -25,19 +25,19 @@ vim.g.completion_customize_lsp_label = {
     Class = '',
     Interface = '',
 }
-vim.g.completion_chain_complete_list = {
-    default = {
-		default = {
-			{complete_items = {'lsp', 'snippet'}},
-			{mode = 'file'}
-        },
-		comment = {},
-		string = {}
-	},
-    python = {
-		{ complete_items = {'lsp', 'snippet', 'ts'}}
-    }
-}
+--vim.g.completion_chain_complete_list = {
+--    default = {
+--		default = {
+--			{complete_items = {'lsp', 'snippet'}},
+--			{mode = 'file'}
+--        },
+--		comment = {},
+--		string = {}
+--	},
+--    python = {
+--		{ complete_items = {'lsp', 'snippet', 'ts'}}
+--    }
+--}
 -- Use completion-nvim in every buffer
 vim.cmd("autocmd BufEnter * lua require'completion'.on_attach()")
 --vim.cmd([[imap <expr> <CR> pumvisible() ? complete_info()["selected"] != "-1" ? "\<Plug>(completion_confirm_completion)" : "\<C-e>\<CR>" : "\<CR>"]])

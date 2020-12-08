@@ -43,12 +43,14 @@ local colors = {
     purple = '#d39bb6',
     magenta = '8b008b',
 }
+
 local buffer_not_empty = function()
     if vim.fn.empty(vim.fn.expand('%:t')) ~= 1 then
         return true
     end
     return false
 end
+
 local checkwidth = function()
     local squeeze_width  = vim.fn.winwidth(0) / 2
     if squeeze_width > 40 and buffer_not_empty() then
@@ -64,8 +66,6 @@ function has_file_type()
     end
     return true
 end
-
-
 
 gls.left[1] = {
     FirstElement = {
@@ -126,11 +126,11 @@ gls.left[2] = {
             }
             local vim_mode = vim.fn.mode()
             vim.api.nvim_command('hi GalaxyViMode guifg='..mode_color[vim_mode])
-            return alias[vim_mode] .. '   '
+            return alias[vim_mode] .. '  '
         end,
 
         highlight = {colors.bg, colors.bg,'bold'},
-        separator = "  ",
+        separator = " ",
         separator_highlight = {colors.bg, colors.section_bg}
     }
 }
@@ -155,11 +155,12 @@ gls.left[4] = {
 
 gls.left[5] = {
     GitIcon = {
-        provider = function() return '  ' end,
+        provider = function() return ' ' end,
         condition = require('galaxyline.provider_vcs').check_git_workspace,
         highlight = {colors.red,colors.bg}
     }
 }
+
 gls.left[6] = {
     GitBranch = {
         provider = 'GitBranch',
@@ -193,29 +194,51 @@ gls.left[9] = {
     }
 }
 
+local has_trailing_whitespace = function()
+    local trail = vim.fn.search("\\s$", "nw")
+    if trail ~= 0 then
+        return true
+    else
+        return false
+    end
+end
+
+local has_diagnostic = function ()
+    local warn_count = vim.lsp.diagnostic.get_count(0,"Warning")
+    local err_count = vim.lsp.diagnostic.get_count(0,"Error")
+    local info_count = vim.lsp.diagnostic.get_count(0,"Information")
+    local whitespace_count = has_trailing_whitespace()
+    local sum_diagnostic = warn_count + err_count + info_count
+    if sum_diagnostic > 0 then
+        return true
+    else
+        return false
+    end
+end
+
+local has_diagnostic_or_whitespace = function()
+    return has_diagnostic() or has_trailing_whitespace()
+end
+
 gls.left[10] = {
     LeftEnd = {
         provider = function() return '' end,
-        condition = buffer_not_empty,
+        condition = has_diagnostic_or_whitespace,
         highlight = {colors.section_bg,colors.bg}
     }
 }
 
-local function trailing_whitespace()
-    local trail = vim.fn.search("\\s$", "nw")
-    if trail ~= 0 then
-        return ' '
-    else
-        return nil
-    end
-end
-
-TrailingWhiteSpace = trailing_whitespace
-
 gls.left[11] = {
     TrailingWhiteSpace = {
-        provider = TrailingWhiteSpace,
-        icon = '  ',
+        provider = function()
+            if has_trailing_whitespace() then
+                return ' '
+            else
+                return nil
+            end
+        end,
+        icon = '   ',
+        condition = has_diagnostic_or_whitespace,
         highlight = {colors.yellow,colors.section_bg}
     }
 }
@@ -223,6 +246,7 @@ gls.left[11] = {
 gls.left[12] = {
     Space = {
         provider = function () return ' ' end,
+        condition = has_diagnostic_or_whitespace,
         highlight = {colors.section_bg,colors.section_bg}
     }
 }
@@ -230,6 +254,7 @@ gls.left[12] = {
 gls.left[13] = {
     DiagnosticError = {
         provider = 'DiagnosticError',
+        condition = has_diagnostic_or_whitespace,
         icon = '  ',
         highlight = {colors.red,colors.section_bg}
     }
@@ -238,6 +263,7 @@ gls.left[13] = {
 gls.left[14] = {
     Space = {
         provider = function () return ' ' end,
+        condition = has_diagnostic_or_whitespace,
         highlight = {colors.section_bg,colors.section_bg}
     }
 }
@@ -245,6 +271,7 @@ gls.left[14] = {
 gls.left[15] = {
     DiagnosticWarn = {
         provider = 'DiagnosticWarn',
+        condition = has_diagnostic_or_whitespace,
         icon = '  ',
         highlight =  {colors.orange,colors.section_bg}
     }
@@ -253,6 +280,7 @@ gls.left[15] = {
 gls.left[16] = {
     Space = {
         provider = function () return ' ' end,
+        condition = has_diagnostic_or_whitespace,
         highlight = {colors.section_bg,colors.section_bg}
     }
 }
@@ -260,6 +288,7 @@ gls.left[16] = {
 gls.left[17] = {
     DiagnosticInfo = {
         provider = 'DiagnosticInfo',
+        condition = has_diagnostic_or_whitespace,
         icon = '  🗱',
         highlight = {colors.blue,colors.section_bg},
         separator = ' ',
@@ -277,6 +306,7 @@ end
 gls.left[18] = {
     LspFunc = {
         provider = get_lsp_current_function,
+        condition = buffer_not_empty,
         icon = '  λ ',
         highlight = {colors.yellow,colors.bg}
     }
@@ -285,6 +315,7 @@ gls.left[18] = {
 gls.right[1] = {
     RightStart = {
         provider = function() return ' ' end,
+        condition = buffer_not_empty,
         highlight = {colors.section_bg,colors.section_bg},
         separator = '',
         separator_highlight = {colors.section_bg,colors.bg}
@@ -301,12 +332,14 @@ gls.right[2] = {
 gls.right[3]= {
     FileFormat = {
         provider = function() return vim.bo.filetype:gsub("^%l", string.upper) end,
+        condition = buffer_not_empty,
         highlight = { colors.fg,colors.section_bg,'bold'}
     }
 }
 gls.right[4] = {
     LineInfo = {
         provider = 'LineColumn',
+        condition = buffer_not_empty,
         highlight = { colors.fg, colors.section_bg },
         separator = '  ',
         separator_highlight = { colors.line_bg, colors.section_bg }
@@ -316,17 +349,19 @@ gls.right[4] = {
 gls.right[5] = {
     PerCent = {
         provider = 'LinePercent',
+        condition = buffer_not_empty,
         highlight = {colors.fg,colors.section_bg,'bold'},
-        separator = '  ',
+        separator = ' ',
         separator_highlight = {colors.line_bg,colors.section_bg}
     }
 }
 
 gls.right[6] = {
     Heart = {
-        provider = function() return '☪︎ ' end,
+        provider = function() return '🔥 ' end,
+        condition = buffer_not_empty,
         highlight = { colors.red, colors.section_bg },
-        separator = '  ',
+        separator = ' ',
         separator_highlight = {colors.line_bg , colors.section_bg, 'bold' }
     }
 }
@@ -335,6 +370,7 @@ gls.right[6] = {
 gls.short_line_left[1] = {
     BufferType = {
         provider = 'FileTypeName',
+        condition = buffer_not_empty,
         highlight = { colors.fg, colors.section_bg },
         separator = ' ',
         separator_highlight = { colors.section_bg, colors.bg }
@@ -344,6 +380,7 @@ gls.short_line_left[1] = {
 gls.short_line_right[2] = {
     BufferIcon = {
         provider = 'BufferIcon',
+        condition = buffer_not_empty,
         highlight = { colors.yellow, colors.section_bg }
     }
 }

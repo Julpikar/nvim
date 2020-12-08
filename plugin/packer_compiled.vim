@@ -1,6 +1,9 @@
 " Automatically generated packer.nvim plugin loader code
 
-if !has('nvim')
+if !has('nvim-0.5')
+  echohl WarningMsg
+  echom "Invalid Neovim version for packer.nvim!"
+  echohl None
   finish
 endif
 
@@ -187,8 +190,8 @@ endfunction
 augroup packer_load_aucmds
   au!
   " Filetype lazy-loads
-  au FileType table: 0x05180158 ++once call s:load(['vim-clang-format'], { "ft": "table: 0x05180158" })
-  au FileType table: 0x05180120 ++once call s:load(['vim-clang-format'], { "ft": "table: 0x05180120" })
+  au FileType table: 0x0518f900 ++once call s:load(['vim-clang-format'], { "ft": "table: 0x0518f900" })
+  au FileType table: 0x0518f8c8 ++once call s:load(['vim-clang-format'], { "ft": "table: 0x0518f8c8" })
   au FileType rust ++once call s:load(['rust.vim'], { "ft": "rust" })
   au FileType go ++once call s:load(['vim-go'], { "ft": "go" })
   " Event lazy-loads
