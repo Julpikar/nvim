@@ -35,6 +35,7 @@ return require('packer').startup(function()
         use {'mg979/vim-visual-multi',branch = 'master',}
         use {'tpope/vim-surround'}
         use {'Raimondi/delimitMate'}
+        use {'Chiel92/vim-autoformat'}
 
         -- Focusing
         use {'junegunn/goyo.vim'}
@@ -45,8 +46,9 @@ return require('packer').startup(function()
         use {'norcalli/nvim-terminal.lua'}
 
         -- Utilities
-        use {'ryanoasis/vim-devicons'}
+        use {'akinsho/nvim-bufferline.lua'}
         use {'kyazdani42/nvim-web-devicons'}
+        use {'ryanoasis/vim-devicons'}
         use {'cjrh/vim-conda'}
         use {
             'airblade/vim-rooter',
@@ -59,7 +61,6 @@ return require('packer').startup(function()
             end
         }
 
-        use {'akinsho/nvim-bufferline.lua'}
         use {
             'glepnir/galaxyline.nvim',
             branch = 'main',

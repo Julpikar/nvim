@@ -1,3 +1,5 @@
+vim.g.termguicolors = true
+
 --vim.cmd("colorscheme edge")
 --vim.cmd('colorscheme zephyr')
 --require('zephyr').get_zephyr_color()

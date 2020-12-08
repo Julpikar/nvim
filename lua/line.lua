@@ -1,12 +1,11 @@
-vim.g.termguicolors = true
 -- Bufferline
 vim.cmd('autocmd BufAdd,BufEnter * if len(getbufinfo({\'buflisted\':1})) > 0 | set showtabline=2 | endif')
 vim.cmd('autocmd VimEnter * set showtabline=1')
 require'bufferline'.setup{
         options = {
             view = "multiwindow",
-            numbers = "none",
-            number_style = "",
+            numbers = "ordinal",
+            number_style = "superscript",
             mappings = true,
             buffer_close_icon= '',
             modified_icon = '●',
@@ -19,7 +18,7 @@ require'bufferline'.setup{
             show_buffer_close_icons = true,
             persist_buffer_sort = true,
             separator_style = "slant",
-            enforce_regular_tabs = false,
+            enforce_regular_tabs = true,
             always_show_bufferline = true,
             sort_by = 'directory'
         }
