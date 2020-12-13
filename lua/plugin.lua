@@ -9,14 +9,8 @@ return require('packer').startup(function()
         use {'svermeulen/vimpeccable'}
 
         -- Colorscheme
-        use {'sainnhe/edge'}
         use {'sainnhe/forest-night'}
-        use {'sainnhe/sonokai'}
-        use {'ghifarit53/tokyonight-vim'}
         use {'glepnir/oceanic-material'}
-        use {'ajmwagar/vim-deus'}
-        use {'tyrannicaltoucan/vim-quantum'}
-        use {'glepnir/zephyr-nvim'}
 
         -- Editing
         use {
@@ -89,7 +83,8 @@ return require('packer').startup(function()
             'nvim-treesitter/nvim-treesitter',
             requires = {
                 {'p00f/nvim-ts-rainbow'},
-                {'nvim-treesitter/nvim-treesitter-refactor'}
+                {'nvim-treesitter/nvim-treesitter-refactor'},
+                {'nvim-treesitter/completion-treesitter'}
             }
         }
 
@@ -150,4 +145,8 @@ return require('packer').startup(function()
         -- Rust
         use {'rust-lang/rust.vim', ft = {'rust'}}
 
+        -- Lua Development for Neovim
+        use {'tjdevries/nlua.nvim'}
+        use {'bfredl/nvim-luadev'}
+        use {'andrejlevkovitch/vim-lua-format'}
     end)

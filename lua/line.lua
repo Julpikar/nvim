@@ -4,8 +4,8 @@ vim.cmd('autocmd VimEnter * set showtabline=1')
 require'bufferline'.setup{
         options = {
             view = "multiwindow",
-            numbers = "ordinal",
-            number_style = "superscript",
+            numbers = "none",
+            number_style = "",
             mappings = true,
             buffer_close_icon= '',
             modified_icon = '●',
@@ -56,14 +56,6 @@ local checkwidth = function()
         return true
     end
     return false
-end
-
-function has_file_type()
-    local f_type = vim.bo.filetype
-    if not f_type or f_type == '' then
-        return false
-    end
-    return true
 end
 
 gls.left[1] = {
@@ -125,10 +117,10 @@ gls.left[2] = {
             }
             local vim_mode = vim.fn.mode()
             vim.api.nvim_command('hi GalaxyViMode guifg='..mode_color[vim_mode])
-            return alias[vim_mode] .. '  '
+            return alias[vim_mode] .. '  '
         end,
 
-        highlight = {colors.bg, colors.bg,'bold'},
+        highlight = {colors.bg, colors.bg, 'bold'},
         separator = " ",
         separator_highlight = {colors.bg, colors.section_bg}
     }
@@ -202,11 +194,25 @@ local has_trailing_whitespace = function()
     end
 end
 
+local function get_nvim_lsp_diagnostic(diag_type)
+    if vim.tbl_isempty(vim.lsp.buf_get_clients(0)) then return 0 end
+
+    local active_clients = vim.lsp.get_active_clients()
+
+    if active_clients then
+        local count = 0
+
+        for _, client in ipairs(active_clients) do
+            count = count + vim.lsp.diagnostic.get_count(vim.api.nvim_get_current_buf(),diag_type,client.id)
+        end
+        return count
+    end
+end
+
 local has_diagnostic = function ()
-    local warn_count = vim.lsp.diagnostic.get_count(0,"Warning")
-    local err_count = vim.lsp.diagnostic.get_count(0,"Error")
-    local info_count = vim.lsp.diagnostic.get_count(0,"Information")
-    local whitespace_count = has_trailing_whitespace()
+    local warn_count = get_nvim_lsp_diagnostic('Warning')
+    local err_count = get_nvim_lsp_diagnostic('Error')
+    local info_count = get_nvim_lsp_diagnostic('Information')
     local sum_diagnostic = warn_count + err_count + info_count
     if sum_diagnostic > 0 then
         return true

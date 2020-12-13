@@ -6,7 +6,6 @@ vimp.inoremap({'silent'}, '<F2>', ':NERDTreeFind<CR>')
 vimp.nnoremap({'silent'}, '<F2>', ':NERDTreeFind<CR>')
 vimp.vnoremap({'silent'}, '<F2>', ':NERDTreeFind<CR>')
 
-
 vimp.inoremap({'silent'}, '<F3>', ':NERDTreeToggle<CR>')
 vimp.nnoremap({'silent'}, '<F3>', ':NERDTreeToggle<CR>')
 vimp.vnoremap({'silent'}, '<F3>', ':NERDTreeToggle<CR>')
@@ -32,3 +31,33 @@ vimp.nnoremap('<leader>fg', '<CMD> lua require (\'telescope.builtin\').live_grep
 vimp.nnoremap('<leader>fb', '<CMD> lua require (\'telescope.builtin\').buffers()<CR>')
 vimp.nnoremap('<leader>ft', '<CMD> lua require (\'telescope.builtin\').help_tags()<CR>')
 vimp.nnoremap('<Leader>c', '<CMD> lua require (\'telescope.builtin\').treesitter{}<CR>')
+
+-- LSP
+vimp.nnoremap({'silent'}, '<c-]>', '<cmd>lua vim.lsp.buf.definition()<CR>')
+vimp.nnoremap({'silent'}, '<leader>k', '<cmd>lua vim.lsp.buf.hover()<CR>')
+vimp.nnoremap({'silent'}, 'gD', '<cmd>lua vim.lsp.buf.implementation()<CR>')
+vimp.nnoremap({'silent'}, '<c-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
+vimp.nnoremap({'silent'}, '1gD', '<cmd>lua vim.lsp.buf.type_definition()<CR>')
+vimp.nnoremap({'silent'}, 'gr', '<cmd>lua vim.lsp.buf.references()<CR>')
+vimp.nnoremap({'silent'}, 'g0', '<cmd>lua vim.lsp.buf.document_symbol()<CR>')
+vimp.nnoremap({'silent'}, 'gW', '<cmd>lua vim.lsp.buf.workspace_symbol()<CR>')
+vimp.nnoremap({'silent'}, 'gd', '<cmd>lua vim.lsp.buf.declaration()<CR>')
+vimp.nnoremap('<leader>af','<cmd>lua vim.lsp.buf.code_action()<CR>')
+vimp.nnoremap('<leader>ee','<cmd>lua vim.lsp.util.show_line_diagnostics()<CR>')
+vimp.nnoremap('<leader>ar','<cmd>lua vim.lsp.buf.rename()<CR>')
+vimp.nnoremap('<leader>=', '<cmd>lua vim.lsp.buf.formatting()<CR>')
+vimp.nnoremap('<leader>ai','<cmd>lua vim.lsp.buf.incoming_calls()<CR>')
+vimp.nnoremap('<leader>ao','<cmd>lua vim.lsp.buf.outgoing_calls()<CR>')
+
+-- EasyAlign
+-- Start interactive EasyAlign in visual mode (e.g. vipga)
+vimp.xmap('ga', '<Plug>(EasyAlign)')
+
+-- Start interactive EasyAlign for a motion/text object (e.g. gaip)
+vimp.nmap('ga', '<Plug>(EasyAlign)')
+
+-- nvim-luadev
+vimp.nmap({'silent', 'buffer'}, '<leader>n', '<Plug>(Luadev-RunLine)')
+vimp.nmap({'silent', 'buffer'}, '<leader>d', '<Plug>(Luadev-RunWord)')
+vimp.vmap({'silent', 'buffer'}, '<leader>n', '<Plug>(Luadev-Run)')
+vimp.imap({'silent', 'buffer'}, '<leader>u', '<Plug>(Luadev-Complete')

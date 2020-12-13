@@ -1,14 +1,7 @@
 vim.g.termguicolors = true
 
---vim.cmd("colorscheme edge")
---vim.cmd('colorscheme zephyr')
---require('zephyr').get_zephyr_color()
 vim.cmd("colorscheme forest-night")
 vim.g.forest_night_diagnostic_line_highlight = 1
---vim.cmd("colorscheme sonokai")
---vim.cmd("colorscheme tokyonight")
---vim.cmd("colorscheme deus")
---vim.cmd("colorscheme quantum")
 --vim.cmd("colorscheme oceanic_material")
 
 vim.o.guifont = 'SauceCodePro NF:h11'
@@ -16,7 +9,6 @@ vim.o.guifont = 'SauceCodePro NF:h11'
 vim.o.number = true
 vim.cmd(
 	[===[
-		set showtabline=2  " Show tabline
 		set guioptions-=T "remove toolbar
 		set guioptions-=r "remove right-hand scroll bar
 		set guioptions-=L
