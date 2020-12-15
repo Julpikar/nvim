@@ -102,8 +102,12 @@ return require('packer').startup(function()
         }
 
         -- Snippets
-        use {'hrsh7th/vim-vsnip'}
-        use {'hrsh7th/vim-vsnip-integ'}
+        use {
+            'hrsh7th/vim-vsnip',
+            requires = {
+                {'hrsh7th/vim-vsnip-integ', opt = true}
+            }
+        }
 
         -- Git
         use {

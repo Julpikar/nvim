@@ -7,3 +7,6 @@ vim.o.undofile = true
 vim.o.formatoptions = 'cqrnj'
 vim.o.joinspaces = false
 vim.o.incsearch = true
+
+-- nvim-colorizer.lua
+require'colorizer'.setup()
