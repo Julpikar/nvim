@@ -1,18 +1,15 @@
 -- Load module
-local vimp = require('vimp')
-local lsp_status = require('lsp-status')
 local completion = require('completion')
 local lspconfig = require('lspconfig')
-local configs = require('lspconfig/configs')
-local util = require('lspconfig/util')
 
 -- Completion setting
 vim.o.completeopt = 'menuone,noinsert'
 vim.g.completion_enable_auto_paren = 1
-vim.g.completion_enable_snippet = 'UltiSnips'
+vim.g.completion_enable_snippet = 'vim-vsnip'
 vim.g.sorting = 'alphabet'
 vim.g.completion_matching_smart_case = 1
 vim.g.matching_strategy_list = {'exact', 'fuzzy', 'substring'}
+vim.g.completion_auto_change_source = 1
 vim.g.completion_customize_lsp_label = {
     Function = '',
     Method = '',
@@ -21,7 +18,6 @@ vim.g.completion_customize_lsp_label = {
     Variable = '',
     Folder = '',
     Snippet = '',
-    UltiSnips = '',
     Buffer = '龎',
     Operator = '',
     Module = '',
@@ -156,37 +152,21 @@ vim.lsp.callbacks['workspace/symbol'] = require'lsputil.symbols'.workspace_handl
 -- Lsp feature attach
 local on_attach = function(client, bufnr)
   	print('LSP Starting...')
-    lsp_status.on_attach(client, bufnr)
     completion.on_attach(client, bufnr)
     vim.api.nvim_buf_set_option(0, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 end
 
-lsp_status.register_progress()
-lsp_status.config({
-    status_symbol = '',
-    indicator_errors = 'E',
-    indicator_warnings = 'W',
-    indicator_info = 'I',
-    indicator_hint = 'H',
-    indicator_ok = '',
-    spinner_frames = { '⣾', '⣽', '⣻', '⢿', '⡿', '⣟', '⣯', '⣷' },
-})
-
 -- Lsp Integration
 lspconfig.clangd.setup{
-    on_attach = on_attach,
-    capabilities = lsp_status.capabilities,
-    handlers = lsp_status.extensions.clangd.setup(),
+    on_attach = on_attach
 }
 
 lspconfig.cmake.setup{
-    on_attach = on_attach,
-    capabilities = lsp_status.capabilities,
+    on_attach = on_attach
 }
 
 lspconfig.cssls.setup{
-    on_attach = on_attach,
-    capabilities = lsp_status.capabilities,
+    on_attach = on_attach
 }
 
 lspconfig.gopls.setup {
@@ -199,18 +179,20 @@ lspconfig.gopls.setup {
             staticcheck = true,
         },
     },
+    on_attach = on_attach
+}
+
+lspconfig.html.setup {
     on_attach = on_attach,
-    capabilities = lsp_status.capabilities
+    capabilities = {textDocument = {completion = {completionItem = {snippetSupport = true}}}};
 }
 
 lspconfig.pyright.setup {
-    on_attach = on_attach,
-    capabilities = lsp_status.capabilities
+    on_attach = on_attach
 }
 
 lspconfig.rust_analyzer.setup {
-    on_attach = on_attach,
-    capabilities = lsp_status.capabilities
+    on_attach = on_attach
 }
 
 lspconfig.sumneko_lua.setup {
@@ -218,7 +200,6 @@ lspconfig.sumneko_lua.setup {
             "-E", "-e", "LANG=en",
             "C:\\tools\\precompiled-lua-language-server\\main.lua"},
     on_attach = on_attach,
-    capabilities = lsp_status.capabilities,
     settings = {
         Lua = {
             runtime = {
@@ -243,11 +224,10 @@ lspconfig.sumneko_lua.setup {
 }
 
 lspconfig.tsserver.setup {
-    on_attach = on_attach,
-    capabilities = lsp_status.capabilities
+    on_attach = on_attach
 }
 
 lspconfig.vimls.setup{
     on_attach = on_attach,
-    capabilities = lsp_status.capabilities,
+    capabilities = {textDocument = {completion = {completionItem = {snippetSupport = true}}}};
 }

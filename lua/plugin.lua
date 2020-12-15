@@ -41,6 +41,7 @@ return require('packer').startup(function()
 
         -- Utilities
         use {'akinsho/nvim-bufferline.lua'}
+        use {'akinsho/nvim-toggleterm.lua'}
         use {'kyazdani42/nvim-web-devicons'}
         use {'ryanoasis/vim-devicons'}
         use {'cjrh/vim-conda'}
@@ -95,19 +96,14 @@ return require('packer').startup(function()
                 {'nvim-lua/lsp_extensions.nvim'},
                 {'nvim-lua/completion-nvim'},
                 {'steelsojka/completion-buffers'},
-                {'nvim-lua/lsp-status.nvim'},
                 {'RishabhRD/popfix'},
                 {'RishabhRD/nvim-lsputils'}
             }
         }
 
         -- Snippets
-        use {
-            'SirVer/ultisnips',
-            requires = {
-                {'honza/vim-snippets'}
-            }
-        }
+        use {'hrsh7th/vim-vsnip'}
+        use {'hrsh7th/vim-vsnip-integ'}
 
         -- Git
         use {

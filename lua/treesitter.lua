@@ -1,4 +1,4 @@
-require'nvim-treesitter.configs'.setup {
+require('nvim-treesitter.configs').setup {
     highlight = {
         enable = true,
         --use_languagetree = false, -- Use this to enable language injection (this is very unstable)

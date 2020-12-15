@@ -168,10 +168,10 @@ end
 
 -- Pre-load configuration
 -- Setup for: vim-rooter
-loadstring("\27LJ\2\2R\0\0\2\0\4\0\0056\0\0\0009\0\1\0005\1\3\0=\1\2\0K\0\1\0\1\4\0\0\n.git/\17package.json\15Cargo.toml\19rooter_pattern\6g\bvim\0")()
+loadstring("\27LJ\2\nR\0\0\2\0\4\0\0056\0\0\0009\0\1\0005\1\3\0=\1\2\0K\0\1\0\1\4\0\0\n.git/\17package.json\15Cargo.toml\19rooter_pattern\6g\bvim\0")()
 vim.cmd("packadd vim-rooter")
 -- Setup for: editorconfig
-loadstring('\27LJ\2\2Z\0\0\2\0\4\0\0056\0\0\0009\0\1\0005\1\3\0=\1\2\0K\0\1\0\1\3\0\0\18fugitive://.*\rscp://.*"EditorConfig_exclude_patterns\6g\bvim\0')()
+loadstring('\27LJ\2\nZ\0\0\2\0\4\0\0056\0\0\0009\0\1\0005\1\3\0=\1\2\0K\0\1\0\1\3\0\0\18fugitive://.*\rscp://.*"EditorConfig_exclude_patterns\6g\bvim\0')()
 vim.cmd("packadd editorconfig")
 -- Post-load configuration
 -- Conditional loads
@@ -190,9 +190,9 @@ endfunction
 augroup packer_load_aucmds
   au!
   " Filetype lazy-loads
-  au FileType table: 0x05179b58 ++once call s:load(['vim-clang-format'], { "ft": "table: 0x05179b58" })
-  au FileType table: 0x05179b20 ++once call s:load(['vim-clang-format'], { "ft": "table: 0x05179b20" })
   au FileType rust ++once call s:load(['rust.vim'], { "ft": "rust" })
   au FileType go ++once call s:load(['vim-go'], { "ft": "go" })
+  au FileType table: 0x054319d8 ++once call s:load(['vim-clang-format'], { "ft": "table: 0x054319d8" })
+  au FileType table: 0x05431a30 ++once call s:load(['vim-clang-format'], { "ft": "table: 0x05431a30" })
   " Event lazy-loads
 augroup END

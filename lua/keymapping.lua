@@ -61,3 +61,7 @@ vimp.nmap({'silent', 'buffer'}, '<leader>n', '<Plug>(Luadev-RunLine)')
 vimp.nmap({'silent', 'buffer'}, '<leader>d', '<Plug>(Luadev-RunWord)')
 vimp.vmap({'silent', 'buffer'}, '<leader>n', '<Plug>(Luadev-Run)')
 vimp.imap({'silent', 'buffer'}, '<leader>u', '<Plug>(Luadev-Complete')
+
+-- nvim-toggleterm.lua
+vimp.nnoremap({'silent'}, '<c-t>', [[:<c-u>exe v:count1 . "ToggleTerm"<CR>]])
+vimp.inoremap({'silent'}, '<c-t> <Esc>', [[:<c-u>exe v:count1 . "ToggleTerm"<CR>]])
