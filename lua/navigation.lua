@@ -28,7 +28,7 @@ vim.g.startify_lists = {
 
 vim.g.startify_bookmarks = {
     {Code = "D:/sources"},
-	{Config = "~/AppData/Local/nvim/init.vim"},
+	{Config = "~/AppData/Local/nvim/init.lua"},
     {Packer = "~/AppData/Local/nvim-data/site/pack/packer"}
 }
 

@@ -95,6 +95,7 @@ return require('packer').startup(function()
             requires = {
                 {'nvim-lua/lsp_extensions.nvim'},
                 {'nvim-lua/completion-nvim'},
+                {'nvim-lua/lsp-status.nvim'},
                 {'steelsojka/completion-buffers'},
                 {'RishabhRD/popfix'},
                 {'RishabhRD/nvim-lsputils'}

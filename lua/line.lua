@@ -1,46 +1,47 @@
 -- Bufferline
 vim.cmd('autocmd BufAdd,BufEnter * if len(getbufinfo({\'buflisted\':1})) > 0 | set showtabline=2 | endif')
 vim.cmd('autocmd VimEnter * set showtabline=1')
+
 require'bufferline'.setup{
-        options = {
-            view = "multiwindow",
-            numbers = "none",
-            number_style = "",
-            mappings = true,
-            buffer_close_icon= '',
-            modified_icon = '●',
-            close_icon = '',
-            left_trunc_marker = '',
-            right_trunc_marker = '',
-            max_name_length = 18,
-            max_prefix_length = 15,
-            tab_size = 18,
+        options                     = {
+            view                    = "multiwindow",
+            numbers                 = "none",
+            number_style            = "",
+            mappings                = true,
+            buffer_close_icon       = '',
+            modified_icon           = '●',
+            close_icon              = '',
+            left_trunc_marker       = '',
+            right_trunc_marker      = '',
+            max_name_length         = 18,
+            max_prefix_length       = 15,
+            tab_size                = 18,
             show_buffer_close_icons = true,
-            persist_buffer_sort = true,
-            separator_style = "slant",
-            enforce_regular_tabs = true,
-            always_show_bufferline = true,
-            sort_by = 'directory'
+            persist_buffer_sort     = true,
+            separator_style         = "slant",
+            enforce_regular_tabs    = true,
+            always_show_bufferline  = true,
+            sort_by                 = 'directory'
         }
     }
 
 -- Statusline
-local gl = require('galaxyline')
-local gls = gl.section
+local gl        = require('galaxyline')
+local gls       = gl.section
 local extension = require('galaxyline.provider_extensions')
 
-local colors = {
-    bg = '#3c474d',
-    fg = '#d8caac',
+local colors   = {
+    bg         = '#3c474d',
+    fg         = '#d8caac',
     section_bg = '#465258',
-    line_bg = '#2b353b',
-    red = '#e68183',
-    orange = '#e39b7b',
-    yellow = '#d9bb80',
-    green = '#a7c080',
-    blue = '#83b6af',
-    purple = '#d39bb6',
-    magenta = '8b008b',
+    line_bg    = '#2b353b',
+    red        = '#e68183',
+    orange     = '#e39b7b',
+    yellow     = '#d9bb80',
+    green      = '#a7c080',
+    blue       = '#83b6af',
+    purple     = '#d39bb6',
+    magenta    = '8b008b',
 }
 
 local buffer_not_empty = function()
@@ -58,9 +59,9 @@ local checkwidth = function()
     return false
 end
 
-gls.left[1] = {
-    FirstElement = {
-        provider = function() return '▋' end,
+gls.left[1]       = {
+    FirstElement  = {
+        provider  = function() return '▋' end,
         highlight = {colors.green, colors.section_bg}
     }
 }
@@ -68,53 +69,56 @@ gls.left[1] = {
 gls.left[2] = {
     ViMode = {
         provider = function()
+
             -- auto change color according the vim mode
             local alias = {
-                n = 'NORMAL',
-                i = 'INSERT',
-                c = 'COMMAND',
-                V = 'VISUAL',
-                [''] = 'VISUAL',
-                v ='VISUAL',
-                c  = 'COMMAND-LINE',
-                ['r?'] = ':CONFIRM',
-                rm = '--MORE',
-                R  = 'REPLACE',
-                Rv = 'VIRTUAL',
-                s  = 'SELECT',
-                S = 'SELECT',
-                ['r']  = 'HIT-ENTER',
-                [''] = 'SELECT',
-                t  = 'TERMINAL',
-                ['!']  = 'SHELL',
+                n       = 'NORMAL',
+                i       = 'INSERT',
+                c       = 'COMMAND',
+                V       = 'VISUAL',
+                ['']  = 'VISUAL',
+                v       = 'VISUAL',
+                c       = 'COMMAND-LINE',
+                ['r?']  = ':CONFIRM',
+                rm      = '--MORE',
+                R       = 'REPLACE',
+                Rv      = 'VIRTUAL',
+                s       = 'SELECT',
+                S       = 'SELECT',
+                ['r']   = 'HIT-ENTER',
+                ['']  = 'SELECT',
+                t       = 'TERMINAL',
+                ['!']   = 'SHELL',
             }
+
             local mode_color = {
-                n = colors.green,
-                i = colors.blue,
-                v = colors.magenta,
-                [''] = colors.blue,
-                V=colors.blue,
-                c = colors.red,
-                no = colors.magenta,
-                s = colors.orange,
-                S = colors.orange,
-                [''] = colors.orange,
-                ic = colors.yellow,
-                R = colors.purple,
-                Rv = colors.purple,
-                cv = colors.red,
-                ce=colors.red,
-                r = colors.cyan,
-                rm = colors.cyan,
-                ['r?'] = colors.cyan,
-                ['!'] = colors.green,t = colors.green,
-                c  = colors.purple,
-                ['r?'] = colors.red,
-                ['r']  = colors.red,
-                rm = colors.red,
-                R  = colors.yellow,
-                Rv = colors.magenta,
+                n            = colors.green,
+                i            = colors.blue,
+                v            = colors.magenta,
+                ['']       = colors.blue,
+                V            = colors.blue,
+                c            = colors.red,
+                no           = colors.magenta,
+                s            = colors.orange,
+                S            = colors.orange,
+                ['']       = colors.orange,
+                ic           = colors.yellow,
+                R            = colors.purple,
+                Rv           = colors.purple,
+                cv           = colors.red,
+                ce           = colors.red,
+                r            = colors.cyan,
+                rm           = colors.cyan,
+                ['r?']       = colors.cyan,
+                ['!']        = colors.green,t = colors.green,
+                c            = colors.purple,
+                ['r?']       = colors.red,
+                ['r']        = colors.red,
+                rm           = colors.red,
+                R            = colors.yellow,
+                Rv           = colors.magenta,
             }
+
             local vim_mode = vim.fn.mode()
             vim.api.nvim_command('hi GalaxyViMode guifg='..mode_color[vim_mode])
             return alias[vim_mode] .. '  '
@@ -294,23 +298,72 @@ gls.left[17] = {
     DiagnosticInfo = {
         provider = 'DiagnosticInfo',
         condition = has_diagnostic_or_whitespace,
-        icon = '  🗱',
+        icon = ' 🗱 ',
         highlight = {colors.blue,colors.section_bg},
         separator = ' ',
         separator_highlight = { colors.section_bg, colors.bg }
     }
 }
 
-function get_lsp_current_function()
-    if vim.fn.exists('b:lsp_current_function') == 1 then
-        return vim.b.lsp_current_function
+function get_lsp_message()
+    if #vim.lsp.buf_get_clients() == 0 then
+        return ''
     end
-    return ""
+
+    local messages = require('lsp-status/messaging').messages
+    local buf_messages = messages()
+    local aliases = {
+        pyls_ms = 'MPLS',
+    }
+    local spinner_frames = { '⣾', '⣽', '⣻', '⢿', '⡿', '⣟', '⣯', '⣷' }
+    local contents = ''
+    for _, msg in ipairs(buf_messages) do
+        local name = aliases[msg.name] or msg.name
+        local client_name = '[' .. name .. ']'
+        if msg.progress then
+            contents = msg.title
+            if msg.message then
+                contents = contents .. ' ' .. msg.message
+            end
+
+            if msg.percentage then
+                contents = contents .. ' (' .. msg.percentage .. ')'
+            end
+
+            if msg.spinner then
+                contents = spinner_frames[(msg.spinner % #spinner_frames) + 1] .. ' ' .. contents
+            end
+        elseif msg.status then
+            contents = msg.content
+            if msg.uri then
+                local filename = vim.uri_to_fname(msg.uri)
+                filename = vim.fn.fnamemodify(filename, ':~:.')
+                local space = math.min(60, math.floor(0.6 * vim.fn.winwidth(0)))
+                if #filename > space then
+                    filename = vim.fn.pathshorten(filename)
+                end
+
+                contents = '(' .. filename .. ') ' .. contents
+            end
+        else
+            contents = msg.content
+        end
+
+        contents = client_name .. ' ' .. contents
+    end
+    local current_function = vim.b.lsp_current_function
+    if current_function and current_function ~= '' then
+        contents = current_function..' '..contents
+    end
+
+    if content ~= '' then return contents end
+
+    return ''
 end
 
 gls.left[18] = {
     LspFunc = {
-        provider = get_lsp_current_function,
+        provider = get_lsp_message,
         condition = buffer_not_empty,
         icon = '  λ ',
         highlight = {colors.yellow,colors.bg}

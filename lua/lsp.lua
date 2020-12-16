@@ -1,6 +1,7 @@
 -- Load module
 local completion = require('completion')
 local lspconfig = require('lspconfig')
+local lsp_status = require('lsp-status')
 
 -- Completion setting
 vim.o.completeopt = 'menuone,noinsert'
@@ -57,7 +58,7 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
         },
         -- Use a function to dynamically turn signs off
         -- and on, using buffer local variables
-        signs = function(bufnr, client_id)
+        signs = function(bufnr)
             local ok, result = pcall(vim.api.nvim_buf_get_var, bufnr, 'show_signs')
             -- No buffer local variable set, so just enable by default
             if not ok then
@@ -71,22 +72,7 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
     }
 )
 
-function _G.diagnostic_or_doc()
-    if not vim.tbl_isempty(vim.lsp.buf_get_clients()) then
-        if not vim.tbl_isempty(vim.lsp.diagnostic.get_line_diagnostics()) then
-            vim.lsp.diagnostic.show_line_diagnostics()
-            return
-        else
-            vim.lsp.buf.hover()
-            --vim.wait(1000, vim.lsp.buf.hover())
-            return
-        end
-    end
-end
-
--- Show diagnostic popup on cursor hold
-vim.g.cursorhold_updatetime = 1000
-vim.cmd('autocmd CursorHold * silent! lua diagnostic_or_doc()')
+vim.g.cursorhold_updatetime = 1500
 vim.cmd(
     [===[
     " Enable type inlay hints
@@ -101,72 +87,79 @@ vim.cmd(
 )
 
 --  RishabhRD/nvim-lsputils theme
-local border_chars = {
-	TOP_LEFT = '┌',
-	TOP_RIGHT = '┐',
-	MID_HORIZONTAL = '─',
-	MID_VERTICAL = '│',
-
-    BOTTOM_RIGHT = '┘',
+local border_chars            = {
+	TOP_LEFT                  = '┌',
+	TOP_RIGHT                 = '┐',
+	MID_HORIZONTAL            = '─',
+	MID_VERTICAL              = '│',
+    BOTTOM_RIGHT              = '┘',
 }
 vim.g.lsp_utils_location_opts = {
-	height = 24,
-	mode = 'editor',
-	preview = {
-		title = 'Location Preview',
-		border = true,
-		border_chars = border_chars
+	height                    = 24,
+	mode                      = 'editor',
+	preview                   = {
+		title                 = 'Location Preview',
+		border                = true,
+		border_chars          = border_chars
 	},
-	keymaps = {
-		n = {
-			['<C-n>'] = 'j',
-			['<C-p>'] = 'k',
+	keymaps                   = {
+		n                     = {
+			['<C-n>']         = 'j',
+			['<C-p>']         = 'k',
 		}
 	}
 }
-vim.g.lsp_utils_symbols_opts = {
-	height = 24,
-	mode = 'editor',
-	preview = {
-		title = 'Symbols Preview',
-		border = true,
-		border_chars = border_chars
+vim.g.lsp_utils_symbols_opts  = {
+	height                    = 24,
+	mode                      = 'editor',
+	preview                   = {
+		title                 = 'Symbols Preview',
+		border                = true,
+		border_chars          = border_chars
 	},
-	keymaps = {
-		n = {
-			['<C-n>'] = 'j',
-			['<C-p>'] = 'k',
+	keymaps                   = {
+		n                     = {
+			['<C-n>']         = 'j',
+			['<C-p>']         = 'k',
 		}
 	}
 }
 
-vim.lsp.callbacks['textDocument/codeAction'] = require'lsputil.codeAction'.code_action_handler
-vim.lsp.callbacks['textDocument/references'] = require'lsputil.locations'.references_handler
-vim.lsp.callbacks['textDocument/definition'] = require'lsputil.locations'.definition_handler
-vim.lsp.callbacks['textDocument/declaration'] = require'lsputil.locations'.declaration_handler
+vim.lsp.callbacks['textDocument/codeAction']     = require'lsputil.codeAction'.code_action_handler
+vim.lsp.callbacks['textDocument/references']     = require'lsputil.locations'.references_handler
+vim.lsp.callbacks['textDocument/definition']     = require'lsputil.locations'.definition_handler
+vim.lsp.callbacks['textDocument/declaration']    = require'lsputil.locations'.declaration_handler
 vim.lsp.callbacks['textDocument/typeDefinition'] = require'lsputil.locations'.typeDefinition_handler
 vim.lsp.callbacks['textDocument/implementation'] = require'lsputil.locations'.implementation_handler
 vim.lsp.callbacks['textDocument/documentSymbol'] = require'lsputil.symbols'.document_handler
-vim.lsp.callbacks['workspace/symbol'] = require'lsputil.symbols'.workspace_handler
+vim.lsp.callbacks['workspace/symbol']            = require'lsputil.symbols'.workspace_handler
 
 -- Lsp feature attach
 local on_attach = function(client, bufnr)
   	print('LSP Starting...')
+    lsp_status.on_attach(client, bufnr)
     completion.on_attach(client, bufnr)
     vim.api.nvim_buf_set_option(0, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+    print('LSP Okay')
 end
+
+lsp_status.register_progress()
 
 -- Lsp Integration
 lspconfig.clangd.setup{
-    on_attach = on_attach
+    on_attach = on_attach,
+    capabilities = lsp_status.capabilities,
+    handlers = lsp_status.extensions.clangd.setup()
 }
 
 lspconfig.cmake.setup{
-    on_attach = on_attach
+    on_attach = on_attach,
+    capabilities = lsp_status.capabilities
 }
 
 lspconfig.cssls.setup{
-    on_attach = on_attach
+    on_attach = on_attach,
+    capabilities = lsp_status.capabilities
 }
 
 lspconfig.gopls.setup {
@@ -184,15 +177,17 @@ lspconfig.gopls.setup {
 
 lspconfig.html.setup {
     on_attach = on_attach,
-    capabilities = {textDocument = {completion = {completionItem = {snippetSupport = true}}}};
+    capabilities = {lsp_status.capabilities, textDocument = {completion = {completionItem = {snippetSupport = true}}}};
 }
 
 lspconfig.pyright.setup {
-    on_attach = on_attach
+    on_attach = on_attach,
+    capabilities = lsp_status.capabilities
 }
 
 lspconfig.rust_analyzer.setup {
-    on_attach = on_attach
+    on_attach = on_attach,
+    capabilities = lsp_status.capabilities
 }
 
 lspconfig.sumneko_lua.setup {
@@ -200,6 +195,7 @@ lspconfig.sumneko_lua.setup {
             "-E", "-e", "LANG=en",
             "C:\\tools\\precompiled-lua-language-server\\main.lua"},
     on_attach = on_attach,
+    capabilities = lsp_status.capabilities,
     settings = {
         Lua = {
             runtime = {
@@ -224,10 +220,12 @@ lspconfig.sumneko_lua.setup {
 }
 
 lspconfig.tsserver.setup {
-    on_attach = on_attach
+    on_attach = on_attach,
+    capabilities = lsp_status.capabilities,
 }
 
 lspconfig.vimls.setup{
     on_attach = on_attach,
+    capabilities = lsp_status.capabilities,
     capabilities = {textDocument = {completion = {completionItem = {snippetSupport = true}}}};
 }
