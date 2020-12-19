@@ -28,20 +28,19 @@ require'bufferline'.setup{
 -- Statusline
 local gl        = require('galaxyline')
 local gls       = gl.section
-local extension = require('galaxyline.provider_extensions')
 
 local colors   = {
-    bg         = '#3c474d',
-    fg         = '#d8caac',
-    section_bg = '#465258',
-    line_bg    = '#2b353b',
-    red        = '#e68183',
+    bg         = '#00111f',
+    fg         = '#d6deeb',
+    section_bg = '#000d17',
+    line_bg    = '#000d17',
+    red        = vim.g.terminal_color_1,
     orange     = '#e39b7b',
-    yellow     = '#d9bb80',
-    green      = '#a7c080',
-    blue       = '#83b6af',
-    purple     = '#d39bb6',
-    magenta    = '8b008b',
+    yellow     = vim.g.terminal_color_3,
+    green      = vim.g.terminal_color_2,
+    blue       = vim.g.terminal_color_4,
+    purple     = vim.g.terminal_color_5,
+    magenta    = vim.g.terminal_color_6,
 }
 
 local buffer_not_empty = function()
@@ -78,7 +77,6 @@ gls.left[2] = {
                 V       = 'VISUAL',
                 ['']  = 'VISUAL',
                 v       = 'VISUAL',
-                c       = 'COMMAND-LINE',
                 ['r?']  = ':CONFIRM',
                 rm      = '--MORE',
                 R       = 'REPLACE',
@@ -111,12 +109,6 @@ gls.left[2] = {
                 rm           = colors.cyan,
                 ['r?']       = colors.cyan,
                 ['!']        = colors.green,t = colors.green,
-                c            = colors.purple,
-                ['r?']       = colors.red,
-                ['r']        = colors.red,
-                rm           = colors.red,
-                R            = colors.yellow,
-                Rv           = colors.magenta,
             }
 
             local vim_mode = vim.fn.mode()
@@ -160,7 +152,7 @@ gls.left[6] = {
     GitBranch = {
         provider = 'GitBranch',
         condition = require('galaxyline.provider_vcs').check_git_workspace,
-        highlight = {colors.fg,colors.bg,'bold'}
+        highlight = {colors.fg,colors.bg,'italic'}
     }
 }
 
@@ -356,7 +348,7 @@ function get_lsp_message()
         contents = current_function..' '..contents
     end
 
-    if content ~= '' then return contents end
+    if contents ~= '' then return contents end
 
     return ''
 end
@@ -365,8 +357,8 @@ gls.left[18] = {
     LspFunc = {
         provider = get_lsp_message,
         condition = buffer_not_empty,
-        icon = '  λ ',
-        highlight = {colors.yellow,colors.bg}
+        icon = '  ',
+        highlight = {colors.yellow,colors.bg,'italic'}
     }
 }
 

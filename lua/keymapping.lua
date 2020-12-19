@@ -56,6 +56,9 @@ vimp.xmap('ga', '<Plug>(EasyAlign)')
 -- Start interactive EasyAlign for a motion/text object (e.g. gaip)
 vimp.nmap('ga', '<Plug>(EasyAlign)')
 
+-- auto format
+vimp.nnoremap('<F10>', ':Autoformat<CR>')
+
 -- nvim-luadev
 vimp.nmap({'silent', 'buffer'}, '<leader>n', '<Plug>(Luadev-RunLine)')
 vimp.nmap({'silent', 'buffer'}, '<leader>d', '<Plug>(Luadev-RunWord)')
