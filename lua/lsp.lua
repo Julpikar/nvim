@@ -27,14 +27,12 @@ vim.g.completion_customize_lsp_label = {
     Interface = '',
 }
 vim.g.completion_chain_complete_list = {
-    default = {
 		default = {
 			{complete_items = {'buffer','lsp', 'snippet'}},
-			{mode = 'file'}
+      {mode = 'file'}
         },
 		comment = {},
 		string = {}
-	}
 }
 
 vim.g.completion_confirm_key = ""
@@ -71,6 +69,11 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
         update_in_insert = false,
     }
 )
+
+vim.cmd([[sign define LspDiagnosticsSignError text= texthl=LspDiagnosticsSignError linehl= numhl=]])
+vim.cmd([[sign define LspDiagnosticsSignWarning text= texthl=LspDiagnosticsSignWarning linehl= numhl=]])
+vim.cmd([[sign define LspDiagnosticsSignInformation text= texthl=LspDiagnosticsSignInformation linehl= numhl=]])
+vim.cmd([[sign define LspDiagnosticsSignHint text= texthl=LspDiagnosticsSignHint linehl= numhl=]])
 
 vim.g.cursorhold_updatetime = 1500
 vim.cmd(
@@ -134,6 +137,8 @@ vim.lsp.callbacks['textDocument/implementation'] = require'lsputil.locations'.im
 vim.lsp.callbacks['textDocument/documentSymbol'] = require'lsputil.symbols'.document_handler
 vim.lsp.callbacks['workspace/symbol']            = require'lsputil.symbols'.workspace_handler
 
+lsp_status.register_progress()
+
 -- Lsp feature attach
 local on_attach = function(client, bufnr)
   	print('LSP Starting...')
@@ -143,22 +148,20 @@ local on_attach = function(client, bufnr)
     print('LSP Okay')
 end
 
-lsp_status.register_progress()
-
 -- Lsp Integration
 lspconfig.clangd.setup{
-    on_attach = on_attach,
+    on_attach    = on_attach,
     capabilities = lsp_status.capabilities,
-    handlers = lsp_status.extensions.clangd.setup()
+    handlers     = lsp_status.extensions.clangd.setup()
 }
 
 lspconfig.cmake.setup{
-    on_attach = on_attach,
+    on_attach    = on_attach,
     capabilities = lsp_status.capabilities
 }
 
 lspconfig.cssls.setup{
-    on_attach = on_attach,
+    on_attach    = on_attach,
     capabilities = lsp_status.capabilities
 }
 
@@ -176,17 +179,17 @@ lspconfig.gopls.setup {
 }
 
 lspconfig.html.setup {
-    on_attach = on_attach,
+    on_attach    = on_attach,
     capabilities = {lsp_status.capabilities, textDocument = {completion = {completionItem = {snippetSupport = true}}}};
 }
 
 lspconfig.pyright.setup {
-    on_attach = on_attach,
+    on_attach    = on_attach,
     capabilities = lsp_status.capabilities
 }
 
 lspconfig.rust_analyzer.setup {
-    on_attach = on_attach,
+    on_attach    = on_attach,
     capabilities = lsp_status.capabilities
 }
 
@@ -220,12 +223,12 @@ lspconfig.sumneko_lua.setup {
 }
 
 lspconfig.tsserver.setup {
-    on_attach = on_attach,
+    on_attach    = on_attach,
     capabilities = lsp_status.capabilities,
 }
 
 lspconfig.vimls.setup{
     on_attach = on_attach,
-    capabilities = lsp_status.capabilities,
-    capabilities = {textDocument = {completion = {completionItem = {snippetSupport = true}}}};
+    capabilities = {lsp_status.capabilities,
+    textDocument = {completion = {completionItem = {snippetSupport = true}}}};
 }
