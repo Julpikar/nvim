@@ -16,3 +16,6 @@ vim.o.expandtab = true
 
 -- nvim-colorizer.lua
 require'colorizer'.setup()
+
+-- Web development
+vim.cmd([[let g:prettier#exec_cmd_path = "C:/Users/benawas/AppData/Local/nvim-data/site/pack/packer/start/vim-prettier/node_modules/.bin/prettier.cmd"]])

@@ -1,28 +1,24 @@
---vim.g.termguicolors = true
+vim.o.termguicolors = true
 
---vim.g.sonokai_style = 'atlantis'
---vim.g.sonokai_enable_italic = 1
---vim.g.sonokai_disable_italic_comment = 1
---vim.cmd('colorscheme sonokai')
---vim.cmd("colorscheme forest-night")
---vim.g.forest_night_diagnostic_line_highlight = 1
---vim.cmd("colorscheme oceanic_material")
-vim.cmd('colorscheme night-owl')
+vim.cmd('colorscheme nord')
+--vim.cmd('colorscheme gruvbox')
+--vim.g.gruvbox_contrast_dark = 'hard'
+
 vim.o.guifont = 'SauceCodePro NF:h11'
---vim.o.guifont = 'Fira Code:h10'
 vim.o.number = true
+vim.cmd('set guioptions="egm"')
 vim.cmd(
-    [===[
-    set guioptions-=T "remove toolbar
-    set guioptions-=r "remove right-hand scroll bar
-    set guioptions-=L
-    set guioptions-=set number
+[===[
+set guioptions-=T "remove toolbar
+set guioptions-=r "remove right-hand scroll bar
+set guioptions-=L
+set guioptions-=set number
 
-    augroup Numbertoggle
-    autocmd!
-    autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
-    autocmd BufLeave,FocusLost,InsertEnter * set norelativenumber
-    augroup END
+
+autocmd!
+autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+autocmd BufLeave,FocusLost,InsertEnter * set norelativenumber
+augroup END
 ]===]
 )
 
@@ -36,16 +32,16 @@ vim.o.splitright = true
 vim.o.splitbelow = true
 
 require'nvim-web-devicons'.setup {
-    -- your personnal icons can go here (to override)
-    -- DevIcon will be appended to `name`
-    override = {
+  -- your personnal icons can go here (to override)
+  -- DevIcon will be appended to `name`
+  override = {
     zsh = {
-    icon = "",
-    color = "#428850",
-    name = "Zsh"
+      icon  = "",
+      color = "#428850",
+      name  = "Zsh"
     }
-    };
-    -- globally enable default icons (default to false)
-    -- will get overriden by `get_icons` option
-    default = true;
-    }
+  };
+  -- globally enable default icons (default to false)
+  -- will get overriden by `get_icons` option
+  default = true;
+}

@@ -6,33 +6,35 @@ local lsp_status = require('lsp-status')
 -- Completion setting
 vim.o.completeopt = 'menuone,noinsert'
 vim.g.completion_enable_auto_paren = 1
+vim.g.completion_trigger_keyword_length = 2
+vim.g.completion_timer_cycle = 200
 vim.g.completion_enable_snippet = 'vim-vsnip'
 vim.g.sorting = 'alphabet'
 vim.g.completion_matching_smart_case = 1
 vim.g.matching_strategy_list = {'exact', 'fuzzy', 'substring'}
 vim.g.completion_auto_change_source = 1
 vim.g.completion_customize_lsp_label = {
-    Function = '',
-    Method = '',
-    Reference = '',
-    Keyword = '',
-    Variable = '',
-    Folder = '',
-    Snippet = '',
-    Buffer = '龎',
-    Operator = '',
-    Module = '',
-    Text = '',
-    Class = '',
-    Interface = '',
+    Function                         = '',
+    Method                           = '',
+    Reference                        = '',
+    Keyword                          = '',
+    Variable                         = '',
+    Folder                           = '',
+    Snippet                          = '',
+    Buffer                           = '龎',
+    Operator                         = '',
+    Module                           = '',
+    Text                             = '',
+    Class                            = '',
+    Interface                        = '',
 }
 vim.g.completion_chain_complete_list = {
-		default = {
-			{complete_items = {'buffer','lsp', 'snippet'}},
-      {mode = 'file'}
+		default                          = {
+			{complete_items                = {'lsp', 'snippet', 'buffer'}},
+      {mode                          = 'file'}
         },
-		comment = {},
-		string = {}
+		comment                          = {},
+		string                           = {}
 }
 
 vim.g.completion_confirm_key = ""
@@ -91,41 +93,41 @@ vim.cmd(
 
 --  RishabhRD/nvim-lsputils theme
 local border_chars            = {
-	TOP_LEFT                  = '┌',
-	TOP_RIGHT                 = '┐',
-	MID_HORIZONTAL            = '─',
-	MID_VERTICAL              = '│',
-    BOTTOM_RIGHT              = '┘',
+  TOP_LEFT                  = '┌',
+  TOP_RIGHT                 = '┐',
+  MID_HORIZONTAL            = '─',
+  MID_VERTICAL              = '│',
+  BOTTOM_RIGHT              = '┘',
 }
 vim.g.lsp_utils_location_opts = {
-	height                    = 24,
-	mode                      = 'editor',
-	preview                   = {
-		title                 = 'Location Preview',
-		border                = true,
-		border_chars          = border_chars
-	},
-	keymaps                   = {
-		n                     = {
-			['<C-n>']         = 'j',
-			['<C-p>']         = 'k',
-		}
-	}
+  height                    = 24,
+  mode                      = 'editor',
+  preview                   = {
+    title                 = 'Location Preview',
+    border                = true,
+    border_chars          = border_chars
+  },
+  keymaps                   = {
+    n                     = {
+      ['<C-n>']         = 'j',
+      ['<C-p>']         = 'k',
+    }
+  }
 }
 vim.g.lsp_utils_symbols_opts  = {
-	height                    = 24,
-	mode                      = 'editor',
-	preview                   = {
-		title                 = 'Symbols Preview',
-		border                = true,
-		border_chars          = border_chars
-	},
-	keymaps                   = {
-		n                     = {
-			['<C-n>']         = 'j',
-			['<C-p>']         = 'k',
-		}
-	}
+  height                    = 24,
+  mode                      = 'editor',
+  preview                   = {
+    title                 = 'Symbols Preview',
+    border                = true,
+    border_chars          = border_chars
+  },
+  keymaps                   = {
+    n                     = {
+      ['<C-n>']         = 'j',
+      ['<C-p>']         = 'k',
+    }
+  }
 }
 
 vim.lsp.callbacks['textDocument/codeAction']     = require'lsputil.codeAction'.code_action_handler

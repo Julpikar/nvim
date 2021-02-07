@@ -1,6 +1,9 @@
 -- Load Vimpeccable
 local vimp = require 'vimp'
 
+-- Setting leader key
+vim.cmd([[let g:mapleader = "\<Space>"]])
+
 -- Nerdtree
 vimp.inoremap({'silent'}, '<F2>', ':NERDTreeFind<CR>')
 vimp.nnoremap({'silent'}, '<F2>', ':NERDTreeFind<CR>')
@@ -58,6 +61,9 @@ vimp.nmap('ga', '<Plug>(EasyAlign)')
 
 -- auto format
 vimp.nnoremap('<F10>', ':Autoformat<CR>')
+
+-- prettier
+vimp.nnoremap('<F11>', '<CMD>Prettier<CR>')
 
 -- nvim-luadev
 vimp.nmap({'silent', 'buffer'}, '<leader>n', '<Plug>(Luadev-RunLine)')
