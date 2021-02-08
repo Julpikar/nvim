@@ -10,7 +10,7 @@ return require('packer').startup(function()
 
   -- Colorscheme
   use {'Julpikar/night-owl.nvim'}
-  use {'arcticicestudio/nord-vim'}
+  use {'Julpikar/nord-vim'}
 
   -- Editing
   use {
