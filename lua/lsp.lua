@@ -37,8 +37,8 @@ vim.g.completion_chain_complete_list = {
 		string                           = {}
 }
 
-vim.g.completion_confirm_key = ""
-vim.cmd([[imap <expr> <cr>  pumvisible() ? complete_info()["selected"] != "-1" ? "\<Plug>(completion_confirm_completion)"  : "\<c-e>\<CR>" :  "\<CR>"]])
+vim.g.completion_confirm_key = ''
+vim.cmd([[imap <expr> <cr>  pumvisible() ? complete_info()["selected"] != "-1" ? "<Plug>(completion_confirm_completion)"  : "\<c-e>\<CR>" : "\<Plug>delimitMateCR"]])
 
 -- Use completion-nvim in every buffer
 vim.cmd("autocmd BufEnter * lua require'completion'.on_attach()")

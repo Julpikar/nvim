@@ -27,7 +27,6 @@ return require('packer').startup(function()
   use {'ntpeters/vim-better-whitespace'} -- whitespace
   use {'farmergreg/vim-lastplace'} -- "reopen files at your last edit position
   use {'mg979/vim-visual-multi',branch = 'master',}
-  use {'tpope/vim-surround'}
   use {'Raimondi/delimitMate'}
   use {'Chiel92/vim-autoformat'}
 

@@ -8,11 +8,17 @@ vim.o.lazyredraw = true
 
 -- indentation
 vim.o.autoindent = true
-vim.o.smartindent = true
+vim.o.smarttab = true
+vim.o.cindent = true
 vim.o.tabstop = 2
 vim.o.softtabstop = 2
 vim.o.shiftwidth = 2
 vim.o.expandtab = true
+vim.cmd('filetype indent off')
+
+vim.g.delimitMate_expand_cr = 1
+--vim.cmd('let delimitMate_expand_cr=1')
+vim.g.delimitMate_jump_expansion = 1
 
 -- nvim-colorizer.lua
 require'colorizer'.setup()
