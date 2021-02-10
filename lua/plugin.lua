@@ -95,21 +95,16 @@ return require('packer').startup(function()
     'neovim/nvim-lspconfig',
     requires = {
       {'nvim-lua/lsp_extensions.nvim'},
-      {'nvim-lua/completion-nvim'},
       {'nvim-lua/lsp-status.nvim'},
-      {'steelsojka/completion-buffers'},
+      {'hrsh7th/nvim-compe'},
+      {'onsails/lspkind-nvim'},
       {'RishabhRD/popfix'},
       {'RishabhRD/nvim-lsputils'}
     }
   }
 
   -- Snippets
-  use {
-    'hrsh7th/vim-vsnip',
-    requires = {
-      {'hrsh7th/vim-vsnip-integ', opt = true}
-    }
-  }
+  use {'hrsh7th/vim-vsnip'}
 
   -- Git
   use {

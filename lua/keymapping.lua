@@ -52,6 +52,13 @@ vimp.nnoremap('<leader>=', '<cmd>lua vim.lsp.buf.formatting()<CR>')
 vimp.nnoremap('<leader>ai','<cmd>lua vim.lsp.buf.incoming_calls()<CR>')
 vimp.nnoremap('<leader>ao','<cmd>lua vim.lsp.buf.outgoing_calls()<CR>')
 
+-- nvim-compe
+vimp.inoremap({'silent', 'expr'}, '<C-Space>' ,'compe#complete()')
+vimp.inoremap({'silent', 'expr'}, '<CR>'      ,[[compe#confirm({ 'keys': "\<Plug>delimitMateCR", 'mode': '' })]])
+vimp.inoremap({'silent', 'expr'}, '<C-e>'     ,[['compe#close('<C-e>')]])
+vimp.inoremap({'silent', 'expr'}, '<C-f>'     ,[['compe#scroll({ 'delta': +4 })]])
+vimp.inoremap({'silent', 'expr'}, '<C-d>'     ,[['compe#scroll({ 'delta': -4 })]])
+
 -- EasyAlign
 -- Start interactive EasyAlign in visual mode (e.g. vipga)
 vimp.xmap('ga', '<Plug>(EasyAlign)')
