@@ -108,8 +108,7 @@ return require("packer").startup(
         {"nvim-lua/lsp-status.nvim"},
         {"hrsh7th/nvim-compe"},
         {"onsails/lspkind-nvim"},
-        {"RishabhRD/popfix"},
-        {"RishabhRD/nvim-lsputils"}
+        {"glepnir/lspsaga.nvim"}
       }
     }
 
