@@ -31,6 +31,10 @@ local function try_loadstring(s, component, name)
 end
 
 _G.packer_plugins = {
+  ["CommentFrame.vim"] = {
+    loaded = true,
+    path = "C:\\Users\\benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\CommentFrame.vim"
+  },
   ["FixCursorHold.nvim"] = {
     loaded = true,
     path = "C:\\Users\\benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\FixCursorHold.nvim"
@@ -58,6 +62,10 @@ _G.packer_plugins = {
   ["goyo.vim"] = {
     loaded = true,
     path = "C:\\Users\\benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\goyo.vim"
+  },
+  ["gruvbox-material"] = {
+    loaded = true,
+    path = "C:\\Users\\benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\gruvbox-material"
   },
   ["limelight.vim"] = {
     loaded = true,
@@ -167,6 +175,10 @@ _G.packer_plugins = {
     loaded = false,
     path = "C:\\Users\\benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\opt\\rust.vim"
   },
+  ["splitjoin.vim"] = {
+    loaded = true,
+    path = "C:\\Users\\benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\splitjoin.vim"
+  },
   ["telescope.nvim"] = {
     loaded = true,
     path = "C:\\Users\\benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\telescope.nvim"
@@ -219,6 +231,10 @@ _G.packer_plugins = {
     loaded = true,
     path = "C:\\Users\\benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\vim-lastplace"
   },
+  ["vim-leader-guide"] = {
+    loaded = true,
+    path = "C:\\Users\\benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\vim-leader-guide"
+  },
   ["vim-lua-format"] = {
     loaded = true,
     path = "C:\\Users\\benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\vim-lua-format"
@@ -259,14 +275,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "C:\\Users\\benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\vim-vsnip"
   },
-  ["vim-which-key"] = {
-    loaded = true,
-    path = "C:\\Users\\benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\vim-which-key"
-  },
-  vimpeccable = {
-    loaded = true,
-    path = "C:\\Users\\benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\vimpeccable"
-  },
   ["vista.vim"] = {
     loaded = true,
     path = "C:\\Users\\benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\vista.vim"
@@ -282,10 +290,10 @@ vim.cmd [[packadd vim-rooter]]
 vim.cmd [[augroup packer_load_aucmds]]
 vim.cmd [[au!]]
   -- Filetype lazy-loads
-vim.cmd [[au FileType table: 0x01a385a6eae0 ++once lua require("packer.load")({'vim-clang-format'}, { ft = "table: 0x01a385a6eae0" }, _G.packer_plugins)]]
-vim.cmd [[au FileType go ++once lua require("packer.load")({'vim-go'}, { ft = "go" }, _G.packer_plugins)]]
-vim.cmd [[au FileType table: 0x01a385bcb9c0 ++once lua require("packer.load")({'vim-clang-format'}, { ft = "table: 0x01a385bcb9c0" }, _G.packer_plugins)]]
+vim.cmd [[au FileType table: 0x01e60cb94540 ++once lua require("packer.load")({'vim-clang-format'}, { ft = "table: 0x01e60cb94540" }, _G.packer_plugins)]]
 vim.cmd [[au FileType rust ++once lua require("packer.load")({'rust.vim'}, { ft = "rust" }, _G.packer_plugins)]]
+vim.cmd [[au FileType table: 0x01e60cb753f0 ++once lua require("packer.load")({'vim-clang-format'}, { ft = "table: 0x01e60cb753f0" }, _G.packer_plugins)]]
+vim.cmd [[au FileType go ++once lua require("packer.load")({'vim-go'}, { ft = "go" }, _G.packer_plugins)]]
 vim.cmd("augroup END")
 END
 
