@@ -50,6 +50,7 @@ return require("packer").startup(
 
     -- Utilities
     use {"dstein64/vim-startuptime"}
+    use {"ojroques/nvim-bufdel"}
     use {"akinsho/nvim-bufferline.lua"}
     use {"akinsho/nvim-toggleterm.lua"}
     use {"kyazdani42/nvim-web-devicons"}
@@ -84,11 +85,15 @@ return require("packer").startup(
       "nvim-lua/telescope.nvim",
       requires = {
         {"nvim-lua/popup.nvim"},
-        {"nvim-lua/plenary.nvim"}
+        {"nvim-lua/plenary.nvim"},
+        {"nvim-telescope/telescope-vimspector.nvim"}
       }
     }
     use {"antoinemadec/FixCursorHold.nvim"}
     use {"spinks/vim-leader-guide"}
+
+    -- Debugger
+    use {"puremourning/vimspector"}
 
     -- Treesitter
     use {
@@ -127,6 +132,7 @@ return require("packer").startup(
       }
     }
     use {"airblade/vim-gitgutter"}
+    use {"TimUntersberger/neogit"}
 
     -- Database
     use {

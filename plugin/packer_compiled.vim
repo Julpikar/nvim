@@ -23,11 +23,12 @@ if not string.find(package.cpath, install_cpath_pattern, 1, true) then
 end
 
 local function try_loadstring(s, component, name)
-  local success, err = pcall(loadstring(s))
+  local success, result = pcall(loadstring(s))
   if not success then
     print('Error running ' .. component .. ' for ' .. name)
-    error(err)
+    error(result)
   end
+  return result
 end
 
 _G.packer_plugins = {
@@ -54,6 +55,10 @@ _G.packer_plugins = {
   editorconfig = {
     loaded = false,
     path = "C:\\Users\\benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\opt\\editorconfig"
+  },
+  ["formatter.nvim"] = {
+    loaded = true,
+    path = "C:\\Users\\benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\formatter.nvim"
   },
   ["galaxyline.nvim"] = {
     loaded = true,
@@ -82,6 +87,10 @@ _G.packer_plugins = {
   ["lspkind-nvim"] = {
     loaded = true,
     path = "C:\\Users\\benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\lspkind-nvim"
+  },
+  ["lspsaga.nvim"] = {
+    loaded = true,
+    path = "C:\\Users\\benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\lspsaga.nvim"
   },
   nerdcommenter = {
     loaded = true,
@@ -123,10 +132,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "C:\\Users\\benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\nvim-lspconfig"
   },
-  ["nvim-lsputils"] = {
-    loaded = true,
-    path = "C:\\Users\\benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\nvim-lsputils"
-  },
   ["nvim-luadev"] = {
     loaded = true,
     path = "C:\\Users\\benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\nvim-luadev"
@@ -163,10 +168,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "C:\\Users\\benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\plenary.nvim"
   },
-  popfix = {
-    loaded = true,
-    path = "C:\\Users\\benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\popfix"
-  },
   ["popup.nvim"] = {
     loaded = true,
     path = "C:\\Users\\benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\popup.nvim"
@@ -183,17 +184,9 @@ _G.packer_plugins = {
     loaded = true,
     path = "C:\\Users\\benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\telescope.nvim"
   },
-  ["vim-autoformat"] = {
-    loaded = true,
-    path = "C:\\Users\\benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\vim-autoformat"
-  },
   ["vim-better-whitespace"] = {
     loaded = true,
     path = "C:\\Users\\benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\vim-better-whitespace"
-  },
-  ["vim-clang-format"] = {
-    loaded = false,
-    path = "C:\\Users\\benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\opt\\vim-clang-format"
   },
   ["vim-conda"] = {
     loaded = true,
@@ -235,17 +228,9 @@ _G.packer_plugins = {
     loaded = true,
     path = "C:\\Users\\benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\vim-leader-guide"
   },
-  ["vim-lua-format"] = {
-    loaded = true,
-    path = "C:\\Users\\benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\vim-lua-format"
-  },
   ["vim-nerdtree-syntax-highlight"] = {
     loaded = true,
     path = "C:\\Users\\benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\vim-nerdtree-syntax-highlight"
-  },
-  ["vim-prettier"] = {
-    loaded = true,
-    path = "C:\\Users\\benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\vim-prettier"
   },
   ["vim-rhubarb"] = {
     loaded = true,
@@ -290,10 +275,8 @@ vim.cmd [[packadd vim-rooter]]
 vim.cmd [[augroup packer_load_aucmds]]
 vim.cmd [[au!]]
   -- Filetype lazy-loads
-vim.cmd [[au FileType table: 0x01e60cb94540 ++once lua require("packer.load")({'vim-clang-format'}, { ft = "table: 0x01e60cb94540" }, _G.packer_plugins)]]
-vim.cmd [[au FileType rust ++once lua require("packer.load")({'rust.vim'}, { ft = "rust" }, _G.packer_plugins)]]
-vim.cmd [[au FileType table: 0x01e60cb753f0 ++once lua require("packer.load")({'vim-clang-format'}, { ft = "table: 0x01e60cb753f0" }, _G.packer_plugins)]]
 vim.cmd [[au FileType go ++once lua require("packer.load")({'vim-go'}, { ft = "go" }, _G.packer_plugins)]]
+vim.cmd [[au FileType rust ++once lua require("packer.load")({'rust.vim'}, { ft = "rust" }, _G.packer_plugins)]]
 vim.cmd("augroup END")
 END
 

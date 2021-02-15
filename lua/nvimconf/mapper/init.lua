@@ -97,11 +97,11 @@ api.nvim_set_keymap("x", "ga", "<Plug>(EasyAlign)", {silent = true})
 api.nvim_set_keymap("n", "ga", "<Plug>(EasyAlign)", {silent = true})
 
 -- nvim-luadev
-api.nvim_set_keymap("n", "<leader>n", "<Plug>(Luadev-RunLine)", {"silent", "buffer"})
-api.nvim_set_keymap("n", "<leader>n", "<Plug>(Luadev-Run)", {"silent", "buffer"})
-api.nvim_set_keymap("n", "<leader>d", "<Plug>(Luadev-RunWord)", {"silent", "buffer"})
-api.nvim_set_keymap("n", "<leader>u", "<Plug>(Luadev-Complete", {"silent", "buffer"})
+api.nvim_buf_set_keymap(0, "n", "<leader>n", "<Plug>(Luadev-RunLine)", {silent = true})
+api.nvim_buf_set_keymap(0, "n", "<leader>n", "<Plug>(Luadev-Run)", {silent = true})
+api.nvim_buf_set_keymap(0, "n", "<leader>d", "<Plug>(Luadev-RunWord)", {silent = true})
+api.nvim_buf_set_keymap(0, "n", "<leader>u", "<Plug>(Luadev-Complete", {silent = true})
 
 -- nvim-toggleterm.lua
-api.nvim_set_keymap("n", "<c-t>", ":<c-u>exe v:count1 . 'ToggleTerm'<CR>", {"silent"})
-api.nvim_set_keymap("n", "<c-t> <Esc>", ":<c-u>exe v:count1 . 'ToggleTerm'<CR>", {"silent"})
+api.nvim_set_keymap("n", "<c-t>", ":<c-u>exe v:count1 . 'ToggleTerm'<CR>", {silent = true})
+api.nvim_set_keymap("n", "<c-t> <Esc>", ":<c-u>exe v:count1 . 'ToggleTerm'<CR>", {silent = true})

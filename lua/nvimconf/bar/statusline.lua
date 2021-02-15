@@ -37,7 +37,7 @@ gls.left[1] = {
     provider = function()
       return "▋"
     end,
-    highlight = {colors.blue1, colors.section_bg}
+    highlight = {colors.bg, colors.bg}
   }
 }
 
@@ -120,7 +120,7 @@ gls.left[5] = {
     provider = function()
       return " "
     end,
-    condition = require("galaxyline.provider_vcs").check_git_workspace,
+    condition = require("galaxyline.condition").check_git_workspace,
     highlight = {colors.red, colors.bg}
   }
 }
@@ -128,7 +128,7 @@ gls.left[5] = {
 gls.left[6] = {
   GitBranch = {
     provider = "GitBranch",
-    condition = require("galaxyline.provider_vcs").check_git_workspace,
+    condition = require("galaxyline.condition").check_git_workspace,
     highlight = {colors.fg, colors.bg, "italic"}
   }
 }
