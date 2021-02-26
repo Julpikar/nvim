@@ -20,6 +20,7 @@ return require("packer").startup(
     use {"Julpikar/night-owl.nvim"}
     use {"Julpikar/nord-vim"}
     use {"sainnhe/gruvbox-material"}
+    use {"Julpikar/oceanic-material"}
 
     -- Editing
     use {
@@ -38,6 +39,7 @@ return require("packer").startup(
     use {"ntpeters/vim-better-whitespace"} -- whitespace
     use {"farmergreg/vim-lastplace"} -- "reopen files at your last edit position
     use {"mg979/vim-visual-multi", branch = "master"}
+    use {"RRethy/vim-illuminate"}
     use {"Raimondi/delimitMate"}
 
     -- Focusing
@@ -79,7 +81,7 @@ return require("packer").startup(
         {"tiagofumo/vim-nerdtree-syntax-highlight"}
       }
     }
-    use {"mhinz/vim-startify"}
+    use {"glepnir/dashboard-nvim"}
     use {"liuchengxu/vista.vim"}
     use {
       "nvim-lua/telescope.nvim",
@@ -90,7 +92,6 @@ return require("packer").startup(
       }
     }
     use {"antoinemadec/FixCursorHold.nvim"}
-    use {"spinks/vim-leader-guide"}
 
     -- Debugger
     use {"puremourning/vimspector"}
@@ -153,6 +154,6 @@ return require("packer").startup(
 
     -- Lua Development for Neovim
     use {"tjdevries/nlua.nvim"}
-    use {"bfredl/nvim-luadev"}
+    use {"rafcamlet/nvim-luapad"}
   end
 )

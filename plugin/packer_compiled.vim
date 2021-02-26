@@ -48,12 +48,17 @@ _G.packer_plugins = {
     loaded = true,
     path = "C:\\Users\\benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\completion-treesitter"
   },
+  ["dashboard-nvim"] = {
+    loaded = true,
+    path = "C:\\Users\\benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\dashboard-nvim"
+  },
   delimitMate = {
     loaded = true,
     path = "C:\\Users\\benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\delimitMate"
   },
   editorconfig = {
     loaded = false,
+    needs_bufread = false,
     path = "C:\\Users\\benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\opt\\editorconfig"
   },
   ["formatter.nvim"] = {
@@ -92,6 +97,10 @@ _G.packer_plugins = {
     loaded = true,
     path = "C:\\Users\\benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\lspsaga.nvim"
   },
+  neogit = {
+    loaded = true,
+    path = "C:\\Users\\benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\neogit"
+  },
   nerdcommenter = {
     loaded = true,
     path = "C:\\Users\\benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\nerdcommenter"
@@ -116,6 +125,10 @@ _G.packer_plugins = {
     loaded = true,
     path = "C:\\Users\\benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\nord-vim"
   },
+  ["nvim-bufdel"] = {
+    loaded = true,
+    path = "C:\\Users\\benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\nvim-bufdel"
+  },
   ["nvim-bufferline.lua"] = {
     loaded = true,
     path = "C:\\Users\\benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\nvim-bufferline.lua"
@@ -132,9 +145,9 @@ _G.packer_plugins = {
     loaded = true,
     path = "C:\\Users\\benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\nvim-lspconfig"
   },
-  ["nvim-luadev"] = {
+  ["nvim-luapad"] = {
     loaded = true,
-    path = "C:\\Users\\benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\nvim-luadev"
+    path = "C:\\Users\\benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\nvim-luapad"
   },
   ["nvim-terminal.lua"] = {
     loaded = true,
@@ -160,8 +173,13 @@ _G.packer_plugins = {
     loaded = true,
     path = "C:\\Users\\benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\nvim-web-devicons"
   },
+  ["oceanic-material"] = {
+    loaded = true,
+    path = "C:\\Users\\benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\oceanic-material"
+  },
   ["packer.nvim"] = {
     loaded = false,
+    needs_bufread = false,
     path = "C:\\Users\\benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\opt\\packer.nvim"
   },
   ["plenary.nvim"] = {
@@ -174,11 +192,16 @@ _G.packer_plugins = {
   },
   ["rust.vim"] = {
     loaded = false,
+    needs_bufread = true,
     path = "C:\\Users\\benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\opt\\rust.vim"
   },
   ["splitjoin.vim"] = {
     loaded = true,
     path = "C:\\Users\\benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\splitjoin.vim"
+  },
+  ["telescope-vimspector.nvim"] = {
+    loaded = true,
+    path = "C:\\Users\\benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\telescope-vimspector.nvim"
   },
   ["telescope.nvim"] = {
     loaded = true,
@@ -218,15 +241,16 @@ _G.packer_plugins = {
   },
   ["vim-go"] = {
     loaded = false,
+    needs_bufread = true,
     path = "C:\\Users\\benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\opt\\vim-go"
+  },
+  ["vim-illuminate"] = {
+    loaded = true,
+    path = "C:\\Users\\benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\vim-illuminate"
   },
   ["vim-lastplace"] = {
     loaded = true,
     path = "C:\\Users\\benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\vim-lastplace"
-  },
-  ["vim-leader-guide"] = {
-    loaded = true,
-    path = "C:\\Users\\benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\vim-leader-guide"
   },
   ["vim-nerdtree-syntax-highlight"] = {
     loaded = true,
@@ -238,11 +262,8 @@ _G.packer_plugins = {
   },
   ["vim-rooter"] = {
     loaded = false,
+    needs_bufread = false,
     path = "C:\\Users\\benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\opt\\vim-rooter"
-  },
-  ["vim-startify"] = {
-    loaded = true,
-    path = "C:\\Users\\benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\vim-startify"
   },
   ["vim-startuptime"] = {
     loaded = true,
@@ -260,6 +281,10 @@ _G.packer_plugins = {
     loaded = true,
     path = "C:\\Users\\benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\vim-vsnip"
   },
+  vimspector = {
+    loaded = true,
+    path = "C:\\Users\\benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\vimspector"
+  },
   ["vista.vim"] = {
     loaded = true,
     path = "C:\\Users\\benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\vista.vim"
@@ -275,8 +300,8 @@ vim.cmd [[packadd vim-rooter]]
 vim.cmd [[augroup packer_load_aucmds]]
 vim.cmd [[au!]]
   -- Filetype lazy-loads
-vim.cmd [[au FileType go ++once lua require("packer.load")({'vim-go'}, { ft = "go" }, _G.packer_plugins)]]
 vim.cmd [[au FileType rust ++once lua require("packer.load")({'rust.vim'}, { ft = "rust" }, _G.packer_plugins)]]
+vim.cmd [[au FileType go ++once lua require("packer.load")({'vim-go'}, { ft = "go" }, _G.packer_plugins)]]
 vim.cmd("augroup END")
 END
 

@@ -15,5 +15,9 @@ vim.o.shiftwidth = 2
 vim.o.expandtab = true
 vim.cmd("filetype indent off")
 
+-- delimitMate
 vim.g.delimitMate_expand_cr = 1
 vim.g.delimitMate_jump_expansion = 1
+
+-- vim-visual-multi
+vim.g.VM_theme = 'nord'

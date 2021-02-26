@@ -3,10 +3,10 @@ local gl = require("galaxyline")
 local gls = gl.section
 
 local colors = {
-  bg = "#4C566A",
-  fg = "#E5E9F0",
-  section_bg = "#3B4252",
-  line_bg = "#3B4252",
+  bg = "#18262e",
+  fg = "#c0c5ce",
+  section_bg = "#152229",
+  line_bg = "#1f1931",
   red = vim.g.terminal_color_1,
   orange = vim.g.terminal_color_11,
   yellow = vim.g.terminal_color_3,
@@ -284,7 +284,7 @@ gls.left[17] = {
   }
 }
 
-function get_lsp_message()
+local function get_lsp_message()
   if #vim.lsp.buf_get_clients() == 0 then
     return ""
   end

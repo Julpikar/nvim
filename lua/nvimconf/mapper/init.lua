@@ -1,14 +1,10 @@
 -- Local variable
 local api = vim.api
 
--- Setting leader key
-vim.cmd([[let g:mapleader = "\<SPACE>"]])
-vim.cmd([[let g:maplocalleader = ',']])
-
 -- Startify
-api.nvim_set_keymap("n", "<HOME>", "<CMD>Startify<CR>", {silent = true})
-api.nvim_set_keymap("i", "<HOME>", "<CMD>Startify<CR>", {silent = true})
-api.nvim_set_keymap("v", "<HOME>", "<CMD>Startify<CR>", {silent = true})
+api.nvim_set_keymap("n", "<HOME>", "<CMD>Dashboard<CR>", {silent = true})
+api.nvim_set_keymap("i", "<HOME>", "<CMD>Dashboard<CR>", {silent = true})
+api.nvim_set_keymap("v", "<HOME>", "<CMD>Dashboard<CR>", {silent = true})
 
 -- Nerdtree
 api.nvim_set_keymap("i", "<F2>", "<CMD>NERDTreeFind<CR>", {silent = true})
@@ -35,12 +31,12 @@ api.nvim_set_keymap("v", "<F10>", ":Format<CR>", {silent = true})
 
 -- Lspsaga.nvim
 -- lsp provider to find the cursor word definition and reference
-api.nvim_set_keymap("n", "gh", " <cmd>lua require'lspsaga.provider'.lsp_finder()<CR>", {silent = true})
+api.nvim_set_keymap("n", "lh", " <cmd>lua require'lspsaga.provider'.lsp_finder()<CR>", {silent = true})
 -- code action
 api.nvim_set_keymap("n", "ca", "<cmd>lua require('lspsaga.codeaction').code_action()<CR>", {silent = true})
-api.nvim_set_keymap("n", "ca", "<cmd>'<,'>lua require('lspsaga.codeaction').range_code_action()<CR>", {silent = true})
+api.nvim_set_keymap("n", "la", "<cmd>'<,'>lua require('lspsaga.codeaction').range_code_action()<CR>", {silent = true})
 -- show hover doc
-api.nvim_set_keymap("n", "K", "<cmd>lua require('lspsaga.hover').render_hover_doc()<CR>", {silent = true})
+api.nvim_set_keymap("n", "lK", "<cmd>lua require('lspsaga.hover').render_hover_doc()<CR>", {silent = true})
 -- scroll down hover doc or scroll in definition preview
 api.nvim_set_keymap("n", "<C-f>", " <cmd>lua require('lspsaga.hover').smart_scroll_with_saga(1)<CR>", {silent = true})
 -- scroll up hover doc
@@ -95,12 +91,6 @@ api.nvim_set_keymap("x", "ga", "<Plug>(EasyAlign)", {silent = true})
 
 -- Start interactive EasyAlign for a motion/text object (e.g. gaip)
 api.nvim_set_keymap("n", "ga", "<Plug>(EasyAlign)", {silent = true})
-
--- nvim-luadev
-api.nvim_buf_set_keymap(0, "n", "<leader>n", "<Plug>(Luadev-RunLine)", {silent = true})
-api.nvim_buf_set_keymap(0, "n", "<leader>n", "<Plug>(Luadev-Run)", {silent = true})
-api.nvim_buf_set_keymap(0, "n", "<leader>d", "<Plug>(Luadev-RunWord)", {silent = true})
-api.nvim_buf_set_keymap(0, "n", "<leader>u", "<Plug>(Luadev-Complete", {silent = true})
 
 -- nvim-toggleterm.lua
 api.nvim_set_keymap("n", "<c-t>", ":<c-u>exe v:count1 . 'ToggleTerm'<CR>", {silent = true})
