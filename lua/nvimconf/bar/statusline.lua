@@ -88,7 +88,7 @@ gls.left[2] = {
       }
 
       local vim_mode = vim.fn.mode()
-      vim.api.nvim_command("hi GalaxyViMode guifg=" .. mode_color[vim_mode])
+      --vim.api.nvim_command("hi GalaxyViMode guifg=" .. mode_color[vim_mode])
       return alias[vim_mode] .. "  "
     end,
     highlight = {colors.bg, colors.bg, "bold"},
@@ -370,6 +370,7 @@ gls.right[2] = {
     highlight = {require("galaxyline.provider_fileinfo").get_file_icon_color, colors.section_bg}
   }
 }
+
 gls.right[3] = {
   FileFormat = {
     provider = function()
@@ -379,6 +380,7 @@ gls.right[3] = {
     highlight = {colors.fg, colors.section_bg, "bold"}
   }
 }
+
 gls.right[4] = {
   LineInfo = {
     provider = "LineColumn",
@@ -396,18 +398,6 @@ gls.right[5] = {
     highlight = {colors.fg, colors.section_bg, "bold"},
     separator = " ",
     separator_highlight = {colors.line_bg, colors.section_bg}
-  }
-}
-
-gls.right[6] = {
-  Heart = {
-    provider = function()
-      return "🔥 "
-    end,
-    condition = buffer_not_empty,
-    highlight = {colors.red, colors.section_bg},
-    separator = " ",
-    separator_highlight = {colors.line_bg, colors.section_bg, "bold"}
   }
 }
 

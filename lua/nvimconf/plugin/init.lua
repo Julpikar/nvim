@@ -11,16 +11,19 @@ end
 -- Only required if you have packer in your `opt` pack
 vim.cmd [[packadd packer.nvim]]
 
-return require("packer").startup(
+local packer = require("packer")
+
+packer.init({max_jobs = 4})
+
+return packer.startup(
   function()
     -- Packer can manage itself as an optional plugin
     use {"wbthomason/packer.nvim", opt = true}
 
     -- Colorscheme
-    use {"Julpikar/night-owl.nvim"}
     use {"Julpikar/nord-vim"}
     use {"sainnhe/gruvbox-material"}
-    use {"Julpikar/oceanic-material"}
+    use {"sainnhe/everforest"}
 
     -- Editing
     use {
@@ -57,7 +60,6 @@ return require("packer").startup(
     use {"akinsho/nvim-toggleterm.lua"}
     use {"kyazdani42/nvim-web-devicons"}
     use {"ryanoasis/vim-devicons"}
-    use {"cjrh/vim-conda"}
     use {
       "airblade/vim-rooter",
       setup = function()

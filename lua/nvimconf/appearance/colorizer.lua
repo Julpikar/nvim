@@ -1,2 +1,7 @@
--- nvim-colorizer.lua
-require "colorizer".setup()
+local M = {}
+
+function M.init()
+  require "colorizer".setup()
+end
+
+return M

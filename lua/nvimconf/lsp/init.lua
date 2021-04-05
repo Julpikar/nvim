@@ -72,11 +72,11 @@ lspconfig.rust_analyzer.setup {
 
 lspconfig.sumneko_lua.setup {
   cmd = {
-    "C:\\tools\\precompiled-lua-language-server\\bin\\Windows\\lua-language-server",
+    "C:\\Users\\Benawas\\AppData\\Local\\nvim-data\\lspserver\\lua\\bin\\Windows\\lua-language-server",
     "-E",
     "-e",
     "LANG=en",
-    "C:\\tools\\precompiled-lua-language-server\\main.lua"
+    "C:\\Users\\Benawas\\AppData\\Local\\nvim-data\\lspserver\\lua\\main.lua"
   },
   on_attach = on_attach,
   capabilities = capabilities,
