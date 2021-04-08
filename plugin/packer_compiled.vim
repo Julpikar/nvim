@@ -36,6 +36,10 @@ _G.packer_plugins = {
     loaded = true,
     path = "C:\\Users\\Benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\dashboard-nvim"
   },
+  delimitMate = {
+    loaded = true,
+    path = "C:\\Users\\Benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\delimitMate"
+  },
   ["formatter.nvim"] = {
     loaded = true,
     path = "C:\\Users\\Benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\formatter.nvim"
@@ -44,13 +48,13 @@ _G.packer_plugins = {
     loaded = true,
     path = "C:\\Users\\Benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\galaxyline.nvim"
   },
+  ["gitsigns.nvim"] = {
+    loaded = true,
+    path = "C:\\Users\\Benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\gitsigns.nvim"
+  },
   ["gruvbox-material"] = {
     loaded = true,
     path = "C:\\Users\\Benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\gruvbox-material"
-  },
-  ["lazygit.nvim"] = {
-    loaded = true,
-    path = "C:\\Users\\Benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\lazygit.nvim"
   },
   ["lspkind-nvim"] = {
     loaded = true,
@@ -65,6 +69,7 @@ _G.packer_plugins = {
     path = "C:\\Users\\Benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\nvim-bufferline.lua"
   },
   ["nvim-colorizer.lua"] = {
+    config = { "require 'colorizer'.setup()" },
     loaded = true,
     path = "C:\\Users\\Benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\nvim-colorizer.lua"
   },
@@ -120,6 +125,14 @@ _G.packer_plugins = {
     loaded = true,
     path = "C:\\Users\\Benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\vim-better-whitespace"
   },
+  ["vim-easy-align"] = {
+    loaded = true,
+    path = "C:\\Users\\Benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\vim-easy-align"
+  },
+  ["vim-floaterm"] = {
+    loaded = true,
+    path = "C:\\Users\\Benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\vim-floaterm"
+  },
   ["vim-fugitive"] = {
     loaded = true,
     path = "C:\\Users\\Benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\vim-fugitive"
@@ -150,6 +163,8 @@ _G.packer_plugins = {
   }
 }
 
+-- Config for: nvim-colorizer.lua
+require 'colorizer'.setup()
 END
 
 catch

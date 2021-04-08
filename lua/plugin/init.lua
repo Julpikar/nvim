@@ -2,7 +2,7 @@ local packer = require("packer")
 
 local Plugin_manager = {}
 
-local function plugin_init()
+local function plugin_init(use)
   use "wbthomason/packer.nvim"
 
   -- Colorscheme
@@ -12,17 +12,19 @@ local function plugin_init()
   use "mg979/vim-visual-multi"
   use {"ntpeters/vim-better-whitespace", config = require("plugin.whitespace").config()}
   use "farmergreg/vim-lastplace"
+  use {"junegunn/vim-easy-align", config = require("plugin.easyalign").config()}
+  use {"Raimondi/delimitMate", config = require("plugin.delimitmate").config()}
 
   -- Dashboard
   use {"glepnir/dashboard-nvim", config = require("plugin.dashboard").config()}
 
   -- Explorer
-  use "kyazdani42/nvim-tree.lua"
+  use {"kyazdani42/nvim-tree.lua", config = require("plugin.tree").config()}
   use {"airblade/vim-rooter", config = require("plugin.vim-rooter").config()}
-  use {"liuchengxu/vista.vim"}
+  use {"liuchengxu/vista.vim", config = require("plugin.vista").config()}
 
   -- Keymap guide
-  use {"liuchengxu/vim-which-key"}
+  use {"liuchengxu/vim-which-key", config = vim.cmd("source " .. vim.fn.stdpath("config") .. "/viml/whichkey/init.vim")}
 
   -- Line
   use {"akinsho/nvim-bufferline.lua", config = require("plugin.bufferline").config()}
@@ -33,11 +35,14 @@ local function plugin_init()
 
   -- Git
   use "tpope/vim-fugitive"
-  use "kdheepak/lazygit.nvim"
+  use {"lewis6991/gitsigns.nvim", config = require("gitsigns").setup()}
+
+  -- Floating terminal
+  use {"voldikss/vim-floaterm", config = require("plugin.floaterm").config()}
 
   -- LSP
   use {"neovim/nvim-lspconfig", config = require("plugin.lspconfig").config()}
-  use {"glepnir/lspsaga.nvim", config = require("lspsaga").init_lsp_saga()}
+  use {"glepnir/lspsaga.nvim", config = require("plugin.lspsaga").config()}
   use {"onsails/lspkind-nvim", config = require("plugin.lspkind").config()}
   use {"kosayoda/nvim-lightbulb", config = require("plugin.lightbulb").config()}
 
@@ -49,11 +54,14 @@ local function plugin_init()
   use {"mhartington/formatter.nvim", config = require("plugin.format").config()}
 
   -- Treesitter
-  use {"nvim-treesitter/nvim-treesitter", config = require("plugin.treesitter").config()}
-  use "p00f/nvim-ts-rainbow"
+  use {
+    "nvim-treesitter/nvim-treesitter",
+    requires = "p00f/nvim-ts-rainbow",
+    config = require("plugin.treesitter").config()
+  }
 
   -- Colorizer
-  use "norcalli/nvim-colorizer.lua"
+  use {"norcalli/nvim-colorizer.lua", config = "require 'colorizer'.setup()"}
 
   -- Telescope
   use {"nvim-telescope/telescope.nvim", requires = {"nvim-lua/popup.nvim", "nvim-lua/plenary.nvim"}}

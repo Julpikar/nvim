@@ -3,36 +3,44 @@ local api = vim.api
 local Lsp = {}
 
 local function on_attach(client, bufnr)
-  api.nvim_buf_set_option(0, "omnifunc", "v:lua.vim.lsp.omnifunc")
+  local function buf_set_keymap(...)
+    vim.api.nvim_buf_set_keymap(bufnr, ...)
+  end
+  local function buf_set_option(...)
+    vim.api.nvim_buf_set_option(bufnr, ...)
+  end
+
+  buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
+
   -- Mappings.
   local opts = {noremap = true, silent = true}
   local keymaps = {
-    {0, "n", "gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>"},
-    {0, "n", "gd", "<Cmd>lua vim.lsp.buf.definition()<CR>"},
-    {0, "n", "K", "<Cmd>lua vim.lsp.buf.hover()<CR>"},
-    {0, "n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>"},
-    {0, "n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>"},
-    {0, "n", "<space>wa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>"},
-    {0, "n", "<space>wr", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>"},
-    {0, "n", "<space>wl", "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>"},
-    {0, "n", "<space>D", "<cmd>lua vim.lsp.buf.type_definition()<CR>"},
-    {0, "n", "<space>rn", "<cmd>lua vim.lsp.buf.rename()<CR>"},
-    {0, "n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>"},
-    {0, "n", "<space>e", "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>"},
-    {0, "n", "[d", "<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>"},
-    {0, "n", "]d", "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>"},
-    {0, "n", "<space>q", "<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>"}
+    {"n", "gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>"},
+    {"n", "gd", "<Cmd>lua vim.lsp.buf.definition()<CR>"},
+    {"n", "K", "<Cmd>lua vim.lsp.buf.hover()<CR>"},
+    {"n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>"},
+    {"n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>"},
+    {"n", "<space>wa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>"},
+    {"n", "<space>wr", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>"},
+    {"n", "<space>wl", "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>"},
+    {"n", "<space>D", "<cmd>lua vim.lsp.buf.type_definition()<CR>"},
+    {"n", "<space>rn", "<cmd>lua vim.lsp.buf.rename()<CR>"},
+    {"n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>"},
+    {"n", "<space>e", "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>"},
+    {"n", "[d", "<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>"},
+    {"n", "]d", "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>"},
+    {"n", "<space>q", "<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>"}
   }
 
   for _, keymap in ipairs(keymaps) do
-    api.nvim_buf_set_keymap(keymap[1], keymap[2], keymap[3], keymap[4], opts)
+    buf_set_keymap(keymap[1], keymap[2], keymap[3], opts)
   end
 
   -- Set some keybinds conditional on server capabilities
   if client.resolved_capabilities.document_formatting then
-    api.nvim_buf_set_keymap(0, "n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+    buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
   elseif client.resolved_capabilities.document_range_formatting then
-    api.nvim_buf_set_keymap(0, "n", "<space>f", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
+    buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
   end
 
   -- Set autocommands conditional on server_capabilities

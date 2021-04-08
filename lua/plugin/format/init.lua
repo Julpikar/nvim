@@ -1,5 +1,11 @@
 local Format = {}
 
+local function set_keymap()
+  local remap = vim.api.nvim_set_keymap
+  remap("n", "<F10>", ":Format<CR>", {noremap = true, silent = true})
+  remap("v", "<F10>", ":Format<CR>", {noremap = true, silent = true})
+end
+
 function Format.config()
   local formatter = require "formatter"
   local filename = vim.api.nvim_buf_get_name(0)
@@ -35,6 +41,7 @@ function Format.config()
   }
 
   formatter.setup({logging = false, filetype = formatter_config})
+  set_keymap()
 end
 
 local metatable = {
