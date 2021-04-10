@@ -12,7 +12,6 @@ function Global.load_settings()
   cmd("source $VIMRUNTIME/mswin.vim")
 
   -- Safe Heaven
-  cmd("set backup")
   cmd("set swapfile")
   cmd("set undofile")
 
