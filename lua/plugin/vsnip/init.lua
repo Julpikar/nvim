@@ -1,7 +1,8 @@
 local Snippet = {}
 
 function Snippet.config()
-  vim.g.vsnip_snippet_dir = vim.fn.expand("~/AppData/Local/nvim/snippets")
+  local config_path = vim.fn.stdpath("config")
+  vim.g.vsnip_snippet_dir = vim.fn.expand(config_path .. "/snippets")
 end
 
 local metatable = {

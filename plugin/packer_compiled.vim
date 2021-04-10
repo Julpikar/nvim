@@ -33,55 +33,76 @@ end
 
 _G.packer_plugins = {
   ["dashboard-nvim"] = {
+    config = { "\27LJ\2\n?\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\vconfig\21plugin.dashboard\frequire\0" },
     loaded = true,
     path = "C:\\Users\\Benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\dashboard-nvim"
   },
   delimitMate = {
+    config = { "\27LJ\2\nA\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\vconfig\23plugin.delimitmate\frequire\0" },
     loaded = true,
     path = "C:\\Users\\Benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\delimitMate"
   },
   ["formatter.nvim"] = {
+    config = { "\27LJ\2\n<\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\vconfig\18plugin.format\frequire\0" },
     loaded = true,
     path = "C:\\Users\\Benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\formatter.nvim"
   },
   ["galaxyline.nvim"] = {
+    config = { "\27LJ\2\n@\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\vconfig\22plugin.galaxyline\frequire\0" },
     loaded = true,
     path = "C:\\Users\\Benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\galaxyline.nvim"
   },
   ["gitsigns.nvim"] = {
+    config = { "\27LJ\2\n6\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\rgitsigns\frequire\0" },
     loaded = true,
     path = "C:\\Users\\Benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\gitsigns.nvim"
   },
   ["gruvbox-material"] = {
+    config = { "\27LJ\2\n@\0\0\3\0\3\0\0056\0\0\0009\0\1\0'\2\2\0B\0\2\1K\0\1\0!colorscheme gruvbox-material\bcmd\bvim\0" },
+    loaded = false,
+    needs_bufread = false,
+    path = "C:\\Users\\Benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\opt\\gruvbox-material"
+  },
+  ["hop.nvim"] = {
     loaded = true,
-    path = "C:\\Users\\Benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\gruvbox-material"
+    path = "C:\\Users\\Benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\hop.nvim"
+  },
+  ["lsp-status.nvim"] = {
+    loaded = true,
+    path = "C:\\Users\\Benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\lsp-status.nvim"
   },
   ["lspkind-nvim"] = {
+    config = { "\27LJ\2\n=\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\vconfig\19plugin.lspkind\frequire\0" },
     loaded = true,
     path = "C:\\Users\\Benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\lspkind-nvim"
   },
   ["lspsaga.nvim"] = {
+    config = { "\27LJ\2\n=\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\vconfig\19plugin.lspsaga\frequire\0" },
     loaded = true,
     path = "C:\\Users\\Benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\lspsaga.nvim"
   },
   ["nvim-bufferline.lua"] = {
+    config = { "\27LJ\2\n@\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\vconfig\22plugin.bufferline\frequire\0" },
     loaded = true,
     path = "C:\\Users\\Benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\nvim-bufferline.lua"
   },
   ["nvim-colorizer.lua"] = {
-    config = { "require 'colorizer'.setup()" },
+    config = { "\27LJ\2\n7\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\14colorizer\frequire\0" },
     loaded = true,
     path = "C:\\Users\\Benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\nvim-colorizer.lua"
   },
   ["nvim-compe"] = {
+    config = { "\27LJ\2\n;\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\vconfig\17plugin.compe\frequire\0" },
     loaded = true,
     path = "C:\\Users\\Benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\nvim-compe"
   },
   ["nvim-lightbulb"] = {
+    config = { "\27LJ\2\n?\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\vconfig\21plugin.lightbulb\frequire\0" },
     loaded = true,
     path = "C:\\Users\\Benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\nvim-lightbulb"
   },
   ["nvim-lspconfig"] = {
+    config = { "\27LJ\2\n?\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\vconfig\21plugin.lspconfig\frequire\0" },
     loaded = true,
     path = "C:\\Users\\Benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\nvim-lspconfig"
   },
@@ -90,10 +111,12 @@ _G.packer_plugins = {
     path = "C:\\Users\\Benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\nvim-luapad"
   },
   ["nvim-tree.lua"] = {
+    config = { "\27LJ\2\n:\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\vconfig\16plugin.tree\frequire\0" },
     loaded = true,
     path = "C:\\Users\\Benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\nvim-tree.lua"
   },
   ["nvim-treesitter"] = {
+    config = { "\27LJ\2\n@\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\vconfig\22plugin.treesitter\frequire\0" },
     loaded = true,
     path = "C:\\Users\\Benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\nvim-treesitter"
   },
@@ -122,14 +145,17 @@ _G.packer_plugins = {
     path = "C:\\Users\\Benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\telescope.nvim"
   },
   ["vim-better-whitespace"] = {
+    config = { "\27LJ\2\n@\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\vconfig\22plugin.whitespace\frequire\0" },
     loaded = true,
     path = "C:\\Users\\Benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\vim-better-whitespace"
   },
   ["vim-easy-align"] = {
+    config = { "\27LJ\2\n?\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\vconfig\21plugin.easyalign\frequire\0" },
     loaded = true,
     path = "C:\\Users\\Benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\vim-easy-align"
   },
   ["vim-floaterm"] = {
+    config = { "\27LJ\2\n>\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\vconfig\20plugin.floaterm\frequire\0" },
     loaded = true,
     path = "C:\\Users\\Benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\vim-floaterm"
   },
@@ -142,6 +168,7 @@ _G.packer_plugins = {
     path = "C:\\Users\\Benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\vim-lastplace"
   },
   ["vim-rooter"] = {
+    config = { "\27LJ\2\n@\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\vconfig\22plugin.vim-rooter\frequire\0" },
     loaded = true,
     path = "C:\\Users\\Benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\vim-rooter"
   },
@@ -150,21 +177,69 @@ _G.packer_plugins = {
     path = "C:\\Users\\Benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\vim-visual-multi"
   },
   ["vim-vsnip"] = {
+    config = { "\27LJ\2\n;\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\vconfig\17plugin.vsnip\frequire\0" },
     loaded = true,
     path = "C:\\Users\\Benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\vim-vsnip"
   },
   ["vim-which-key"] = {
+    config = { "\27LJ\2\nq\0\0\6\0\a\0\f6\0\0\0009\0\1\0'\2\2\0006\3\0\0009\3\3\0039\3\4\3'\5\5\0B\3\2\2'\4\6\0&\2\4\2B\0\2\1K\0\1\0\28/viml/whichkey/init.vim\vconfig\fstdpath\afn\fsource \bcmd\bvim\0" },
     loaded = true,
     path = "C:\\Users\\Benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\vim-which-key"
   },
   ["vista.vim"] = {
+    config = { "\27LJ\2\n;\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\vconfig\17plugin.vista\frequire\0" },
     loaded = true,
     path = "C:\\Users\\Benawas\\AppData\\Local\\nvim-data\\site\\pack\\packer\\start\\vista.vim"
   }
 }
 
+-- Setup for: gruvbox-material
+try_loadstring("\27LJ\2\nÙ\1\0\0\2\0\n\0\r6\0\0\0009\0\1\0'\1\3\0=\1\2\0'\1\5\0=\1\4\0+\1\2\0=\1\6\0+\1\2\0=\1\a\0'\1\t\0=\1\b\0K\0\1\0\ngreen\28gruvbox_material_cursor#gruvbox_material_enable_italic!gruvbox_material_enable_bold\thard gruvbox_material_background\bmix\29gruvbox_material_palette\6g\bvim\0", "setup", "gruvbox-material")
+vim.cmd [[packadd gruvbox-material]]
+-- Config for: nvim-treesitter
+try_loadstring("\27LJ\2\n@\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\vconfig\22plugin.treesitter\frequire\0", "config", "nvim-treesitter")
+-- Config for: vista.vim
+try_loadstring("\27LJ\2\n;\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\vconfig\17plugin.vista\frequire\0", "config", "vista.vim")
+-- Config for: vim-better-whitespace
+try_loadstring("\27LJ\2\n@\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\vconfig\22plugin.whitespace\frequire\0", "config", "vim-better-whitespace")
+-- Config for: nvim-bufferline.lua
+try_loadstring("\27LJ\2\n@\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\vconfig\22plugin.bufferline\frequire\0", "config", "nvim-bufferline.lua")
 -- Config for: nvim-colorizer.lua
-require 'colorizer'.setup()
+try_loadstring("\27LJ\2\n7\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\14colorizer\frequire\0", "config", "nvim-colorizer.lua")
+-- Config for: nvim-compe
+try_loadstring("\27LJ\2\n;\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\vconfig\17plugin.compe\frequire\0", "config", "nvim-compe")
+-- Config for: vim-which-key
+try_loadstring("\27LJ\2\nq\0\0\6\0\a\0\f6\0\0\0009\0\1\0'\2\2\0006\3\0\0009\3\3\0039\3\4\3'\5\5\0B\3\2\2'\4\6\0&\2\4\2B\0\2\1K\0\1\0\28/viml/whichkey/init.vim\vconfig\fstdpath\afn\fsource \bcmd\bvim\0", "config", "vim-which-key")
+-- Config for: vim-rooter
+try_loadstring("\27LJ\2\n@\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\vconfig\22plugin.vim-rooter\frequire\0", "config", "vim-rooter")
+-- Config for: dashboard-nvim
+try_loadstring("\27LJ\2\n?\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\vconfig\21plugin.dashboard\frequire\0", "config", "dashboard-nvim")
+-- Config for: vim-floaterm
+try_loadstring("\27LJ\2\n>\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\vconfig\20plugin.floaterm\frequire\0", "config", "vim-floaterm")
+-- Config for: nvim-lspconfig
+try_loadstring("\27LJ\2\n?\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\vconfig\21plugin.lspconfig\frequire\0", "config", "nvim-lspconfig")
+-- Config for: lspkind-nvim
+try_loadstring("\27LJ\2\n=\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\vconfig\19plugin.lspkind\frequire\0", "config", "lspkind-nvim")
+-- Config for: nvim-lightbulb
+try_loadstring("\27LJ\2\n?\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\vconfig\21plugin.lightbulb\frequire\0", "config", "nvim-lightbulb")
+-- Config for: lspsaga.nvim
+try_loadstring("\27LJ\2\n=\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\vconfig\19plugin.lspsaga\frequire\0", "config", "lspsaga.nvim")
+-- Config for: formatter.nvim
+try_loadstring("\27LJ\2\n<\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\vconfig\18plugin.format\frequire\0", "config", "formatter.nvim")
+-- Config for: vim-easy-align
+try_loadstring("\27LJ\2\n?\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\vconfig\21plugin.easyalign\frequire\0", "config", "vim-easy-align")
+-- Config for: gruvbox-material
+try_loadstring("\27LJ\2\n@\0\0\3\0\3\0\0056\0\0\0009\0\1\0'\2\2\0B\0\2\1K\0\1\0!colorscheme gruvbox-material\bcmd\bvim\0", "config", "gruvbox-material")
+-- Config for: galaxyline.nvim
+try_loadstring("\27LJ\2\n@\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\vconfig\22plugin.galaxyline\frequire\0", "config", "galaxyline.nvim")
+-- Config for: delimitMate
+try_loadstring("\27LJ\2\nA\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\vconfig\23plugin.delimitmate\frequire\0", "config", "delimitMate")
+-- Config for: gitsigns.nvim
+try_loadstring("\27LJ\2\n6\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\rgitsigns\frequire\0", "config", "gitsigns.nvim")
+-- Config for: nvim-tree.lua
+try_loadstring("\27LJ\2\n:\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\vconfig\16plugin.tree\frequire\0", "config", "nvim-tree.lua")
+-- Config for: vim-vsnip
+try_loadstring("\27LJ\2\n;\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\vconfig\17plugin.vsnip\frequire\0", "config", "vim-vsnip")
 END
 
 catch

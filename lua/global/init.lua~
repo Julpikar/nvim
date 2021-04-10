@@ -9,12 +9,12 @@ function Global.load_settings()
   o.termguicolors = true
 
   -- Windows mapping
-  cmd("source $VIMRUNTIME/mswin.vim")
+  cmd [["source $VIMRUNTIME/mswin.vim"]]
 
   -- Safe Heaven
-  cmd("set backup")
-  cmd("set swapfile")
-  cmd("set undofile")
+  cmd [[set backup]]
+  cmd [[set swapfile]]
+  cmd [[set undofile]]
 
   -- Window Split
   o.splitright = true

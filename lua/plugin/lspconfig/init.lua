@@ -1,16 +1,27 @@
 local lspconfig = require("lspconfig")
+local lsp_status = require("lsp-status")
 local api = vim.api
 local Lsp = {}
 
+lsp_status.config(
+  {
+    status_symbol = "•",
+    diagnostics = false
+  }
+)
+
+lsp_status.register_progress()
+local capabilities = lsp_status.capabilities
+
+-- compe use LSP snippet
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+
 local function on_attach(client, bufnr)
+  lsp_status.on_attach(client, bufnr)
+
   local function buf_set_keymap(...)
     vim.api.nvim_buf_set_keymap(bufnr, ...)
   end
-  local function buf_set_option(...)
-    vim.api.nvim_buf_set_option(bufnr, ...)
-  end
-
-  buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
 
   -- Mappings.
   local opts = {noremap = true, silent = true}
@@ -80,6 +91,7 @@ local function sumneko_config()
 
   lspconfig.sumneko_lua.setup {
     on_attach = on_attach,
+    capabilities = capabilities,
     cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"},
     settings = {
       Lua = {
@@ -110,11 +122,19 @@ local function sumneko_config()
 end
 
 function Lsp.config()
+  -- Rust Analyzer
+  lspconfig.rust_analyzer.setup {
+    on_attach = on_attach,
+    capabilities = capabilities
+  }
   -- Sumneko
   sumneko_config()
 
   -- Vimls
-  lspconfig.vimls.setup {on_attach = on_attach}
+  lspconfig.vimls.setup {
+    on_attach = on_attach,
+    capabilities = capabilities
+  }
 end
 
 local metatable = {

@@ -6,62 +6,180 @@ local function plugin_init(use)
   use "wbthomason/packer.nvim"
 
   -- Colorscheme
-  use {"sainnhe/gruvbox-material", config = require("plugin.colorscheme").config()}
+  use {
+    "sainnhe/gruvbox-material",
+    setup = function()
+      local g = vim.g
+      g.gruvbox_material_palette = "mix"
+      g.gruvbox_material_background = "hard"
+      g.gruvbox_material_enable_bold = true
+      g.gruvbox_material_enable_italic = true
+      g.gruvbox_material_cursor = "green"
+    end,
+    config = function()
+      vim.cmd [[colorscheme gruvbox-material]]
+    end
+  }
 
   -- Editing
   use "mg979/vim-visual-multi"
-  use {"ntpeters/vim-better-whitespace", config = require("plugin.whitespace").config()}
+  use {
+    "ntpeters/vim-better-whitespace",
+    config = function()
+      require("plugin.whitespace").config()
+    end
+  }
   use "farmergreg/vim-lastplace"
-  use {"junegunn/vim-easy-align", config = require("plugin.easyalign").config()}
-  use {"Raimondi/delimitMate", config = require("plugin.delimitmate").config()}
+  use {
+    "junegunn/vim-easy-align",
+    config = function()
+      require("plugin.easyalign").config()
+    end
+  }
+  use {
+    "Raimondi/delimitMate",
+    config = function()
+      require("plugin.delimitmate").config()
+    end
+  }
 
   -- Dashboard
-  use {"glepnir/dashboard-nvim", config = require("plugin.dashboard").config()}
-
+  use {
+    "glepnir/dashboard-nvim",
+    config = function()
+      require("plugin.dashboard").config()
+    end
+  }
   -- Explorer
-  use {"kyazdani42/nvim-tree.lua", config = require("plugin.tree").config()}
-  use {"airblade/vim-rooter", config = require("plugin.vim-rooter").config()}
-  use {"liuchengxu/vista.vim", config = require("plugin.vista").config()}
+  use {
+    "kyazdani42/nvim-tree.lua",
+    config = function()
+      require("plugin.tree").config()
+    end
+  }
+  use {
+    "airblade/vim-rooter",
+    config = function()
+      require("plugin.vim-rooter").config()
+    end
+  }
+  use {
+    "liuchengxu/vista.vim",
+    config = function()
+      require("plugin.vista").config()
+    end
+  }
+
+  -- Navigation
+  use "phaazon/hop.nvim"
 
   -- Keymap guide
-  use {"liuchengxu/vim-which-key", config = vim.cmd("source " .. vim.fn.stdpath("config") .. "/viml/whichkey/init.vim")}
+  use {
+    "liuchengxu/vim-which-key",
+    config = function()
+      vim.cmd("source " .. vim.fn.stdpath("config") .. "/viml/whichkey/init.vim")
+    end
+  }
 
   -- Line
-  use {"akinsho/nvim-bufferline.lua", config = require("plugin.bufferline").config()}
-  use {"glepnir/galaxyline.nvim", config = require("plugin.galaxyline").config()}
+  use {
+    "akinsho/nvim-bufferline.lua",
+    config = function()
+      require("plugin.bufferline").config()
+    end
+  }
+  use {
+    "glepnir/galaxyline.nvim",
+    config = function()
+      require("plugin.galaxyline").config()
+    end
+  }
 
   -- Icons
   use "kyazdani42/nvim-web-devicons"
 
   -- Git
   use "tpope/vim-fugitive"
-  use {"lewis6991/gitsigns.nvim", config = require("gitsigns").setup()}
+  use {
+    "lewis6991/gitsigns.nvim",
+    config = function()
+      require("gitsigns").setup()
+    end
+  }
 
   -- Floating terminal
-  use {"voldikss/vim-floaterm", config = require("plugin.floaterm").config()}
+  use {
+    "voldikss/vim-floaterm",
+    config = function()
+      require("plugin.floaterm").config()
+    end
+  }
 
   -- LSP
-  use {"neovim/nvim-lspconfig", config = require("plugin.lspconfig").config()}
-  use {"glepnir/lspsaga.nvim", config = require("plugin.lspsaga").config()}
-  use {"onsails/lspkind-nvim", config = require("plugin.lspkind").config()}
-  use {"kosayoda/nvim-lightbulb", config = require("plugin.lightbulb").config()}
+  use {
+    "neovim/nvim-lspconfig",
+    config = function()
+      require("plugin.lspconfig").config()
+    end,
+    requires = "nvim-lua/lsp-status.nvim"
+  }
+  use {
+    "glepnir/lspsaga.nvim",
+    config = function()
+      require("plugin.lspsaga").config()
+    end
+  }
+  use {
+    "onsails/lspkind-nvim",
+    config = function()
+      require("plugin.lspkind").config()
+    end
+  }
+  use {
+    "kosayoda/nvim-lightbulb",
+    config = function()
+      require("plugin.lightbulb").config()
+    end
+  }
 
   -- Autocomplete
-  use {"hrsh7th/nvim-compe", config = require("plugin.compe").config()}
-  use {"hrsh7th/vim-vsnip", config = require("plugin.vsnip").config()}
+  use {
+    "hrsh7th/nvim-compe",
+    config = function()
+      require("plugin.compe").config()
+    end
+  }
+  use {
+    "hrsh7th/vim-vsnip",
+    config = function()
+      require("plugin.vsnip").config()
+    end
+  }
 
   -- Formatter
-  use {"mhartington/formatter.nvim", config = require("plugin.format").config()}
+  use {
+    "mhartington/formatter.nvim",
+    config = function()
+      require("plugin.format").config()
+    end
+  }
 
   -- Treesitter
   use {
     "nvim-treesitter/nvim-treesitter",
     requires = "p00f/nvim-ts-rainbow",
-    config = require("plugin.treesitter").config()
+    config = function()
+      require("plugin.treesitter").config()
+    end
   }
 
   -- Colorizer
-  use {"norcalli/nvim-colorizer.lua", config = "require 'colorizer'.setup()"}
+  use {
+    "norcalli/nvim-colorizer.lua",
+    config = function()
+      require "colorizer".setup()
+    end
+  }
 
   -- Telescope
   use {"nvim-telescope/telescope.nvim", requires = {"nvim-lua/popup.nvim", "nvim-lua/plenary.nvim"}}

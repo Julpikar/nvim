@@ -33,6 +33,7 @@ let g:leader_map['b'] = {
   \ 'd':    [':BufferClose',        'delete-buffer'],
   \ 'n':    ['bnext',               'next-buffer'],
   \ 'p':    ['bprevious',           'previous-buffer'],
+  \ '?':    ['Buffers',             'fzf-buffer'],
   \ }
 
 let g:leader_map['d'] = {
