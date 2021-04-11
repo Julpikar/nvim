@@ -199,7 +199,7 @@ end
 
 function Galaxy.config()
   cmd("hi StatusLine guibg=" .. colors.line_bg .. " guifg=" .. colors.line_bg)
-  line.short_line_list = {"NvimTree", "vista", "packer"}
+  line.short_line_list = {"NvimTree", "Vista", "packer"}
   left_config()
   mid_config()
   right_config()

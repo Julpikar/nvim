@@ -8,6 +8,7 @@ local function plugin_init(use)
   -- Colorscheme
   use {
     "sainnhe/gruvbox-material",
+    disable = false,
     setup = function()
       local g = vim.g
       g.gruvbox_material_palette = "mix"
@@ -18,6 +19,27 @@ local function plugin_init(use)
     end,
     config = function()
       vim.cmd [[colorscheme gruvbox-material]]
+    end
+  }
+
+  use {
+    "AlessandroYorba/Despacio",
+    disable = true,
+    setup = function()
+      -- Dark Grey Background
+      --vim.g.despacio_Sunset = 1
+
+      -- Even Darker Grey Background
+      --vim.g.despacio_Twilight = 1
+
+      -- Almost Black Background
+      vim.g.despacio_Midnight = 1
+
+      -- Black Background
+      --vim.g.despacio_Pitch = 1
+    end,
+    config = function()
+      vim.cmd [[colorscheme despacio]]
     end
   }
 
@@ -72,6 +94,20 @@ local function plugin_init(use)
 
   -- Navigation
   use "phaazon/hop.nvim"
+
+  -- Line number
+  use {
+    "myusuf3/numbers.vim",
+    setup = function()
+      vim.g.numbers_exclude = {"dashboard", "packer", "telescope", "Vista"}
+    end,
+    config = function()
+      local remap = vim.api.nvim_set_keymap
+      local opts = {noremap = true}
+      remap("n", "<F5>", ":NumbersToggle", opts)
+      remap("n", "<F6>", ":NumbersOnOff", opts)
+    end
+  }
 
   -- Keymap guide
   use {
