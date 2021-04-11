@@ -80,10 +80,14 @@ local function left_config()
           v = "Ⓥ ",
           R = "Ⓡ "
         }
-        vim.api.nvim_command("hi GalaxyViMode guifg=" .. mode_color() .. " gui=bold")
-        return "  " .. alias[vim.fn.mode()]
+        local color = mode_color()
+        if color ~= nil then
+          vim.api.nvim_command("hi GalaxyViMode guifg=" .. color .. " gui=bold")
+          return "  " .. alias[vim.fn.mode()]
+        end
+        return ""
       end,
-      highlight = {colors.line_bg, colors.orange},
+      highlight = {colors.line_bg, colors.line_bg},
       separator = icons.slant.left,
       separator_highlight = {colors.line_bg, colors.line_bg}
     }
@@ -185,7 +189,7 @@ local function right_config()
     LineColumn = {
       provider = fileinfo.line_column,
       condition = condition.buffer_not_empty,
-      highlight = {colors.cyan, colors.line_bg}
+      highlight = {colors.green, colors.line_bg}
     }
   }
   right[6] = {
@@ -198,7 +202,7 @@ local function right_config()
 end
 
 function Galaxy.config()
-  cmd("hi StatusLine guibg=" .. colors.line_bg .. " guifg=" .. colors.line_bg)
+  cmd("hi! StatusLine guibg=" .. colors.line_bg .. " guifg=" .. colors.line_bg)
   line.short_line_list = {"NvimTree", "Vista", "packer"}
   left_config()
   mid_config()

@@ -11,7 +11,7 @@ local function plugin_init(use)
     disable = false,
     setup = function()
       local g = vim.g
-      g.gruvbox_material_palette = "mix"
+      g.gruvbox_material_palette = "material"
       g.gruvbox_material_background = "hard"
       g.gruvbox_material_enable_bold = true
       g.gruvbox_material_enable_italic = true
@@ -104,8 +104,8 @@ local function plugin_init(use)
     config = function()
       local remap = vim.api.nvim_set_keymap
       local opts = {noremap = true}
-      remap("n", "<F5>", ":NumbersToggle", opts)
-      remap("n", "<F6>", ":NumbersOnOff", opts)
+      remap("n", "<F5>", ":NumbersToggle<CR>", opts)
+      remap("n", "<F6>", ":NumbersOnOff<CR>", opts)
     end
   }
 
