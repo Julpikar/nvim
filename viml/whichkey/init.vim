@@ -11,11 +11,8 @@ let g:which_key_display_names = {'<CR>': '↵', '<TAB>': '⇆', " ": 'SPC'}
 nnoremap <silent> <leader> :silent <c-u> :silent WhichKey '<Space>'<CR>
 vnoremap <silent> <leader> :silent <c-u> :silent WhichKeyVisual '<Space>'<CR>
 
-let g:which_key_map =  {}
-let g:which_key_sep = '→'
-
+let g:which_key_use_floating_win = 0
 let g:which_key_disable_default_offset = 1
-let g:which_key_max_size = 0
 
 " Hide status line
 autocmd! FileType which_key
@@ -25,6 +22,27 @@ autocmd  FileType which_key set laststatus=0 noshowmode noruler
 
 " Define prefix dictionary
 let g:leader_map =  {}
+let g:leader_map['name'] = 'root'
+
+for s:i in range(1, 9)
+  let g:leader_map[s:i] = 'window-'.s:i
+endfor
+unlet s:i
+
+let g:leader_map[' '] = {
+      \ 'name': '+tab' ,
+      \ '1' : 'tab-1'  ,
+      \ '2' : 'tab-2'  ,
+      \ '3' : 'tab-3'  ,
+      \ '4' : 'tab-4'  ,
+      \ '5' : 'tab-5'  ,
+      \ '6' : 'tab-6'  ,
+      \ '7' : 'tab-7'  ,
+      \ '8' : 'tab-8'  ,
+      \ '9' : 'tab-9'  ,
+      \ 'c' : ['tabclose', 'close-current-tab'],
+      \ }
+
 let g:leader_map['b'] = {
   \ 'name': '+buffer',
   \ '>':    [':BufferMoveNext',     'move next'],

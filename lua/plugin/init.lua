@@ -99,7 +99,7 @@ local function plugin_init(use)
   use {
     "myusuf3/numbers.vim",
     setup = function()
-      vim.g.numbers_exclude = {"dashboard", "packer", "telescope", "Vista"}
+      vim.g.numbers_exclude = {"dashboard", "NvimTree", "packer", "telescope", "vista"}
     end,
     config = function()
       local remap = vim.api.nvim_set_keymap
