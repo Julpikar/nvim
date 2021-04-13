@@ -12,7 +12,6 @@ nnoremap <silent> <leader> :silent <c-u> :silent WhichKey '<Space>'<CR>
 vnoremap <silent> <leader> :silent <c-u> :silent WhichKeyVisual '<Space>'<CR>
 
 let g:which_key_use_floating_win = 0
-let g:which_key_disable_default_offset = 1
 
 " Hide status line
 autocmd! FileType which_key
@@ -62,6 +61,11 @@ let g:leader_map['d'] = {
       \ 'r' : ['DebugToggleRepl'               , 'toggle repl'],
       \ 's' : ['DebugStart'                    , 'start'],
       \ }
+
+let g:leader_map['e'] = {
+      \ 'name': '+edit',
+      \ ''  : [':edit!','edit file']
+      \}
 
 let g:leader_map['F'] = {
     \ 'name': '+fold',

@@ -3,6 +3,7 @@ local diagnostic = require("galaxyline.provider_diagnostic")
 local vcs = require("galaxyline.provider_vcs")
 local fileinfo = require("galaxyline.provider_fileinfo")
 local condition = require("galaxyline.condition")
+local lspclient = require("galaxyline.provider_lsp")
 
 local fn = vim.fn
 local cmd = vim.cmd
@@ -61,20 +62,12 @@ local Galaxy = {}
 local function left_config()
   local left = line.section.left
   left[1] = {
-    Logo = {
-      provider = function()
-        return "   "
-      end,
-      highlight = {colors.line_bg, colors.cyan}
-    }
-  }
-  left[2] = {
     ViMode = {
       provider = function()
         local alias = {
           n = "Ⓝ ",
           i = "Ⓘ ",
-          c = "Ⓒ",
+          c = "Ⓒ ",
           V = "Ⓥ ",
           [""] = "Ⓥ ",
           v = "Ⓥ ",
@@ -92,46 +85,46 @@ local function left_config()
       separator_highlight = {colors.line_bg, colors.line_bg}
     }
   }
-  left[3] = {
+  left[2] = {
     FileIcon = {
       provider = fileinfo.get_file_icon,
       condition = condition.buffer_not_empty,
       highlight = {fileinfo.get_file_icon_color, colors.line_bg}
     }
   }
-  left[4] = {
+  left[3] = {
     FileName = {
       provider = function()
         return fn.expand("%:F")
       end,
       condition = condition.buffer_not_empty,
-      highlight = {fileinfo.get_file_icon_color, colors.line_bg}
-    }
-  }
-  left[5] = {
-    DiagnosticError = {
-      provider = diagnostic.get_diagnostic_error,
-      icon = icons.diagnostic.error .. " ",
-      highlight = {colors.red, colors.line_bg},
-      separator = " ",
+      highlight = {fileinfo.get_file_icon_color, colors.line_bg},
+      separator = icons.slant.right,
       separator_highlight = {colors.line_bg, colors.line_bg}
     }
   }
-  left[6] = {
+  left[4] = {
+    DiagnosticError = {
+      provider = diagnostic.get_diagnostic_error,
+      icon = icons.diagnostic.error .. " ",
+      highlight = {colors.red, colors.line_bg}
+    }
+  }
+  left[5] = {
     DiagnosticWarn = {
       provider = diagnostic.get_diagnostic_warn,
       icon = icons.diagnostic.warn .. " ",
       highlight = {colors.yellow, colors.line_bg}
     }
   }
-  left[7] = {
+  left[6] = {
     DiagnosticInfo = {
       provider = diagnostic.get_diagnostic_info,
       icon = icons.diagnostic.info .. " ",
       highlight = {colors.green, colors.line_bg}
     }
   }
-  left[8] = {
+  left[7] = {
     DiagnosticHint = {
       provider = diagnostic.get_diagnostic_hint,
       icon = icons.diagnostic.hint .. " ",
@@ -145,7 +138,11 @@ local function mid_config()
   local mid = line.section.mid
   mid[1] = {
     LspStatus = {
-      provider = lsp_status.status,
+      provider = function()
+        local status = lsp_status.status()
+        local server_name = lspclient.get_lsp_client()
+        return string.len(status) < 5 and server_name or status
+      end,
       highlight = {colors.orange, colors.line_bg}
     }
   }
@@ -202,11 +199,11 @@ local function right_config()
 end
 
 function Galaxy.config()
-  cmd("hi! StatusLine guibg=" .. colors.line_bg .. " guifg=" .. colors.line_bg)
   line.short_line_list = {"NvimTree", "Vista", "packer"}
   left_config()
   mid_config()
   right_config()
+  cmd("hi! StatusLine guibg=" .. colors.line_bg .. " guifg=" .. colors.line_bg)
 end
 
 local metatable = {

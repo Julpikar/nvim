@@ -8,7 +8,6 @@ end
 
 function Format.config()
   local formatter = require "formatter"
-  local filename = vim.api.nvim_buf_get_name(0)
   local formatter_config = {}
 
   formatter_config["lua"] = {
@@ -21,12 +20,12 @@ function Format.config()
     end
   }
 
-  formatter_config["python"] = {
+  formatter_config["php"] = {
     function()
       return {
-        exe = "autopep8",
-        args = {"--in-place", "--aggressive", "--aggressive", filename},
-        stdin = true
+        exe = "phpcbf",
+        args = {"--standard=psr12", vim.api.nvim_buf_get_name(0)},
+        stdin = false
       }
     end
   }
@@ -35,7 +34,8 @@ function Format.config()
     function()
       return {
         exe = "rustfmt",
-        args = {"--emit=stdout", stdin = true}
+        args = {"--emit=stdout"},
+        stdin = true
       }
     end
   }

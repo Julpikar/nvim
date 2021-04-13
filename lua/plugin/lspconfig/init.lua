@@ -122,11 +122,18 @@ local function sumneko_config()
 end
 
 function Lsp.config()
+  -- Intelephense
+  lspconfig.intelephense.setup {
+    on_attach = on_attach,
+    capabilities = capabilities
+  }
+
   -- Rust Analyzer
   lspconfig.rust_analyzer.setup {
     on_attach = on_attach,
     capabilities = capabilities
   }
+
   -- Sumneko
   sumneko_config()
 
