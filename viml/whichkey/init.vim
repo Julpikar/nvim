@@ -12,6 +12,7 @@ nnoremap <silent> <leader> :silent <c-u> :silent WhichKey '<Space>'<CR>
 vnoremap <silent> <leader> :silent <c-u> :silent WhichKeyVisual '<Space>'<CR>
 
 let g:which_key_use_floating_win = 0
+let g:which_key_fallback_to_native_key = 1
 
 " Hide status line
 autocmd! FileType which_key

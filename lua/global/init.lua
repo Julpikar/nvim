@@ -8,6 +8,9 @@ function Global.load_settings()
   -- Enable 24-bit RGB color
   o.termguicolors = true
 
+  -- I want make it fast
+  o.lazyredraw = true
+
   -- Windows mapping
   cmd("source $VIMRUNTIME/mswin.vim")
 

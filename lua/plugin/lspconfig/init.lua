@@ -31,16 +31,9 @@ local function on_attach(client, bufnr)
     {"n", "K", "<Cmd>lua vim.lsp.buf.hover()<CR>"},
     {"n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>"},
     {"n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>"},
-    {"n", "<space>wa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>"},
-    {"n", "<space>wr", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>"},
-    {"n", "<space>wl", "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>"},
-    {"n", "<space>D", "<cmd>lua vim.lsp.buf.type_definition()<CR>"},
-    {"n", "<space>rn", "<cmd>lua vim.lsp.buf.rename()<CR>"},
     {"n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>"},
-    {"n", "<space>e", "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>"},
     {"n", "[d", "<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>"},
-    {"n", "]d", "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>"},
-    {"n", "<space>q", "<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>"}
+    {"n", "]d", "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>"}
   }
 
   for _, keymap in ipairs(keymaps) do

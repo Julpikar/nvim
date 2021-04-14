@@ -22,27 +22,6 @@ local function plugin_init(use)
     end
   }
 
-  use {
-    "AlessandroYorba/Despacio",
-    disable = true,
-    setup = function()
-      -- Dark Grey Background
-      --vim.g.despacio_Sunset = 1
-
-      -- Even Darker Grey Background
-      --vim.g.despacio_Twilight = 1
-
-      -- Almost Black Background
-      vim.g.despacio_Midnight = 1
-
-      -- Black Background
-      --vim.g.despacio_Pitch = 1
-    end,
-    config = function()
-      vim.cmd [[colorscheme despacio]]
-    end
-  }
-
   -- Editing
   use "mg979/vim-visual-multi"
   use {
@@ -72,6 +51,7 @@ local function plugin_init(use)
       require("plugin.dashboard").config()
     end
   }
+
   -- Explorer
   use {
     "kyazdani42/nvim-tree.lua",
@@ -219,6 +199,12 @@ local function plugin_init(use)
 
   -- Telescope
   use {"nvim-telescope/telescope.nvim", requires = {"nvim-lua/popup.nvim", "nvim-lua/plenary.nvim"}}
+
+  -- Interacting with databases
+  use {"tpope/vim-dadbod", requires = {"kristijanhusak/vim-dadbod-completion", "kristijanhusak/vim-dadbod-ui"}}
+
+  -- Vim graphical debugger
+  use {"puremourning/vimspector", disable = true}
 
   -- Lua REPL
   use "rafcamlet/nvim-luapad"
