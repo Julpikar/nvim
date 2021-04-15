@@ -141,7 +141,7 @@ local function mid_config()
       provider = function()
         local status = lsp_status.status()
         local server_name = lspclient.get_lsp_client()
-        return string.len(status) < 5 and server_name or status
+        return string.len(status) < 5 and '• '..server_name or status
       end,
       highlight = {colors.orange, colors.line_bg}
     }

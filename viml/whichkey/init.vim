@@ -1,6 +1,5 @@
 " Change Mapleader
 let mapleader = "\<space>"
-let maplocalleader="`"
 
 " Timeout
 let g:which_key_timeout = 100
@@ -29,28 +28,12 @@ for s:i in range(1, 9)
 endfor
 unlet s:i
 
-let g:leader_map[' '] = {
-      \ 'name': '+tab' ,
-      \ '1' : 'tab-1'  ,
-      \ '2' : 'tab-2'  ,
-      \ '3' : 'tab-3'  ,
-      \ '4' : 'tab-4'  ,
-      \ '5' : 'tab-5'  ,
-      \ '6' : 'tab-6'  ,
-      \ '7' : 'tab-7'  ,
-      \ '8' : 'tab-8'  ,
-      \ '9' : 'tab-9'  ,
-      \ 'c' : ['tabclose', 'close-current-tab'],
-      \ }
-
 let g:leader_map['b'] = {
   \ 'name': '+buffer',
-  \ '>':    ['BufferMoveNext',     'move next'],
-  \ '<':    ['BufferMovePrevious', 'move prev'],
-  \ 'b':    ['BufferPick',         'pick buffer'],
-  \ 'd':    ['BufferClose',        'delete-buffer'],
-  \ 'n':    ['bnext',              'next-buffer'],
-  \ 'p':    ['bprevious',          'previous-buffer'],
+  \ 'd':    ['bdelete',             'delete-buffer'],
+  \ 'n':    ['BufferLineCyclePrev', 'next-buffer'],
+  \ 'p':    ['BufferLineCyclePrev', 'previous-buffer'],
+  \ 't':    ['BufferLinePick',      'select-tab']
   \ }
 
 let g:leader_map['d'] = {
@@ -85,7 +68,7 @@ let g:leader_map['F'] = {
 let g:leader_map['g'] = {
   \ 'name' : '+git/version-control' ,
   \ 'b' : ['Gblame'                 , 'fugitive-blame']             ,
-  \ 'B' : ['Gitsigns blame_line'    , 'gitsigns-blame-line']
+  \ 'B' : ['Gitsigns blame_line'    , 'gitsigns-blame-line']        ,
   \ 'c' : ['BCommits'               , 'commits-for-current-buffer'] ,
   \ 'C' : ['Gcommit'                , 'fugitive-commit']            ,
   \ 'd' : ['Gdiff'                  , 'fugitive-diff']              ,
@@ -97,7 +80,7 @@ let g:leader_map['g'] = {
   \ 'p' : ['Git push'               , 'fugitive-push']              ,
   \ }
 
-let g:leader_map["h"]={
+let g:leader_map['h']={
   \ 'name': '+hop/jump',
   \ 'c':    ['HopChar1',   'char mode 1'],
   \ 'd':    ['HopChar2',   'char mode 2'],
@@ -164,6 +147,14 @@ let g:leader_map['t'] = {
   \ 'p':    [':FloatermNew python',                      'python'],
   \ 'm':    [':FloatermNew lazynpm',                     'npm'],
   \ 't':    [':FloatermToggle',                          'toggle'],
+  \ }
+
+let g:leader_map['w'] = {
+  \ 'name': '+window',
+  \ 'w' :[':wincmd k<CR>','window-up'],
+  \ 's' :[':wincmd j<CR>','window-bottom'],
+  \ 'a' :[':wincmd h<CR>','window-left'],
+  \ 'd' :[':wincmd l<CR>','window-right'],
   \ }
 
 let g:leader_map['x'] = {
