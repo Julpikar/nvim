@@ -18,7 +18,38 @@ local function plugin_init(use)
       g.gruvbox_material_cursor = "green"
     end,
     config = function()
-      vim.cmd [[colorscheme gruvbox-material]]
+      --vim.cmd [[colorscheme gruvbox-material]]
+    end
+  }
+  use {
+    "arcticicestudio/nord-vim",
+    config = function()
+      --vim.cmd [[colorscheme nord]]
+    end
+  }
+  use {
+    "glepnir/oceanic-material",
+    setup = function()
+      -- ocean: #1b2b34 medium: #282C34 deep:#212112 darker:#1d1f21
+      --vim.g.oceanic_material_background = "medium"
+      vim.g.oceanic_material_allow_bold = true
+      vim.g.oceanic_material_allow_italic = true
+      vim.g.oceanic_material_allow_underline = true
+      vim.g.oceanic_material_allow_undercurl = true
+    end,
+    config = function()
+      --vim.cmd [[colorscheme oceanic_material]]
+    end
+  }
+  use "sainnhe/sonokai"
+  use {
+    "bluz71/vim-nightfly-guicolors",
+    setup = function()
+      vim.g.nightflyCursorColor = true
+      vim.g.nightflyUnderlineMatchParen = true
+    end,
+    config = function()
+      vim.cmd [[colorscheme nightfly]]
     end
   }
 
@@ -119,7 +150,7 @@ local function plugin_init(use)
   use {
     "lewis6991/gitsigns.nvim",
     config = function()
-      require("gitsigns").setup()
+      require("gitsigns").setup {keymaps = {}}
     end
   }
 

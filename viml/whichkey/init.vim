@@ -45,12 +45,12 @@ let g:leader_map[' '] = {
 
 let g:leader_map['b'] = {
   \ 'name': '+buffer',
-  \ '>':    [':BufferMoveNext',     'move next'],
-  \ '<':    [':BufferMovePrevious', 'move prev'],
-  \ 'b':    [':BufferPick',         'pick buffer'],
-  \ 'd':    [':BufferClose',        'delete-buffer'],
-  \ 'n':    ['bnext',               'next-buffer'],
-  \ 'p':    ['bprevious',           'previous-buffer'],
+  \ '>':    ['BufferMoveNext',     'move next'],
+  \ '<':    ['BufferMovePrevious', 'move prev'],
+  \ 'b':    ['BufferPick',         'pick buffer'],
+  \ 'd':    ['BufferClose',        'delete-buffer'],
+  \ 'n':    ['bnext',              'next-buffer'],
+  \ 'p':    ['bprevious',          'previous-buffer'],
   \ }
 
 let g:leader_map['d'] = {
@@ -65,7 +65,7 @@ let g:leader_map['d'] = {
 
 let g:leader_map['e'] = {
       \ 'name': '+edit',
-      \ ''  : [':edit!','edit file']
+      \ ''  : ['edit!','edit file']
       \}
 
 let g:leader_map['F'] = {
@@ -85,6 +85,7 @@ let g:leader_map['F'] = {
 let g:leader_map['g'] = {
   \ 'name' : '+git/version-control' ,
   \ 'b' : ['Gblame'                 , 'fugitive-blame']             ,
+  \ 'B' : ['Gitsigns blame_line'    , 'gitsigns-blame-line']
   \ 'c' : ['BCommits'               , 'commits-for-current-buffer'] ,
   \ 'C' : ['Gcommit'                , 'fugitive-commit']            ,
   \ 'd' : ['Gdiff'                  , 'fugitive-diff']              ,
@@ -95,6 +96,15 @@ let g:leader_map['g'] = {
   \ 'w' : ['Gwrite'                 , 'fugitive-write']             ,
   \ 'p' : ['Git push'               , 'fugitive-push']              ,
   \ }
+
+let g:leader_map["h"]={
+  \ 'name': '+hop/jump',
+  \ 'c':    ['HopChar1',   'char mode 1'],
+  \ 'd':    ['HopChar2',   'char mode 2'],
+  \ 'l':    ['HopLine',    'line mode'],
+  \ 'p':    ['HopPattern', 'pattern mode'],
+  \ 'w':    ['HopWord',    'word mode']
+  \}
 
 let g:leader_map['l'] = {
   \ 'name': '+lsp'                               ,
@@ -131,6 +141,7 @@ let g:leader_map['s'] = {
   \ 'name' : '+search/show'                        ,
   \ '.' : [':Telescope filetypes'                   , 'filetypes'],
   \ 'B' : [':Telescope git_branches'                , 'git branches'],
+  \ 'c' : [':Telescope colorscheme'                 , 'colorschemes'],
   \ 'd' : [':Telescope lsp_document_diagnostics'    , 'document_diagnostics'],
   \ 'D' : [':Telescope lsp_workspace_diagnostics'   , 'workspace_diagnostics'],
   \ 'f' : [':Telescope find_files'                  , 'files'],
@@ -140,9 +151,8 @@ let g:leader_map['s'] = {
   \ 'M' : [':Telescope man_pages'                   , 'man_pages'],
   \ 'o' : [':Telescope vim_options'                 , 'vim_options'],
   \ 't' : [':Telescope live_grep'                   , 'text'],
-  \ 'r' : [':Telescope registers'                   , 'registers'],
+  \ 'z' : [':Telescope registers'                   , 'registers'],
   \ 'w' : [':Telescope file_browser'                , 'buf_fuz_find'],
-  \ 'u' : [':Telescope colorscheme'                 , 'colorschemes'],
   \ }
 
 let g:leader_map['t'] = {
