@@ -203,6 +203,15 @@ local function plugin_init(use)
     end
   }
 
+  -- External Linter
+  use {
+    "mfussenegger/nvim-lint",
+    disable = true,
+    config = function()
+      require("plugin.nvim-lint").config()
+    end
+  }
+
   -- Formatter
   use {
     "mhartington/formatter.nvim",

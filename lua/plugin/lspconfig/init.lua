@@ -16,6 +16,16 @@ local capabilities = lsp_status.capabilities
 -- compe use LSP snippet
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 
+-- Disable diagnostic on insert
+vim.lsp.handlers["textDocument/publishDiagnostics"] =
+  vim.lsp.with(
+  vim.lsp.diagnostic.on_publish_diagnostics,
+  {
+    -- delay update diagnostics
+    update_in_insert = false
+  }
+)
+
 local function on_attach(client, bufnr)
   lsp_status.on_attach(client, bufnr)
 
