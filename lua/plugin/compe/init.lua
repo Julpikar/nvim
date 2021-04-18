@@ -4,7 +4,7 @@ local function set_keymap()
   local remap = vim.api.nvim_set_keymap
   local opts = {noremap = true, silent = true, expr = true}
   remap("i", "<C-Space>", "compe#complete()", opts)
-  remap("i", "<CR> ", 'compe#confirm({ \'keys\': "\\<Plug>delimitMateCR", \'mode\': \'\' })', opts)
+  remap("i", "<CR>", "compe#confirm({ 'keys': '<Plug>delimitMateCR', 'mode': '' })", opts)
   remap("i", "<C-e>", "compe#close('<C-e>')", opts)
   remap("i", "<C-f>", "compe#scroll({ 'delta': +4 })", opts)
   remap("i", "<C-d>", "compe#scroll({ 'delta': -4 })", opts)

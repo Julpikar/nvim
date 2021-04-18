@@ -200,7 +200,8 @@ local function plugin_init(use)
     "hrsh7th/vim-vsnip",
     config = function()
       require("plugin.vsnip").config()
-    end
+    end,
+    requires = "rafamadriz/friendly-snippets"
   }
 
   -- External Linter
