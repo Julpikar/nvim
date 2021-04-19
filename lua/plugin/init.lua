@@ -7,42 +7,6 @@ local function plugin_init(use)
 
   -- Colorscheme
   use {
-    "sainnhe/gruvbox-material",
-    disable = false,
-    setup = function()
-      local g = vim.g
-      g.gruvbox_material_palette = "material"
-      g.gruvbox_material_background = "hard"
-      g.gruvbox_material_enable_bold = true
-      g.gruvbox_material_enable_italic = true
-      g.gruvbox_material_cursor = "green"
-    end,
-    config = function()
-      --vim.cmd [[colorscheme gruvbox-material]]
-    end
-  }
-  use {
-    "arcticicestudio/nord-vim",
-    config = function()
-      --vim.cmd [[colorscheme nord]]
-    end
-  }
-  use {
-    "glepnir/oceanic-material",
-    setup = function()
-      -- ocean: #1b2b34 medium: #282C34 deep:#212112 darker:#1d1f21
-      --vim.g.oceanic_material_background = "medium"
-      vim.g.oceanic_material_allow_bold = true
-      vim.g.oceanic_material_allow_italic = true
-      vim.g.oceanic_material_allow_underline = true
-      vim.g.oceanic_material_allow_undercurl = true
-    end,
-    config = function()
-      --vim.cmd [[colorscheme oceanic_material]]
-    end
-  }
-  use "sainnhe/sonokai"
-  use {
     "bluz71/vim-nightfly-guicolors",
     setup = function()
       vim.g.nightflyCursorColor = true
@@ -72,6 +36,17 @@ local function plugin_init(use)
     "Raimondi/delimitMate",
     config = function()
       require("plugin.delimitmate").config()
+    end
+  }
+
+  -- Comment
+  use {
+    "b3nj5m1n/kommentary",
+    setup = function()
+      vim.g.kommentary_create_default_mappings = false
+    end,
+    config = function()
+      require("plugin.kommentary").config()
     end
   }
 
