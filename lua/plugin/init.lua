@@ -234,7 +234,7 @@ local function plugin_init(use)
   use {
     "norcalli/nvim-colorizer.lua",
     config = function()
-      require "colorizer".setup()
+      require("colorizer").setup()
     end
   }
 
@@ -249,6 +249,14 @@ local function plugin_init(use)
 
   -- Lua REPL
   use "rafcamlet/nvim-luapad"
+
+  -- Golang
+  use {
+    "crispgm/nvim-go",
+    config = function()
+      require("plugin.nvim-go").config()
+    end
+  }
 end
 
 function Plugin_manager.load_plugins()

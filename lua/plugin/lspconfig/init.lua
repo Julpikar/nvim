@@ -125,6 +125,12 @@ local function sumneko_config()
 end
 
 function Lsp.config()
+  -- Golang
+  lspconfig.gopls.setup {
+    on_attach = on_attach,
+    capabilities = capabilities
+  }
+
   -- Intelephense
   lspconfig.intelephense.setup {
     on_attach = on_attach,

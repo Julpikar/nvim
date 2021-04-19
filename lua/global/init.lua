@@ -31,7 +31,6 @@ function Global.load_settings()
   -- Indentation Setting
   o.autoindent = true
   o.shiftwidth = 2
-  cmd("filetype indent off")
 
   -- Tab Setting
   o.tabstop = 2
