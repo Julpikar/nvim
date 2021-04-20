@@ -166,10 +166,11 @@ let g:leader_map['t'] = {
 
 let g:leader_map['w'] = {
       \ 'name': '+window',
-      \ 'w' :[':wincmd k<CR>','window-up'],
-      \ 's' :[':wincmd j<CR>','window-bottom'],
-      \ 'a' :[':wincmd h<CR>','window-left'],
-      \ 'd' :[':wincmd l<CR>','window-right'],
+      \ 'w' :[':execute "lua require(\"Navigator\").up()"','window-up'],
+      \ 's' :[':execute "lua require(\"Navigator\").down()"','window-bottom'],
+      \ 'a' :[':execute "lua require(\"Navigator\").left()"','window-left'],
+      \ 'd' :[':execute "lua require(\"Navigator\").right()"','window-right'],
+      \ 'z' :[':execute "lua require(\"Navigator\").previous()"','window-previous']
       \ }
 
 let g:leader_map['x'] = {

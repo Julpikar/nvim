@@ -18,7 +18,12 @@ local function plugin_init(use)
   }
 
   -- Editing
-  use "mg979/vim-visual-multi"
+  use {
+    "mg979/vim-visual-multi",
+    setup = function()
+      vim.g.VM_theme = "neon"
+    end
+  }
   use {
     "ntpeters/vim-better-whitespace",
     config = function()
@@ -46,7 +51,9 @@ local function plugin_init(use)
       vim.g.kommentary_create_default_mappings = false
     end,
     config = function()
-      require("plugin.kommentary").config()
+      local remap = vim.api.nvim_set_keymap
+      remap("v", "<leader>ci", "<Plug>kommentary_visual_increase", {})
+      remap("v", "<leader>cd", "<Plug>kommentary_visual_decrease", {})
     end
   }
 
@@ -80,6 +87,12 @@ local function plugin_init(use)
 
   -- Navigation
   use "phaazon/hop.nvim"
+  use {
+    "numToStr/Navigator.nvim",
+    config = function()
+      require("plugin.navigator").config()
+    end
+  }
 
   -- Line number
   use {
@@ -219,8 +232,8 @@ local function plugin_init(use)
   -- Interacting with databases
   use {"tpope/vim-dadbod", requires = {"kristijanhusak/vim-dadbod-completion", "kristijanhusak/vim-dadbod-ui"}}
 
-  -- Vim graphical debugger
-  use {"puremourning/vimspector", disable = true}
+  -- Debugger
+  use {"mfussenegger/nvim-dap", disable = true}
 
   -- Lua REPL
   use "rafcamlet/nvim-luapad"
