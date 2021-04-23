@@ -20,12 +20,12 @@ local icons = {
     info = "",
     hint = ""
   },
-  diff = {
+  git = {
+    branch = "",
     add = "",
     modified = "",
     remove = ""
-  },
-  git = ""
+  }
 }
 
 local colors = {
@@ -141,7 +141,7 @@ local function mid_config()
       provider = function()
         local status = lsp_status.status()
         local server_name = lspclient.get_lsp_client()
-        return string.len(status) < 5 and '• '..server_name or status
+        return string.len(status) < 5 and "• " .. server_name or status
       end,
       highlight = {colors.orange, colors.line_bg}
     }
@@ -154,42 +154,50 @@ local function right_config()
     GitBranch = {
       provider = vcs.get_git_branch,
       condition = condition.check_git_workspace,
-      icon = " ",
+      icon = icons.git.branch .. " ",
       highlight = {colors.orange, colors.line_bg, "bold"}
     }
   }
   right[2] = {
-    DiffAdd = {
-      provider = vcs.diff_add,
-      condition = condition.hide_in_width,
-      icon = icons.diff.add .. " ",
-      highlight = {colors.green, colors.line_bg}
+    Space = {
+      provider = function()
+        return " "
+      end,
+      highlight = {colors.line_bg, colors.line_bg}
     }
   }
   right[3] = {
-    DiffModified = {
-      provider = vcs.diff_modified,
+    DiffAdd = {
+      provider = vcs.diff_add,
       condition = condition.hide_in_width,
-      icon = icons.diff.modified .. " ",
-      highlight = {colors.yellow, colors.line_bg}
+      icon = icons.git.add .. " ",
+      highlight = {colors.green, colors.line_bg}
     }
   }
   right[4] = {
-    DiffRemove = {
-      provider = vcs.diff_remove,
+    DiffModified = {
+      provider = vcs.diff_modified,
       condition = condition.hide_in_width,
-      icon = icons.diff.remove .. " ",
-      highlight = {colors.red, colors.line_bg}
+      icon = icons.git.modified .. " ",
+      highlight = {colors.yellow, colors.line_bg}
     }
   }
   right[5] = {
+    DiffRemove = {
+      provider = vcs.diff_remove,
+      condition = condition.hide_in_width,
+      icon = icons.git.remove .. " ",
+      highlight = {colors.red, colors.line_bg}
+    }
+  }
+  right[6] = {
     LineColumn = {
       provider = fileinfo.line_column,
       condition = condition.buffer_not_empty,
       highlight = {colors.green, colors.line_bg}
     }
   }
-  right[6] = {
+  right[7] = {
     LinePercent = {
       provider = fileinfo.current_line_percent,
       condition = condition.buffer_not_empty,
