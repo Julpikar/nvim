@@ -10,6 +10,26 @@ function Format.config()
   local formatter = require "formatter"
   local formatter_config = {}
 
+  formatter_config["c"] = {
+    function()
+      return {
+        exe = "clang-format",
+        args = {"--style=LLVM"},
+        stdin = true
+      }
+    end
+  }
+
+  formatter_config["cpp"] = {
+    function()
+      return {
+        exe = "clang-format",
+        args = {"--style=LLVM"},
+        stdin = true
+      }
+    end
+  }
+
   formatter_config["lua"] = {
     function()
       return {
@@ -24,7 +44,7 @@ function Format.config()
     function()
       return {
         exe = "phpcbf",
-        args = {"--standard=psr12", vim.api.nvim_buf_get_name(0)},
+        args = {"--standard=psr12"},
         stdin = false
       }
     end

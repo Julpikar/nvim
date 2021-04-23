@@ -16,6 +16,21 @@ local function plugin_init(use)
       vim.cmd [[colorscheme nightfly]]
     end
   }
+  use {
+    "sainnhe/gruvbox-material",
+    disable = false,
+    setup = function()
+      local g = vim.g
+      g.gruvbox_material_palette = "material"
+      g.gruvbox_material_background = "hard"
+      g.gruvbox_material_enable_bold = true
+      g.gruvbox_material_enable_italic = true
+      g.gruvbox_material_cursor = "green"
+    end,
+    config = function()
+      --vim.cmd [[colorscheme gruvbox-material]]
+    end
+  }
 
   -- Editing
   use {
