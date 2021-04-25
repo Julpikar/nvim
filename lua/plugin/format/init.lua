@@ -40,16 +40,6 @@ function Format.config()
     end
   }
 
-  formatter_config["php"] = {
-    function()
-      return {
-        exe = "phpcbf",
-        args = {"--standard=psr12"},
-        stdin = false
-      }
-    end
-  }
-
   formatter_config["rust"] = {
     function()
       return {
