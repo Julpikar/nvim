@@ -29,7 +29,7 @@ function Global.load_settings()
   o.guifont = "SauceCodePro Nf:h9"
 
   -- Indentation Setting
-  vim.cmd[[set autoindent]]
+  o.autoindent = true
   o.shiftwidth = 2
 
   -- Tab Setting
