@@ -2,9 +2,9 @@ local Tree = {}
 
 local function set_keymap()
   local remap = vim.api.nvim_set_keymap
-  remap("n", "<F2>", ":NvimTreeToggle<CR>", {noremap = true})
-  remap("n", "<F3>", ":NvimTreeRefresh<CR>", {noremap = true})
-  remap("n", "<F4>", ":NvimTreeFindFile<CR>", {noremap = true})
+  remap("n", "<F2>", ":NvimTreeToggle<CR>", {noremap = true, silent = true})
+  remap("n", "<F3>", ":NvimTreeRefresh<CR>", {noremap = true, silent = true})
+  remap("n", "<F4>", ":NvimTreeFindFile<CR>", {noremap = true, silent = true})
 end
 
 function Tree.config()

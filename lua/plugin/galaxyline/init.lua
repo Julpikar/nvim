@@ -30,7 +30,7 @@ local icons = {
 
 local colors = {
   bg = "#202328",
-  line_bg = "#1a1c1d",
+  line_bg = "#27292E", -- "#1a1c1d",
   fg = "#bbc2cf",
   yellow = "#ECBE7B",
   cyan = "#008080",
@@ -206,11 +206,24 @@ local function right_config()
   }
 end
 
+local function short_line_right_config()
+  local short_line_right = line.section.short_line_right
+  short_line_right[1] = {
+    FolderIcon = {
+      provider = function()
+        return "פּ"
+      end,
+      highlight = {colors.green, colors.line_bg}
+    }
+  }
+end
+
 function Galaxy.config()
   line.short_line_list = {"NvimTree", "Vista", "packer"}
   left_config()
   mid_config()
   right_config()
+  short_line_right_config()
   cmd("hi! StatusLine guibg=" .. colors.line_bg .. " guifg=" .. colors.line_bg)
 end
 

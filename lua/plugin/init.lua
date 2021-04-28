@@ -13,7 +13,19 @@ local function plugin_init(use)
       vim.g.nightflyUnderlineMatchParen = true
     end,
     config = function()
-      vim.cmd [[colorscheme nightfly]]
+      -- vim.cmd [[colorscheme nightfly]]
+    end
+  }
+  use {
+    "sainnhe/sonokai",
+    setup = function()
+      vim.g.sonokai_style = "atlantis"
+      vim.g.sonokai_enable_italic = true
+      vim.g.sonokai_diagnostic_text_highlight = true
+      vim.g.sonokai_diagnostic_virtual_text = "colored"
+    end,
+    config = function()
+      vim.cmd [[colorscheme sonokai]]
     end
   }
 
