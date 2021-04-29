@@ -7,16 +7,6 @@ local function plugin_init(use)
 
   -- Colorscheme
   use {
-    "bluz71/vim-nightfly-guicolors",
-    setup = function()
-      vim.g.nightflyCursorColor = true
-      vim.g.nightflyUnderlineMatchParen = true
-    end,
-    config = function()
-      -- vim.cmd [[colorscheme nightfly]]
-    end
-  }
-  use {
     "sainnhe/sonokai",
     setup = function()
       vim.g.sonokai_style = "atlantis"
