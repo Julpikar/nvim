@@ -95,7 +95,9 @@ local function left_config()
   left[3] = {
     FileName = {
       provider = function()
-        return fn.expand("%:F")
+        local fullname = fn.expand("%:F")
+        local shortname = fileinfo.get_current_file_name()
+        return string.len(fullname) > 40 and shortname or fullname
       end,
       condition = condition.buffer_not_empty,
       highlight = {fileinfo.get_file_icon_color, colors.line_bg},
@@ -113,38 +115,6 @@ local function left_config()
       end,
       condition = condition.buffer_not_empty,
       highlight = {colors.orange, colors.line_bg}
-    }
-  }
-end
-
-local function mid_config()
-  local mid = line.section.mid
-  mid[1] = {
-    DiagnosticError = {
-      provider = diagnostic.get_diagnostic_error,
-      icon = icons.diagnostic.error .. " ",
-      highlight = {colors.red, colors.line_bg}
-    }
-  }
-  mid[2] = {
-    DiagnosticWarn = {
-      provider = diagnostic.get_diagnostic_warn,
-      icon = icons.diagnostic.warn .. " ",
-      highlight = {colors.yellow, colors.line_bg}
-    }
-  }
-  mid[3] = {
-    DiagnosticInfo = {
-      provider = diagnostic.get_diagnostic_info,
-      icon = icons.diagnostic.info .. " ",
-      highlight = {colors.green, colors.line_bg}
-    }
-  }
-  mid[4] = {
-    DiagnosticHint = {
-      provider = diagnostic.get_diagnostic_hint,
-      icon = icons.diagnostic.hint .. " ",
-      highlight = {colors.blue, colors.line_bg}
     }
   }
 end
@@ -205,12 +175,39 @@ local function right_config()
       highlight = {colors.yellow, colors.line_bg}
     }
   }
+  right[8] = {
+    DiagnosticError = {
+      provider = diagnostic.get_diagnostic_error,
+      icon = icons.diagnostic.error .. " ",
+      highlight = {colors.red, colors.line_bg}
+    }
+  }
+  right[9] = {
+    DiagnosticWarn = {
+      provider = diagnostic.get_diagnostic_warn,
+      icon = icons.diagnostic.warn .. " ",
+      highlight = {colors.yellow, colors.line_bg}
+    }
+  }
+  right[10] = {
+    DiagnosticInfo = {
+      provider = diagnostic.get_diagnostic_info,
+      icon = icons.diagnostic.info .. " ",
+      highlight = {colors.green, colors.line_bg}
+    }
+  }
+  right[11] = {
+    DiagnosticHint = {
+      provider = diagnostic.get_diagnostic_hint,
+      icon = icons.diagnostic.hint .. " ",
+      highlight = {colors.blue, colors.line_bg}
+    }
+  }
 end
 
 function Galaxy.config()
   line.short_line_list = {"NvimTree", "Vista", "packer"}
   left_config()
-  mid_config()
   right_config()
   cmd("hi! StatusLine guibg=" .. colors.line_bg .. " guifg=" .. colors.line_bg)
 end
