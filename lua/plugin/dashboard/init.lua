@@ -35,10 +35,10 @@ local function set_keymap()
 end
 
 local function set_highlight()
-  cmd [[highlight dashboardFooter ctermfg=240]]
-  cmd [[highlight dashboardHeader ctermfg=114]]
-  cmd [[highlight dashboardCenter ctermfg=215]]
-  cmd [[highlight dashboardShortCut ctermfg=245]]
+  cmd [[highlight dashboardFooter ctermfg=white guifg=white]]
+  cmd [[highlight dashboardHeader ctermfg=white guifg=white]]
+  cmd [[highlight dashboardCenter ctermfg=white guifg=white]]
+  cmd [[highlight dashboardShortCut ctermfg=white guifg=white]]
 end
 
 function Dashboard.config()

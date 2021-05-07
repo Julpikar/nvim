@@ -5,7 +5,7 @@ local Lsp = {}
 
 lsp_status.config(
   {
-    status_symbol = "•",
+    status_symbol = "",
     diagnostics = false
   }
 )

@@ -104,46 +104,47 @@ local function left_config()
     }
   }
   left[4] = {
+    LspStatus = {
+      provider = function()
+        local lsp_status = require("lsp-status")
+        local status = lsp_status.status()
+        local server_name = lspclient.get_lsp_client()
+        return string.len(status) < 5 and " " .. server_name or status
+      end,
+      condition = condition.buffer_not_empty,
+      highlight = {colors.orange, colors.line_bg}
+    }
+  }
+end
+
+local function mid_config()
+  local mid = line.section.mid
+  mid[1] = {
     DiagnosticError = {
       provider = diagnostic.get_diagnostic_error,
       icon = icons.diagnostic.error .. " ",
       highlight = {colors.red, colors.line_bg}
     }
   }
-  left[5] = {
+  mid[2] = {
     DiagnosticWarn = {
       provider = diagnostic.get_diagnostic_warn,
       icon = icons.diagnostic.warn .. " ",
       highlight = {colors.yellow, colors.line_bg}
     }
   }
-  left[6] = {
+  mid[3] = {
     DiagnosticInfo = {
       provider = diagnostic.get_diagnostic_info,
       icon = icons.diagnostic.info .. " ",
       highlight = {colors.green, colors.line_bg}
     }
   }
-  left[7] = {
+  mid[4] = {
     DiagnosticHint = {
       provider = diagnostic.get_diagnostic_hint,
       icon = icons.diagnostic.hint .. " ",
       highlight = {colors.blue, colors.line_bg}
-    }
-  }
-end
-
-local function mid_config()
-  local lsp_status = require("lsp-status")
-  local mid = line.section.mid
-  mid[1] = {
-    LspStatus = {
-      provider = function()
-        local status = lsp_status.status()
-        local server_name = lspclient.get_lsp_client()
-        return string.len(status) < 5 and "• " .. server_name or status
-      end,
-      highlight = {colors.orange, colors.line_bg}
     }
   }
 end
