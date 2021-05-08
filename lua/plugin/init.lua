@@ -95,6 +95,12 @@ local function plugin_init(use)
       require("plugin.navigator").config()
     end
   }
+  use {
+    "dstein64/nvim-scrollview",
+    config = function()
+      vim.g.scrollview_winblend = 10
+    end
+  }
 
   -- Line number
   use {
