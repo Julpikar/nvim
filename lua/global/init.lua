@@ -1,5 +1,4 @@
 local cmd = vim.cmd
-local g = vim.g
 local o = vim.o
 
 local Global = {}
@@ -39,6 +38,10 @@ function Global.load_settings()
 
   -- Wrap text
   o.wrap = true
+
+  -- Limit character per line
+  cmd[[set textwidth=80]]
+  cmd [[set colorcolumn=80]]
 
   -- Postponed redraw
   o.lazyredraw = true

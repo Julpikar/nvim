@@ -12,6 +12,7 @@ end
 
 function Compe.config()
   vim.o.completeopt = "menuone,noselect"
+  vim.cmd("set pumheight=15")
   vim.cmd("set shortmess+=c")
 
   require "compe".setup {

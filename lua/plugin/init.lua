@@ -98,8 +98,19 @@ local function plugin_init(use)
   use {
     "dstein64/nvim-scrollview",
     config = function()
-      vim.g.scrollview_excluded_filetypes = {"dashboard", "vista"}
+      vim.g.scrollview_excluded_filetypes = {
+        "dashboard",
+        "vista"
+      }
       vim.g.scrollview_winblend = 10
+    end
+  }
+
+  -- Session
+  use {
+    "rmagatti/auto-session",
+    config = function()
+      require("plugin.session").config()
     end
   }
 
@@ -111,7 +122,9 @@ local function plugin_init(use)
     end,
     config = function()
       local remap = vim.api.nvim_set_keymap
-      local opts = {noremap = true}
+      local opts = {
+        noremap = true
+      }
       remap("n", "<F5>", ":NumbersToggle<CR>", opts)
       remap("n", "<F6>", ":NumbersOnOff<CR>", opts)
     end
@@ -236,10 +249,22 @@ local function plugin_init(use)
   }
 
   -- Telescope
-  use {"nvim-telescope/telescope.nvim", requires = {"nvim-lua/popup.nvim", "nvim-lua/plenary.nvim"}}
+  use {
+    "nvim-telescope/telescope.nvim",
+    requires = {
+      "nvim-lua/popup.nvim",
+      "nvim-lua/plenary.nvim"
+    }
+  }
 
   -- Interacting with databases
-  use {"tpope/vim-dadbod", requires = {"kristijanhusak/vim-dadbod-completion", "kristijanhusak/vim-dadbod-ui"}}
+  use {
+    "tpope/vim-dadbod",
+    requires = {
+      "kristijanhusak/vim-dadbod-completion",
+      "kristijanhusak/vim-dadbod-ui"
+    }
+  }
 
   -- Debugger
   use {"mfussenegger/nvim-dap", disable = true}
@@ -250,6 +275,7 @@ local function plugin_init(use)
   -- Golang
   use {
     "crispgm/nvim-go",
+    ft = "go",
     config = function()
       require("plugin.nvim-go").config()
     end
