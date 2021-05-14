@@ -21,7 +21,7 @@ local function plugin_init(use)
       vim.cmd [[colorscheme gruvbox-material]]
     end
   }
-  
+
   -- Editing
   use {
     "mg979/vim-visual-multi",
