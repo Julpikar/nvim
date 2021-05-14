@@ -7,18 +7,21 @@ local function plugin_init(use)
 
   -- Colorscheme
   use {
-    "sainnhe/sonokai",
+    "sainnhe/gruvbox-material",
+    disable = false,
     setup = function()
-      vim.g.sonokai_style = "atlantis"
-      vim.g.sonokai_enable_italic = true
-      vim.g.sonokai_diagnostic_text_highlight = true
-      vim.g.sonokai_diagnostic_virtual_text = "colored"
+      local g = vim.g
+      g.gruvbox_material_palette = "original"
+      g.gruvbox_material_background = "hard"
+      g.gruvbox_material_enable_bold = true
+      g.gruvbox_material_enable_italic = true
+      g.gruvbox_material_cursor = "green"
     end,
     config = function()
-      vim.cmd [[colorscheme sonokai]]
+      vim.cmd [[colorscheme gruvbox-material]]
     end
   }
-
+  
   -- Editing
   use {
     "mg979/vim-visual-multi",
@@ -108,9 +111,20 @@ local function plugin_init(use)
 
   -- Session
   use {
-    "rmagatti/auto-session",
+    "Julpikar/auto-session",
+    requires = {
+      "Julpikar/session-lens",
+      config = function()
+        require("session-lens").setup()
+      end
+    },
     config = function()
-      require("plugin.session").config()
+      require("auto-session").setup(
+        {
+          auto_restore_enabled = false,
+          auto_session_enable_last_session = false
+        }
+      )
     end
   }
 

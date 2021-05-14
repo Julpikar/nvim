@@ -43,6 +43,16 @@ end
 
 function Dashboard.config()
   g.dashboard_default_executive = "telescope"
+  g.dashboard_session_directory = vim.fn.stdpath("data") .. "/sessions/"
+  g.dashboard_custom_shortcut = {
+    last_session = "SPC s s",
+    find_history = "SPC s h",
+    find_file = "SPC s f",
+    change_colorscheme = "SPC s c",
+    new_file = "SPC e e",
+    find_word = "SPC s t",
+    book_marks = "SPC s m"
+  }
   set_keymap()
   set_logo()
   set_highlight()

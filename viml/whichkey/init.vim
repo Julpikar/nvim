@@ -31,7 +31,7 @@ unlet s:i
 let g:leader_map['b'] = {
       \ 'name': '+buffer',
       \ 'd':    ['bdelete',             'delete-buffer'],
-      \ 'n':    ['BufferLineCyclePrev', 'next-buffer'],
+      \ 'n':    ['BufferLineCycleNext', 'next-buffer'],
       \ 'p':    ['BufferLineCyclePrev', 'previous-buffer'],
       \ 't':    ['BufferLinePick',      'select-tab']
       \ }
@@ -133,7 +133,7 @@ let g:leader_map['m'] = {
 
 let g:leader_map['q'] = [ 'q', 'quit' ]
 
-let g:leader_map['Q'] = [ 'qa!', 'quit-without-saving' ]
+let g:leader_map['`']  = [ ':qa!', 'quit-without-saving' ]
 
 let g:leader_map['s'] = {
       \ 'name' : '+search/show'                        ,
@@ -148,6 +148,7 @@ let g:leader_map['s'] = {
       \ 'm' : [':Telescope marks'                       , 'marks'],
       \ 'M' : [':Telescope man_pages'                   , 'man_pages'],
       \ 'o' : [':Telescope vim_options'                 , 'vim_options'],
+      \ 's' : [':Telescope session-lens search_session' , 'session_load'],
       \ 't' : [':Telescope live_grep'                   , 'text'],
       \ 'z' : [':Telescope registers'                   , 'registers'],
       \ 'w' : [':Telescope file_browser'                , 'buf_fuz_find'],
@@ -170,12 +171,16 @@ let g:leader_map['w'] = {
       \ 's' :[':execute "lua require(\"Navigator\").down()"','window-bottom'],
       \ 'a' :[':execute "lua require(\"Navigator\").left()"','window-left'],
       \ 'd' :[':execute "lua require(\"Navigator\").right()"','window-right'],
-      \ 'z' :[':execute "lua require(\"Navigator\").previous()"','window-previous']
+      \ 'z' :[':execute "lua require(\"Navigator\").previous()"','window-previous'],
+      \ 'h' :[':sp','split-horizontal'],
+      \ 'v' :[':vs','split-vertical'],
       \ }
 
 let g:leader_map['x'] = {
       \ 'name' : '+text'           ,
       \ 'd' : ['StripWhitespace'   , 'delete-trailing-whitespace'] ,
+      \ 's' : [':SaveSession'      , 'save-session'],
+      \ 'x' : [':DeleteSession'    , 'delete-session'],
       \ }
 
 call which_key#register('<Space>', "g:leader_map")
