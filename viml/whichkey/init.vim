@@ -156,7 +156,8 @@ let g:leader_map['s'] = {
 
 let g:leader_map['t'] = {
       \ 'name': '+terminal',
-      \ ';':    [':FloatermNew --wintype=normal --height=6', 'terminal'],
+      \ 'h':    [':FloatermNew --wintype=split --height=6', 'horizontal-terminal'],
+      \ 'v':    [':FloatermNew --wintype=vsplit --width=0.5', 'vertical-terminal'],
       \ 'g':    [':FloatermNew lazygit',                     'git'],
       \ 'l':    [':FloatermNew lf',              'lf'],
       \ 'n':    [':FloatermNew node',                        'node'],
