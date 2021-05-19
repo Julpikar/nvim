@@ -53,20 +53,26 @@ let g:leader_map['c'] = {
 
 let g:leader_map['d'] = {
       \ 'name' : '+debug' ,
-      \ 'b' : ['DebugToggleBreakpoint '        , 'toggle breakpoint'],
-      \ 'c' : ['DebugContinue'                 , 'continue'],
-      \ 'i' : ['DebugStepInto'                 , 'step into'],
-      \ 'o' : ['DebugStepOver'                 , 'step over'],
-      \ 'r' : ['DebugToggleRepl'               , 'toggle repl'],
-      \ 's' : ['DebugStart'                    , 'start'],
+      \ 'b' : [':execute "lua require(\"dap\").toggle_breakpoint()"'   , 'toggle breakpoint'],
+      \ 'c' : [':execute "lua require(\"dap\").continue()"'            , 'continue'],
+      \ 'i' : [':execute "lua require(\"dap\").step_into()"'           , 'step-into'],
+      \ 'o' : [':execute "lua require(\"dap\").step_over()"'           , 'step-over'],
+      \ 'r' : [':execute "lua require(\"dap\").repl.open({}, \"vsplit\")"'           , 'open-repl'],
+      \ 't' : {
+        \ 'name' : '+telescope-debug',
+        \ 'c' : [':Telescope dap commands        ', 'dap-commands'],
+        \ 'o' : [':Telescope dap configurations  ', 'dap-configuratios'],
+        \ 'l' : [':Telescope dap list_breakpoints', 'dap-breakpoints'],
+        \ 'v' : [':Telescope dap variables       ', 'dap-variables'],
+        \ 'f' : [':Telescope dap frames          ', 'dap-frames'],
+        \},
+      \ 'x' : [':execute "lua require(\"dap\").step_out()"'            ,'step-out'],
+      \ 'z' : [':execute "lua require(\"dap\").run_last()"'            , 'run-start'],
       \ }
 
-let g:leader_map['e'] = {
-      \ 'name': '+edit',
-      \ ''  : ['edit!','edit file']
-      \ }
+let g:leader_map['e'] = ['edit!','edit-file']
 
-let g:leader_map['F'] = {
+let g:leader_map['f'] = {
       \ 'name': '+fold',
       \ 'O' : [':set foldlevel=20'  , 'open all'],
       \ 'C' : [':set foldlevel=0'   , 'close all'],
@@ -95,8 +101,19 @@ let g:leader_map['g'] = {
       \ 'p' : ['Git push'               , 'fugitive-push']              ,
       \ }
 
-let g:leader_map['h']={
-      \ 'name': '+hop/jump',
+let g:leader_map['h'] = {
+      \ 'name' : '+home/dashboard'                    ,
+      \ 'b' : ['DashboardJumpMarks'                   , 'book_marks']        ,
+      \ 'c' : ['DashboardChangeColorscheme'           , 'change_colorscheme'],
+      \ 'f' : ['DashboardFindFile'                    , 'find_file']         ,
+      \ 'h' : ['DashboardFindHistory'                 , 'find_history']      ,
+      \ 'n' : ['DashboardNewFile'                     , 'new_file']          ,
+      \ 's' : ['Telescope session-lens search_session', 'session']           ,
+      \ 'w' : ['DashboardFindWord'                    , 'word']              ,
+      \ }
+
+let g:leader_map['j']={
+      \ 'name': '+jump',
       \ 'c':    ['HopChar1',   'char mode 1'],
       \ 'd':    ['HopChar2',   'char mode 2'],
       \ 'l':    ['HopLine',    'line mode'],

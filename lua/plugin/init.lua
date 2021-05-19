@@ -281,7 +281,32 @@ local function plugin_init(use)
   }
 
   -- Debugger
-  use {"mfussenegger/nvim-dap", disable = true}
+  use {
+    "mfussenegger/nvim-dap",
+    requires = {
+      {
+        "nvim-telescope/telescope-dap.nvim",
+        config = function()
+          require("telescope").load_extension("dap")
+        end
+      },
+      {
+        "rcarriga/nvim-dap-ui",
+        config = function()
+          require("dapui").setup()
+        end
+      },
+      {
+        "theHamsta/nvim-dap-virtual-text",
+        config = function()
+          vim.g.dap_virtual_text = true
+        end
+      }
+    },
+    config = function()
+      require("plugin.nvim-dap").config()
+    end
+  }
 
   -- Lua REPL
   use "rafcamlet/nvim-luapad"
