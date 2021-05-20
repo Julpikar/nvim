@@ -1,8 +1,8 @@
+local dap = require("dap")
+
 local Debugger = {}
 
 local function set_debugger()
-  local dap = require("dap")
-
   -- Golang
   dap.adapters.go = {
     type = "executable",
@@ -33,12 +33,25 @@ local function set_debugger()
       type = "php",
       request = "launch",
       hostname = "127.0.0.1",
-      port = 9003
+      port = 9003,
+      serverSourceRoot = vim.fn.getcwd(),
+      localSourceRoot = "${workspaceRoot}"
+    },
+    {
+      name = "Launch currently open script",
+      type = "php",
+      request = "launch",
+      hostname = "127.0.0.1",
+      port = 9003,
+      program = "${file}",
+      cwd = "${fileDirname}",
+      runtimeExecutable = vim.fn.exepath("php")
     }
   }
 end
 
 function Debugger.config()
+  dap.set_log_level("TRACE")
   set_debugger()
 end
 
