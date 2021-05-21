@@ -9,6 +9,7 @@ end
 
 function Tree.config()
   vim.g.nvim_tree_indent_markers = 1
+  vim.g.nvim_tree_disable_window_picker = 1
   set_keymap()
 end
 

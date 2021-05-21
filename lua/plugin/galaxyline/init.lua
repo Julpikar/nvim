@@ -28,41 +28,36 @@ local icons = {
   }
 }
 
-local gruvbox = {
-  default_fg = "#ebdbb2",
-  default_bg = "#3c3836",
+local sonokai = {
   colors = {
-    fore = "#504945",
-    back = "#928374",
     dark = "#282828",
-    white = "#fbf1c7",
-    skyblue = "#458588",
-    cyan = "#89b482",
-    green = "#b8bb26",
-    oceanblue = "#83a598",
-    magenta = "#c14a4a",
-    orange = "#d65d0e",
-    red = "#ea6962",
-    violet = "#d3869b",
-    yellow = "#fabd2f"
+    cyan = "#85d3f2",
+    white = "#e2e2e3",
+    red = "#fc5d7c",
+    orange = "#f39660",
+    yellow = "#e7c664",
+    green = "#9ed072",
+    blue = "#76cce0",
+    purple = "#b39df3",
+    grey = "#7f8490"
   }
 }
 
 local mode_color = function()
   local mode_colors = {
-    n = gruvbox.colors.back,
-    i = gruvbox.colors.skyblue,
-    c = gruvbox.colors.yellow,
-    V = gruvbox.colors.cyan,
-    [""] = gruvbox.colors.yellow,
-    v = gruvbox.colors.cyan,
-    s = gruvbox.colors.magenta,
-    S = gruvbox.colors.magenta,
-    [""] = gruvbox.colors.magenta,
-    R = gruvbox.colors.yellow,
-    r = gruvbox.colors.yellow,
-    ["!"] = gruvbox.colors.cyan,
-    t = gruvbox.colors.skyblue
+    n = sonokai.colors.white,
+    i = sonokai.colors.red,
+    c = sonokai.colors.yellow,
+    V = sonokai.colors.cyan,
+    [""] = sonokai.colors.yellow,
+    v = sonokai.colors.cyan,
+    s = sonokai.colors.orange,
+    S = sonokai.colors.orange,
+    [""] = sonokai.colors.orange,
+    R = sonokai.colors.yellow,
+    r = sonokai.colors.yellow,
+    ["!"] = sonokai.colors.cyan,
+    t = sonokai.colors.blue
   }
 
   return mode_colors[vim.fn.mode()]
@@ -97,16 +92,16 @@ local function left_config()
         end
         return ""
       end,
-      highlight = {gruvbox.colors.dark, gruvbox.colors.dark},
+      highlight = {sonokai.colors.dark, sonokai.colors.dark},
       separator = icons.slant.left,
-      separator_highlight = {gruvbox.colors.dark, gruvbox.colors.dark}
+      separator_highlight = {sonokai.colors.dark, sonokai.colors.dark}
     }
   }
   left[2] = {
     FileIcon = {
       provider = fileinfo.get_file_icon,
       condition = condition.buffer_not_empty,
-      highlight = {fileinfo.get_file_icon_color, gruvbox.colors.dark}
+      highlight = {fileinfo.get_file_icon_color, sonokai.colors.dark}
     }
   }
   left[3] = {
@@ -117,9 +112,9 @@ local function left_config()
         return string.len(fullname) > 40 and shortname or fullname
       end,
       condition = condition.buffer_not_empty,
-      highlight = {fileinfo.get_file_icon_color, gruvbox.colors.dark},
+      highlight = {fileinfo.get_file_icon_color, sonokai.colors.dark},
       separator = icons.slant.right,
-      separator_highlight = {gruvbox.colors.dark, gruvbox.colors.dark}
+      separator_highlight = {sonokai.colors.dark, sonokai.colors.dark}
     }
   }
   left[4] = {
@@ -131,7 +126,7 @@ local function left_config()
         return string.len(status) < 5 and " " .. server_name or status
       end,
       condition = condition.buffer_not_empty,
-      highlight = {gruvbox.colors.back, gruvbox.colors.dark}
+      highlight = {sonokai.colors.grey, sonokai.colors.dark}
     }
   }
 end
@@ -143,7 +138,7 @@ local function right_config()
       provider = vcs.get_git_branch,
       condition = condition.check_git_workspace,
       icon = icons.git.branch .. " ",
-      highlight = {gruvbox.colors.red, gruvbox.colors.dark, "bold"}
+      highlight = {sonokai.colors.red, sonokai.colors.dark, "bold"}
     }
   }
   right[2] = {
@@ -151,7 +146,7 @@ local function right_config()
       provider = function()
         return " "
       end,
-      highlight = {gruvbox.colors.dark, gruvbox.colors.dark}
+      highlight = {sonokai.colors.dark, sonokai.colors.dark}
     }
   }
   right[3] = {
@@ -159,7 +154,7 @@ local function right_config()
       provider = vcs.diff_add,
       condition = condition.hide_in_width,
       icon = icons.git.add .. " ",
-      highlight = {gruvbox.colors.green, gruvbox.colors.dark}
+      highlight = {sonokai.colors.green, sonokai.colors.dark}
     }
   }
   right[4] = {
@@ -167,7 +162,7 @@ local function right_config()
       provider = vcs.diff_modified,
       condition = condition.hide_in_width,
       icon = icons.git.modified .. " ",
-      highlight = {gruvbox.colors.yellow, gruvbox.colors.dark}
+      highlight = {sonokai.colors.yellow, sonokai.colors.dark}
     }
   }
   right[5] = {
@@ -175,49 +170,49 @@ local function right_config()
       provider = vcs.diff_remove,
       condition = condition.hide_in_width,
       icon = icons.git.remove .. " ",
-      highlight = {gruvbox.colors.red, gruvbox.colors.dark}
+      highlight = {sonokai.colors.red, sonokai.colors.dark}
     }
   }
   right[6] = {
     LineColumn = {
       provider = fileinfo.line_column,
       condition = condition.buffer_not_empty,
-      highlight = {gruvbox.colors.oceanblue, gruvbox.colors.dark}
+      highlight = {sonokai.colors.blue, sonokai.colors.dark}
     }
   }
   right[7] = {
     LinePercent = {
       provider = fileinfo.current_line_percent,
       condition = condition.buffer_not_empty,
-      highlight = {gruvbox.colors.white, gruvbox.colors.dark}
+      highlight = {sonokai.colors.white, sonokai.colors.dark}
     }
   }
   right[8] = {
     DiagnosticError = {
       provider = diagnostic.get_diagnostic_error,
       icon = icons.diagnostic.error .. " ",
-      highlight = {gruvbox.colors.red, gruvbox.colors.dark}
+      highlight = {sonokai.colors.red, sonokai.colors.dark}
     }
   }
   right[9] = {
     DiagnosticWarn = {
       provider = diagnostic.get_diagnostic_warn,
       icon = icons.diagnostic.warn .. " ",
-      highlight = {gruvbox.colors.yellow, gruvbox.colors.dark}
+      highlight = {sonokai.colors.yellow, sonokai.colors.dark}
     }
   }
   right[10] = {
     DiagnosticInfo = {
       provider = diagnostic.get_diagnostic_info,
       icon = icons.diagnostic.info .. " ",
-      highlight = {gruvbox.colors.green, gruvbox.colors.dark}
+      highlight = {sonokai.colors.green, sonokai.colors.dark}
     }
   }
   right[11] = {
     DiagnosticHint = {
       provider = diagnostic.get_diagnostic_hint,
       icon = icons.diagnostic.hint .. " ",
-      highlight = {gruvbox.colors.skyblue, gruvbox.colors.dark}
+      highlight = {sonokai.colors.orange, sonokai.colors.dark}
     }
   }
 end
@@ -226,7 +221,8 @@ function Galaxy.config()
   line.short_line_list = {"NvimTree", "Vista", "packer"}
   left_config()
   right_config()
-  cmd("hi! StatusLine guibg=" .. gruvbox.colors.dark .. " guifg=" .. gruvbox.colors.dark)
+  cmd("highlight! StatusLine guibg=" .. sonokai.colors.dark .. " guifg=" .. sonokai.colors.dark)
+  cmd("highlight! StatusLineNC guibg=" .. sonokai.colors.dark .. " guifg=" .. sonokai.colors.dark)
 end
 
 local metatable = {

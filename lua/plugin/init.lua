@@ -7,18 +7,14 @@ local function plugin_init(use)
 
   -- Colorscheme
   use {
-    "sainnhe/gruvbox-material",
-    disable = false,
+    "sainnhe/sonokai",
     setup = function()
       local g = vim.g
-      g.gruvbox_material_palette = "original"
-      g.gruvbox_material_background = "hard"
-      g.gruvbox_material_enable_bold = true
-      g.gruvbox_material_enable_italic = true
-      g.gruvbox_material_cursor = "green"
+      g.sonokai_style = "default"
+      g.sonokai_enable_italic = 1
     end,
     config = function()
-      vim.cmd [[colorscheme gruvbox-material]]
+      vim.cmd [[colorscheme sonokai]]
     end
   }
 
@@ -146,9 +142,9 @@ local function plugin_init(use)
 
   -- Keymap guide
   use {
-    "liuchengxu/vim-which-key",
+    "folke/which-key.nvim",
     config = function()
-      vim.cmd("source " .. vim.fn.stdpath("config") .. "/viml/whichkey/init.vim")
+      require("plugin.whichkey").config()
     end
   }
 
@@ -301,15 +297,16 @@ local function plugin_init(use)
         config = function()
           vim.g.dap_virtual_text = true
         end
+      },
+      -- Lua Debugger
+      {
+        "jbyuki/one-small-step-for-vimkind"
       }
     },
     config = function()
       require("plugin.nvim-dap").config()
     end
   }
-
-  -- Lua REPL
-  use "rafcamlet/nvim-luapad"
 
   -- Golang
   use {
