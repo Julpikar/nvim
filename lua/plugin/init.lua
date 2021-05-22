@@ -39,9 +39,15 @@ local function plugin_init(use)
     end
   }
   use {
-    "Raimondi/delimitMate",
+    "windwp/nvim-autopairs",
     config = function()
-      require("plugin.delimitmate").config()
+      require("plugin.autopairs").config()
+    end
+  }
+  use {
+    "windwp/nvim-ts-autotag",
+    config = function()
+      require("nvim-ts-autotag").setup()
     end
   }
 
@@ -206,6 +212,12 @@ local function plugin_init(use)
     "kosayoda/nvim-lightbulb",
     config = function()
       require("plugin.lightbulb").config()
+    end
+  }
+  use {
+    "folke/trouble.nvim",
+    config = function()
+      require("trouble").setup()
     end
   }
 

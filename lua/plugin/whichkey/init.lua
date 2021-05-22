@@ -7,7 +7,7 @@ function WhichKey.config()
   wk.setup {
     key_labels = {
       ["<space>"] = "SPC",
-      ["<cr>"] = "RET",
+      ["<CR>"] = "RET",
       ["<tab>"] = "TAB"
     },
     layout = {
@@ -27,6 +27,7 @@ function WhichKey.config()
         name = "buffer",
         d = {"<CMD>bdelete<CR>", "delete-buffer"},
         n = {"<CMD>BufferLineCycleNext<CR>", "next-buffer"},
+        m = {"<CMD>bNext<CR>", "next-buffer-force"},
         p = {"<CMD>BufferLineCyclePrev<CR>", "previous-buffer"},
         t = {"<CMD>BufferLinePick<CR>", "select-tab"}
       }
@@ -71,8 +72,8 @@ function WhichKey.config()
           v = {"<CMD>Telescope dap variables<CR>", "dap-variables"},
           f = {"<CMD>Telescope dap frames<CR>", "dap-frames"}
         },
-        x = {'<CMD>execute "lua require("dap").step_out()"<CR>', "step-out"},
-        z = {'<CMD>execute "lua require("dap").run_last()"<CR>', "run-start"}
+        x = {"<CMD>execute 'lua require('dap').step_out()'<CR>", "step-out"},
+        z = {"<CMD>execute 'lua require('dap').run_last()'<CR>", "run-start"}
       }
     },
     {prefix = "<leader>"}
@@ -82,7 +83,8 @@ function WhichKey.config()
     {
       e = {
         name = "edit",
-        d = {"<CMD>StripWhitespace<CR>", "delete-trailing-whitespace"}
+        d = {"<CMD>StripWhitespace<CR>", "delete-trailing-whitespace"},
+        r = {"<CMD>edit!<CR>", "reload"}
       }
     },
     {prefix = "<leader>"}
@@ -220,9 +222,10 @@ function WhichKey.config()
   wk.register(
     {
       r = {
-        name = "session",
-        s = {"<CMD>SaveSession<CR>", "save-session"},
-        d = {"<CMD>DeleteSession<CR>", "delete-session"}
+        name = "refractor",
+        f = {"<CMD>lua require('spectre').open_file_search()<CR>", "current-file"},
+        o = {"<CMD>lua require('spectre').open()<CR>", "open-panel"},
+        w = {"<CMD>lua require('spectre').open_visual()<CR>", "current-word"}
       }
     },
     {prefix = "<leader>"}
@@ -273,13 +276,39 @@ function WhichKey.config()
     {
       w = {
         name = "window",
-        w = {'<CMD>execute "lua require("Navigator").up()"<CR>', "window-up"},
-        s = {'<CMD>execute "lua require("Navigator").down()"<CR>', "window-bottom"},
-        a = {'<CMD>execute "lua require("Navigator").left()"<CR>', "window-left"},
-        d = {'<CMD>execute "lua require("Navigator").right()"<CR>', "window-right"},
-        z = {'<CMD>execute "lua require("Navigator").previous()"<CR>', "window-previous"},
+        w = {"<CMD>execute 'lua require('Navigator').up()'<CR>", "window-up"},
+        s = {"<CMD>execute 'lua require('Navigator').down()'<CR>", "window-bottom"},
+        a = {"<CMD>execute 'lua require('Navigator').left()'<CR>", "window-left"},
+        d = {"<CMD>execute 'lua require('Navigator').right()'<CR>", "window-right"},
+        z = {"<CMD>execute 'lua require('Navigator').previous()'<CR>", "window-previous"},
         h = {"<CMD>sp<CR>", "split-horizontal"},
         v = {"<CMD>vs<CR>", "split-vertical"}
+      }
+    },
+    {prefix = "<leader>"}
+  )
+
+  wk.register(
+    {
+      x = {
+        name = "diagnostic",
+        t = {"<CMD>TroubleToggle<CR>                          ", "toggle-diagnostic"},
+        w = {"<CMD>TroubleToggle lsp_workspace_diagnostics<CR>", "workspace_diagnostics"},
+        d = {"<CMD>TroubleToggle lsp_document_diagnostics<CR> ", "document_diagnostics"},
+        q = {"<CMD>TroubleToggle quickfix<CR>                 ", "quickfix"},
+        l = {"<CMD>TroubleToggle loclist<CR>                  ", "loclist"},
+        r = {"<CMD>TroubleToggle lsp_references<CR>           ", "lsp-references"}
+      }
+    },
+    {prefix = "<leader>"}
+  )
+
+  wk.register(
+    {
+      z = {
+        name = "session",
+        s = {"<CMD>SaveSession<CR>", "save-session"},
+        d = {"<CMD>DeleteSession<CR>", "delete-session"}
       }
     },
     {prefix = "<leader>"}
