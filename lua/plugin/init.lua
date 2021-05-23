@@ -2,6 +2,13 @@ local packer = require("packer")
 
 local Plugin_manager = {}
 
+local function load_config(path)
+  local plugin = require(path)
+  if not pcall(plugin.config()) then
+    print("plugin " .. path .. " not work")
+  end
+end
+
 local function plugin_init(use)
   use "wbthomason/packer.nvim"
 
@@ -28,20 +35,20 @@ local function plugin_init(use)
   use {
     "ntpeters/vim-better-whitespace",
     config = function()
-      require("plugin.whitespace").config()
+      load_config("plugin.whitespace")
     end
   }
   use "farmergreg/vim-lastplace"
   use {
     "junegunn/vim-easy-align",
     config = function()
-      require("plugin.easyalign").config()
+      load_config("plugin.easyalign")
     end
   }
   use {
     "windwp/nvim-autopairs",
     config = function()
-      require("plugin.autopairs").config()
+      load_config("plugin.autopairs")
     end
   }
   use {
@@ -68,7 +75,7 @@ local function plugin_init(use)
   use {
     "glepnir/dashboard-nvim",
     config = function()
-      require("plugin.dashboard").config()
+      load_config("plugin.dashboard")
     end
   }
 
@@ -76,19 +83,19 @@ local function plugin_init(use)
   use {
     "kyazdani42/nvim-tree.lua",
     config = function()
-      require("plugin.tree").config()
+      load_config("plugin.tree")
     end
   }
   use {
     "airblade/vim-rooter",
     config = function()
-      require("plugin.vim-rooter").config()
+      load_config("plugin.vim-rooter")
     end
   }
   use {
     "liuchengxu/vista.vim",
     config = function()
-      require("plugin.vista").config()
+      load_config("plugin.vista")
     end
   }
 
@@ -97,7 +104,7 @@ local function plugin_init(use)
   use {
     "numToStr/Navigator.nvim",
     config = function()
-      require("plugin.navigator").config()
+      load_config("plugin.navigator")
     end
   }
   use {
@@ -150,7 +157,7 @@ local function plugin_init(use)
   use {
     "folke/which-key.nvim",
     config = function()
-      require("plugin.whichkey").config()
+      load_config("plugin.whichkey")
     end
   }
 
@@ -158,13 +165,13 @@ local function plugin_init(use)
   use {
     "akinsho/nvim-bufferline.lua",
     config = function()
-      require("plugin.bufferline").config()
+      load_config("plugin.bufferline")
     end
   }
   use {
     "glepnir/galaxyline.nvim",
     config = function()
-      require("plugin.galaxyline").config()
+      load_config("plugin.galaxyline")
     end
   }
 
@@ -184,7 +191,7 @@ local function plugin_init(use)
   use {
     "voldikss/vim-floaterm",
     config = function()
-      require("plugin.floaterm").config()
+      load_config("plugin.floaterm")
     end
   }
 
@@ -192,32 +199,32 @@ local function plugin_init(use)
   use {
     "neovim/nvim-lspconfig",
     config = function()
-      require("plugin.lspconfig").config()
+      load_config("plugin.lspconfig")
     end,
     requires = "nvim-lua/lsp-status.nvim"
   }
   use {
     "glepnir/lspsaga.nvim",
     config = function()
-      require("plugin.lspsaga").config()
+      load_config("plugin.lspsaga")
     end
   }
   use {
     "onsails/lspkind-nvim",
     config = function()
-      require("plugin.lspkind").config()
+      load_config("plugin.lspkind")
     end
   }
   use {
     "kosayoda/nvim-lightbulb",
     config = function()
-      require("plugin.lightbulb").config()
+      load_config("plugin.lightbulb")
     end
   }
   use {
     "folke/trouble.nvim",
     config = function()
-      require("trouble").setup()
+      load_config("plugin.trouble")
     end
   }
 
@@ -225,13 +232,13 @@ local function plugin_init(use)
   use {
     "hrsh7th/nvim-compe",
     config = function()
-      require("plugin.compe").config()
+      load_config("plugin.compe")
     end
   }
   use {
     "hrsh7th/vim-vsnip",
     config = function()
-      require("plugin.vsnip").config()
+      load_config("plugin.vsnip")
     end,
     requires = "rafamadriz/friendly-snippets"
   }
@@ -241,7 +248,7 @@ local function plugin_init(use)
     "mfussenegger/nvim-lint",
     disable = true,
     config = function()
-      require("plugin.nvim-lint").config()
+      load_config("plugin.nvim-lint")
     end
   }
 
@@ -249,7 +256,7 @@ local function plugin_init(use)
   use {
     "mhartington/formatter.nvim",
     config = function()
-      require("plugin.format").config()
+      load_config("plugin.format")
     end
   }
 
@@ -258,7 +265,7 @@ local function plugin_init(use)
     "nvim-treesitter/nvim-treesitter",
     requires = "p00f/nvim-ts-rainbow",
     config = function()
-      require("plugin.treesitter").config()
+      load_config("plugin.treesitter")
     end
   }
 
@@ -316,7 +323,7 @@ local function plugin_init(use)
       }
     },
     config = function()
-      require("plugin.nvim-dap").config()
+      load_config("plugin.nvim-dap")
     end
   }
 
@@ -325,7 +332,7 @@ local function plugin_init(use)
     "crispgm/nvim-go",
     ft = "go",
     config = function()
-      require("plugin.nvim-go").config()
+      load_config("plugin.nvim-go")
     end
   }
 end

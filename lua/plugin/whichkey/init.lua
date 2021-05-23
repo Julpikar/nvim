@@ -25,11 +25,11 @@ function WhichKey.config()
     {
       b = {
         name = "buffer",
-        d = {"<CMD>bdelete<CR>", "delete-buffer"},
-        n = {"<CMD>BufferLineCycleNext<CR>", "next-buffer"},
-        m = {"<CMD>bNext<CR>", "next-buffer-force"},
-        p = {"<CMD>BufferLineCyclePrev<CR>", "previous-buffer"},
-        t = {"<CMD>BufferLinePick<CR>", "select-tab"}
+        d = {"<CMD>bdelete<CR>", "delete_buffer"},
+        n = {"<CMD>BufferLineCycleNext<CR>", "next_buffer"},
+        m = {"<CMD>bNext<CR>", "next_buffer_force"},
+        p = {"<CMD>BufferLineCyclePrev<CR>", "previous_buffer"},
+        t = {"<CMD>BufferLinePick<CR>", "select_tab"}
       }
     },
     {prefix = "<leader>"}
@@ -42,13 +42,13 @@ function WhichKey.config()
         c = {"<Plug>kommentary_line_default", "comment"},
         d = {
           name = "decrease",
-          l = {"<Plug>kommentary_line_decrease", "line-decrease"},
-          m = {"<Plug>kommentary_motion_decrease", "motion-decrease"}
+          l = {"<Plug>kommentary_line_decrease", "line_decrease"},
+          m = {"<Plug>kommentary_motion_decrease", "motion_decrease"}
         },
         i = {
           name = "increase",
-          l = {"<Plug>kommentary_line_increase", "line-increase"},
-          m = {"<Plug>kommentary_motion_increase", "motion-increase"}
+          l = {"<Plug>kommentary_line_increase", "line_increase"},
+          m = {"<Plug>kommentary_motion_increase", "motion_increase"}
         }
       }
     },
@@ -59,21 +59,21 @@ function WhichKey.config()
     {
       d = {
         name = "debug",
-        b = {"<CMD>lua require('dap').toggle_breakpoint()<CR>", "toggle breakpoint"},
+        b = {"<CMD>lua require('dap').toggle_breakpoint()<CR>", "toggle_breakpoint"},
         c = {"<CMD>lua require('dap').continue()<CR>", "continue"},
-        i = {"<CMD>lua require('dap').step_into()<CR>", "step-into"},
-        o = {"<CMD>lua require('dap').step_over()<CR>", "step-over"},
-        r = {"<CMD>lua require('dap').repl.open({}, 'vsplit')<CR>", "open-repl"},
+        i = {"<CMD>lua require('dap').step_into()<CR>", "step_into"},
+        o = {"<CMD>lua require('dap').step_over()<CR>", "step_over"},
+        r = {"<CMD>lua require('dap').repl.open({}, 'vsplit')<CR>", "open_repl"},
         t = {
-          name = "telescope-debug",
-          c = {"<CMD>Telescope dap commands<CR>", "dap-commands"},
-          o = {"<CMD>Telescope dap configurations<CR>", "dap-configuratios"},
-          l = {"<CMD>Telescope dap list_breakpoints<CR>", "dap-breakpoints"},
-          v = {"<CMD>Telescope dap variables<CR>", "dap-variables"},
-          f = {"<CMD>Telescope dap frames<CR>", "dap-frames"}
+          name = "telescope_debug",
+          c = {"<CMD>Telescope dap commands<CR>", "dap_commands"},
+          o = {"<CMD>Telescope dap configurations<CR>", "dap_configuratios"},
+          l = {"<CMD>Telescope dap list_breakpoints<CR>", "dap_breakpoints"},
+          v = {"<CMD>Telescope dap variables<CR>", "dap_variables"},
+          f = {"<CMD>Telescope dap frames<CR>", "dap_frames"}
         },
-        x = {"<CMD>execute 'lua require('dap').step_out()'<CR>", "step-out"},
-        z = {"<CMD>execute 'lua require('dap').run_last()'<CR>", "run-start"}
+        x = {"<CMD>execute 'lua require('dap').step_out()'<CR>", "step_out"},
+        z = {"<CMD>execute 'lua require('dap').run_last()'<CR>", "run_start"}
       }
     },
     {prefix = "<leader>"}
@@ -83,7 +83,7 @@ function WhichKey.config()
     {
       e = {
         name = "edit",
-        d = {"<CMD>StripWhitespace<CR>", "delete-trailing-whitespace"},
+        d = {"<CMD>StripWhitespace<CR>", "delete_trailing_whitespace"},
         r = {"<CMD>edit!<CR>", "reload"}
       }
     },
@@ -112,18 +112,18 @@ function WhichKey.config()
   wk.register(
     {
       g = {
-        name = "git/version-control",
-        b = {"<CMD>Gblame<CR>", "fugitive-blame"},
-        B = {"<CMD>Gitsigns blame_line<CR>", "gitsigns-blame-line"},
-        c = {"<CMD>BCommits<CR>", "commits-for-current-buffer"},
-        C = {"<CMD>Gcommit<CR>", "fugitive-commit"},
-        d = {"<CMD>Gdiff<CR>", "fugitive-diff"},
-        e = {"<CMD>Gedit<CR>", "fugitive-edit"},
-        l = {"<CMD>Glog<CR>", "fugitive-log"},
-        r = {"<CMD>Gread<CR>", "fugitive-read"},
-        s = {"<CMD>Gstatus<CR>", "fugitive-status"},
-        w = {"<CMD>Gwrite<CR>", "fugitive-write"},
-        p = {"<CMD>Git push<CR>", "fugitive-push"}
+        name = "git/version_control",
+        b = {"<CMD>Gblame<CR>", "fugitive_blame"},
+        B = {"<CMD>Gitsigns blame_line<CR>", "gitsigns_blame_line"},
+        c = {"<CMD>BCommits<CR>", "commits_for_current_buffer"},
+        C = {"<CMD>Gcommit<CR>", "fugitive_commit"},
+        d = {"<CMD>Gdiff<CR>", "fugitive_diff"},
+        e = {"<CMD>Gedit<CR>", "fugitive_edit"},
+        l = {"<CMD>Glog<CR>", "fugitive_log"},
+        r = {"<CMD>Gread<CR>", "fugitive_read"},
+        s = {"<CMD>Gstatus<CR>", "fugitive_status"},
+        w = {"<CMD>Gwrite<CR>", "fugitive_write"},
+        p = {"<CMD>Git push<CR>", "fugitive_push"}
       }
     },
     {prefix = "<leader>"}
@@ -133,7 +133,7 @@ function WhichKey.config()
     {
       h = {
         name = "home/dashboard",
-        b = {"<CMD>DashboardJumpMarks<CR>", "book_marks"},
+        b = {"<CMD>DashboardJumpMarks<CR>", "bookmarks"},
         c = {"<CMD>DashboardChangeColorscheme<CR>", "change_colorscheme"},
         f = {"<CMD>DashboardFindFile<CR>", "find_file"},
         h = {"<CMD>DashboardFindHistory<CR>", "find_history"},
@@ -149,11 +149,11 @@ function WhichKey.config()
     {
       j = {
         name = "jump",
-        c = {"<CMD>HopChar1<CR>", "char mode 1"},
-        d = {"<CMD>HopChar2<CR>", "char mode 2"},
-        l = {"<CMD>HopLine<CR>", "line mode"},
-        p = {"<CMD>HopPattern<CR>", "pattern mode"},
-        w = {"<CMD>HopWord<CR>", "word mode"}
+        c = {"<CMD>HopChar1<CR>", "char_mode-1"},
+        d = {"<CMD>HopChar2<CR>", "char_mode-2"},
+        l = {"<CMD>HopLine<CR>", "line_mode"},
+        p = {"<CMD>HopPattern<CR>", "pattern_mode"},
+        w = {"<CMD>HopWord<CR>", "word_mode"}
       }
     },
     {prefix = "<leader>"}
@@ -163,22 +163,26 @@ function WhichKey.config()
     {
       l = {
         name = "lsp",
-        a = {"<CMD>Lspsaga code_action<CR>", "code action"},
-        A = {"<CMD>Lspsaga range_code_action<CR>", "selected action"},
-        d = {"<CMD>Telescope lsp_document_diagnostics<CR>", "document diagnostics"},
-        D = {"<CMD>Telescope lsp_workspace_diagnostics<CR>", "workspace diagnostics"},
+        k = {"hover"},
+        i = {"implementation"},
+        h = {"signature_help"},
+        R = {"references"},
+        a = {"<CMD>Lspsaga code_action<CR>", "code_action"},
+        A = {"<CMD>Lspsaga range_code_action<CR>", "selected_action"},
+        d = {"<CMD>Telescope lsp_document_diagnostics<CR>", "document_diagnostics"},
+        D = {"<CMD>Telescope lsp_workspace_diagnostics<CR>", "workspace_diagnostics"},
         f = {"<CMD>LspFormatting<CR>", "format"},
-        I = {"<CMD>LspInfo<CR>", "lsp info"},
-        v = {"<CMD>LspVirtualTextToggle<CR>", "lsp toggle virtual text"},
-        l = {"<CMD>Lspsaga lsp_finder<CR>", "lsp finder"},
+        I = {"<CMD>LspInfo<CR>", "lsp_info"},
+        v = {"<CMD>LspVirtualTextToggle<CR>", "toggle_virtual_text"},
+        l = {"<CMD>Lspsaga lsp_finder<CR>", "finder"},
         L = {"<CMD>Lspsaga show_line_diagnostics<CR>", "line_diagnostics"},
-        p = {"<CMD>Lspsaga preview_definition<CR>", "preview definition"},
+        p = {"<CMD>Lspsaga preview_definition<CR>", "preview_definition"},
         q = {"<CMD>Telescope quickfix<CR>", "quickfix"},
         r = {"<CMD>Lspsaga rename<CR>", "rename"},
-        T = {"<CMD>LspTypeDefinition<CR>", "type defintion"},
-        x = {"<CMD>cclose<CR>", "close quickfix"},
-        s = {"<CMD>Telescope lsp_document_symbols<CR>", "document symbols"},
-        S = {"<CMD>Telescope lsp_workspace_symbols<CR>", "workspace symbols"}
+        T = {"<CMD>LspTypeDefinition<CR>", "type_defintion"},
+        x = {"<CMD>cclose<CR>", "close_quickfix"},
+        s = {"<CMD>Telescope lsp_document_symbols<CR>", "document_symbols"},
+        S = {"<CMD>Telescope lsp_workspace_symbols<CR>", "workspace_symbols"}
       }
     },
     {prefix = "<leader>"}
@@ -189,8 +193,8 @@ function WhichKey.config()
       m = {
         name = "mark",
         t = {"<CMD>BookmarkToggle<CR>", "toggle"},
-        j = {"<CMD>BookmarkNext<CR>", "next mark"},
-        k = {"<CMD>BookmarkPrev<CR>", "prev mark"}
+        j = {"<CMD>BookmarkNext<CR>", "next_mark"},
+        k = {"<CMD>BookmarkPrev<CR>", "prev_mark"}
       }
     },
     {prefix = "<leader>"}
@@ -214,7 +218,7 @@ function WhichKey.config()
   wk.register(
     {
       q = {"<CMD>q<CR>", "quit"},
-      ["`"] = {"<CMD>qa!<CR>", "quit-without-saving"}
+      ["`"] = {"<CMD>qa!<CR>", "quit_without_saving"}
     },
     {prefix = "<leader>"}
   )
@@ -223,9 +227,9 @@ function WhichKey.config()
     {
       r = {
         name = "refractor",
-        f = {"<CMD>lua require('spectre').open_file_search()<CR>", "current-file"},
-        o = {"<CMD>lua require('spectre').open()<CR>", "open-panel"},
-        w = {"<CMD>lua require('spectre').open_visual()<CR>", "current-word"}
+        f = {"<CMD>lua require('spectre').open_file_search()<CR>", "current_file"},
+        o = {"<CMD>lua require('spectre').open()<CR>", "open_panel"},
+        w = {"<CMD>lua require('spectre').open_visual()<CR>", "current_word"}
       }
     },
     {prefix = "<leader>"}
@@ -236,13 +240,13 @@ function WhichKey.config()
       s = {
         name = "search/show",
         e = {"<CMD>Telescope filetypes<CR>", "filetypes"},
-        B = {"<CMD>Telescope git_branches<CR>", "git branches"},
+        B = {"<CMD>Telescope git_branches<CR>", "git_branches"},
         c = {"<CMD>Telescope colorscheme<CR>", "colorschemes"},
         d = {"<CMD>Telescope lsp_document_diagnostics<CR>", "document_diagnostics"},
         D = {"<CMD>Telescope lsp_workspace_diagnostics<CR>", "workspace_diagnostics"},
         f = {"<CMD>Telescope find_files<CR>", "files"},
         h = {"<CMD>Telescope command_history<CR>", "history"},
-        i = {"<CMD>Telescope media_files<CR>", "media files"},
+        i = {"<CMD>Telescope media_files<CR>", "media_files"},
         m = {"<CMD>Telescope marks<CR>", "marks"},
         M = {"<CMD>Telescope man_pages<CR>", "man_pages"},
         o = {"<CMD>Telescope vim_options<CR>", "vim_options"},
@@ -259,8 +263,8 @@ function WhichKey.config()
     {
       t = {
         name = "terminal",
-        h = {"<CMD>FloatermNew --wintype=split --height=6<CR>", "horizontal-terminal"},
-        v = {"<CMD>FloatermNew --wintype=vsplit --width=0.5<CR>", "vertical-terminal"},
+        h = {"<CMD>FloatermNew --wintype=split --height=6<CR>", "horizontal_terminal"},
+        v = {"<CMD>FloatermNew --wintype=vsplit --width=0.5<CR>", "vertical_terminal"},
         g = {"<CMD>FloatermNew lazygit<CR>", "git"},
         l = {"<CMD>FloatermNew lf<CR>", "lf"},
         n = {"<CMD>FloatermNew node<CR>", "node"},
@@ -276,13 +280,13 @@ function WhichKey.config()
     {
       w = {
         name = "window",
-        w = {"<CMD>execute 'lua require('Navigator').up()'<CR>", "window-up"},
-        s = {"<CMD>execute 'lua require('Navigator').down()'<CR>", "window-bottom"},
-        a = {"<CMD>execute 'lua require('Navigator').left()'<CR>", "window-left"},
-        d = {"<CMD>execute 'lua require('Navigator').right()'<CR>", "window-right"},
-        z = {"<CMD>execute 'lua require('Navigator').previous()'<CR>", "window-previous"},
-        h = {"<CMD>sp<CR>", "split-horizontal"},
-        v = {"<CMD>vs<CR>", "split-vertical"}
+        w = {"<CMD>execute 'lua require('Navigator').up()'<CR>", "window_up"},
+        s = {"<CMD>execute 'lua require('Navigator').down()'<CR>", "window_bottom"},
+        a = {"<CMD>execute 'lua require('Navigator').left()'<CR>", "window_left"},
+        d = {"<CMD>execute 'lua require('Navigator').right()'<CR>", "window_right"},
+        z = {"<CMD>execute 'lua require('Navigator').previous()'<CR>", "window_previous"},
+        h = {"<CMD>sp<CR>", "split_horizontal"},
+        v = {"<CMD>vs<CR>", "split_vertical"}
       }
     },
     {prefix = "<leader>"}
@@ -292,12 +296,19 @@ function WhichKey.config()
     {
       x = {
         name = "diagnostic",
-        t = {"<CMD>TroubleToggle<CR>                          ", "toggle-diagnostic"},
+        c = {"close_list"},
+        v = {"refresh"},
+        j = {"jump_close"},
+        m = {"toggle_mode"},
+        a = {"toggle_preview"},
+        k = {"hover"},
+        p = {"preview"},
+        t = {"<CMD>TroubleToggle<CR>                          ", "toggle_diagnostic"},
         w = {"<CMD>TroubleToggle lsp_workspace_diagnostics<CR>", "workspace_diagnostics"},
         d = {"<CMD>TroubleToggle lsp_document_diagnostics<CR> ", "document_diagnostics"},
         q = {"<CMD>TroubleToggle quickfix<CR>                 ", "quickfix"},
         l = {"<CMD>TroubleToggle loclist<CR>                  ", "loclist"},
-        r = {"<CMD>TroubleToggle lsp_references<CR>           ", "lsp-references"}
+        r = {"<CMD>TroubleToggle lsp_references<CR>           ", "lsp_references"}
       }
     },
     {prefix = "<leader>"}
@@ -307,8 +318,8 @@ function WhichKey.config()
     {
       z = {
         name = "session",
-        s = {"<CMD>SaveSession<CR>", "save-session"},
-        d = {"<CMD>DeleteSession<CR>", "delete-session"}
+        s = {"<CMD>SaveSession<CR>", "save_session"},
+        d = {"<CMD>DeleteSession<CR>", "delete_session"}
       }
     },
     {prefix = "<leader>"}

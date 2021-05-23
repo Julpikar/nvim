@@ -36,14 +36,10 @@ local function on_attach(client, bufnr)
   -- Mappings.
   local opts = {noremap = true, silent = true}
   local keymaps = {
-    {"n", "gD", "<CMD>lua vim.lsp.buf.declaration()<CR>"},
-    {"n", "gd", "<CMD>lua vim.lsp.buf.definition()<CR>"},
-    {"n", "K", "<CMD>lua vim.lsp.buf.hover()<CR>"},
-    {"n", "gi", "<CMD>lua vim.lsp.buf.implementation()<CR>"},
-    {"n", "<C-k>", "<CMD>lua vim.lsp.buf.signature_help()<CR>"},
-    {"n", "gr", "<CMD>lua vim.lsp.buf.references()<CR>"},
-    {"n", "[d", "<CMD>lua vim.lsp.diagnostic.goto_prev()<CR>"},
-    {"n", "]d", "<CMD>lua vim.lsp.diagnostic.goto_next()<CR>"}
+    {"n", "<LEADER>k", "<CMD>lua vim.lsp.buf.hover()<CR>"},
+    {"n", "<LEADER>i", "<CMD>lua vim.lsp.buf.implementation()<CR>"},
+    {"n", "<LEADER>h", "<CMD>lua vim.lsp.buf.signature_help()<CR>"},
+    {"n", "<LEADER>R", "<CMD>lua vim.lsp.buf.references()<CR>"}
   }
 
   for _, keymap in ipairs(keymaps) do
