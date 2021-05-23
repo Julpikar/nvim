@@ -128,6 +128,7 @@ function Lsp.config()
 
   -- Intelephense
   lspconfig.intelephense.setup {
+    cmd = {"intelephense.cmd", "--stdio"},
     on_attach = on_attach,
     capabilities = capabilities
   }
@@ -140,12 +141,6 @@ function Lsp.config()
 
   -- Sumneko
   sumneko_config()
-
-  -- Vimls
-  lspconfig.vimls.setup {
-    on_attach = on_attach,
-    capabilities = capabilities
-  }
 end
 
 local metatable = {
