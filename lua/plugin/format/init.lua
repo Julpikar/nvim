@@ -40,6 +40,16 @@ function Format.config()
     end
   }
 
+  formatter_config["php"] = {
+    function()
+      return {
+        exe = "prettier",
+        args = {"--stdin-filepath", vim.api.nvim_buf_get_name(0), "--single-quote"},
+        stdin = true
+      }
+    end
+  }
+
   formatter_config["rust"] = {
     function()
       return {
