@@ -30,6 +30,46 @@ function Format.config()
     end
   }
 
+  formatter_config["html"] = {
+    function()
+      return {
+        exe = "prettier",
+        args = {"--stdin-filepath", vim.api.nvim_buf_get_name(0), "--single-quote"},
+        stdin = true
+      }
+    end
+  }
+
+  formatter_config["css"] = {
+    function()
+      return {
+        exe = "prettier",
+        args = {"--stdin-filepath", vim.api.nvim_buf_get_name(0), "--single-quote"},
+        stdin = true
+      }
+    end
+  }
+
+  formatter_config["javascript"] = {
+    function()
+      return {
+        exe = "prettier",
+        args = {"--stdin-filepath", vim.api.nvim_buf_get_name(0), "--single-quote"},
+        stdin = true
+      }
+    end
+  }
+
+  formatter_config["json"] = {
+    function()
+      return {
+        exe = "prettier",
+        args = {"--stdin-filepath", vim.api.nvim_buf_get_name(0), "--single-quote"},
+        stdin = true
+      }
+    end
+  }
+
   formatter_config["lua"] = {
     function()
       return {

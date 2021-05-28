@@ -7,14 +7,10 @@ local function plugin_init(use)
 
   -- Colorscheme
   use {
-    "sainnhe/sonokai",
-    setup = function()
-      local g = vim.g
-      g.sonokai_style = "default"
-      g.sonokai_enable_italic = 1
-    end,
+    "Julpikar/onedark.nvim",
     config = function()
-      vim.cmd [[colorscheme sonokai]]
+      vim.g.onedark_style = "darker"
+      require("onedark").setup()
     end
   }
 
