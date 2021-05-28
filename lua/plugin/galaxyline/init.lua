@@ -28,36 +28,36 @@ local icons = {
   }
 }
 
-local sonokai = {
+local onedark = {
   colors = {
-    dark = "#282828",
-    cyan = "#85d3f2",
-    white = "#e2e2e3",
-    red = "#fc5d7c",
-    orange = "#f39660",
-    yellow = "#e7c664",
-    green = "#9ed072",
-    blue = "#76cce0",
-    purple = "#b39df3",
-    grey = "#7f8490"
+    dark = "#1b1f24",
+    cyan = "#48B0BD",
+    white = "#535965",
+    red = "#E55561",
+    orange = "#CC9057",
+    yellow = "#E2B86B",
+    green = "#8EBD6B",
+    blue = "#4FA6ED",
+    purple = "#BF68D9",
+    grey = "#ffffff"
   }
 }
 
 local mode_color = function()
   local mode_colors = {
-    n = sonokai.colors.white,
-    i = sonokai.colors.red,
-    c = sonokai.colors.yellow,
-    V = sonokai.colors.cyan,
-    [""] = sonokai.colors.yellow,
-    v = sonokai.colors.cyan,
-    s = sonokai.colors.orange,
-    S = sonokai.colors.orange,
-    [""] = sonokai.colors.orange,
-    R = sonokai.colors.yellow,
-    r = sonokai.colors.yellow,
-    ["!"] = sonokai.colors.cyan,
-    t = sonokai.colors.blue
+    n = onedark.colors.green,
+    i = onedark.colors.blue,
+    c = onedark.colors.yellow,
+    V = onedark.colors.purple,
+    [""] = onedark.colors.yellow,
+    v = onedark.colors.purple,
+    s = onedark.colors.orange,
+    S = onedark.colors.orange,
+    [""] = onedark.colors.orange,
+    R = onedark.colors.red,
+    r = onedark.colors.red,
+    ["!"] = onedark.colors.cyan,
+    t = onedark.colors.blue
   }
 
   return mode_colors[vim.fn.mode()]
@@ -92,16 +92,16 @@ local function left_config()
         end
         return ""
       end,
-      highlight = {sonokai.colors.dark, sonokai.colors.dark},
+      highlight = {onedark.colors.dark, onedark.colors.dark},
       separator = icons.slant.left,
-      separator_highlight = {sonokai.colors.dark, sonokai.colors.dark}
+      separator_highlight = {onedark.colors.dark, onedark.colors.dark}
     }
   }
   left[2] = {
     FileIcon = {
       provider = fileinfo.get_file_icon,
       condition = condition.buffer_not_empty,
-      highlight = {fileinfo.get_file_icon_color, sonokai.colors.dark}
+      highlight = {fileinfo.get_file_icon_color, onedark.colors.dark}
     }
   }
   left[3] = {
@@ -112,9 +112,9 @@ local function left_config()
         return string.len(fullname) > 40 and shortname or fullname
       end,
       condition = condition.buffer_not_empty,
-      highlight = {fileinfo.get_file_icon_color, sonokai.colors.dark},
+      highlight = {fileinfo.get_file_icon_color, onedark.colors.dark},
       separator = icons.slant.right,
-      separator_highlight = {sonokai.colors.dark, sonokai.colors.dark}
+      separator_highlight = {onedark.colors.dark, onedark.colors.dark}
     }
   }
   left[4] = {
@@ -126,7 +126,7 @@ local function left_config()
         return string.len(status) < 5 and " " .. server_name or status
       end,
       condition = condition.buffer_not_empty,
-      highlight = {sonokai.colors.grey, sonokai.colors.dark}
+      highlight = {onedark.colors.grey, onedark.colors.dark}
     }
   }
 end
@@ -138,7 +138,7 @@ local function right_config()
       provider = vcs.get_git_branch,
       condition = condition.check_git_workspace,
       icon = icons.git.branch .. " ",
-      highlight = {sonokai.colors.red, sonokai.colors.dark, "bold"}
+      highlight = {onedark.colors.red, onedark.colors.dark, "bold"}
     }
   }
   right[2] = {
@@ -146,7 +146,7 @@ local function right_config()
       provider = function()
         return " "
       end,
-      highlight = {sonokai.colors.dark, sonokai.colors.dark}
+      highlight = {onedark.colors.dark, onedark.colors.dark}
     }
   }
   right[3] = {
@@ -154,7 +154,7 @@ local function right_config()
       provider = vcs.diff_add,
       condition = condition.hide_in_width,
       icon = icons.git.add .. " ",
-      highlight = {sonokai.colors.green, sonokai.colors.dark}
+      highlight = {onedark.colors.green, onedark.colors.dark}
     }
   }
   right[4] = {
@@ -162,7 +162,7 @@ local function right_config()
       provider = vcs.diff_modified,
       condition = condition.hide_in_width,
       icon = icons.git.modified .. " ",
-      highlight = {sonokai.colors.yellow, sonokai.colors.dark}
+      highlight = {onedark.colors.yellow, onedark.colors.dark}
     }
   }
   right[5] = {
@@ -170,49 +170,49 @@ local function right_config()
       provider = vcs.diff_remove,
       condition = condition.hide_in_width,
       icon = icons.git.remove .. " ",
-      highlight = {sonokai.colors.red, sonokai.colors.dark}
+      highlight = {onedark.colors.red, onedark.colors.dark}
     }
   }
   right[6] = {
     LineColumn = {
       provider = fileinfo.line_column,
       condition = condition.buffer_not_empty,
-      highlight = {sonokai.colors.blue, sonokai.colors.dark}
+      highlight = {onedark.colors.blue, onedark.colors.dark}
     }
   }
   right[7] = {
     LinePercent = {
       provider = fileinfo.current_line_percent,
       condition = condition.buffer_not_empty,
-      highlight = {sonokai.colors.white, sonokai.colors.dark}
+      highlight = {onedark.colors.grey, onedark.colors.dark}
     }
   }
   right[8] = {
     DiagnosticError = {
       provider = diagnostic.get_diagnostic_error,
       icon = icons.diagnostic.error .. " ",
-      highlight = {sonokai.colors.red, sonokai.colors.dark}
+      highlight = {onedark.colors.red, onedark.colors.dark}
     }
   }
   right[9] = {
     DiagnosticWarn = {
       provider = diagnostic.get_diagnostic_warn,
       icon = icons.diagnostic.warn .. " ",
-      highlight = {sonokai.colors.yellow, sonokai.colors.dark}
+      highlight = {onedark.colors.yellow, onedark.colors.dark}
     }
   }
   right[10] = {
     DiagnosticInfo = {
       provider = diagnostic.get_diagnostic_info,
       icon = icons.diagnostic.info .. " ",
-      highlight = {sonokai.colors.green, sonokai.colors.dark}
+      highlight = {onedark.colors.green, onedark.colors.dark}
     }
   }
   right[11] = {
     DiagnosticHint = {
       provider = diagnostic.get_diagnostic_hint,
       icon = icons.diagnostic.hint .. " ",
-      highlight = {sonokai.colors.orange, sonokai.colors.dark}
+      highlight = {onedark.colors.orange, onedark.colors.dark}
     }
   }
 end
@@ -221,8 +221,8 @@ function Galaxy.config()
   line.short_line_list = {"NvimTree", "Vista", "packer"}
   left_config()
   right_config()
-  cmd("highlight! StatusLine guibg=" .. sonokai.colors.dark .. " guifg=" .. sonokai.colors.dark)
-  cmd("highlight! StatusLineNC guibg=" .. sonokai.colors.dark .. " guifg=" .. sonokai.colors.dark)
+  cmd("highlight! StatusLine guibg=" .. onedark.colors.dark .. " guifg=" .. onedark.colors.dark)
+  cmd("highlight! StatusLineNC guibg=" .. onedark.colors.dark .. " guifg=" .. onedark.colors.dark)
 end
 
 local metatable = {
