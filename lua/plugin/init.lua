@@ -280,7 +280,13 @@ local function plugin_init(use)
     "tpope/vim-dadbod",
     requires = {
       "kristijanhusak/vim-dadbod-completion",
-      "kristijanhusak/vim-dadbod-ui"
+      {
+        "kristijanhusak/vim-dadbod-ui",
+        config = function()
+          vim.g.db_ui_show_database_icon = 1
+          vim.g.db_ui_use_nerd_fonts = 1
+        end
+      }
     }
   }
 

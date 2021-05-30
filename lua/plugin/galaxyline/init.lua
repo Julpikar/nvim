@@ -38,8 +38,7 @@ local onedark = {
     yellow = "#E2B86B",
     green = "#8EBD6B",
     blue = "#4FA6ED",
-    purple = "#BF68D9",
-    grey = "#ffffff"
+    purple = "#BF68D9"
   }
 }
 
@@ -126,7 +125,7 @@ local function left_config()
         return string.len(status) < 5 and " " .. server_name or status
       end,
       condition = condition.buffer_not_empty,
-      highlight = {onedark.colors.grey, onedark.colors.dark}
+      highlight = {onedark.colors.white, onedark.colors.dark}
     }
   }
 end
@@ -184,7 +183,7 @@ local function right_config()
     LinePercent = {
       provider = fileinfo.current_line_percent,
       condition = condition.buffer_not_empty,
-      highlight = {onedark.colors.grey, onedark.colors.dark}
+      highlight = {onedark.colors.white, onedark.colors.dark}
     }
   }
   right[8] = {
