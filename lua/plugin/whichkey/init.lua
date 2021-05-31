@@ -23,6 +23,19 @@ function WhichKey.config()
 
   wk.register(
     {
+      a = {
+        name = "database",
+        e = {"<Plug(DBUI_ExecuteQuery)", "execute_query"},
+        l = {"<Plug>(DBUI_ToggleResultLayout)", "toggle_result"},
+        r = {"<Plug>(DBUI_Redraw)", "redraw"},
+        t = {"<CMD>DBUIToggle<CR>", "toggle_DBUI"}
+      }
+    },
+    {prefix = "<leader>"}
+  )
+
+  wk.register(
+    {
       b = {
         name = "buffer",
         d = {"<CMD>bdelete<CR>", "delete_buffer"},
