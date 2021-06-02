@@ -1,6 +1,7 @@
 local Treesitter = {}
 
 function Treesitter.config()
+  -- TreeSitter config
   require "nvim-treesitter.configs".setup {
     highlight = {
       enable = true
@@ -10,6 +11,10 @@ function Treesitter.config()
       extended_mode = true -- Highlight also non-parentheses delimiters, boolean or table: lang -> boolean
     }
   }
+
+  -- Folding
+  vim.cmd [[set foldmethod=expr]]
+  vim.cmd [[set foldexpr=nvim_treesitter#foldexpr()]]
 end
 
 local metatable = {
