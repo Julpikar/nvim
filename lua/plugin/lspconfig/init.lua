@@ -84,6 +84,7 @@ local function sumneko_config()
   lspconfig.sumneko_lua.setup {
     on_attach = on_attach,
     capabilities = capabilities,
+    autostart = false,
     cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"},
     settings = {
       Lua = {
@@ -117,26 +118,30 @@ function Lsp.config()
   -- Clang
   lspconfig.clangd.setup {
     on_attach = on_attach,
-    capabilities = capabilities
+    capabilities = capabilities,
+    autostart = false
   }
 
   -- Golang
   lspconfig.gopls.setup {
     on_attach = on_attach,
-    capabilities = capabilities
+    capabilities = capabilities,
+    autostart = false
   }
 
   -- Intelephense
   lspconfig.intelephense.setup {
     cmd = {"intelephense.cmd", "--stdio"},
     on_attach = on_attach,
-    capabilities = capabilities
+    capabilities = capabilities,
+    autostart = false
   }
 
   -- Rust Analyzer
   lspconfig.rust_analyzer.setup {
     on_attach = on_attach,
-    capabilities = capabilities
+    capabilities = capabilities,
+    autostart = false
   }
 
   -- Sumneko

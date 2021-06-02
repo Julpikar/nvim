@@ -195,7 +195,10 @@ function WhichKey.config()
         T = {"<CMD>LspTypeDefinition<CR>", "type_defintion"},
         x = {"<CMD>cclose<CR>", "close_quickfix"},
         s = {"<CMD>Telescope lsp_document_symbols<CR>", "document_symbols"},
-        S = {"<CMD>Telescope lsp_workspace_symbols<CR>", "workspace_symbols"}
+        S = {"<CMD>Telescope lsp_workspace_symbols<CR>", "workspace_symbols"},
+        o = {"<CMD>LspStart<CR>", "lsp_start"},
+        n = {"<CMD>LspRestart<CR>", "lsp_restart"},
+        m = {"<CMD>LspStop<CR>", "lsp_stop"}
       }
     },
     {prefix = "<leader>"}
