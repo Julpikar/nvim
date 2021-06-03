@@ -96,7 +96,11 @@ function WhichKey.config()
     {
       e = {
         name = "edit",
-        d = {"<CMD>StripWhitespace<CR>", "delete_trailing_whitespace"},
+        d = {
+          name = "delete",
+          l = {[[<CMD>%s/\r//g<CR>]], "newline"},
+          w = {"<CMD>StripWhitespace<CR>", "trailing_whitespace"}
+        },
         r = {"<CMD>edit!<CR>", "reload"}
       }
     },
