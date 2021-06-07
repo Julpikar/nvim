@@ -89,7 +89,12 @@ local function plugin_init(use)
   }
 
   -- Navigation
-  use "phaazon/hop.nvim"
+  use {
+    "phaazon/hop.nvim",
+    config = function()
+      require("hop").setup({create_hl_autocmd = false})
+    end
+  }
   use {
     "numToStr/Navigator.nvim",
     config = function()
