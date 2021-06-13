@@ -225,6 +225,7 @@ local function plugin_init(use)
   -- Autocomplete
   use {
     "hrsh7th/nvim-compe",
+    branch = ' 72c4500',
     config = function()
       require("plugin.compe").config()
     end
@@ -262,6 +263,9 @@ local function plugin_init(use)
       require("plugin.treesitter").config()
     end
   }
+
+  -- Syntax highlighting non treesitter
+  use "jwalton512/vim-blade"
 
   -- Colorizer
   use {

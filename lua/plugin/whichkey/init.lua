@@ -42,7 +42,8 @@ function WhichKey.config()
         n = {"<CMD>BufferLineCycleNext<CR>", "next_buffer"},
         m = {"<CMD>bNext<CR>", "next_buffer_force"},
         p = {"<CMD>BufferLineCyclePrev<CR>", "previous_buffer"},
-        t = {"<CMD>BufferLinePick<CR>", "select_tab"}
+        t = {"<CMD>BufferLinePick<CR>", "select_tab"},
+        x = {"<CMD>bdelete!<CR>", "delete_buffer"}
       }
     },
     {prefix = "<leader>"}

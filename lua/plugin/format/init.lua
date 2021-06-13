@@ -82,21 +82,21 @@ function Format.config()
 
   formatter_config["php"] = {
     function()
-      local pattern = vim.regex [[.blade.php]]
-      local filename = vim.api.nvim_buf_get_name(0)
-      if pattern:match_str(filename) then
-        return {
-          exe = "blade-formatter",
-          args = {filename},
-          stdin = true
-        }
-      else
-        return {
-          exe = "prettier",
-          args = {"--stdin-filepath", filename, "--single-quote"},
-          stdin = true
-        }
-      end
+      return {
+        exe = "prettier",
+        args = {"--stdin-filepath", vim.api.nvim_buf_get_name(0), "--single-quote"},
+        stdin = true
+      }
+    end
+  }
+
+  formatter_config["blade"] = {
+    function()
+      return {
+        exe = "blade-formatter",
+        args = {vim.api.nvim_buf_get_name(0)},
+        stdin = true
+      }
     end
   }
 
