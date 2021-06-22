@@ -339,6 +339,9 @@ local function plugin_init(use)
       require("plugin.nvim-go").config()
     end
   }
+
+  -- Rust
+  use "simrat39/rust-tools.nvim"
 end
 
 function Plugin_manager.load_plugins()
