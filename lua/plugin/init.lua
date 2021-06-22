@@ -8,6 +8,7 @@ local function plugin_init(use)
   -- Colorscheme
   use {
     "Julpikar/onedark.nvim",
+    branch = "my",
     config = function()
       vim.g.onedark_style = "darker"
       require("onedark").setup()
@@ -225,7 +226,7 @@ local function plugin_init(use)
   -- Autocomplete
   use {
     "hrsh7th/nvim-compe",
-    branch = " 72c4500",
+    commit = "72c4500",
     config = function()
       require("plugin.compe").config()
     end
