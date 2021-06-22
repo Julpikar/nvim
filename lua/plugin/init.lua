@@ -341,7 +341,13 @@ local function plugin_init(use)
   }
 
   -- Rust
-  use "simrat39/rust-tools.nvim"
+  use {
+    "simrat39/rust-tools.nvim",
+    ft = "rust",
+    config = function()
+      require("plugin.rust-tools").config()
+    end
+  }
 end
 
 function Plugin_manager.load_plugins()

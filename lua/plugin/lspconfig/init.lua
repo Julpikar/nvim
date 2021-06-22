@@ -137,13 +137,6 @@ function Lsp.config()
     autostart = false
   }
 
-  -- Rust Analyzer
-  lspconfig.rust_analyzer.setup {
-    on_attach = on_attach,
-    capabilities = capabilities,
-    autostart = false
-  }
-
   -- Sumneko
   sumneko_config()
 end
