@@ -29,20 +29,6 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] =
 local function on_attach(client, bufnr)
   lsp_status.on_attach(client, bufnr)
 
-  local function buf_set_keymap(...)
-    vim.api.nvim_buf_set_keymap(bufnr, ...)
-  end
-
-  -- Mappings.
-  local opts = {noremap = true, silent = true}
-  local keymaps = {
-    {"n", "K", "<CMD>lua vim.lsp.buf.hover()<CR>"}
-  }
-
-  for _, keymap in ipairs(keymaps) do
-    buf_set_keymap(keymap[1], keymap[2], keymap[3], opts)
-  end
-
   -- Set autocommands conditional on server_capabilities
   if client.resolved_capabilities.document_highlight then
     api.nvim_exec(
@@ -81,7 +67,6 @@ local function sumneko_config()
   lspconfig.sumneko_lua.setup {
     on_attach = on_attach,
     capabilities = capabilities,
-    autostart = false,
     cmd = {sumneko_binary, "-E", sumneko_root_path .. "/main.lua"},
     settings = {
       Lua = {
@@ -115,23 +100,20 @@ function Lsp.config()
   -- Clang
   lspconfig.clangd.setup {
     on_attach = on_attach,
-    capabilities = capabilities,
-    autostart = false
+    capabilities = capabilities
   }
 
   -- Golang
   lspconfig.gopls.setup {
     on_attach = on_attach,
-    capabilities = capabilities,
-    autostart = false
+    capabilities = capabilities
   }
 
   -- Intelephense
   lspconfig.intelephense.setup {
     cmd = {"intelephense.cmd", "--stdio"},
     on_attach = on_attach,
-    capabilities = capabilities,
-    autostart = false
+    capabilities = capabilities
   }
 
   -- Sumneko

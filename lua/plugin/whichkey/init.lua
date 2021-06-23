@@ -181,10 +181,10 @@ function WhichKey.config()
     {
       l = {
         name = "lsp",
-        k = {"hover"},
-        i = {"implementation"},
-        h = {"signature_help"},
-        R = {"references"},
+        k = {"<CMD>lua require('lspsaga.hover').render_hover_doc()<CR>", "hover"},
+        i = {"<CMD>lua vim.lsp.buf.implementation()<CR>", "implementation"},
+        h = {"<CMD>lua require('lspsaga.signaturehelp').signature_help()<CR>", "signature_help"},
+        R = {"<CMD>lua vim.lsp.buf.references()", "references"},
         a = {"<CMD>Lspsaga code_action<CR>", "code_action"},
         A = {"<CMD>Lspsaga range_code_action<CR>", "selected_action"},
         d = {"<CMD>Telescope lsp_document_diagnostics<CR>", "document_diagnostics"},

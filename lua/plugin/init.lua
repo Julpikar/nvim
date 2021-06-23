@@ -346,7 +346,7 @@ local function plugin_init(use)
     "simrat39/rust-tools.nvim",
     ft = "rust",
     config = function()
-      require("plugin.rust-tools").config()
+      require("rust-tools").setup()
     end
   }
 end
