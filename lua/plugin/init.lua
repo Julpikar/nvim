@@ -3,7 +3,7 @@ local packer = require("packer")
 local Plugin_manager = {}
 
 local function plugin_init(use)
-  use "wbthomason/packer.nvim"
+  use {"wbthomason/packer.nvim", commit = "3715ce4"}
 
   -- Colorscheme
   use {
@@ -174,7 +174,17 @@ local function plugin_init(use)
   use "kyazdani42/nvim-web-devicons"
 
   -- Git
-  use "tpope/vim-fugitive"
+  use {
+    "TimUntersberger/neogit",
+    requires = {{"nvim-lua/plenary.nvim"}, {"sindrets/diffview.nvim"}},
+    config = function()
+      require("neogit").setup {
+        integration = {
+          diffview = true
+        }
+      }
+    end
+  }
   use {
     "lewis6991/gitsigns.nvim",
     config = function()
