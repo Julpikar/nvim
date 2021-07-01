@@ -3,7 +3,7 @@ local packer = require("packer")
 local Plugin_manager = {}
 
 local function plugin_init(use)
-  use {"wbthomason/packer.nvim", commit = "3715ce4"}
+  use "wbthomason/packer.nvim"
 
   -- Colorscheme
   use {
@@ -341,6 +341,9 @@ local function plugin_init(use)
       require("plugin.nvim-dap").config()
     end
   }
+
+  -- CMake
+  use "ilyachur/cmake4vim"
 
   -- Golang
   use {
