@@ -8,7 +8,6 @@ local function plugin_init(use)
   -- Colorscheme
   use {
     "Julpikar/onedark.nvim",
-    branch = "my",
     config = function()
       vim.g.onedark_style = "darker"
       require("onedark").setup()

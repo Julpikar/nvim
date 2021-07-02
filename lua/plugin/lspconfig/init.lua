@@ -103,17 +103,81 @@ function Lsp.config()
     capabilities = capabilities
   }
 
+  -- CSS
+  lspconfig.cssls.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+    cmd = {"node", "C:/tools/vscode/css-language-features/server/dist/node/cssServerMain.js", "--stdio"},
+    filetypes = {"css", "less", "scss"},
+    root_dir = require "lspconfig".util.root_pattern(".git", vim.fn.getcwd()),
+    init_options = {
+      provideFormatter = true
+    }
+  }
+
   -- Golang
   lspconfig.gopls.setup {
     on_attach = on_attach,
     capabilities = capabilities
   }
 
+  -- HTML
+  lspconfig.html.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+    cmd = {"node", "C:/tools/vscode/html-language-features/server/dist/node/htmlServerMain.js", "--stdio"},
+    filetypes = {
+      -- html
+      "aspnetcorerazor",
+      "blade",
+      "django-html",
+      "edge",
+      "ejs",
+      "eruby",
+      "gohtml",
+      "haml",
+      "handlebars",
+      "hbs",
+      "html",
+      "html-eex",
+      "jade",
+      "leaf",
+      "liquid",
+      "markdown",
+      "mdx",
+      "mustache",
+      "njk",
+      "nunjucks",
+      "php",
+      "razor",
+      "slim",
+      "twig",
+      "vue",
+      "svelte"
+    },
+    root_dir = require "lspconfig".util.root_pattern(".git", vim.fn.getcwd()),
+    init_options = {
+      provideFormatter = true
+    }
+  }
+
   -- Intelephense
   lspconfig.intelephense.setup {
-    cmd = {"intelephense.cmd", "--stdio"},
     on_attach = on_attach,
-    capabilities = capabilities
+    capabilities = capabilities,
+    cmd = {"intelephense.cmd", "--stdio"}
+  }
+
+  -- JSON
+  lspconfig.jsonls.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+    cmd = {"node", "C:/tools/vscode/json-language-features/server/dist/node/jsonServerMain.js", "--stdio"},
+    filetypes = {"json"},
+    root_dir = require "lspconfig".util.root_pattern(".git", vim.fn.getcwd()),
+    init_options = {
+      provideFormatter = true
+    }
   }
 
   -- Sumneko
