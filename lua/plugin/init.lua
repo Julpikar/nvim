@@ -74,7 +74,12 @@ local function plugin_init(use)
       require("plugin.tree").config()
     end
   }
-  use "ahmedkhalf/lsp-rooter.nvim"
+  use {
+    "airblade/vim-rooter",
+    config = function()
+      require("plugin.vim-rooter").config()
+    end
+  }
   use {
     "liuchengxu/vista.vim",
     config = function()
