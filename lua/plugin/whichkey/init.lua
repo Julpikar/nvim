@@ -186,7 +186,7 @@ function WhichKey.config()
         h = {"<CMD>lua require('lspsaga.signaturehelp').signature_help()<CR>", "signature_help"},
         R = {"<CMD>lua vim.lsp.buf.references()", "references"},
         a = {"<CMD>Lspsaga code_action<CR>", "code_action"},
-        A = {"<CMD>Lspsaga range_code_action<CR>", "selected_action"},
+        A = {"<CMD>Lspsaga range_code_action<CR>", "range_code_action"},
         d = {"<CMD>Telescope lsp_document_diagnostics<CR>", "document_diagnostics"},
         D = {"<CMD>Telescope lsp_workspace_diagnostics<CR>", "workspace_diagnostics"},
         f = {"<CMD>LspFormatting<CR>", "format"},

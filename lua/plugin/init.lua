@@ -17,31 +17,29 @@ local function plugin_init(use)
   -- Editing
   use {
     "mg979/vim-visual-multi",
+    event = "InsertEnter",
     setup = function()
       vim.g.VM_theme = "neon"
     end
   }
   use {
     "ntpeters/vim-better-whitespace",
+    event = "BufRead",
     config = function()
       require("plugin.whitespace").config()
     end
   }
-  use "farmergreg/vim-lastplace"
+  use {"farmergreg/vim-lastplace", event = "BufReadPre"}
   use {
     "junegunn/vim-easy-align",
+    event = "BufRead",
     config = function()
       require("plugin.easyalign").config()
     end
   }
   use {
-    "windwp/nvim-autopairs",
-    config = function()
-      require("plugin.autopairs").config()
-    end
-  }
-  use {
     "windwp/nvim-ts-autotag",
+    event = "InsertEnter",
     config = function()
       require("nvim-ts-autotag").setup()
     end
@@ -50,6 +48,7 @@ local function plugin_init(use)
   -- Comment
   use {
     "b3nj5m1n/kommentary",
+    event = "BufRead",
     setup = function()
       vim.g.kommentary_create_default_mappings = false
     end,
@@ -86,6 +85,7 @@ local function plugin_init(use)
   -- Navigation
   use {
     "phaazon/hop.nvim",
+    event = "BufRead",
     config = function()
       require("hop").setup({create_hl_autocmd = false})
     end
@@ -153,6 +153,7 @@ local function plugin_init(use)
   -- Line
   use {
     "akinsho/nvim-bufferline.lua",
+    event = "BufRead",
     config = function()
       require("plugin.bufferline").config()
     end
@@ -170,6 +171,7 @@ local function plugin_init(use)
   -- Git
   use {
     "TimUntersberger/neogit",
+    event = "BufRead",
     requires = {{"nvim-lua/plenary.nvim"}, {"sindrets/diffview.nvim"}},
     config = function()
       require("neogit").setup {
@@ -181,6 +183,7 @@ local function plugin_init(use)
   }
   use {
     "lewis6991/gitsigns.nvim",
+    event = "BufRead",
     config = function()
       require("gitsigns").setup {keymaps = {}}
     end
@@ -204,24 +207,28 @@ local function plugin_init(use)
   }
   use {
     "glepnir/lspsaga.nvim",
+    event = "BufRead",
     config = function()
       require("plugin.lspsaga").config()
     end
   }
   use {
     "onsails/lspkind-nvim",
+    event = "BufRead",
     config = function()
       require("plugin.lspkind").config()
     end
   }
   use {
     "kosayoda/nvim-lightbulb",
+    event = "BufRead",
     config = function()
       require("plugin.lightbulb").config()
     end
   }
   use {
     "folke/trouble.nvim",
+    event = "BufRead",
     config = function()
       require("plugin.trouble").config()
     end
@@ -230,23 +237,33 @@ local function plugin_init(use)
   -- Autocomplete
   use {
     "hrsh7th/nvim-compe",
-    commit = "72c4500",
     config = function()
       require("plugin.compe").config()
     end
   }
   use {
     "hrsh7th/vim-vsnip",
+    event = "InsertEnter",
     config = function()
       require("plugin.vsnip").config()
     end,
-    requires = "rafamadriz/friendly-snippets"
+    requires = {"rafamadriz/friendly-snippets", event = "InsertEnter"}
+  }
+
+  -- AutoPair
+  use {
+    "windwp/nvim-autopairs",
+    event = "InsertEnter",
+    config = function()
+      require("plugin.autopairs").config()
+    end
   }
 
   -- External Linter
   use {
     "mfussenegger/nvim-lint",
     disable = true,
+    event = "BufRead",
     config = function()
       require("plugin.nvim-lint").config()
     end
@@ -270,11 +287,12 @@ local function plugin_init(use)
   }
 
   -- Syntax highlighting non treesitter
-  use "jwalton512/vim-blade"
+  use {"jwalton512/vim-blade", event = "BufRead", ft = "blade"}
 
   -- Colorizer
   use {
     "norcalli/nvim-colorizer.lua",
+    event = "BufRead",
     config = function()
       require("colorizer").setup()
     end
@@ -307,28 +325,33 @@ local function plugin_init(use)
   -- Debugger
   use {
     "mfussenegger/nvim-dap",
+    event = "BufRead",
     requires = {
       {
         "nvim-telescope/telescope-dap.nvim",
+        event = "BufRead",
         config = function()
           require("telescope").load_extension("dap")
         end
       },
       {
         "rcarriga/nvim-dap-ui",
+        event = "BufRead",
         config = function()
           require("dapui").setup()
         end
       },
       {
         "theHamsta/nvim-dap-virtual-text",
+        event = "BufRead",
         config = function()
           vim.g.dap_virtual_text = true
         end
       },
       -- Lua Debugger
       {
-        "jbyuki/one-small-step-for-vimkind"
+        "jbyuki/one-small-step-for-vimkind",
+        event = "BufRead"
       }
     },
     config = function()
@@ -337,11 +360,12 @@ local function plugin_init(use)
   }
 
   -- CMake
-  use "ilyachur/cmake4vim"
+  use {"ilyachur/cmake4vim", event = "BufRead", ft = "cmake"}
 
   -- Golang
   use {
     "crispgm/nvim-go",
+    event = "BufRead",
     ft = "go",
     config = function()
       require("plugin.nvim-go").config()
@@ -351,6 +375,7 @@ local function plugin_init(use)
   -- Rust
   use {
     "simrat39/rust-tools.nvim",
+    event = "BufRead",
     ft = "rust",
     config = function()
       require("rust-tools").setup()
@@ -359,7 +384,17 @@ local function plugin_init(use)
 end
 
 function Plugin_manager.load_plugins()
-  packer.init({max_jobs = 4})
+  packer.init(
+    {
+      max_jobs = 2,
+      git = {clone_timeout = 300},
+      display = {
+        open_fn = function()
+          return require("packer.util").float {border = "single"}
+        end
+      }
+    }
+  )
   return packer.startup(plugin_init)
 end
 

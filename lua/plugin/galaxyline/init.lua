@@ -220,8 +220,13 @@ function Galaxy.config()
   line.short_line_list = {"NvimTree", "Vista", "packer"}
   left_config()
   right_config()
+
+  -- Custom highlight
+  vim.cmd("augroup StatusLineHightlight")
+  vim.cmd("autocmd!")
   cmd("highlight! StatusLine guibg=" .. onedark.colors.dark .. " guifg=" .. onedark.colors.dark)
   cmd("highlight! StatusLineNC guibg=" .. onedark.colors.dark .. " guifg=" .. onedark.colors.dark)
+  vim.cmd("augroup END")
 end
 
 local metatable = {
