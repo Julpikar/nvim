@@ -115,6 +115,12 @@ function Lsp.config()
     }
   }
 
+  -- CMake
+  lspconfig.cmake.setup {
+    on_attach = on_attach,
+    capabilities = capabilities
+  }
+
   -- Golang
   lspconfig.gopls.setup {
     on_attach = on_attach,
@@ -178,6 +184,12 @@ function Lsp.config()
     init_options = {
       provideFormatter = true
     }
+  }
+
+  -- Python
+  lspconfig.pyright.setup {
+    on_attach = on_attach,
+    capabilities = capabilities
   }
 
   -- Sumneko
