@@ -38,12 +38,15 @@ function WhichKey.config()
     {
       b = {
         name = "buffer",
-        d = {"<CMD>bdelete<CR>", "delete_buffer"},
+        d = {"<CMD>Bdelete<CR>", "delete_buffer"},
+        l = {"<CMD>JABSOpen<CR>", "list_buffer"},
         n = {"<CMD>BufferLineCycleNext<CR>", "next_buffer"},
         m = {"<CMD>bNext<CR>", "next_buffer_force"},
         p = {"<CMD>BufferLineCyclePrev<CR>", "previous_buffer"},
         t = {"<CMD>BufferLinePick<CR>", "select_tab"},
-        x = {"<CMD>bdelete!<CR>", "delete_buffer"}
+        w = {"<CMD>Bwipeout<CR>", "wipeout_buffer"},
+        x = {"<CMD>Bdelete!<CR>", "forcefully_delete_buffer"},
+        z = {"<CMD>Bwipeout!<CR>", "forcefully_wipeout_buffer"}
       }
     },
     {prefix = "<leader>"}
@@ -240,18 +243,6 @@ function WhichKey.config()
     {
       q = {"<CMD>q<CR>", "quit"},
       ["`"] = {"<CMD>qa!<CR>", "quit_without_saving"}
-    },
-    {prefix = "<leader>"}
-  )
-
-  wk.register(
-    {
-      r = {
-        name = "refractor",
-        f = {"<CMD>lua require('spectre').open_file_search()<CR>", "current_file"},
-        o = {"<CMD>lua require('spectre').open()<CR>", "open_panel"},
-        w = {"<CMD>lua require('spectre').open_visual()<CR>", "current_word"}
-      }
     },
     {prefix = "<leader>"}
   )

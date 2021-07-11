@@ -10,6 +10,16 @@ function Format.config()
   local formatter = require "formatter"
   local formatter_config = {}
 
+  formatter_config["blade"] = {
+    function()
+      return {
+        exe = "blade-formatter",
+        args = {vim.api.nvim_buf_get_name(0)},
+        stdin = true
+      }
+    end
+  }
+
   formatter_config["c"] = {
     function()
       return {
@@ -30,7 +40,7 @@ function Format.config()
     end
   }
 
-  formatter_config["html"] = {
+  formatter_config["css"] = {
     function()
       return {
         exe = "prettier",
@@ -40,7 +50,7 @@ function Format.config()
     end
   }
 
-  formatter_config["css"] = {
+  formatter_config["html"] = {
     function()
       return {
         exe = "prettier",
@@ -90,12 +100,12 @@ function Format.config()
     end
   }
 
-  formatter_config["blade"] = {
+  formatter_config["python"] = {
     function()
       return {
-        exe = "blade-formatter",
+        exe = "black",
         args = {vim.api.nvim_buf_get_name(0)},
-        stdin = true
+        stdin = false
       }
     end
   }

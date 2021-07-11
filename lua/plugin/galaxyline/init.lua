@@ -106,7 +106,7 @@ local function left_config()
   left[3] = {
     FileName = {
       provider = function()
-        local fullname = fn.expand("%:F")
+        local fullname = fn.fnamemodify(fn.getcwd(), ":t") .. "\\" .. fn.expand("%:F")
         local shortname = fileinfo.get_current_file_name()
         return string.len(fullname) > 40 and shortname or fullname
       end,

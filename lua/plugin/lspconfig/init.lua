@@ -1,5 +1,7 @@
 local lspconfig = require("lspconfig")
 local lsp_status = require("lsp-status")
+local configs = require("lspconfig/configs")
+local util = require("lspconfig/util")
 local api = vim.api
 local Lsp = {}
 
@@ -27,6 +29,7 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] =
 )
 
 local function on_attach(client, bufnr)
+  require("lsp_signature").on_attach()
   lsp_status.on_attach(client, bufnr)
 
   -- Set autocommands conditional on server_capabilities
@@ -104,16 +107,24 @@ function Lsp.config()
   }
 
   -- CSS
-  lspconfig.cssls.setup {
-    on_attach = on_attach,
-    capabilities = capabilities,
-    cmd = {"node", "C:/tools/vscode/css-language-features/server/dist/node/cssServerMain.js", "--stdio"},
-    filetypes = {"css", "less", "scss"},
-    root_dir = require "lspconfig".util.root_pattern(".git", vim.fn.getcwd()),
-    init_options = {
-      provideFormatter = true
+  configs.css = {
+    default_config = {
+      cmd = {"node", "C:/tools/vscode/css-language-features/server/dist/node/cssServerMain.js", "--stdio"},
+      filetypes = {"css", "less", "scss"},
+      root_dir = util.root_pattern(".git", vim.fn.getcwd()),
+      init_options = {
+        provideFormatter = true
+      }
     }
   }
+
+  pcall(
+    lspconfig.css.setup,
+    {
+      on_attach = on_attach,
+      capabilities = capabilities
+    }
+  )
 
   -- CMake
   lspconfig.cmake.setup {
@@ -128,63 +139,81 @@ function Lsp.config()
   }
 
   -- HTML
-  lspconfig.html.setup {
-    on_attach = on_attach,
-    capabilities = capabilities,
-    cmd = {"node", "C:/tools/vscode/html-language-features/server/dist/node/htmlServerMain.js", "--stdio"},
-    filetypes = {
-      -- html
-      "aspnetcorerazor",
-      "blade",
-      "django-html",
-      "edge",
-      "ejs",
-      "eruby",
-      "gohtml",
-      "haml",
-      "handlebars",
-      "hbs",
-      "html",
-      "html-eex",
-      "jade",
-      "leaf",
-      "liquid",
-      "markdown",
-      "mdx",
-      "mustache",
-      "njk",
-      "nunjucks",
-      "php",
-      "razor",
-      "slim",
-      "twig",
-      "vue",
-      "svelte"
-    },
-    root_dir = require "lspconfig".util.root_pattern(".git", vim.fn.getcwd()),
-    init_options = {
-      provideFormatter = true
+  configs.html = {
+    default_config = {
+      cmd = {"node", "C:/tools/vscode/html-language-features/server/dist/node/htmlServerMain.js", "--stdio"},
+      filetypes = {
+        -- html
+        "aspnetcorerazor",
+        "blade",
+        "django-html",
+        "edge",
+        "ejs",
+        "eruby",
+        "gohtml",
+        "haml",
+        "handlebars",
+        "hbs",
+        "html",
+        "html-eex",
+        "jade",
+        "leaf",
+        "liquid",
+        "markdown",
+        "mdx",
+        "mustache",
+        "njk",
+        "nunjucks",
+        "php",
+        "razor",
+        "slim",
+        "twig",
+        "vue",
+        "svelte"
+      },
+      root_dir = util.root_pattern(".git", vim.fn.getcwd()),
+      init_options = {
+        provideFormatter = true
+      }
     }
   }
+
+  pcall(
+    lspconfig.html.setup,
+    {
+      on_attach = on_attach,
+      capabilities = capabilities,
+      autostart = false
+    }
+  )
 
   -- Intelephense
   lspconfig.intelephense.setup {
     on_attach = on_attach,
     capabilities = capabilities,
-    cmd = {"intelephense.cmd", "--stdio"}
+    cmd = {"intelephense.cmd", "--stdio"},
+    autostart = false
   }
 
   -- JSON
-  lspconfig.jsonls.setup {
-    on_attach = on_attach,
-    capabilities = capabilities,
-    cmd = {"node", "C:/tools/vscode/json-language-features/server/dist/node/jsonServerMain.js", "--stdio"},
-    filetypes = {"json"},
-    root_dir = require "lspconfig".util.root_pattern(".git", vim.fn.getcwd()),
-    init_options = {
-      provideFormatter = true
+  configs.json = {
+    default_config = {
+      cmd = {"node", "C:/tools/vscode/json-language-features/server/dist/node/jsonServerMain.js", "--stdio"},
+      filetypes = {"json"},
+      root_dir = util.root_pattern(".git", vim.fn.getcwd()),
+      init_options = {
+        provideFormatter = true
+      }
     }
   }
+
+  pcall(
+    lspconfig.json.setup,
+    {
+      on_attach = on_attach,
+      capabilities = capabilities
+    }
+  )
 
   -- Python
   lspconfig.pyright.setup {

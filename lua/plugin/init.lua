@@ -29,7 +29,7 @@ local function plugin_init(use)
       require("plugin.whitespace").config()
     end
   }
-  use {"farmergreg/vim-lastplace", event = "BufReadPre"}
+  use {"farmergreg/vim-lastplace"}
   use {
     "junegunn/vim-easy-align",
     event = "BufRead",
@@ -42,6 +42,12 @@ local function plugin_init(use)
     event = "InsertEnter",
     config = function()
       require("nvim-ts-autotag").setup()
+    end
+  }
+  use {
+    "lewis6991/spellsitter.nvim",
+    config = function()
+      require("spellsitter").setup {captures = {}}
     end
   }
 
@@ -111,6 +117,8 @@ local function plugin_init(use)
       vim.g.scrollview_winblend = 10
     end
   }
+  use "famiu/bufdelete.nvim"
+  use "matbme/JABS.nvim"
 
   -- Session
   use {
@@ -238,6 +246,7 @@ local function plugin_init(use)
       require("plugin.trouble").config()
     end
   }
+  use "ray-x/lsp_signature.nvim"
 
   -- Autocomplete
   use {
@@ -391,12 +400,16 @@ end
 function Plugin_manager.load_plugins()
   packer.init(
     {
-      max_jobs = 2,
+      max_jobs = 1,
       git = {clone_timeout = 300},
       display = {
         open_fn = function()
           return require("packer.util").float {border = "single"}
         end
+      },
+      profile = {
+        enable = true,
+        threshold = 1 -- integer in milliseconds, plugins which load faster than this won't be shown in profile output
       }
     }
   )

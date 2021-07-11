@@ -6,7 +6,7 @@ function Lightbulb.config()
       enabled = false
     }
   }
-  vim.cmd [[autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()]]
+  vim.cmd [[autocmd CursorHold,CursorHoldI * lua require('nvim-lightbulb').update_lightbulb()]]
 end
 
 local metatable = {
