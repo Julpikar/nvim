@@ -16,6 +16,13 @@ local function plugin_init(use)
 
   -- Editing
   use {
+    "Pocco81/TrueZen.nvim",
+    event = "BufRead",
+    config = function()
+      require("plugin.truezen").config()
+    end
+  }
+  use {
     "mg979/vim-visual-multi",
     event = "InsertEnter",
     setup = function()
