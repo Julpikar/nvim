@@ -23,6 +23,13 @@ local function plugin_init(use)
     end
   }
   use {
+    "editorconfig/editorconfig-vim",
+    event = "BufRead",
+    config = function()
+      require("plugin.editorconfig").config()
+    end
+  }
+  use {
     "mg979/vim-visual-multi",
     event = "InsertEnter",
     setup = function()
@@ -84,7 +91,7 @@ local function plugin_init(use)
   use {
     "kyazdani42/nvim-tree.lua",
     config = function()
-      require("plugin.tree").config()
+      require("plugin.nvim-tree").config()
     end
   }
   use {
@@ -265,9 +272,6 @@ local function plugin_init(use)
   use {
     "hrsh7th/vim-vsnip",
     event = "InsertEnter",
-    config = function()
-      require("plugin.vsnip").config()
-    end,
     requires = {"rafamadriz/friendly-snippets", event = "InsertEnter"}
   }
 
@@ -402,6 +406,9 @@ local function plugin_init(use)
       require("rust-tools").setup()
     end
   }
+
+  -- Lua Repl
+  use "rafcamlet/nvim-luapad"
 end
 
 function Plugin_manager.load_plugins()
