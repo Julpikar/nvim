@@ -97,13 +97,41 @@ local function left_config()
     }
   }
   left[2] = {
+    DiagnosticError = {
+      provider = diagnostic.get_diagnostic_error,
+      icon = icons.diagnostic.error .. " ",
+      highlight = {onedark.colors.red, onedark.colors.dark}
+    }
+  }
+  left[3] = {
+    DiagnosticWarn = {
+      provider = diagnostic.get_diagnostic_warn,
+      icon = icons.diagnostic.warn .. " ",
+      highlight = {onedark.colors.yellow, onedark.colors.dark}
+    }
+  }
+  left[4] = {
+    DiagnosticInfo = {
+      provider = diagnostic.get_diagnostic_info,
+      icon = icons.diagnostic.info .. " ",
+      highlight = {onedark.colors.green, onedark.colors.dark}
+    }
+  }
+  left[5] = {
+    DiagnosticHint = {
+      provider = diagnostic.get_diagnostic_hint,
+      icon = icons.diagnostic.hint .. " ",
+      highlight = {onedark.colors.orange, onedark.colors.dark}
+    }
+  }
+  left[6] = {
     FileIcon = {
       provider = fileinfo.get_file_icon,
       condition = condition.buffer_not_empty,
       highlight = {fileinfo.get_file_icon_color, onedark.colors.dark}
     }
   }
-  left[3] = {
+  left[7] = {
     FileName = {
       provider = function()
         local fullname = fn.fnamemodify(fn.getcwd(), ":t") .. "\\" .. fn.expand("%:F")
@@ -116,7 +144,7 @@ local function left_config()
       separator_highlight = {onedark.colors.dark, onedark.colors.dark}
     }
   }
-  left[4] = {
+  left[8] = {
     LspStatus = {
       provider = function()
         local lsp_status = require("lsp-status")
@@ -184,34 +212,6 @@ local function right_config()
       provider = fileinfo.current_line_percent,
       condition = condition.buffer_not_empty,
       highlight = {onedark.colors.white, onedark.colors.dark}
-    }
-  }
-  right[8] = {
-    DiagnosticError = {
-      provider = diagnostic.get_diagnostic_error,
-      icon = icons.diagnostic.error .. " ",
-      highlight = {onedark.colors.red, onedark.colors.dark}
-    }
-  }
-  right[9] = {
-    DiagnosticWarn = {
-      provider = diagnostic.get_diagnostic_warn,
-      icon = icons.diagnostic.warn .. " ",
-      highlight = {onedark.colors.yellow, onedark.colors.dark}
-    }
-  }
-  right[10] = {
-    DiagnosticInfo = {
-      provider = diagnostic.get_diagnostic_info,
-      icon = icons.diagnostic.info .. " ",
-      highlight = {onedark.colors.green, onedark.colors.dark}
-    }
-  }
-  right[11] = {
-    DiagnosticHint = {
-      provider = diagnostic.get_diagnostic_hint,
-      icon = icons.diagnostic.hint .. " ",
-      highlight = {onedark.colors.orange, onedark.colors.dark}
     }
   }
 end
