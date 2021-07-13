@@ -18,7 +18,7 @@ end
 
 local function set_keymap()
   vim.g.nvim_tree_bindings = {
-    {key = {"+"}, cb = "<CMD>lua require('plugin.nvim-tree').resize('+10')<CR>"},
+    {key = {"+", "="}, cb = "<CMD>lua require('plugin.nvim-tree').resize('+10')<CR>"},
     {key = {"-"}, cb = "<CMD>lua require('plugin.nvim-tree').resize('-10')<CR>"},
     {key = {"0"}, cb = "<CMD>lua require('plugin.nvim-tree').reset_size()<CR>"}
   }
