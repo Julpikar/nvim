@@ -80,10 +80,6 @@ function Debugger.config()
   set_debugger()
 end
 
-function Debugger.command()
-  vim.cmd [[command! DapContinue lua require('dap').continue()]]
-end
-
 local metatable = {
   __call = function()
     local self = {}

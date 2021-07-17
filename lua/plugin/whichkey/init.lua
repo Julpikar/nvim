@@ -45,8 +45,8 @@ function WhichKey.config()
         p = {"<CMD>BufferLineCyclePrev<CR>", "previous_buffer"},
         t = {"<CMD>BufferLinePick<CR>", "select_tab"},
         w = {"<CMD>Bwipeout<CR>", "wipeout_buffer"},
-        x = {"<CMD>Bdelete!<CR>", "forcefully_delete_buffer"},
-        z = {"<CMD>Bwipeout!<CR>", "forcefully_wipeout_buffer"}
+        x = {"<CMD>bdelete!<CR>", "forcefully_delete_buffer"},
+        z = {"<CMD>bwipeout!<CR>", "forcefully_wipeout_buffer"}
       }
     },
     {prefix = "<leader>"}
@@ -77,7 +77,7 @@ function WhichKey.config()
       d = {
         name = "debug",
         b = {"<CMD>lua require('dap').toggle_breakpoint()<CR>", "toggle_breakpoint"},
-        c = {"<CMD>DapContinue<CR>", "continue"},
+        c = {"<CMD>lua require('dap').continue()<CR>", "continue"},
         i = {"<CMD>lua require('dap').step_into()<CR>", "step_into"},
         o = {"<CMD>lua require('dap').step_over()<CR>", "step_over"},
         r = {"<CMD>lua require('dap').repl.open({}, 'vsplit')<CR>", "open_repl"},
@@ -88,6 +88,12 @@ function WhichKey.config()
           l = {"<CMD>Telescope dap list_breakpoints<CR>", "dap_breakpoints"},
           v = {"<CMD>Telescope dap variables<CR>", "dap_variables"},
           f = {"<CMD>Telescope dap frames<CR>", "dap_frames"}
+        },
+        u = {
+          name = "ui",
+          c = {"<CMD>lua require('dapui').close()<CR>", "close"},
+          o = {"<CMD>lua require('dapui').open()<CR>", "open"},
+          t = {"<CMD>lua require('dapui').toggle()<CR>", "toggle"}
         },
         x = {"<CMD>execute 'lua require('dap').step_out()'<CR>", "step_out"},
         z = {"<CMD>execute 'lua require('dap').run_last()'<CR>", "run_start"}

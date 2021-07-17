@@ -389,18 +389,8 @@ local function plugin_init(use)
 
   -- Debugger
   use {
-    "rcarriga/nvim-dap-ui",
-    cmd = "DapContinue",
+    "mfussenegger/nvim-dap",
     requires = {
-      {
-        "mfussenegger/nvim-dap",
-        setup = function()
-          require("plugin.nvim-dap").command()
-        end,
-        config = function()
-          require("plugin.nvim-dap").config()
-        end
-      },
       {
         "theHamsta/nvim-dap-virtual-text",
         config = function()
@@ -409,12 +399,19 @@ local function plugin_init(use)
       }
     },
     config = function()
+      require("plugin.nvim-dap").config()
+    end
+  }
+
+  use {
+    "rcarriga/nvim-dap-ui",
+    config = function()
       require("dapui").setup()
     end
   }
   use {
     "nvim-telescope/telescope-dap.nvim",
-    cmd = "DapContinue",
+    requires = "mfussenegger/nvim-dap",
     config = function()
       require("telescope").load_extension("dap")
     end
@@ -423,7 +420,6 @@ local function plugin_init(use)
   -- Lua Debugger
   use {
     "jbyuki/one-small-step-for-vimkind",
-    cmd = "DapContinue",
     ft = "lua"
   }
 
