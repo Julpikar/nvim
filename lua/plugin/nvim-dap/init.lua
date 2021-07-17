@@ -1,8 +1,9 @@
-local dap = require("dap")
-
 local Debugger = {}
 
 local function set_debugger()
+  local dap = require("dap")
+  dap.set_log_level("TRACE")
+
   -- Golang
   dap.adapters.go = {
     type = "executable",
@@ -76,8 +77,11 @@ local function set_debugger()
 end
 
 function Debugger.config()
-  dap.set_log_level("TRACE")
   set_debugger()
+end
+
+function Debugger.command()
+  vim.cmd [[command! DapContinue lua require('dap').continue()]]
 end
 
 local metatable = {

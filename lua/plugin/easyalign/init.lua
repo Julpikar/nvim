@@ -1,6 +1,6 @@
 local Easyalign = {}
 
-function Easyalign.config()
+function Easyalign.keymap()
   local remap = vim.api.nvim_set_keymap
   -- Start interactive EasyAlign in visual mode (e.g. vipga)
   remap("x", "ga", "<Plug>(EasyAlign)", {silent = true})

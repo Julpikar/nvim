@@ -17,112 +17,112 @@ local function plugin_init(use)
   -- Editing
   use {
     "Pocco81/TrueZen.nvim",
-    event = "BufRead",
+    cmd = {"TZAtaraxis", "TZFocus", "TZMinimalist"},
+    setup = function()
+      require("plugin.truezen").keymap()
+    end,
     config = function()
       require("plugin.truezen").config()
     end
   }
   use {
     "editorconfig/editorconfig-vim",
-    event = "BufRead",
+    event = "BufRead *",
     config = function()
       require("plugin.editorconfig").config()
     end
   }
   use {
     "mg979/vim-visual-multi",
-    event = "InsertEnter",
+    event = "CursorMoved *",
     setup = function()
       vim.g.VM_theme = "neon"
     end
   }
   use {
     "ntpeters/vim-better-whitespace",
-    event = "BufRead",
+    event = "BufRead *",
     config = function()
       require("plugin.whitespace").config()
     end
   }
-  use {"farmergreg/vim-lastplace"}
+  use {"farmergreg/vim-lastplace", event = "BufReadPost *"}
   use {
     "junegunn/vim-easy-align",
-    event = "BufRead",
-    config = function()
-      require("plugin.easyalign").config()
-    end
-  }
-  use {
-    "windwp/nvim-ts-autotag",
-    event = "InsertEnter",
-    config = function()
-      require("nvim-ts-autotag").setup()
-    end
-  }
-  use {
-    "lewis6991/spellsitter.nvim",
-    config = function()
-      require("spellsitter").setup {captures = {}}
+    cmd = {"EasyAlign"},
+    setup = function()
+      require("plugin.easyalign").keymap()
     end
   }
 
   -- Comment
   use {
     "b3nj5m1n/kommentary",
-    event = "BufRead",
+    event = "BufRead *",
     setup = function()
-      vim.g.kommentary_create_default_mappings = false
-    end,
-    config = function()
       local remap = vim.api.nvim_set_keymap
       remap("v", "<leader>ci", "<Plug>kommentary_visual_increase", {})
       remap("v", "<leader>cd", "<Plug>kommentary_visual_decrease", {})
+      vim.g.kommentary_create_default_mappings = false
     end
   }
 
   -- Dashboard
   use {
     "glepnir/dashboard-nvim",
-    config = function()
-      require("plugin.dashboard").config()
+    setup = function()
+      local dashboard = require("plugin.dashboard")
+      dashboard.keymap()
+      dashboard.setup()
     end
   }
 
   -- Explorer
   use {
     "kyazdani42/nvim-tree.lua",
+    cmd = {"NvimTreeToggle", "NvimTreeRefresh", "NvimTreeFindFile"},
+    setup = function()
+      require("plugin.nvim-tree").keymap()
+    end,
     config = function()
       require("plugin.nvim-tree").config()
     end
   }
   use {
     "airblade/vim-rooter",
+    event = "BufReadPre",
     config = function()
       require("plugin.vim-rooter").config()
     end
   }
   use {
     "liuchengxu/vista.vim",
-    config = function()
-      require("plugin.vista").config()
+    cmd = "Vista",
+    setup = function()
+      require("plugin.vista").keymap()
     end
   }
 
   -- Navigation
   use {
     "phaazon/hop.nvim",
-    event = "BufRead",
+    cmd = {"HopChar1", "HopChar2", "HopLine", "HopPattern", "HopWord"},
     config = function()
       require("hop").setup({create_hl_autocmd = false})
     end
   }
   use {
     "numToStr/Navigator.nvim",
+    setup = function()
+      require("plugin.navigator").keymap()
+    end,
     config = function()
       require("plugin.navigator").config()
     end
   }
   use {
     "dstein64/nvim-scrollview",
+    event = "BufReadPost *",
     config = function()
       vim.g.scrollview_excluded_filetypes = {
         "dashboard",
@@ -131,41 +131,23 @@ local function plugin_init(use)
       vim.g.scrollview_winblend = 10
     end
   }
-  use "famiu/bufdelete.nvim"
-  use "matbme/JABS.nvim"
-
-  -- Session
   use {
-    "rmagatti/auto-session",
-    requires = {
-      "rmagatti/session-lens",
-      config = function()
-        require("session-lens").setup()
-      end
-    },
-    config = function()
-      require("auto-session").setup(
-        {
-          auto_restore_enabled = false,
-          auto_session_enable_last_session = false
-        }
-      )
-    end
+    "famiu/bufdelete.nvim"
   }
+  use {"matbme/JABS.nvim", cmd = {"JABSOpen"}}
 
   -- Line number
   use {
     "myusuf3/numbers.vim",
+    event = "BufRead *",
     setup = function()
-      vim.g.numbers_exclude = {"dashboard", "NvimTree", "packer", "telescope", "vista"}
-    end,
-    config = function()
       local remap = vim.api.nvim_set_keymap
       local opts = {
         noremap = true
       }
       remap("n", "<F5>", ":NumbersToggle<CR>", opts)
       remap("n", "<F6>", ":NumbersOnOff<CR>", opts)
+      vim.g.numbers_exclude = {"dashboard", "NvimTree", "packer", "telescope", "vista"}
     end
   }
 
@@ -180,7 +162,7 @@ local function plugin_init(use)
   -- Line
   use {
     "akinsho/nvim-bufferline.lua",
-    event = "BufRead",
+    event = "BufReadPost",
     config = function()
       require("plugin.bufferline").config()
     end
@@ -198,7 +180,7 @@ local function plugin_init(use)
   -- Git
   use {
     "TimUntersberger/neogit",
-    event = "BufRead",
+    cmd = {"Neogit"},
     requires = {{"nvim-lua/plenary.nvim"}, {"sindrets/diffview.nvim"}},
     config = function()
       require("neogit").setup {
@@ -210,7 +192,7 @@ local function plugin_init(use)
   }
   use {
     "lewis6991/gitsigns.nvim",
-    event = "BufRead",
+    event = "BufRead *",
     config = function()
       require("gitsigns").setup {keymaps = {}}
     end
@@ -219,84 +201,19 @@ local function plugin_init(use)
   -- Floating terminal
   use {
     "voldikss/vim-floaterm",
-    config = function()
+    cmd = {"FloatermNew", "FloatermToggle"},
+    setup = function()
       require("plugin.floaterm").config()
-    end
-  }
-
-  -- LSP
-  use {
-    "neovim/nvim-lspconfig",
-    config = function()
-      require("plugin.lspconfig").config()
-    end,
-    requires = "nvim-lua/lsp-status.nvim"
-  }
-  use {
-    "glepnir/lspsaga.nvim",
-    event = "BufRead",
-    config = function()
-      require("plugin.lspsaga").config()
-    end
-  }
-  use {
-    "onsails/lspkind-nvim",
-    event = "BufRead",
-    config = function()
-      require("plugin.lspkind").config()
-    end
-  }
-  use {
-    "kosayoda/nvim-lightbulb",
-    event = "BufRead",
-    config = function()
-      require("plugin.lightbulb").config()
-    end
-  }
-  use {
-    "folke/trouble.nvim",
-    event = "BufRead",
-    config = function()
-      require("plugin.trouble").config()
-    end
-  }
-  use "ray-x/lsp_signature.nvim"
-
-  -- Autocomplete
-  use {
-    "hrsh7th/nvim-compe",
-    config = function()
-      require("plugin.compe").config()
-    end
-  }
-  use {
-    "hrsh7th/vim-vsnip",
-    event = "InsertEnter",
-    requires = {"rafamadriz/friendly-snippets", event = "InsertEnter"}
-  }
-
-  -- AutoPair
-  use {
-    "windwp/nvim-autopairs",
-    event = "InsertEnter",
-    config = function()
-      require("plugin.autopairs").config()
-    end
-  }
-
-  -- External Linter
-  use {
-    "mfussenegger/nvim-lint",
-    disable = true,
-    event = "BufRead",
-    config = function()
-      require("plugin.nvim-lint").config()
     end
   }
 
   -- Formatter
   use {
     "mhartington/formatter.nvim",
+    cmd = {"Format"},
+    setup = function()
+      require("plugin.format").keymap()
+    end,
     config = function()
       require("plugin.format").config()
     end
@@ -305,19 +222,40 @@ local function plugin_init(use)
   -- Treesitter
   use {
     "nvim-treesitter/nvim-treesitter",
-    requires = "p00f/nvim-ts-rainbow",
+    event = "BufEnter *",
     config = function()
       require("plugin.treesitter").config()
     end
   }
+  use {
+    "p00f/nvim-ts-rainbow",
+    event = "BufEnter *",
+    requires = "nvim-treesitter/nvim-treesitter"
+  }
+
+  use {
+    "windwp/nvim-ts-autotag",
+    ft = {"blade", "html", "tsx", "vue", "svelte", "php"},
+    requires = "nvim-treesitter/nvim-treesitter",
+    config = function()
+      require("nvim-ts-autotag").setup()
+    end
+  }
+  use {
+    "lewis6991/spellsitter.nvim",
+    event = "BufRead *",
+    config = function()
+      require("spellsitter").setup {captures = {}}
+    end
+  }
 
   -- Syntax highlighting non treesitter
-  use {"jwalton512/vim-blade", event = "BufRead", ft = "blade"}
+  use {"jwalton512/vim-blade", ft = "blade"}
 
   -- Colorizer
   use {
     "norcalli/nvim-colorizer.lua",
-    event = "BufRead",
+    event = "BufRead *",
     config = function()
       require("colorizer").setup()
     end
@@ -332,65 +270,165 @@ local function plugin_init(use)
     }
   }
 
-  -- Interacting with databases
+  -- Session
   use {
-    "tpope/vim-dadbod",
+    "rmagatti/session-lens",
+    cmd = "SearchSession",
     requires = {
-      "kristijanhusak/vim-dadbod-completion",
+      "nvim-telescope/telescope.nvim",
       {
-        "kristijanhusak/vim-dadbod-ui",
+        "rmagatti/auto-session",
         config = function()
-          vim.g.db_ui_show_database_icon = 1
-          vim.g.db_ui_use_nerd_fonts = 1
+          require("auto-session").setup {
+            auto_restore_enabled = false,
+            auto_session_enable_last_session = false
+          }
         end
       }
-    }
+    },
+    config = function()
+      require("session-lens").setup()
+    end
+  }
+
+  -- LSP
+  use {
+    "neovim/nvim-lspconfig",
+    event = "BufReadPost *",
+    config = function()
+      require("plugin.lspconfig").config()
+    end
+  }
+  use "nvim-lua/lsp-status.nvim"
+  use {
+    "glepnir/lspsaga.nvim",
+    cmd = {"Lspsaga"},
+    setup = function()
+      require("plugin.lspsaga").keymap()
+    end,
+    config = function()
+      require("plugin.lspsaga").config()
+    end
+  }
+  use {
+    "onsails/lspkind-nvim",
+    event = "InsertEnter *",
+    config = function()
+      require("plugin.lspkind").config()
+    end
+  }
+  use {
+    "kosayoda/nvim-lightbulb",
+    event = "BufReadPost *",
+    config = function()
+      require("plugin.lightbulb").config()
+    end
+  }
+  use {
+    "folke/trouble.nvim",
+    cmd = "TroubleToggle",
+    config = function()
+      require("plugin.trouble").config()
+    end
+  }
+  use {"ray-x/lsp_signature.nvim", event = "InsertEnter *"}
+
+  -- Autocomplete
+  use {
+    "hrsh7th/nvim-compe",
+    event = "BufReadPost *",
+    requires = {
+      "hrsh7th/vim-vsnip",
+      "rafamadriz/friendly-snippets"
+    },
+    setup = function()
+      require("plugin.compe").keymap()
+    end,
+    config = function()
+      require("plugin.compe").config()
+    end
+  }
+
+  -- AutoPair
+  use {
+    "windwp/nvim-autopairs",
+    event = "InsertEnter *",
+    requires = {"nvim-compe", "nvim-treesitter"},
+    config = function()
+      require("plugin.autopairs").config()
+    end
+  }
+
+  -- External Linter
+  use {
+    "mfussenegger/nvim-lint",
+    disable = true,
+    event = "BufRead *",
+    setup = function()
+      require("plugin.nvim-lint").keymap()
+    end,
+    config = function()
+      require("plugin.nvim-lint").config()
+    end
+  }
+
+  -- Interacting with databases
+  use {
+    "kristijanhusak/vim-dadbod-ui",
+    cmd = {"DBUIToggle"},
+    requires = {
+      "tpope/vim-dadbod",
+      "kristijanhusak/vim-dadbod-completion"
+    },
+    setup = function()
+      vim.g.db_ui_show_database_icon = 1
+      vim.g.db_ui_use_nerd_fonts = 1
+    end
   }
 
   -- Debugger
   use {
-    "mfussenegger/nvim-dap",
-    event = "BufRead",
+    "rcarriga/nvim-dap-ui",
+    cmd = "DapContinue",
     requires = {
       {
-        "nvim-telescope/telescope-dap.nvim",
-        event = "BufRead",
+        "mfussenegger/nvim-dap",
+        setup = function()
+          require("plugin.nvim-dap").command()
+        end,
         config = function()
-          require("telescope").load_extension("dap")
-        end
-      },
-      {
-        "rcarriga/nvim-dap-ui",
-        event = "BufRead",
-        config = function()
-          require("dapui").setup()
+          require("plugin.nvim-dap").config()
         end
       },
       {
         "theHamsta/nvim-dap-virtual-text",
-        event = "BufRead",
         config = function()
           vim.g.dap_virtual_text = true
         end
-      },
-      -- Lua Debugger
-      {
-        "jbyuki/one-small-step-for-vimkind",
-        event = "BufRead"
       }
     },
     config = function()
-      require("plugin.nvim-dap").config()
+      require("dapui").setup()
+    end
+  }
+  use {
+    "nvim-telescope/telescope-dap.nvim",
+    cmd = "DapContinue",
+    config = function()
+      require("telescope").load_extension("dap")
     end
   }
 
-  -- CMake
-  use {"ilyachur/cmake4vim", event = "BufRead", ft = "cmake"}
+  -- Lua Debugger
+  use {
+    "jbyuki/one-small-step-for-vimkind",
+    cmd = "DapContinue",
+    ft = "lua"
+  }
 
   -- Golang
   use {
     "crispgm/nvim-go",
-    event = "BufRead",
     ft = "go",
     config = function()
       require("plugin.nvim-go").config()
@@ -400,15 +438,21 @@ local function plugin_init(use)
   -- Rust
   use {
     "simrat39/rust-tools.nvim",
-    event = "BufRead",
     ft = "rust",
     config = function()
-      require("rust-tools").setup()
+      require("rust-tools").setup {
+        server = {
+          autostart = false
+        }
+      }
     end
   }
 
+  -- CMake
+  use {"ilyachur/cmake4vim", cmd = {"CMake", "CCMake"}}
+
   -- Lua Repl
-  use "rafcamlet/nvim-luapad"
+  use {"rafcamlet/nvim-luapad", cmd = {"Luapad"}}
 end
 
 function Plugin_manager.load_plugins()

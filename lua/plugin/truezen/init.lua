@@ -23,7 +23,9 @@ function TrueZen.config()
     cmd [[ScrollViewEnable]]
     cmd [[ScrollViewRefresh]]
   end
+end
 
+function TrueZen.keymap()
   local remap = vim.api.nvim_set_keymap
   remap("n", "<F12>", "<CMD>TZAtaraxis<CR>", {silent = true})
   remap("i", "<F12>", "<CMD>TZAtaraxis<CR>", {silent = true})

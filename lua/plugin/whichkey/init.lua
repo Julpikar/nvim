@@ -77,7 +77,7 @@ function WhichKey.config()
       d = {
         name = "debug",
         b = {"<CMD>lua require('dap').toggle_breakpoint()<CR>", "toggle_breakpoint"},
-        c = {"<CMD>lua require('dap').continue()<CR>", "continue"},
+        c = {"<CMD>DapContinue<CR>", "continue"},
         i = {"<CMD>lua require('dap').step_into()<CR>", "step_into"},
         o = {"<CMD>lua require('dap').step_over()<CR>", "step_over"},
         r = {"<CMD>lua require('dap').repl.open({}, 'vsplit')<CR>", "open_repl"},
@@ -134,17 +134,8 @@ function WhichKey.config()
     {
       g = {
         name = "git/version_control",
-        b = {"<CMD>Gblame<CR>", "fugitive_blame"},
-        B = {"<CMD>Gitsigns blame_line<CR>", "gitsigns_blame_line"},
-        c = {"<CMD>BCommits<CR>", "commits_for_current_buffer"},
-        C = {"<CMD>Gcommit<CR>", "fugitive_commit"},
-        d = {"<CMD>Gdiff<CR>", "fugitive_diff"},
-        e = {"<CMD>Gedit<CR>", "fugitive_edit"},
-        l = {"<CMD>Glog<CR>", "fugitive_log"},
-        r = {"<CMD>Gread<CR>", "fugitive_read"},
-        s = {"<CMD>Gstatus<CR>", "fugitive_status"},
-        w = {"<CMD>Gwrite<CR>", "fugitive_write"},
-        p = {"<CMD>Git push<CR>", "fugitive_push"}
+        n = {"<CMD>Neogit<CR>", "neogit_mode"},
+        g = {"<CMD>FloatermNew lazygit<CR>", "git"}
       }
     },
     {prefix = "<leader>"}
@@ -186,7 +177,6 @@ function WhichKey.config()
         name = "lsp",
         k = {"<CMD>lua require('lspsaga.hover').render_hover_doc()<CR>", "documentation"},
         i = {"<CMD>lua vim.lsp.buf.implementation()<CR>", "implementation"},
-        h = {"<CMD>lua require('lspsaga.signaturehelp').signature_help()<CR>", "signature_help"},
         R = {"<CMD>lua vim.lsp.buf.references()", "references"},
         a = {"<CMD>Lspsaga code_action<CR>", "code_action"},
         A = {"<CMD>Lspsaga range_code_action<CR>", "range_code_action"},

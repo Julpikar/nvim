@@ -16,7 +16,7 @@ function NvimTree.reset_size()
   resize(default_width)
 end
 
-local function set_keymap()
+function NvimTree.keymap()
   vim.g.nvim_tree_bindings = {
     {key = {"+", "="}, cb = "<CMD>lua require('plugin.nvim-tree').resize('+10')<CR>"},
     {key = {"-"}, cb = "<CMD>lua require('plugin.nvim-tree').resize('-10')<CR>"},
@@ -34,7 +34,6 @@ function NvimTree.config()
   g.nvim_tree_indent_markers = 1
   g.nvim_tree_width_allow_resize = 1
   g.nvim_tree_follow = 1
-  set_keymap()
 end
 
 local metatable = {

@@ -95,7 +95,8 @@ local function sumneko_config()
           enable = false
         }
       }
-    }
+    },
+    autostart = false
   }
 end
 
@@ -103,7 +104,8 @@ function Lsp.config()
   -- Clang
   lspconfig.clangd.setup {
     on_attach = on_attach,
-    capabilities = capabilities
+    capabilities = capabilities,
+    autostart = false
   }
 
   -- CSS
@@ -122,20 +124,23 @@ function Lsp.config()
     lspconfig.css.setup,
     {
       on_attach = on_attach,
-      capabilities = capabilities
+      capabilities = capabilities,
+      autostart = false
     }
   )
 
   -- CMake
   lspconfig.cmake.setup {
     on_attach = on_attach,
-    capabilities = capabilities
+    capabilities = capabilities,
+    autostart = false
   }
 
   -- Golang
   lspconfig.gopls.setup {
     on_attach = on_attach,
-    capabilities = capabilities
+    capabilities = capabilities,
+    autostart = false
   }
 
   -- HTML
@@ -211,14 +216,16 @@ function Lsp.config()
     lspconfig.json.setup,
     {
       on_attach = on_attach,
-      capabilities = capabilities
+      capabilities = capabilities,
+      autostart = false
     }
   )
 
   -- Python
   lspconfig.pyright.setup {
     on_attach = on_attach,
-    capabilities = capabilities
+    capabilities = capabilities,
+    autostart = false
   }
 
   -- Sumneko

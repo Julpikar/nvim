@@ -27,13 +27,13 @@ local function set_logo()
   }
 end
 
-local function set_keymap()
+function Dashboard.keymap()
   local remap = vim.api.nvim_set_keymap
   remap("n", "<HOME>", "<CMD>Dashboard<CR>", {silent = true})
   remap("v", "<HOME>", "<CMD>Dashboard<CR>", {silent = true})
 end
 
-function Dashboard.config()
+function Dashboard.setup()
   g.dashboard_default_executive = "telescope"
   g.dashboard_session_directory = vim.fn.stdpath("data") .. "/sessions/"
   g.dashboard_custom_shortcut = {
@@ -45,7 +45,6 @@ function Dashboard.config()
     find_word = "SPC h w",
     book_marks = "SPC h b"
   }
-  set_keymap()
   set_logo()
 end
 

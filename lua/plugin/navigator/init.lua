@@ -1,6 +1,6 @@
 local Navigator = {}
 
-local function set_keymap()
+ function Navigator.keymap()
   -- Keybindings
   local remap = vim.api.nvim_set_keymap
   local opts = {noremap = true, silent = true}
@@ -20,7 +20,6 @@ function Navigator.config()
       disable_on_zoom = true
     }
   )
-  set_keymap()
 end
 
 local metatable = {

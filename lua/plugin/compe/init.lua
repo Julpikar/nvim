@@ -1,6 +1,6 @@
 local Compe = {}
 
-local function set_keymap()
+function Compe.keymap()
   local remap = vim.api.nvim_set_keymap
   local opts = {noremap = true, silent = true, expr = true}
   remap("i", "<C-Space>", "compe#complete()", opts)
@@ -47,7 +47,6 @@ function Compe.config()
   }
 
   vim.cmd("highlight link CompeDocumentation NormalFloat")
-  set_keymap()
 end
 
 local metatable = {
