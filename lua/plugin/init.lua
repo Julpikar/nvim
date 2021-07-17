@@ -122,7 +122,7 @@ local function plugin_init(use)
   }
   use {
     "dstein64/nvim-scrollview",
-    event = "BufReadPost *",
+    event = "BufRead *",
     config = function()
       vim.g.scrollview_excluded_filetypes = {
         "dashboard",
@@ -132,7 +132,8 @@ local function plugin_init(use)
     end
   }
   use {
-    "famiu/bufdelete.nvim"
+    "famiu/bufdelete.nvim",
+    cmd = {"Bdelete", "Bwipeout"}
   }
   use {"matbme/JABS.nvim", cmd = {"JABSOpen"}}
 
