@@ -38,15 +38,15 @@ function WhichKey.config()
     {
       b = {
         name = "buffer",
-        d = {"<CMD>Bdelete<CR>", "delete_buffer"},
+        d = {"<CMD>BDelete this<CR>", "delete_buffer"},
         l = {"<CMD>JABSOpen<CR>", "list_buffer"},
         n = {"<CMD>BufferLineCycleNext<CR>", "next_buffer"},
         m = {"<CMD>bNext<CR>", "next_buffer_force"},
         p = {"<CMD>BufferLineCyclePrev<CR>", "previous_buffer"},
         t = {"<CMD>BufferLinePick<CR>", "select_tab"},
-        w = {"<CMD>Bwipeout<CR>", "wipeout_buffer"},
-        x = {"<CMD>bdelete!<CR>", "forcefully_delete_buffer"},
-        z = {"<CMD>bwipeout!<CR>", "forcefully_wipeout_buffer"}
+        w = {"<CMD>BWipeout this<CR>", "wipeout_buffer"},
+        x = {"<CMD>BDelete! this<CR>", "forcefully_delete_buffer"},
+        z = {"<CMD>BWipeout! this<CR>", "forcefully_wipeout_buffer"}
       }
     },
     {prefix = "<leader>"}
