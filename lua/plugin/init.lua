@@ -44,7 +44,7 @@ local function plugin_init(use)
   -- Comment
   use {
     "b3nj5m1n/kommentary",
-    keys = {{"n", "<leader>ci"}, {"n", "<leader>cd"}},
+    keys = {"n", "<leader>c"},
     setup = function()
       local remap = vim.api.nvim_set_keymap
       remap("v", "<leader>ci", "<Plug>kommentary_visual_increase", {})
@@ -253,6 +253,7 @@ local function plugin_init(use)
     requires = "ray-x/lsp_signature.nvim",
     config = [[require("plugin.lspconfig").config()]]
   }
+  use {"jose-elias-alvarez/null-ls.nvim"}
   use {
     "glepnir/lspsaga.nvim",
     cmd = "Lspsaga",

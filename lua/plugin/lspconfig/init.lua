@@ -230,6 +230,20 @@ function Lsp.config()
 
   -- Sumneko
   sumneko_config()
+
+  -- Svelte
+  lspconfig.svelte.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+    autostart = false
+  }
+
+  -- Typescript
+  lspconfig.tsserver.setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+    autostart = false
+  }
 end
 
 local metatable = {
