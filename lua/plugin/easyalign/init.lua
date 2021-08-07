@@ -9,13 +9,4 @@ function Easyalign.keymap()
   remap("n", "ga", "<Plug>(EasyAlign)", {silent = true})
 end
 
-local metatable = {
-  __call = function()
-    local self = {}
-    setmetatable(self, {__index = Easyalign})
-    return self
-  end
-}
-setmetatable(Easyalign, metatable)
-
 return Easyalign

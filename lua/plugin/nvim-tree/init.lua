@@ -36,13 +36,4 @@ function NvimTree.config()
   g.nvim_tree_follow = 1
 end
 
-local metatable = {
-  __call = function()
-    local self = {}
-    setmetatable(self, {__index = NvimTree})
-    return self
-  end
-}
-setmetatable(NvimTree, metatable)
-
 return NvimTree

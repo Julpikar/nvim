@@ -7,13 +7,4 @@ function Vista.keymap()
   remap("v", "<F9>", "<CMD>Vista!!<CR>", {silent = true})
 end
 
-local metatable = {
-  __call = function()
-    local self = {}
-    setmetatable(self, {__index = Vista})
-    return self
-  end
-}
-setmetatable(Vista, metatable)
-
 return Vista

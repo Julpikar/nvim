@@ -49,13 +49,4 @@ function Bufferline.config()
   }
 end
 
-local metatable = {
-  __call = function()
-    local self = {}
-    setmetatable(self, {__index = Bufferline})
-    return self
-  end
-}
-setmetatable(Bufferline, metatable)
-
 return Bufferline

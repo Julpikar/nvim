@@ -49,13 +49,4 @@ function Compe.config()
   vim.cmd("highlight link CompeDocumentation NormalFloat")
 end
 
-local metatable = {
-  __call = function()
-    local self = {}
-    setmetatable(self, {__index = Compe})
-    return self
-  end
-}
-setmetatable(Compe, metatable)
-
 return Compe

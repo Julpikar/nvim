@@ -27,13 +27,4 @@ function Go.config()
   }
 end
 
-local metatable = {
-  __call = function()
-    local self = {}
-    setmetatable(self, {__index = Go})
-    return self
-  end
-}
-setmetatable(Go, metatable)
-
 return Go

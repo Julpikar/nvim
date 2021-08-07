@@ -229,13 +229,4 @@ function Galaxy.config()
   vim.cmd("augroup END")
 end
 
-local metatable = {
-  __call = function()
-    local self = {}
-    setmetatable(self, {__index = Galaxy})
-    return self
-  end
-}
-setmetatable(Galaxy, metatable)
-
 return Galaxy

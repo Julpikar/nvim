@@ -9,13 +9,4 @@ function Linter.config()
   linter["python"] = {"flake8"}
 end
 
-local metatable = {
-  __call = function()
-    local self = {}
-    setmetatable(self, {__index = Linter})
-    return self
-  end
-}
-setmetatable(Linter, metatable)
-
 return Linter

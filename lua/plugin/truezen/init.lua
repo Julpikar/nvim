@@ -14,12 +14,12 @@ function TrueZen.config()
   )
 
   true_zen.before_mode_ataraxis_on = function()
-    cmd [[NumbersDisable]]
+    cmd [[NumberDisable]]
     cmd [[ScrollViewDisable]]
   end
 
   true_zen.after_mode_ataraxis_off = function()
-    cmd [[NumbersEnable]]
+    cmd [[NumberEnable]]
     cmd [[ScrollViewEnable]]
     cmd [[ScrollViewRefresh]]
   end
@@ -31,14 +31,5 @@ function TrueZen.keymap()
   remap("i", "<F12>", "<CMD>TZAtaraxis<CR>", {silent = true})
   remap("v", "<F12>", "<CMD>TZAtaraxis<CR>", {silent = true})
 end
-
-local metatable = {
-  __call = function()
-    local self = {}
-    setmetatable(self, {__index = TrueZen})
-    return self
-  end
-}
-setmetatable(TrueZen, metatable)
 
 return TrueZen

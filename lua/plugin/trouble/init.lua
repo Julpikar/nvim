@@ -22,13 +22,4 @@ function Trouble.config()
   }
 end
 
-local metatable = {
-  __call = function()
-    local self = {}
-    setmetatable(self, {__index = Trouble})
-    return self
-  end
-}
-setmetatable(Trouble, metatable)
-
 return Trouble

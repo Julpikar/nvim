@@ -334,13 +334,4 @@ function WhichKey.config()
   )
 end
 
-local metatable = {
-  __call = function()
-    local self = {}
-    setmetatable(self, {__index = WhichKey})
-    return self
-  end
-}
-setmetatable(WhichKey, metatable)
-
 return WhichKey

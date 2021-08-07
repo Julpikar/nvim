@@ -8,13 +8,4 @@ function Floaterm.setup()
   g.floaterm_autoinsert = 1
 end
 
-local metatable = {
-  __call = function()
-    local self = {}
-    setmetatable(self, {__index = Floaterm})
-    return self
-  end
-}
-setmetatable(Floaterm, metatable)
-
 return Floaterm

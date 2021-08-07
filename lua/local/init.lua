@@ -1,37 +1,40 @@
+local colorscheme = require("local.colorscheme")
+local lastplace = require("local.lastplace")
+local number = require("local.number")
+local mapping = require("local.mapping")
 local cmd = vim.cmd
 local o = vim.o
 
 local Global = {}
 
 function Global.load_settings()
-  -- Enable 24-bit RGB color
-  o.termguicolors = true
-
-  -- I want make it fast
-  o.lazyredraw = true
+  colorscheme("onedark")
 
   -- Windows mapping
   cmd("source $VIMRUNTIME/mswin.vim")
 
-  -- Safe Heaven
+  -- Safe heaven
   cmd("set swapfile")
   cmd("set undofile")
 
-  -- Window Split
+  -- Window split
   o.splitright = true
   o.splitbelow = true
 
-  -- Mouse Support
+  -- Mouse support
   o.mouse = "a"
 
-  -- Font Setting
+  -- Font setting
   o.guifont = "Hasklug NF:h9"
 
-  -- Indentation Setting
+  -- Line number setting
+  number.setup()
+
+  -- Indentation setting
   o.autoindent = true
   o.shiftwidth = 2
 
-  -- Tab Setting
+  -- Tab setting
   o.tabstop = 2
   o.softtabstop = 2
   o.expandtab = true
@@ -41,15 +44,12 @@ function Global.load_settings()
 
   -- Postponed redraw
   o.lazyredraw = true
-end
 
-local metatable = {
-  __call = function()
-    local self = {}
-    setmetatable(self, {__index = Global})
-    return self
-  end
-}
-setmetatable(Global, metatable)
+  -- Goto last position when open a file
+  lastplace()
+
+  -- Mapping
+  mapping()
+end
 
 return Global

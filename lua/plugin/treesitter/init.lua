@@ -18,13 +18,4 @@ function Treesitter.config()
   vim.cmd [[set foldlevel=99]]
 end
 
-local metatable = {
-  __call = function()
-    local self = {}
-    setmetatable(self, {__index = Treesitter})
-    return self
-  end
-}
-setmetatable(Treesitter, metatable)
-
 return Treesitter

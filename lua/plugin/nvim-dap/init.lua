@@ -80,13 +80,4 @@ function Debugger.config()
   set_debugger()
 end
 
-local metatable = {
-  __call = function()
-    local self = {}
-    setmetatable(self, {__index = Debugger})
-    return self
-  end
-}
-setmetatable(Debugger, metatable)
-
 return Debugger

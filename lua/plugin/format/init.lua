@@ -123,13 +123,4 @@ function Format.config()
   formatter.setup({logging = false, filetype = formatter_config})
 end
 
-local metatable = {
-  __call = function()
-    local self = {}
-    setmetatable(self, {__index = Format})
-    return self
-  end
-}
-setmetatable(Format, metatable)
-
 return Format

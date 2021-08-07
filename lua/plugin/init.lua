@@ -5,15 +5,6 @@ local Plugin_manager = {}
 local function plugin_init(use)
   use "wbthomason/packer.nvim"
 
-  -- Colorscheme
-  use {
-    "Julpikar/onedark.nvim",
-    config = function()
-      vim.g.onedark_style = "darker"
-      require("onedark").setup()
-    end
-  }
-
   -- Editing
   use {
     "Pocco81/TrueZen.nvim",
@@ -34,12 +25,12 @@ local function plugin_init(use)
     "ntpeters/vim-better-whitespace",
     config = [[require("plugin.whitespace").config()]]
   }
-  use "farmergreg/vim-lastplace"
   use {
     "junegunn/vim-easy-align",
     cmd = "EasyAlign",
     setup = [[require("plugin.easyalign").keymap()]]
   }
+  use "Pocco81/AutoSave.nvim"
 
   -- Comment
   use {
@@ -90,11 +81,6 @@ local function plugin_init(use)
     config = [[require("hop").setup({create_hl_autocmd = false})]]
   }
   use {
-    "numToStr/Navigator.nvim",
-    setup = [[require("plugin.navigator").keymap()]],
-    config = [[require("plugin.navigator").config()]]
-  }
-  use {
     "dstein64/nvim-scrollview",
     config = function()
       vim.g.scrollview_excluded_filetypes = {
@@ -124,20 +110,6 @@ local function plugin_init(use)
     end
   }
   use {"matbme/JABS.nvim", cmd = "JABSOpen"}
-
-  -- Line number
-  use {
-    "myusuf3/numbers.vim",
-    setup = function()
-      local remap = vim.api.nvim_set_keymap
-      local opts = {
-        noremap = true
-      }
-      remap("n", "<F7>", ":NumbersToggle<CR>", opts)
-      remap("n", "<F6>", ":NumbersOnOff<CR>", opts)
-      vim.g.numbers_exclude = {"dashboard", "NvimTree", "packer", "telescope", "vista"}
-    end
-  }
 
   -- Keymap guide
   use {
@@ -233,11 +205,9 @@ local function plugin_init(use)
   use {
     "rmagatti/session-lens",
     cmd = "SearchSession",
-    after = "auto-session",
     requires = {
       {
         "rmagatti/auto-session",
-        cmd = "SearchSession",
         config = [[require("auto-session").setup {
             auto_restore_enabled = false,
             auto_session_enable_last_session = false
@@ -250,8 +220,7 @@ local function plugin_init(use)
   -- LSP
   use {
     "neovim/nvim-lspconfig",
-    requires = "ray-x/lsp_signature.nvim",
-    config = [[require("plugin.lspconfig").config()]]
+    requires = "ray-x/lsp_signature.nvim"
   }
   use {"jose-elias-alvarez/null-ls.nvim"}
   use {
@@ -259,11 +228,6 @@ local function plugin_init(use)
     cmd = "Lspsaga",
     setup = [[require("plugin.lspsaga").keymap()]],
     config = [[require("plugin.lspsaga").config()]]
-  }
-  use {
-    "onsails/lspkind-nvim",
-    cmd = {"LspStart", "LspStop", "LspRestart"},
-    config = [[require("plugin.lspkind").config()]]
   }
   use {
     "kosayoda/nvim-lightbulb",
@@ -396,14 +360,5 @@ function Plugin_manager.load_plugins()
   )
   return packer.startup(plugin_init)
 end
-
-local metatable = {
-  __call = function()
-    local self = {}
-    setmetatable(self, {__index = Plugin_manager})
-    return self
-  end
-}
-setmetatable(Plugin_manager, metatable)
 
 return Plugin_manager

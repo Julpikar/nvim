@@ -41,13 +41,4 @@ function AutoPairs.config()
   )
 end
 
-local metatable = {
-  __call = function()
-    local self = {}
-    setmetatable(self, {__index = AutoPairs})
-    return self
-  end
-}
-setmetatable(AutoPairs, metatable)
-
 return AutoPairs

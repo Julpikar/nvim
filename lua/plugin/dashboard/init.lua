@@ -48,13 +48,4 @@ function Dashboard.setup()
   set_logo()
 end
 
-local metatable = {
-  __call = function()
-    local self = {}
-    setmetatable(self, {__index = Dashboard})
-    return self
-  end
-}
-setmetatable(Dashboard, metatable)
-
 return Dashboard
