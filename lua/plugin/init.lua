@@ -159,7 +159,7 @@ local function plugin_init(use)
   -- Formatter
   use {
     "mhartington/formatter.nvim",
-    cmd = "Format",
+    cmd = {"Format", "FormatWrite"},
     setup = [[require("plugin.format").keymap()]],
     config = [[require("plugin.format").config()]]
   }
@@ -199,22 +199,6 @@ local function plugin_init(use)
       "nvim-lua/popup.nvim",
       "nvim-lua/plenary.nvim"
     }
-  }
-
-  -- Session
-  use {
-    "rmagatti/session-lens",
-    cmd = "SearchSession",
-    requires = {
-      {
-        "rmagatti/auto-session",
-        config = [[require("auto-session").setup {
-            auto_restore_enabled = false,
-            auto_session_enable_last_session = false
-          }]]
-      }
-    },
-    config = [[require("session-lens").setup()]]
   }
 
   -- LSP

@@ -31,6 +31,6 @@ lsp.sumneko_lua.setup {
         enable = false
       }
     }
-  }
-  -- autostart = false
+  },
+  autostart = false
 }

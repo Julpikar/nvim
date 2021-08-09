@@ -4,6 +4,16 @@ function Format.keymap()
   local remap = vim.api.nvim_set_keymap
   remap("n", "<F10>", ":Format<CR>", {noremap = true, silent = true})
   remap("v", "<F10>", ":Format<CR>", {noremap = true, silent = true})
+
+  vim.api.nvim_exec(
+    [[
+    augroup FormatAutogroup
+      autocmd!
+      autocmd BufWritePost *.js,*.rs,*.lua FormatWrite
+    augroup END
+    ]],
+    true
+  )
 end
 
 function Format.config()

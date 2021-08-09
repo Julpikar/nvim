@@ -23,13 +23,4 @@ function Utils.create_augroup(autocmds, name)
   cmd("augroup END")
 end
 
--- function Utils.table_list_extend(tbl1, tbl2)
---   for _, value in pairs(tbl2) do
---     if not vim.tbl_contains(tbl1, value) then
---       vim.list_extend(tbl1, {value})
---     end
---   end
---   return tbl1
--- end
-
 return Utils

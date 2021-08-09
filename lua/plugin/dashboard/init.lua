@@ -35,7 +35,7 @@ end
 
 function Dashboard.setup()
   g.dashboard_default_executive = "telescope"
-  g.dashboard_session_directory = vim.fn.stdpath("data") .. "/sessions/"
+  g.session_enable = false
   g.dashboard_custom_shortcut = {
     last_session = "SPC h s",
     find_history = "SPC h h",
