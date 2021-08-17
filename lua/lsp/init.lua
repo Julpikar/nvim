@@ -1,12 +1,19 @@
 local lspconfig = require("lspconfig")
 local lspstatus = require("lsp-status")
-
 local api = vim.api
 
-local Lsp = {}
+local function lsp_client_active(name)
+  local clients = vim.lsp.get_active_clients()
+  for _, client in pairs(clients) do
+    if client.name == name then
+      return true
+    end
+  end
+  return false
+end
 
-local lsp = {
-  completion = {
+local function completion_item_kind()
+  local completion = {
     item_kind = {
       Text = "  ",
       Method = "  ",
@@ -61,41 +68,14 @@ local lsp = {
       "Operator",
       "TypeParameter"
     }
-  },
-  diagnostic = {
-    signs = {
-      active = true,
-      values = {
-        {name = "LspDiagnosticsSignError", text = ""},
-        {name = "LspDiagnosticsSignWarning", text = ""},
-        {name = "LspDiagnosticsSignHint", text = ""},
-        {name = "LspDiagnosticsSignInformation", text = ""}
-      }
-    },
-    virtual_text = {
-      prefix = "",
-      spacing = 0
-    },
-    underline = true,
-    update_in_insert = false,
-    severity_sort = true
   }
-}
 
-lspstatus.config {
-  status_symbol = "",
-  diagnostics = false
-}
-
-lspstatus.register_progress()
-
-local function completion_item_kind()
-  local symbol_map = lsp.completion.item_kind
+  local symbol_map = completion.item_kind
   local symbols = {}
   local len = 25
 
   for i = 1, len do
-    local name = lsp.completion.item_order[i]
+    local name = completion.item_order[i]
     local symbol = symbol_map[name]
     symbol = symbol and (symbol .. " ") or ""
     symbols[i] = string.format("%s%s", symbol, name)
@@ -109,9 +89,9 @@ local function document_highlight_capabilities(client, bufnr)
   if client.resolved_capabilities.document_highlight then
     api.nvim_exec(
       [[
-      hi LspReferenceRead cterm=bold ctermbg=red guibg=LightYellow
-      hi LspReferenceText cterm=bold ctermbg=red guibg=LightYellow
-      hi LspReferenceWrite cterm=bold ctermbg=red guibg=LightYellow
+      hi MReferenceRead cterm=bold ctermbg=red guibg=LightYellow
+      hi MReferenceText cterm=bold ctermbg=red guibg=LightYellow
+      hi MReferenceWrite cterm=bold ctermbg=red guibg=LightYellow
       augroup lsp_document_highlight
         autocmd! * <buffer>
         autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
@@ -128,22 +108,38 @@ local function lsp_handlers()
     vim.lsp.with(
     vim.lsp.diagnostic.on_publish_diagnostics,
     {
-      update_in_insert = lsp.diagnostic.update_in_insert -- Disable diagnostic on insert
+      underline = true,
+      update_in_insert = false,
+      severity_sort = true
     }
   )
 end
 
-function Lsp.common_on_attach(client, bufnr)
-  require("lsp_signature").on_attach()
-  lspstatus.on_attach(client, bufnr)
-  lsp_handlers()
+local function common_on_attach(client, bufnr)
   completion_item_kind()
+  lsp_handlers()
   document_highlight_capabilities(client, bufnr)
+
+  lspstatus.config {
+    status_symbol = "",
+    diagnostics = false
+  }
+  lspstatus.register_progress()
+  lspstatus.on_attach(client, bufnr)
+
+  require("lsp_signature").on_attach()
 end
 
-function Lsp.common_capabilities()
+local function common_capabilities()
   local capabilities = vim.lsp.protocol.make_client_capabilities()
+  capabilities.textDocument.completion.completionItem.documentationFormat = {"markdown"}
   capabilities.textDocument.completion.completionItem.snippetSupport = true
+  capabilities.textDocument.completion.completionItem.preselectSupport = true
+  capabilities.textDocument.completion.completionItem.insertReplaceSupport = true
+  capabilities.textDocument.completion.completionItem.labelDetailsSupport = true
+  capabilities.textDocument.completion.completionItem.deprecatedSupport = true
+  capabilities.textDocument.completion.completionItem.commitCharactersSupport = true
+  capabilities.textDocument.completion.completionItem.tagSupport = {valueSet = {1}}
   capabilities.textDocument.completion.completionItem.resolveSupport = {
     properties = {
       "documentation",
@@ -155,12 +151,23 @@ function Lsp.common_capabilities()
   return capabilities
 end
 
-local metatable = {
-  __index = function(self, server)
-    return lspconfig[server]
+local M = {}
+
+function M.setup(config)
+  local lsp = config.lsp
+  if lsp_client_active(lsp.provider) then
+    return
   end
-}
 
-setmetatable(Lsp, metatable)
+  local setup = {
+    on_attach = common_on_attach,
+    capabilities = common_capabilities(),
+    autostart = false
+  }
 
-return Lsp
+  setup = vim.tbl_extend("keep", setup, lsp.setup)
+
+  lspconfig[lsp.provider].setup(setup)
+end
+
+return M

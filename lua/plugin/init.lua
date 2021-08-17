@@ -30,7 +30,7 @@ local function plugin_init(use)
     cmd = "EasyAlign",
     setup = [[require("plugin.easyalign").keymap()]]
   }
-  use "Pocco81/AutoSave.nvim"
+  use {"Pocco81/AutoSave.nvim", event = "TextChanged", config = [[require("autosave").setup()]]}
 
   -- Comment
   use {
@@ -226,20 +226,22 @@ local function plugin_init(use)
 
   -- Autocomplete
   use {
-    "hrsh7th/nvim-compe",
-    event = "InsertEnter",
+    "hrsh7th/nvim-cmp",
     requires = {
+      "hrsh7th/cmp-buffer",
+      "hrsh7th/cmp-vsnip",
+      {"hrsh7th/cmp-nvim-lsp", config = [[require("cmp_nvim_lsp").setup()]]},
+      "hrsh7th/cmp-path",
       "hrsh7th/vim-vsnip",
       "rafamadriz/friendly-snippets"
     },
-    setup = [[require("plugin.compe").keymap()]],
-    config = [[require("plugin.compe").config()]]
+    config = [[require("plugin.cmp").config()]]
   }
 
   -- AutoPair
   use {
     "windwp/nvim-autopairs",
-    after = "nvim-compe",
+    after = "nvim-cmp",
     config = [[require("plugin.autopairs").config()]]
   }
 

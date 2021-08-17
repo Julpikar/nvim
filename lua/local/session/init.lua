@@ -48,6 +48,7 @@ function Session.setup()
   end
 
   local autocmds = {
+    {"VimEnter", "*", "lua require('local.session').restore_session()"},
     {"VimLeave", "*", "lua require('local.session').save_session()"}
   }
   utils.create_augroup(autocmds, "session")

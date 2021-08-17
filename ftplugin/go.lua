@@ -9,7 +9,7 @@ local config = {
   },
   linters = {},
   lsp = {
-    provider = "tsserver",
+    provider = "gopls",
     setup = {}
   }
 }

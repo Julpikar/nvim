@@ -2,7 +2,7 @@ local colorscheme = require("local.colorscheme")
 local lastplace = require("local.lastplace")
 local number = require("local.number")
 local mapping = require("local.mapping")
-local session = require("local.session")
+
 local cmd = vim.cmd
 local o = vim.o
 
@@ -48,9 +48,6 @@ function Global.load_settings()
 
   -- Goto last position when open a file
   lastplace()
-
-  -- Session
-  session.setup()
 
   -- Mapping
   mapping()
