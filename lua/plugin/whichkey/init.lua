@@ -5,11 +5,6 @@ function WhichKey.config()
   vim.cmd [[let mapleader = "\<SPACE>"]]
 
   wk.setup {
-    key_labels = {
-      ["<space>"] = "SPC",
-      ["<CR>"] = "RET",
-      ["<tab>"] = "TAB"
-    },
     layout = {
       spacing = 5 -- spacing between columns
     },
@@ -47,26 +42,6 @@ function WhichKey.config()
         w = {"<CMD>BWipeout this<CR>", "wipeout_buffer"},
         x = {"<CMD>BDelete! this<CR>", "forcefully_delete_buffer"},
         z = {"<CMD>BWipeout! this<CR>", "forcefully_wipeout_buffer"}
-      }
-    },
-    {prefix = "<leader>"}
-  )
-
-  wk.register(
-    {
-      c = {
-        name = "kommentary",
-        c = {"<Plug>kommentary_line_default", "comment"},
-        d = {
-          name = "decrease",
-          l = {"<Plug>kommentary_line_decrease", "line_decrease"},
-          m = {"<Plug>kommentary_motion_decrease", "motion_decrease"}
-        },
-        i = {
-          name = "increase",
-          l = {"<Plug>kommentary_line_increase", "line_increase"},
-          m = {"<Plug>kommentary_motion_increase", "motion_increase"}
-        }
       }
     },
     {prefix = "<leader>"}

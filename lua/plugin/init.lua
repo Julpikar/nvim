@@ -33,16 +33,7 @@ local function plugin_init(use)
   use {"Pocco81/AutoSave.nvim", event = "TextChanged", config = [[require("autosave").setup()]]}
 
   -- Comment
-  use {
-    "b3nj5m1n/kommentary",
-    keys = {"n", "<leader>c"},
-    setup = function()
-      local remap = vim.api.nvim_set_keymap
-      remap("v", "<leader>ci", "<Plug>kommentary_visual_increase", {})
-      remap("v", "<leader>cd", "<Plug>kommentary_visual_decrease", {})
-      vim.g.kommentary_create_default_mappings = false
-    end
-  }
+  use {"b3nj5m1n/kommentary", event = "BufRead"}
 
   -- Dashboard
   use {

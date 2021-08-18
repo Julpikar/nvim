@@ -12,78 +12,6 @@ local function lsp_client_active(name)
   return false
 end
 
-local function completion_item_kind()
-  local completion = {
-    item_kind = {
-      Text = "  ",
-      Method = "  ",
-      Function = "  ",
-      Constructor = "  ",
-      Field = " ﴲ ",
-      Variable = "[]",
-      Class = "  ",
-      Interface = " ﰮ ",
-      Module = "  ",
-      Property = " 襁",
-      Unit = "  ",
-      Value = "  ",
-      Enum = " 練",
-      Keyword = "  ",
-      Snippet = "  ",
-      Color = "  ",
-      File = "  ",
-      Reference = "  ",
-      Folder = "  ",
-      EnumMember = "  ",
-      Constant = " ﲀ ",
-      Struct = " ﳤ ",
-      Event = "  ",
-      Operator = "  ",
-      TypeParameter = "  "
-    },
-    item_order = {
-      "Text",
-      "Method",
-      "Function",
-      "Constructor",
-      "Field",
-      "Variable",
-      "Class",
-      "Interface",
-      "Module",
-      "Property",
-      "Unit",
-      "Value",
-      "Enum",
-      "Keyword",
-      "Snippet",
-      "Color",
-      "File",
-      "Reference",
-      "Folder",
-      "EnumMember",
-      "Constant",
-      "Struct",
-      "Event",
-      "Operator",
-      "TypeParameter"
-    }
-  }
-
-  local symbol_map = completion.item_kind
-  local symbols = {}
-  local len = 25
-
-  for i = 1, len do
-    local name = completion.item_order[i]
-    local symbol = symbol_map[name]
-    symbol = symbol and (symbol .. " ") or ""
-    symbols[i] = string.format("%s%s", symbol, name)
-  end
-
-  vim.lsp.protocol.CompletionItemKind = symbols
-end
-
 local function document_highlight_capabilities(client, bufnr)
   -- Set autocommands conditional on server_capabilities
   if client.resolved_capabilities.document_highlight then
@@ -116,7 +44,6 @@ local function lsp_handlers()
 end
 
 local function common_on_attach(client, bufnr)
-  completion_item_kind()
   lsp_handlers()
   document_highlight_capabilities(client, bufnr)
 
