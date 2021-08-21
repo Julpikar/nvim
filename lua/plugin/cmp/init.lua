@@ -1,29 +1,29 @@
 local itemkind = {
-  Text = "  ",
-  Method = "  ",
-  Function = "  ",
-  Constructor = "  ",
-  Field = " ﴲ ",
-  Variable = "[]",
-  Class = "  ",
-  Interface = " ﰮ ",
-  Module = "  ",
-  Property = " 襁",
-  Unit = "  ",
-  Value = "  ",
-  Enum = " 練",
-  Keyword = "  ",
-  Snippet = "  ",
-  Color = "  ",
-  File = "  ",
-  Reference = "  ",
-  Folder = "  ",
-  EnumMember = "  ",
-  Constant = " ﲀ ",
-  Struct = " ﳤ ",
-  Event = "  ",
-  Operator = "  ",
-  TypeParameter = "  "
+  Text = "   Text         ",
+  Method = "   Method       ",
+  Function = "   Function     ",
+  Constructor = "   Constructor  ",
+  Field = " ﴲ  Field        ",
+  Variable = "[] Variable     ",
+  Class = "   Class        ",
+  Interface = " ﰮ  Interface    ",
+  Module = "   Module       ",
+  Property = " 襁 Property     ",
+  Unit = "   Unit         ",
+  Value = "   Value        ",
+  Enum = " 練 Enum         ",
+  Keyword = "   Keyword      ",
+  Snippet = "   Snippet      ",
+  Color = "   Color        ",
+  File = "   File         ",
+  Reference = "   Reference    ",
+  Folder = "   Folder       ",
+  EnumMember = "   EnumMember   ",
+  Constant = " ﲀ  Constant     ",
+  Struct = " ﳤ  Struct       ",
+  Event = "   Event        ",
+  Operator = "   Operator     ",
+  TypeParameter = "   TypeParameter"
 }
 
 local Cmp = {}
@@ -61,7 +61,7 @@ function Cmp.config()
     },
     formatting = {
       format = function(entry, vim_item)
-        vim_item.kind = string.format("%s %s", itemkind[vim_item.kind], vim_item.kind)
+        vim_item.kind = string.format("%s %s", itemkind[vim_item.kind], entry.source.name)
         return vim_item
       end
     },
