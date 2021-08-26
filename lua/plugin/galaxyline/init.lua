@@ -1,9 +1,7 @@
 local line = require("galaxyline")
-local diagnostic = require("galaxyline.provider_diagnostic")
-local vcs = require("galaxyline.provider_vcs")
-local fileinfo = require("galaxyline.provider_fileinfo")
 local condition = require("galaxyline.condition")
-local lspclient = require("galaxyline.provider_lsp")
+local fileinfo = require("galaxyline.provider_fileinfo")
+local lsp_status = require("lsp-status")
 
 local fn = vim.fn
 local cmd = vim.cmd
@@ -98,35 +96,35 @@ local function left_config()
   }
   left[2] = {
     DiagnosticError = {
-      provider = diagnostic.get_diagnostic_error,
+      provider = "DiagnosticError",
       icon = icons.diagnostic.error .. " ",
       highlight = {onedark.colors.red, onedark.colors.dark}
     }
   }
   left[3] = {
     DiagnosticWarn = {
-      provider = diagnostic.get_diagnostic_warn,
+      provider = "DiagnosticWarn",
       icon = icons.diagnostic.warn .. " ",
       highlight = {onedark.colors.yellow, onedark.colors.dark}
     }
   }
   left[4] = {
     DiagnosticInfo = {
-      provider = diagnostic.get_diagnostic_info,
+      provider = "DiagnosticInfo",
       icon = icons.diagnostic.info .. " ",
       highlight = {onedark.colors.green, onedark.colors.dark}
     }
   }
   left[5] = {
     DiagnosticHint = {
-      provider = diagnostic.get_diagnostic_hint,
+      provider = "DiagnosticHint",
       icon = icons.diagnostic.hint .. " ",
       highlight = {onedark.colors.orange, onedark.colors.dark}
     }
   }
   left[6] = {
     FileIcon = {
-      provider = fileinfo.get_file_icon,
+      provider = "FileIcon",
       condition = condition.buffer_not_empty,
       highlight = {fileinfo.get_file_icon_color, onedark.colors.dark}
     }
@@ -147,12 +145,33 @@ local function left_config()
   left[8] = {
     LspStatus = {
       provider = function()
-        local lsp_status = require("lsp-status")
+        local get_lsp_client = function(msg)
+          local msg = msg or "No Active Lsp"
+          local buf_ft = vim.api.nvim_buf_get_option(0, "filetype")
+          local clients = vim.lsp.get_active_clients()
+          if next(clients) == nil then
+            return msg
+          end
+
+          for _, client in ipairs(clients) do
+            local filetypes = client.config.filetypes
+            if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
+              return client.name
+            end
+          end
+          return msg
+        end
         local status = lsp_status.status()
-        local server_name = lspclient.get_lsp_client()
+        local server_name = get_lsp_client()
         return string.len(status) < 5 and " " .. server_name or status
       end,
-      condition = condition.buffer_not_empty,
+      condition = function()
+        local tbl = {["dashboard"] = true, [""] = true}
+        if tbl[vim.bo.filetype] then
+          return false
+        end
+        return true
+      end,
       highlight = {onedark.colors.white, onedark.colors.dark}
     }
   }
@@ -162,7 +181,7 @@ local function right_config()
   local right = line.section.right
   right[1] = {
     GitBranch = {
-      provider = vcs.get_git_branch,
+      provider = "GitBranch",
       condition = condition.check_git_workspace,
       icon = icons.git.branch .. " ",
       highlight = {onedark.colors.red, onedark.colors.dark, "bold"}
@@ -178,7 +197,7 @@ local function right_config()
   }
   right[3] = {
     DiffAdd = {
-      provider = vcs.diff_add,
+      provider = "DiffAdd",
       condition = condition.hide_in_width,
       icon = icons.git.add .. " ",
       highlight = {onedark.colors.green, onedark.colors.dark}
@@ -186,7 +205,7 @@ local function right_config()
   }
   right[4] = {
     DiffModified = {
-      provider = vcs.diff_modified,
+      provider = "DiffModified",
       condition = condition.hide_in_width,
       icon = icons.git.modified .. " ",
       highlight = {onedark.colors.yellow, onedark.colors.dark}
@@ -194,7 +213,7 @@ local function right_config()
   }
   right[5] = {
     DiffRemove = {
-      provider = vcs.diff_remove,
+      provider = "DiffRemove",
       condition = condition.hide_in_width,
       icon = icons.git.remove .. " ",
       highlight = {onedark.colors.red, onedark.colors.dark}
@@ -202,14 +221,14 @@ local function right_config()
   }
   right[6] = {
     LineColumn = {
-      provider = fileinfo.line_column,
+      provider = "LineColumn",
       condition = condition.buffer_not_empty,
       highlight = {onedark.colors.blue, onedark.colors.dark}
     }
   }
   right[7] = {
     LinePercent = {
-      provider = fileinfo.current_line_percent,
+      provider = "LinePercent",
       condition = condition.buffer_not_empty,
       highlight = {onedark.colors.white, onedark.colors.dark}
     }
