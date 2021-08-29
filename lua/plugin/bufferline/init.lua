@@ -3,8 +3,6 @@ local Bufferline = {}
 function Bufferline.config()
   require("bufferline").setup {
     options = {
-      numbers = "none",
-      number_style = "", -- buffer_id at index 1, ordinal at index 2
       --- name_formatter can be used to change the buffer's label in the bufferline.
       --- Please note some names can/will break the
       --- bufferline so use this at your discretion knowing that it has
