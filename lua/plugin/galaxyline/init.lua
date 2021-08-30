@@ -28,33 +28,28 @@ local icons = {
 
 local onedark = {
   colors = {
-    dark = "#1b1f24",
-    cyan = "#48B0BD",
-    white = "#535965",
-    red = "#E55561",
-    orange = "#CC9057",
-    yellow = "#E2B86B",
-    green = "#8EBD6B",
-    blue = "#4FA6ED",
-    purple = "#BF68D9"
+    background = "#F2A60D",
+    foreground = "#1b1f24"
   }
 }
 
+local item_highlight = {onedark.colors.foreground, onedark.colors.background, "bold"}
+
 local mode_color = function()
   local mode_colors = {
-    n = onedark.colors.green,
-    i = onedark.colors.blue,
-    c = onedark.colors.yellow,
-    V = onedark.colors.purple,
-    [""] = onedark.colors.yellow,
-    v = onedark.colors.purple,
-    s = onedark.colors.orange,
-    S = onedark.colors.orange,
-    [""] = onedark.colors.orange,
-    R = onedark.colors.red,
-    r = onedark.colors.red,
-    ["!"] = onedark.colors.cyan,
-    t = onedark.colors.blue
+    n = onedark.colors.foreground,
+    i = onedark.colors.foreground,
+    c = onedark.colors.foreground,
+    V = onedark.colors.foreground,
+    [""] = onedark.colors.foreground,
+    v = onedark.colors.foreground,
+    s = onedark.colors.foreground,
+    S = onedark.colors.foreground,
+    [""] = onedark.colors.foreground,
+    R = onedark.colors.foreground,
+    r = onedark.colors.foreground,
+    ["!"] = onedark.colors.foreground,
+    t = onedark.colors.foreground
   }
 
   return mode_colors[vim.fn.mode()]
@@ -89,44 +84,44 @@ local function left_config()
         end
         return ""
       end,
-      highlight = {onedark.colors.dark, onedark.colors.dark},
+      highlight = {onedark.colors.background, onedark.colors.background},
       separator = icons.slant.left,
-      separator_highlight = {onedark.colors.dark, onedark.colors.dark}
+      separator_highlight = {onedark.colors.background, onedark.colors.background}
     }
   }
   left[2] = {
     DiagnosticError = {
       provider = "DiagnosticError",
       icon = icons.diagnostic.error .. " ",
-      highlight = {onedark.colors.red, onedark.colors.dark}
+      highlight = item_highlight
     }
   }
   left[3] = {
     DiagnosticWarn = {
       provider = "DiagnosticWarn",
       icon = icons.diagnostic.warn .. " ",
-      highlight = {onedark.colors.yellow, onedark.colors.dark}
+      highlight = {onedark.colors.foreground, onedark.colors.background, "bold"}
     }
   }
   left[4] = {
     DiagnosticInfo = {
       provider = "DiagnosticInfo",
       icon = icons.diagnostic.info .. " ",
-      highlight = {onedark.colors.green, onedark.colors.dark}
+      highlight = {onedark.colors.foreground, onedark.colors.background, "bold"}
     }
   }
   left[5] = {
     DiagnosticHint = {
       provider = "DiagnosticHint",
       icon = icons.diagnostic.hint .. " ",
-      highlight = {onedark.colors.orange, onedark.colors.dark}
+      highlight = {onedark.colors.foreground, onedark.colors.background, "bold"}
     }
   }
   left[6] = {
     FileIcon = {
       provider = "FileIcon",
       condition = condition.buffer_not_empty,
-      highlight = {fileinfo.get_file_icon_color, onedark.colors.dark}
+      highlight = {onedark.colors.foreground, onedark.colors.background, "bold"}
     }
   }
   left[7] = {
@@ -137,9 +132,9 @@ local function left_config()
         return string.len(fullname) > 40 and shortname or fullname
       end,
       condition = condition.buffer_not_empty,
-      highlight = {fileinfo.get_file_icon_color, onedark.colors.dark},
+      highlight = {onedark.colors.foreground, onedark.colors.background, "bold"},
       separator = icons.slant.right,
-      separator_highlight = {onedark.colors.dark, onedark.colors.dark}
+      separator_highlight = {onedark.colors.background, onedark.colors.background}
     }
   }
   left[8] = {
@@ -172,7 +167,7 @@ local function left_config()
         end
         return true
       end,
-      highlight = {onedark.colors.white, onedark.colors.dark}
+      highlight = {onedark.colors.foreground, onedark.colors.background}
     }
   }
 end
@@ -184,7 +179,7 @@ local function right_config()
       provider = "GitBranch",
       condition = condition.check_git_workspace,
       icon = icons.git.branch .. " ",
-      highlight = {onedark.colors.red, onedark.colors.dark, "bold"}
+      highlight = {onedark.colors.foreground, onedark.colors.background, "bold"}
     }
   }
   right[2] = {
@@ -192,7 +187,7 @@ local function right_config()
       provider = function()
         return " "
       end,
-      highlight = {onedark.colors.dark, onedark.colors.dark}
+      highlight = {onedark.colors.background, onedark.colors.background}
     }
   }
   right[3] = {
@@ -200,7 +195,7 @@ local function right_config()
       provider = "DiffAdd",
       condition = condition.hide_in_width,
       icon = icons.git.add .. " ",
-      highlight = {onedark.colors.green, onedark.colors.dark}
+      highlight = {onedark.colors.foreground, onedark.colors.background, "bold"}
     }
   }
   right[4] = {
@@ -208,7 +203,7 @@ local function right_config()
       provider = "DiffModified",
       condition = condition.hide_in_width,
       icon = icons.git.modified .. " ",
-      highlight = {onedark.colors.yellow, onedark.colors.dark}
+      highlight = {onedark.colors.foreground, onedark.colors.background, "bold"}
     }
   }
   right[5] = {
@@ -216,21 +211,21 @@ local function right_config()
       provider = "DiffRemove",
       condition = condition.hide_in_width,
       icon = icons.git.remove .. " ",
-      highlight = {onedark.colors.red, onedark.colors.dark}
+      highlight = {onedark.colors.foreground, onedark.colors.background, "bold"}
     }
   }
   right[6] = {
     LineColumn = {
       provider = "LineColumn",
       condition = condition.buffer_not_empty,
-      highlight = {onedark.colors.blue, onedark.colors.dark}
+      highlight = {onedark.colors.foreground, onedark.colors.background, "bold"}
     }
   }
   right[7] = {
     LinePercent = {
       provider = "LinePercent",
       condition = condition.buffer_not_empty,
-      highlight = {onedark.colors.white, onedark.colors.dark}
+      highlight = {onedark.colors.foreground, onedark.colors.background, "bold"}
     }
   }
 end
@@ -243,8 +238,8 @@ function Galaxy.config()
   -- Custom highlight
   vim.cmd("augroup StatusLineHightlight")
   vim.cmd("autocmd!")
-  cmd("highlight! StatusLine guibg=" .. onedark.colors.dark .. " guifg=" .. onedark.colors.dark)
-  cmd("highlight! StatusLineNC guibg=" .. onedark.colors.dark .. " guifg=" .. onedark.colors.dark)
+  cmd("highlight! StatusLine guibg=" .. onedark.colors.background .. " guifg=" .. onedark.colors.background)
+  cmd("highlight! StatusLineNC guibg=" .. onedark.colors.foreground .. " guifg=" .. onedark.colors.foreground)
   vim.cmd("augroup END")
 end
 
