@@ -1,7 +1,7 @@
 local config = {
   linters = {},
   lsp = {
-    rust = {provider = "rust_analyzer"}
+    css = {provider = "cssls"}
   }
 }
 

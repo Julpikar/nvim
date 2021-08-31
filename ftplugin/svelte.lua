@@ -1,7 +1,7 @@
 local config = {
   linters = {},
   lsp = {
-    rust = {provider = "rust_analyzer"}
+    svelte = {provider = "svelte"}
   }
 }
 

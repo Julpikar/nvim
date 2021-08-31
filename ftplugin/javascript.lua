@@ -1,8 +1,7 @@
 local config = {
   linters = {},
   lsp = {
-    provider = "tsserver",
-    setup = {}
+    javascript = {provider = "tsserver"}
   }
 }
 

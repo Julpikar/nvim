@@ -1,7 +1,8 @@
 local config = {
   linters = {},
   lsp = {
-    rust = {provider = "rust_analyzer"}
+    html = {provider = "html"},
+    tailwindcss = {provider = "tailwindcss"}
   }
 }
 

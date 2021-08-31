@@ -31,6 +31,31 @@ local function document_highlight_capabilities(client, bufnr)
   end
 end
 
+local function lsp_diagnostic_sign()
+  local group = {
+    err_group = {
+      highlight = "LspDiagnosticsSignError",
+      sign = ""
+    },
+    warn_group = {
+      highlight = "LspDiagnosticsSignWarning",
+      sign = ""
+    },
+    hint_group = {
+      highlight = "LspDiagnosticsSignHint",
+      sign = ""
+    },
+    infor_group = {
+      highlight = "LspDiagnosticsSignInformation",
+      sign = ""
+    }
+  }
+
+  for _, g in pairs(group) do
+    vim.fn.sign_define(g.highlight, {text = g.sign, texthl = g.highlight, linehl = "", numhl = ""})
+  end
+end
+
 local function lsp_handlers()
   vim.lsp.handlers["textDocument/publishDiagnostics"] =
     vim.lsp.with(
@@ -43,17 +68,20 @@ local function lsp_handlers()
   )
 end
 
-local function common_on_attach(client, bufnr)
-  lsp_handlers()
-  document_highlight_capabilities(client, bufnr)
-
+local function lsp_status(client, bufnr)
   lspstatus.config {
     status_symbol = "",
     diagnostics = false
   }
   lspstatus.register_progress()
   lspstatus.on_attach(client, bufnr)
+end
 
+local function common_on_attach(client, bufnr)
+  lsp_handlers()
+  lsp_diagnostic_sign()
+  document_highlight_capabilities(client, bufnr)
+  lsp_status(client, bufnr)
   require("lsp_signature").on_attach()
 end
 
@@ -81,20 +109,24 @@ end
 local M = {}
 
 function M.setup(config)
-  local lsp = config.lsp
-  if lsp_client_active(lsp.provider) then
-    return
+  local list_lsp = config.lsp
+  for _, lsp in pairs(list_lsp) do
+    if lsp_client_active(lsp.provider) then
+      return
+    end
+
+    local setup = {
+      on_attach = common_on_attach,
+      capabilities = common_capabilities(),
+      autostart = false
+    }
+
+    if lsp.setup ~= nil then
+      setup = vim.tbl_extend("keep", setup, lsp.setup)
+    end
+
+    lspconfig[lsp.provider].setup(setup)
   end
-
-  local setup = {
-    on_attach = common_on_attach,
-    capabilities = common_capabilities(),
-    autostart = false
-  }
-
-  setup = vim.tbl_extend("keep", setup, lsp.setup)
-
-  lspconfig[lsp.provider].setup(setup)
 end
 
 return M

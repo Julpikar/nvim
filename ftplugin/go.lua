@@ -1,8 +1,7 @@
 local config = {
   linters = {},
   lsp = {
-    provider = "gopls",
-    setup = {}
+    go = {provider = "gopls"}
   }
 }
 
