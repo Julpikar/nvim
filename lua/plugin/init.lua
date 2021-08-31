@@ -30,8 +30,6 @@ local function plugin_init(use)
     cmd = "EasyAlign",
     setup = [[require("plugin.easyalign").keymap()]]
   }
-  use {"Pocco81/AutoSave.nvim", event = "TextChanged", config = [[require("autosave").setup()]]}
-
   -- Comment
   use {"b3nj5m1n/kommentary", event = "BufRead"}
 

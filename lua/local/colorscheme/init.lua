@@ -18,14 +18,4 @@ function Colorscheme.setup(colorscheme)
   terminal_highlight(colorscheme)
 end
 
-local metatable = {
-  __call = function(_, colorscheme)
-    local self = {}
-    setmetatable(self, {__index = Colorscheme.setup(colorscheme)})
-    return self
-  end
-}
-
-setmetatable(Colorscheme, metatable)
-
 return Colorscheme

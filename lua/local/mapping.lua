@@ -20,14 +20,4 @@ function Mapping.setup()
   end
 end
 
-local metatable = {
-  __call = function()
-    local self = {}
-    setmetatable(self, {__index = Mapping.setup()})
-    return self
-  end
-}
-
-setmetatable(Mapping, metatable)
-
 return Mapping

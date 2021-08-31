@@ -63,13 +63,4 @@ function Lastplace.setup()
   utils.create_augroup(augroup_lastplace, "lastplace")
 end
 
-local metatable = {
-  __call = function()
-    local self = {}
-    setmetatable(self, {__index = Lastplace.setup()})
-    return self
-  end
-}
-
-setmetatable(Lastplace, metatable)
 return Lastplace

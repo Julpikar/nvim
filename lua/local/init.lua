@@ -2,14 +2,14 @@ local colorscheme = require("local.colorscheme")
 local lastplace = require("local.lastplace")
 local number = require("local.number")
 local mapping = require("local.mapping")
-
+local autosave = require("local.autosave")
 local cmd = vim.cmd
 local o = vim.o
 
 local Global = {}
 
 function Global.load_settings()
-  colorscheme("onedark")
+  colorscheme.setup("onedark")
 
   -- Windows mapping
   cmd("source $VIMRUNTIME/mswin.vim")
@@ -47,10 +47,13 @@ function Global.load_settings()
   o.lazyredraw = true
 
   -- Goto last position when open a file
-  lastplace()
+  lastplace.setup()
 
   -- Mapping
-  mapping()
+  mapping.setup()
+
+  -- AutoSave
+  autosave.setup()
 end
 
 return Global
