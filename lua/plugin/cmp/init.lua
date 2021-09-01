@@ -1,28 +1,28 @@
 local itemkind = {
-  Text = "   Text         ",
-  Method = "   Method       ",
-  Function = "   Function     ",
-  Constructor = "   Constructor  ",
-  Field = " ﴲ  Field        ",
-  Variable = "[] Variable     ",
-  Class = "   Class        ",
-  Interface = " ﰮ  Interface    ",
-  Module = "   Module       ",
-  Property = " 襁 Property     ",
-  Unit = "   Unit         ",
-  Value = "   Value        ",
-  Enum = " 練 Enum         ",
-  Keyword = "   Keyword      ",
-  Snippet = "   Snippet      ",
-  Color = "   Color        ",
-  File = "   File         ",
-  Reference = "   Reference    ",
-  Folder = "   Folder       ",
-  EnumMember = "   EnumMember   ",
-  Constant = " ﲀ  Constant     ",
-  Struct = " ﳤ  Struct       ",
-  Event = "   Event        ",
-  Operator = "   Operator     ",
+  Text = "   Text",
+  Method = "   Method",
+  Function = "   Function",
+  Constructor = "   Constructor",
+  Field = " ﴲ  Field",
+  Variable = "[] Variable",
+  Class = "   Class",
+  Interface = " ﰮ  Interface",
+  Module = "   Module",
+  Property = " 襁 Property",
+  Unit = "   Unit",
+  Value = "   Value",
+  Enum = " 練 Enum",
+  Keyword = "   Keyword",
+  Snippet = "   Snippet",
+  Color = "   Color",
+  File = "   File",
+  Reference = "   Reference",
+  Folder = "   Folder",
+  EnumMember = "   EnumMember",
+  Constant = " ﲀ  Constant",
+  Struct = " ﳤ  Struct",
+  Event = "   Event",
+  Operator = "   Operator",
   TypeParameter = "   TypeParameter"
 }
 
@@ -54,14 +54,23 @@ function Cmp.config()
       ["<C-e>"] = cmp.mapping.close(),
       ["<CR>"] = cmp.mapping.confirm(
         {
-          behavior = cmp.ConfirmBehavior.Replace,
+          behavior = cmp.ConfirmBehavior.Insert,
           select = true
         }
       )
     },
     formatting = {
       format = function(entry, vim_item)
-        vim_item.kind = string.format("%s %s", itemkind[vim_item.kind], entry.source.name)
+        vim_item.kind = itemkind[vim_item.kind]
+        vim_item.menu =
+          ({
+          buffer = "[Buffer]",
+          nvim_lsp = "[LSP]",
+          vsnip = "[VSnip]",
+          path = "[Path]",
+          nvim_lua = "[Lua]"
+        })[entry.source.name]
+
         return vim_item
       end
     },
