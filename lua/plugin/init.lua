@@ -197,12 +197,6 @@ local function plugin_init(use)
   }
   use {"jose-elias-alvarez/null-ls.nvim"}
   use {
-    "glepnir/lspsaga.nvim",
-    cmd = "Lspsaga",
-    setup = [[require("plugin.lspsaga").keymap()]],
-    config = [[require("plugin.lspsaga").config()]]
-  }
-  use {
     "kosayoda/nvim-lightbulb",
     cmd = {"LspStart", "LspStop", "LspRestart"},
     config = [[require("plugin.lightbulb").config()]]

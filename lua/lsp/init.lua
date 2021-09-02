@@ -77,7 +77,26 @@ local function lsp_status(client, bufnr)
   lspstatus.on_attach(client, bufnr)
 end
 
+local function lsp_keymaps()
+  local function buf_set_keymap(...)
+    vim.api.nvim_buf_set_keymap(bufnr, ...)
+  end
+  local function buf_set_option(...)
+    vim.api.nvim_buf_set_option(bufnr, ...)
+  end
+
+  -- Enable completion triggered by <c-x><c-o>
+  buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
+
+  -- Mappings.
+  local opts = {noremap = true, silent = true}
+
+  -- See `:help vim.lsp.*` for documentation on any of the below functions
+  -- buf_set_keymap("n", "s", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
+end
+
 local function common_on_attach(client, bufnr)
+  lsp_keymaps()
   lsp_handlers()
   lsp_diagnostic_sign()
   document_highlight_capabilities(client, bufnr)
