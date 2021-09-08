@@ -31,7 +31,8 @@ local config = {
               enable = false
             }
           }
-        }
+        },
+        autostart = true
       }
     }
   }

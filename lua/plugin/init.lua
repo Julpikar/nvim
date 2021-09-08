@@ -293,17 +293,6 @@ local function plugin_init(use)
     config = [[require("plugin.nvim-go").config()]]
   }
 
-  -- Rust
-  use {
-    "simrat39/rust-tools.nvim",
-    ft = "rust",
-    config = [[require("rust-tools").setup {
-        server = {
-          autostart = false
-        }
-      }]]
-  }
-
   -- CMake
   use {"ilyachur/cmake4vim", cmd = {"CMake", "CCMake"}}
 

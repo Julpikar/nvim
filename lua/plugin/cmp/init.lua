@@ -26,9 +26,14 @@ local itemkind = {
   TypeParameter = "   TypeParameter"
 }
 
-local Cmp = {}
+local M = {}
 
-function Cmp.config()
+local check_back_space = function()
+  local col = vim.fn.col(".") - 1
+  return col == 0 or vim.fn.getline("."):sub(col, col):match("%s")
+end
+
+function M.config()
   vim.cmd [[set pumheight=20]]
   vim.cmd [[set shortmess+=c]]
 
@@ -57,7 +62,18 @@ function Cmp.config()
           behavior = cmp.ConfirmBehavior.Insert,
           select = true
         }
-      )
+      ),
+      ["<Tab>"] = function(fallback)
+        if vim.fn.pumvisible() == 1 then
+          vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<C-n>", true, true, true), "n")
+        elseif check_back_space() then
+          vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Tab>", true, true, true), "n")
+        elseif vim.fn["vsnip#available"]() == 1 then
+          vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>(vsnip-expand-or-jump)", true, true, true), "")
+        else
+          fallback()
+        end
+      end
     },
     formatting = {
       format = function(entry, vim_item)
@@ -76,6 +92,7 @@ function Cmp.config()
     },
     -- You should specify your *installed* sources.
     sources = {
+      {name = "nvim_lsp"},
       {
         name = "buffer",
         opts = {
@@ -88,11 +105,10 @@ function Cmp.config()
           end
         }
       },
-      {name = "nvim_lsp"},
       {name = "vsnip"},
       {name = "path"}
     }
   }
 end
 
-return Cmp
+return M
