@@ -34,7 +34,6 @@ function WhichKey.config()
       b = {
         name = "buffer",
         d = {"<CMD>BDelete this<CR>", "delete_buffer"},
-        l = {"<CMD>JABSOpen<CR>", "list_buffer"},
         n = {"<CMD>BufferLineCycleNext<CR>", "next_buffer"},
         m = {"<CMD>bNext<CR>", "next_buffer_force"},
         p = {"<CMD>BufferLineCyclePrev<CR>", "previous_buffer"},

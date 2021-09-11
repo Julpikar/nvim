@@ -98,7 +98,6 @@ local function plugin_init(use)
       )
     end
   }
-  use {"matbme/JABS.nvim", cmd = "JABSOpen"}
 
   -- Keymap guide
   use {
