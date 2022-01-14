@@ -15,7 +15,7 @@ function Bufferline.config()
       end,
       max_prefix_length = 15, -- prefix used when a buffer is de-duplicated
       diagnostics = false,
-      offsets = {{filetype = "NvimTree", text = "File Explorer", text_align = "center"}},
+      offsets = {{filetype = "NvimTree", text = "File Explorer", highlight = "Directory", text_align = "center"}},
       -- can also be a table containing 2 custom separators
       -- [focused and unfocused]. eg: { '|', '|' }
       separator_style = "thick",

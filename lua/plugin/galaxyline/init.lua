@@ -1,10 +1,18 @@
 local line = require("galaxyline")
 local condition = require("galaxyline.condition")
-local fileinfo = require("galaxyline.provider_fileinfo")
+local fileinfo = require("galaxyline.providers.fileinfo")
 local lsp_status = require("lsp-status")
 
 local fn = vim.fn
 local cmd = vim.cmd
+
+local function buffer_not_empty()
+  if fn.empty(fn.expand("%:t")) ~= 1 then
+    return true
+  else
+    return false
+  end
+end
 
 local icons = {
   slant = {
@@ -120,7 +128,7 @@ local function left_config()
   left[6] = {
     FileIcon = {
       provider = "FileIcon",
-      condition = condition.buffer_not_empty,
+      condition = buffer_not_empty,
       highlight = {onedark.colors.foreground, onedark.colors.background, "bold"}
     }
   }
@@ -131,7 +139,7 @@ local function left_config()
         local shortname = fileinfo.get_current_file_name()
         return string.len(fullname) > 40 and shortname or fullname
       end,
-      condition = condition.buffer_not_empty,
+      condition = buffer_not_empty,
       highlight = {onedark.colors.foreground, onedark.colors.background, "bold"},
       separator = icons.slant.right,
       separator_highlight = {onedark.colors.background, onedark.colors.background}
@@ -217,14 +225,14 @@ local function right_config()
   right[6] = {
     LineColumn = {
       provider = "LineColumn",
-      condition = condition.buffer_not_empty,
+      condition = buffer_not_empty,
       highlight = {onedark.colors.foreground, onedark.colors.background, "bold"}
     }
   }
   right[7] = {
     LinePercent = {
       provider = "LinePercent",
-      condition = condition.buffer_not_empty,
+      condition = buffer_not_empty,
       highlight = {onedark.colors.foreground, onedark.colors.background, "bold"}
     }
   }

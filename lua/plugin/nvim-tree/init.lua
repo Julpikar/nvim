@@ -17,12 +17,6 @@ function NvimTree.reset_size()
 end
 
 function NvimTree.keymap()
-  vim.g.nvim_tree_bindings = {
-    {key = {"+", "="}, cb = "<CMD>lua require('plugin.nvim-tree').resize('+10')<CR>"},
-    {key = {"-"}, cb = "<CMD>lua require('plugin.nvim-tree').resize('-10')<CR>"},
-    {key = {"0"}, cb = "<CMD>lua require('plugin.nvim-tree').reset_size()<CR>"}
-  }
-
   local remap = vim.api.nvim_set_keymap
   remap("n", "<F2>", ":NvimTreeToggle<CR>", {noremap = true, silent = true})
   remap("n", "<F3>", ":NvimTreeRefresh<CR>", {noremap = true, silent = true})
@@ -30,10 +24,24 @@ function NvimTree.keymap()
 end
 
 function NvimTree.config()
-  local g = vim.g
-  g.nvim_tree_indent_markers = 1
-  g.nvim_tree_width_allow_resize = 1
-  g.nvim_tree_follow = 1
+  require "nvim-tree".setup {
+    -- hijack the cursor in the tree to put it at the start of the filename
+    hijack_cursor = true,
+    -- updates the root directory of the tree on `DirChanged` (when your run `:cd` usually)
+    update_cwd = true,
+    view = {
+      -- if true the tree will resize itself after opening a file
+      auto_resize = true,
+      mappings = {
+        -- list of mappings to set on the tree manually
+        list = {
+          {key = {"+", "="}, cb = "<CMD>lua require('plugin.nvim-tree').resize('+10')<CR>"},
+          {key = {"-"}, cb = "<CMD>lua require('plugin.nvim-tree').resize('-10')<CR>"},
+          {key = {"0"}, cb = "<CMD>lua require('plugin.nvim-tree').reset_size()<CR>"}
+        }
+      }
+    }
+  }
 end
 
 return NvimTree

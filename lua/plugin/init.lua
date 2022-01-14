@@ -111,7 +111,7 @@ local function plugin_init(use)
     config = [[require("plugin.bufferline").config()]]
   }
   use {
-    "glepnir/galaxyline.nvim",
+    "NTBBloodbath/galaxyline.nvim",
     requires = "nvim-lua/lsp-status.nvim",
     config = [[require("plugin.galaxyline").config()]]
   }
@@ -203,7 +203,12 @@ local function plugin_init(use)
   use {
     "folke/trouble.nvim",
     cmd = "TroubleToggle",
-    config = [[require("plugin.trouble").config()]]
+    config = [[require("trouble").setup()]]
+  }
+  use {
+    "tami5/lspsaga.nvim",
+    cmd = "Lspsaga",
+    config = [[require("lspsaga").init_lsp_saga()]]
   }
 
   -- Autocomplete
