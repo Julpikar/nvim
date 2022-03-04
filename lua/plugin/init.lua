@@ -197,7 +197,11 @@ local function plugin_init(use)
     "j-hui/fidget.nvim",
     config = [[require"fidget".setup()]]
   }
-  use {"simrat39/symbols-outline.nvim"}
+  use {
+    "simrat39/symbols-outline.nvim",
+    cmd = "SymbolsOutline",
+    config = [[require("plugin.outline").config()]]
+  }
 
   -- Autocomplete
   use {
