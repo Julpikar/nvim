@@ -236,7 +236,7 @@ local function right_config()
 end
 
 function Galaxy.config()
-  line.short_line_list = {"NvimTree", "Vista", "packer"}
+  line.short_line_list = {"NvimTree", "Outline", "packer"}
   left_config()
   right_config()
 

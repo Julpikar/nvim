@@ -11,7 +11,7 @@ local center = true
 
 local Number = {
   enable_number = true,
-  numbers_exclude = {"dashboard", "floaterm", "NvimTree", "packer", "telescope", "vista"}
+  numbers_exclude = {"dashboard", "floaterm", "NvimTree", "packer", "telescope"}
 }
 
 local function relative_off()

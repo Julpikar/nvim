@@ -57,10 +57,6 @@ local function plugin_init(use)
       vim.g.rooter_change_directory_for_non_project_files = "current"
     end
   }
-  use {
-    "liuchengxu/vista.vim",
-    setup = [[require("plugin.vista").keymap()]]
-  }
 
   -- Navigation
   use {
@@ -72,8 +68,7 @@ local function plugin_init(use)
     "dstein64/nvim-scrollview",
     config = function()
       vim.g.scrollview_excluded_filetypes = {
-        "dashboard",
-        "vista"
+        "dashboard"
       }
       vim.g.scrollview_winblend = 10
     end
@@ -202,6 +197,7 @@ local function plugin_init(use)
     "j-hui/fidget.nvim",
     config = [[require"fidget".setup()]]
   }
+  use {"simrat39/symbols-outline.nvim"}
 
   -- Autocomplete
   use {
