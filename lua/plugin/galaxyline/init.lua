@@ -1,7 +1,6 @@
 local line = require("galaxyline")
 local condition = require("galaxyline.condition")
 local fileinfo = require("galaxyline.providers.fileinfo")
-local lsp_status = require("lsp-status")
 
 local fn = vim.fn
 local cmd = vim.cmd
@@ -164,9 +163,7 @@ local function left_config()
           end
           return msg
         end
-        local status = lsp_status.status()
-        local server_name = get_lsp_client()
-        return string.len(status) < 5 and " " .. server_name or status
+        return " " .. get_lsp_client()
       end,
       condition = function()
         local tbl = {["dashboard"] = true, [""] = true}

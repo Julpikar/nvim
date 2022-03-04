@@ -59,7 +59,6 @@ local function plugin_init(use)
   }
   use {
     "liuchengxu/vista.vim",
-    cmd = "Vista",
     setup = [[require("plugin.vista").keymap()]]
   }
 
@@ -112,7 +111,6 @@ local function plugin_init(use)
   }
   use {
     "NTBBloodbath/galaxyline.nvim",
-    requires = "nvim-lua/lsp-status.nvim",
     config = [[require("plugin.galaxyline").config()]]
   }
 
@@ -196,19 +194,13 @@ local function plugin_init(use)
   }
   use {"jose-elias-alvarez/null-ls.nvim"}
   use {
-    "kosayoda/nvim-lightbulb",
-    cmd = {"LspStart", "LspStop", "LspRestart"},
-    config = [[require("plugin.lightbulb").config()]]
-  }
-  use {
     "folke/trouble.nvim",
     cmd = "TroubleToggle",
     config = [[require("trouble").setup()]]
   }
   use {
-    "tami5/lspsaga.nvim",
-    cmd = "Lspsaga",
-    config = [[require("lspsaga").init_lsp_saga()]]
+    "j-hui/fidget.nvim",
+    config = [[require"fidget".setup()]]
   }
 
   -- Autocomplete

@@ -1,5 +1,4 @@
 local lspconfig = require("lspconfig")
-local lspstatus = require("lsp-status")
 local api = vim.api
 
 local function lsp_client_active(name)
@@ -68,15 +67,6 @@ local function lsp_handlers()
   )
 end
 
-local function lsp_status(client, bufnr)
-  lspstatus.config {
-    status_symbol = "",
-    diagnostics = false
-  }
-  lspstatus.register_progress()
-  lspstatus.on_attach(client, bufnr)
-end
-
 local function lsp_keymaps(bufnr)
   local function buf_set_keymap(...)
     vim.api.nvim_buf_set_keymap(bufnr, ...)
@@ -92,7 +82,6 @@ local function lsp_keymaps(bufnr)
   local opts = {noremap = true, silent = true}
 
   -- See `:help vim.lsp.*` for documentation on any of the below functions
-  -- buf_set_keymap("n", "s", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
   buf_set_keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
   buf_set_keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
   buf_set_keymap("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
@@ -117,12 +106,11 @@ local function common_on_attach(client, bufnr)
   lsp_handlers()
   lsp_diagnostic_sign()
   document_highlight_capabilities(client)
-  lsp_status(client, bufnr)
   require("lsp_signature").on_attach()
 end
 
 local function common_capabilities()
-  local capabilities = vim.lsp.protocol.make_client_capabilities()
+  local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
   capabilities.textDocument.completion.completionItem.documentationFormat = {"markdown"}
   capabilities.textDocument.completion.completionItem.snippetSupport = true
   capabilities.textDocument.completion.completionItem.preselectSupport = true
@@ -138,7 +126,6 @@ local function common_capabilities()
       "additionalTextEdits"
     }
   }
-  capabilities = vim.tbl_extend("keep", capabilities or {}, lspstatus.capabilities)
   return capabilities
 end
 

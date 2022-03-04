@@ -2,11 +2,11 @@ local opts = {noremap = true, silent = true}
 
 local keymaps = {
   navigate = {
-    {"n", "A", "<CMD>wincmd h<CR>", opts},
-    {"n", "W", "<CMD>wincmd k<CR>", opts},
-    {"n", "D", "<CMD>wincmd l<CR>", opts},
-    {"n", "S", "<CMD>wincmd j<CR>", opts},
-    {"n", "Z", "<CMD>wincmd p<CR>", opts}
+    {"n", "<c-s-left>", "<CMD>wincmd h<CR>", opts},
+    {"n", "<c-s-up>", "<CMD>wincmd k<CR>", opts},
+    {"n", "<c-s-right>", "<CMD>wincmd l<CR>", opts},
+    {"n", "<c-s-down>", "<CMD>wincmd j<CR>", opts},
+    {"n", "<c-s-home>", "<CMD>wincmd p<CR>", opts}
   }
 }
 

@@ -13,7 +13,7 @@ local function write()
   local first_char_pos = fn.getpos("'[")
   local last_char_pos = fn.getpos("']")
 
-  cmd("silent! write")
+  cmd("silent! write!")
 
   fn.setpos("'[", first_char_pos)
   fn.setpos("']", last_char_pos)

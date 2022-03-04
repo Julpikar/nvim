@@ -36,12 +36,10 @@ end
 function M.config()
   vim.cmd [[set pumheight=20]]
   vim.cmd [[set shortmess+=c]]
+  vim.cmd [[set completeopt=menu,menuone,noinsert]]
 
   local cmp = require("cmp")
   cmp.setup {
-    completion = {
-      completeopt = "menu,menuone,noinsert"
-    },
     -- You should change this example to your chosen snippet engine.
     snippet = {
       expand = function(args)

@@ -9,7 +9,7 @@ function Format.keymap()
     [[
     augroup FormatAutogroup
       autocmd!
-      autocmd BufWritePost *.js,*.rs,*.lua FormatWrite
+      autocmd BufWritePost *.js,*.py,*.rs,*.lua FormatWrite
     augroup END
     ]],
     true
@@ -114,7 +114,7 @@ function Format.config()
     function()
       return {
         exe = "black",
-        args = {vim.api.nvim_buf_get_name(0)},
+        args = {"--stdin-filename", vim.api.nvim_buf_get_name(0)},
         stdin = false
       }
     end
