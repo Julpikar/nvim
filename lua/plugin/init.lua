@@ -195,11 +195,10 @@ local function plugin_init(use)
   }
   use {
     "j-hui/fidget.nvim",
-    config = [[require"fidget".setup()]]
+    config = [[require("fidget").setup()]]
   }
   use {
     "simrat39/symbols-outline.nvim",
-    cmd = "SymbolsOutline",
     config = [[require("plugin.outline").config()]]
   }
 
@@ -217,20 +216,17 @@ local function plugin_init(use)
     config = [[require("plugin.cmp").config()]]
   }
 
+  -- Code runner
+  use {
+    "CRAG666/code_runner.nvim",
+    config = [[require("plugin.runner").config()]]
+  }
+
   -- AutoPair
   use {
     "windwp/nvim-autopairs",
     after = "nvim-cmp",
     config = [[require("plugin.autopairs").config()]]
-  }
-
-  -- External Linter
-  use {
-    "mfussenegger/nvim-lint",
-    disable = true,
-    cmd = {"LspStart", "LspStop", "LspRestart"},
-    setup = [[require("plugin.nvim-lint").keymap()]],
-    config = [[require("plugin.nvim-lint").config()]]
   }
 
   -- Interacting with databases

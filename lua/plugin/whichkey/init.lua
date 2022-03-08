@@ -212,6 +212,21 @@ function WhichKey.config()
 
   wk.register(
     {
+      r = {
+        name = "runner",
+        r = {"<CMD>RunCode<CR>", "run_code"},
+        f = {"<CMD>RunFile<CR>", "run_file"},
+        p = {"<CMD>RunProject<CR>", "run_project"},
+        c = {"<CMD>RunClose<CR>", "run_close"},
+        x = {"<CMD>CRFiletype<CR>", "config_file"},
+        z = {"<CMD>CRProjects<CR>", "config_project"}
+      }
+    },
+    {prefix = "<leader>"}
+  )
+
+  wk.register(
+    {
       s = {
         name = "search/show",
         e = {"<CMD>Telescope filetypes<CR>", "filetypes"},
