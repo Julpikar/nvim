@@ -68,7 +68,8 @@ local function plugin_init(use)
     "dstein64/nvim-scrollview",
     config = function()
       vim.g.scrollview_excluded_filetypes = {
-        "dashboard"
+        "dashboard",
+        "Outline"
       }
       vim.g.scrollview_winblend = 10
     end
