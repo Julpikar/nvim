@@ -4,6 +4,7 @@ local Plugin_manager = {}
 
 local function plugin_init(use)
   use "wbthomason/packer.nvim"
+  use "lewis6991/impatient.nvim"
 
   -- Editing
   use {

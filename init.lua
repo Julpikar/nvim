@@ -1,3 +1,5 @@
+require("impatient")
+
 local execute = vim.api.nvim_command
 local fn = vim.fn
 
