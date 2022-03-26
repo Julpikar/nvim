@@ -1,11 +1,10 @@
 local Colors = {
   onedark = {
-    black = "#0e1013",
-    bg0 = "#1f2329",
-    bg1 = "#282c34",
-    bg2 = "#30363f",
-    bg3 = "#323641",
-    bg_d = "#181b20",
+    bg0 = "#181b20",
+    bg1 = "#1f2329",
+    bg2 = "#282c34",
+    bg3 = "#30363f",
+    bg4 = "#323641",
     bg_blue = "#61afef",
     bg_yellow = "#e8c88c",
     fg = "#a0a8b7",

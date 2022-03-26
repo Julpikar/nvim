@@ -164,9 +164,6 @@ local function plugin_init(use)
     config = [[require("spellsitter").setup {captures = {}}]]
   }
 
-  -- Syntax highlighting non treesitter
-  use {"jwalton512/vim-blade", ft = "blade"}
-
   -- Colorizer
   use {
     "norcalli/nvim-colorizer.lua",

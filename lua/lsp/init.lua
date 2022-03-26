@@ -14,19 +14,32 @@ end
 local function document_highlight_capabilities(client)
   -- Set autocommands conditional on server_capabilities
   if client.resolved_capabilities.document_highlight then
-    api.nvim_exec(
-      [[
-      hi LspReferenceRead cterm=bold ctermbg=red guibg=LightYellow
-      hi LspReferenceText cterm=bold ctermbg=red guibg=LightYellow
-      hi LspReferenceWrite cterm=bold ctermbg=red guibg=LightYellow
-      augroup lsp_document_highlight
-        autocmd! * <buffer>
-        autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
-        autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-      augroup END
-    ]],
-      false
+    local lsp_doc_hi_augroup = api.nvim_create_augroup("LSPDocHighlight", {clear = true})
+    api.nvim_create_autocmd(
+      "CursorHold",
+      {
+        callback = function()
+          vim.schedule(vim.lsp.buf.document_highlight)
+        end,
+        pattern = "<buffer>",
+        group = lsp_doc_hi_augroup
+      }
     )
+    api.nvim_create_autocmd(
+      "CursorMoved",
+      {
+        callback = function()
+          vim.schedule(vim.lsp.buf.clear_references)
+        end,
+        pattern = "<buffer>",
+        group = lsp_doc_hi_augroup
+      }
+    )
+
+    local nvim_set_hl = api.nvim_set_hl
+    nvim_set_hl(0, "LspReferenceRead", {ctermbg = "red", bg = "LightYellow", bold = true})
+    nvim_set_hl(0, "LspReferenceText", {ctermbg = "red", bg = "LightYellow", bold = true})
+    nvim_set_hl(0, "LspReferenceWrite", {ctermbg = "red", bg = "LightYellow", bold = true})
   end
 end
 
@@ -68,37 +81,48 @@ local function lsp_handlers()
 end
 
 local function lsp_keymaps(bufnr)
-  local function buf_set_keymap(...)
-    vim.api.nvim_buf_set_keymap(bufnr, ...)
-  end
-  local function buf_set_option(...)
-    vim.api.nvim_buf_set_option(bufnr, ...)
-  end
-
   -- Enable completion triggered by <c-x><c-o>
-  buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
+  api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 
-  -- Mappings.
-  local opts = {noremap = true, silent = true}
-
-  -- See `:help vim.lsp.*` for documentation on any of the below functions
-  buf_set_keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
-  buf_set_keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
-  buf_set_keymap("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
-  buf_set_keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
-  buf_set_keymap("n", "k", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
-  buf_set_keymap("n", "wa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", opts)
-  buf_set_keymap("n", "wr", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", opts)
-  buf_set_keymap("n", "wl", "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>", opts)
-  buf_set_keymap("n", "d", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
-  buf_set_keymap("n", "rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
-  buf_set_keymap("n", "a", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
-  buf_set_keymap("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
-  buf_set_keymap("n", "e", "<cmd>lua vim.lsp.diagnostic.open_float()<CR>", opts)
-  buf_set_keymap("n", "[d", "<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>", opts)
-  buf_set_keymap("n", "]d", "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>", opts)
-  buf_set_keymap("n", "q", "<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>", opts)
-  buf_set_keymap("n", "f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+  -- Mappings
+  local opts = {buffer = bufnr, noremap = true, silent = true}
+  local keymaps = {
+    {
+      "n",
+      "<space>e",
+      function()
+        vim.diagnostic.open_float()
+      end,
+      opts
+    },
+    {"n", "[d", vim.diagnostic.goto_prev, opts},
+    {"n", "]d", vim.diagnostic.goto_next, opts},
+    {"n", "q", vim.diagnostic.setloclist, opts},
+    {"n", "gD", vim.lsp.buf.declaration, opts},
+    {"n", "gd", vim.lsp.buf.definition, opts},
+    {"n", "K", vim.lsp.buf.hover, opts},
+    {"n", "gi", vim.lsp.buf.implementation, opts},
+    {"n", "<C-k>", vim.lsp.buf.signature_help, opts},
+    {"n", "wa", vim.lsp.buf.add_workspace_folder, opts},
+    {"n", "wr", vim.lsp.buf.remove_workspace_folder, opts},
+    {
+      "n",
+      "wl",
+      function()
+        print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+      end,
+      opts
+    },
+    {"n", "D", vim.lsp.buf.type_definition, opts},
+    {"n", "rn", vim.lsp.buf.rename, opts},
+    {"n", "a", vim.lsp.buf.code_action, opts},
+    {"n", "gr", vim.lsp.buf.references, opts},
+    {"n", "f", vim.lsp.buf.formatting, opts}
+  }
+  local keymap_set = vim.keymap.set
+  for _, keymap in pairs(keymaps) do
+    keymap_set(unpack(keymap))
+  end
 end
 
 local function common_on_attach(client, bufnr)
@@ -111,15 +135,16 @@ end
 
 local function common_capabilities()
   local capabilities = require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
-  capabilities.textDocument.completion.completionItem.documentationFormat = {"markdown"}
-  capabilities.textDocument.completion.completionItem.snippetSupport = true
-  capabilities.textDocument.completion.completionItem.preselectSupport = true
-  capabilities.textDocument.completion.completionItem.insertReplaceSupport = true
-  capabilities.textDocument.completion.completionItem.labelDetailsSupport = true
-  capabilities.textDocument.completion.completionItem.deprecatedSupport = true
-  capabilities.textDocument.completion.completionItem.commitCharactersSupport = true
-  capabilities.textDocument.completion.completionItem.tagSupport = {valueSet = {1}}
-  capabilities.textDocument.completion.completionItem.resolveSupport = {
+  local completion_item = capabilities.textDocument.completion.completionItem
+  completion_item.documentationFormat = {"markdown"}
+  completion_item.snippetSupport = true
+  completion_item.preselectSupport = true
+  completion_item.insertReplaceSupport = true
+  completion_item.labelDetailsSupport = true
+  completion_item.deprecatedSupport = true
+  completion_item.commitCharactersSupport = true
+  completion_item.tagSupport = {valueSet = {1}}
+  completion_item.resolveSupport = {
     properties = {
       "documentation",
       "detail",

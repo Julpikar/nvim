@@ -26,10 +26,10 @@ function TrueZen.config()
 end
 
 function TrueZen.keymap()
-  local remap = vim.api.nvim_set_keymap
-  remap("n", "<F12>", "<CMD>TZAtaraxis<CR>", {silent = true})
-  remap("i", "<F12>", "<CMD>TZAtaraxis<CR>", {silent = true})
-  remap("v", "<F12>", "<CMD>TZAtaraxis<CR>", {silent = true})
+  local keymap_set = vim.keymap.set
+  keymap_set("n", "<F12>", "<CMD>TZAtaraxis<CR>", {silent = true})
+  keymap_set("i", "<F12>", "<CMD>TZAtaraxis<CR>", {silent = true})
+  keymap_set("v", "<F12>", "<CMD>TZAtaraxis<CR>", {silent = true})
 end
 
 return TrueZen

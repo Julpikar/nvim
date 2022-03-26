@@ -1,9 +1,7 @@
+local fn = vim.fn
 local line = require("galaxyline")
 local condition = require("galaxyline.condition")
 local fileinfo = require("galaxyline.providers.fileinfo")
-
-local fn = vim.fn
-local cmd = vim.cmd
 
 local function buffer_not_empty()
   if fn.empty(fn.expand("%:t")) ~= 1 then
@@ -33,33 +31,33 @@ local icons = {
   }
 }
 
-local onedark = {
+local custom_statusline_color = {
   colors = {
     background = "#F2A60D",
     foreground = "#1b1f24"
   }
 }
 
-local item_highlight = {onedark.colors.foreground, onedark.colors.background, "bold"}
+local item_highlight = {custom_statusline_color.colors.foreground, custom_statusline_color.colors.background, "bold"}
 
 local mode_color = function()
   local mode_colors = {
-    n = onedark.colors.foreground,
-    i = onedark.colors.foreground,
-    c = onedark.colors.foreground,
-    V = onedark.colors.foreground,
-    [""] = onedark.colors.foreground,
-    v = onedark.colors.foreground,
-    s = onedark.colors.foreground,
-    S = onedark.colors.foreground,
-    [""] = onedark.colors.foreground,
-    R = onedark.colors.foreground,
-    r = onedark.colors.foreground,
-    ["!"] = onedark.colors.foreground,
-    t = onedark.colors.foreground
+    n = custom_statusline_color.colors.foreground,
+    i = custom_statusline_color.colors.foreground,
+    c = custom_statusline_color.colors.foreground,
+    V = custom_statusline_color.colors.foreground,
+    [""] = custom_statusline_color.colors.foreground,
+    v = custom_statusline_color.colors.foreground,
+    s = custom_statusline_color.colors.foreground,
+    S = custom_statusline_color.colors.foreground,
+    [""] = custom_statusline_color.colors.foreground,
+    R = custom_statusline_color.colors.foreground,
+    r = custom_statusline_color.colors.foreground,
+    ["!"] = custom_statusline_color.colors.foreground,
+    t = custom_statusline_color.colors.foreground
   }
 
-  return mode_colors[vim.fn.mode()]
+  return mode_colors[fn.mode()]
 end
 
 local Galaxy = {}
@@ -86,14 +84,18 @@ local function left_config()
         }
         local color = mode_color()
         if color ~= nil then
-          vim.api.nvim_command("hi GalaxyViMode guifg=" .. color .. " gui=bold")
-          return "  " .. alias[vim.fn.mode()]
+          vim.api.nvim_set_hl(
+            0,
+            "GalaxyViMode",
+            {bg = custom_statusline_color.colors.background, fg = color, bold = true}
+          )
+          return "  " .. alias[fn.mode()]
         end
         return ""
       end,
-      highlight = {onedark.colors.background, onedark.colors.background},
+      highlight = {custom_statusline_color.colors.background, custom_statusline_color.colors.background},
       separator = icons.slant.left,
-      separator_highlight = {onedark.colors.background, onedark.colors.background}
+      separator_highlight = {custom_statusline_color.colors.background, custom_statusline_color.colors.background}
     }
   }
   left[2] = {
@@ -107,28 +109,28 @@ local function left_config()
     DiagnosticWarn = {
       provider = "DiagnosticWarn",
       icon = icons.diagnostic.warn .. " ",
-      highlight = {onedark.colors.foreground, onedark.colors.background, "bold"}
+      highlight = {custom_statusline_color.colors.foreground, custom_statusline_color.colors.background, "bold"}
     }
   }
   left[4] = {
     DiagnosticInfo = {
       provider = "DiagnosticInfo",
       icon = icons.diagnostic.info .. " ",
-      highlight = {onedark.colors.foreground, onedark.colors.background, "bold"}
+      highlight = {custom_statusline_color.colors.foreground, custom_statusline_color.colors.background, "bold"}
     }
   }
   left[5] = {
     DiagnosticHint = {
       provider = "DiagnosticHint",
       icon = icons.diagnostic.hint .. " ",
-      highlight = {onedark.colors.foreground, onedark.colors.background, "bold"}
+      highlight = {custom_statusline_color.colors.foreground, custom_statusline_color.colors.background, "bold"}
     }
   }
   left[6] = {
     FileIcon = {
       provider = "FileIcon",
       condition = buffer_not_empty,
-      highlight = {onedark.colors.foreground, onedark.colors.background, "bold"}
+      highlight = {custom_statusline_color.colors.foreground, custom_statusline_color.colors.background, "bold"}
     }
   }
   left[7] = {
@@ -139,9 +141,9 @@ local function left_config()
         return string.len(fullname) > 40 and shortname or fullname
       end,
       condition = buffer_not_empty,
-      highlight = {onedark.colors.foreground, onedark.colors.background, "bold"},
+      highlight = {custom_statusline_color.colors.foreground, custom_statusline_color.colors.background, "bold"},
       separator = icons.slant.right,
-      separator_highlight = {onedark.colors.background, onedark.colors.background}
+      separator_highlight = {custom_statusline_color.colors.background, custom_statusline_color.colors.background}
     }
   }
   left[8] = {
@@ -157,7 +159,7 @@ local function left_config()
 
           for _, client in ipairs(clients) do
             local filetypes = client.config.filetypes
-            if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
+            if filetypes and fn.index(filetypes, buf_ft) ~= -1 then
               return client.name
             end
           end
@@ -172,7 +174,7 @@ local function left_config()
         end
         return true
       end,
-      highlight = {onedark.colors.foreground, onedark.colors.background}
+      highlight = {custom_statusline_color.colors.foreground, custom_statusline_color.colors.background}
     }
   }
 end
@@ -184,7 +186,7 @@ local function right_config()
       provider = "GitBranch",
       condition = condition.check_git_workspace,
       icon = icons.git.branch .. " ",
-      highlight = {onedark.colors.foreground, onedark.colors.background, "bold"}
+      highlight = {custom_statusline_color.colors.foreground, custom_statusline_color.colors.background, "bold"}
     }
   }
   right[2] = {
@@ -192,7 +194,7 @@ local function right_config()
       provider = function()
         return " "
       end,
-      highlight = {onedark.colors.background, onedark.colors.background}
+      highlight = {custom_statusline_color.colors.background, custom_statusline_color.colors.background}
     }
   }
   right[3] = {
@@ -200,7 +202,7 @@ local function right_config()
       provider = "DiffAdd",
       condition = condition.hide_in_width,
       icon = icons.git.add .. " ",
-      highlight = {onedark.colors.foreground, onedark.colors.background, "bold"}
+      highlight = {custom_statusline_color.colors.foreground, custom_statusline_color.colors.background, "bold"}
     }
   }
   right[4] = {
@@ -208,7 +210,7 @@ local function right_config()
       provider = "DiffModified",
       condition = condition.hide_in_width,
       icon = icons.git.modified .. " ",
-      highlight = {onedark.colors.foreground, onedark.colors.background, "bold"}
+      highlight = {custom_statusline_color.colors.foreground, custom_statusline_color.colors.background, "bold"}
     }
   }
   right[5] = {
@@ -216,21 +218,21 @@ local function right_config()
       provider = "DiffRemove",
       condition = condition.hide_in_width,
       icon = icons.git.remove .. " ",
-      highlight = {onedark.colors.foreground, onedark.colors.background, "bold"}
+      highlight = {custom_statusline_color.colors.foreground, custom_statusline_color.colors.background, "bold"}
     }
   }
   right[6] = {
     LineColumn = {
       provider = "LineColumn",
       condition = buffer_not_empty,
-      highlight = {onedark.colors.foreground, onedark.colors.background, "bold"}
+      highlight = {custom_statusline_color.colors.foreground, custom_statusline_color.colors.background, "bold"}
     }
   }
   right[7] = {
     LinePercent = {
       provider = "LinePercent",
       condition = buffer_not_empty,
-      highlight = {onedark.colors.foreground, onedark.colors.background, "bold"}
+      highlight = {custom_statusline_color.colors.foreground, custom_statusline_color.colors.background, "bold"}
     }
   }
 end
@@ -241,11 +243,17 @@ function Galaxy.config()
   right_config()
 
   -- Custom highlight
-  vim.cmd("augroup StatusLineHightlight")
-  vim.cmd("autocmd!")
-  cmd("highlight! StatusLine guibg=" .. onedark.colors.background .. " guifg=" .. onedark.colors.background)
-  cmd("highlight! StatusLineNC guibg=" .. onedark.colors.foreground .. " guifg=" .. onedark.colors.foreground)
-  vim.cmd("augroup END")
+  local statusline_hl_ns = vim.api.nvim_create_namespace("StatusLineHightlight")
+  vim.api.nvim_set_hl(
+    statusline_hl_ns,
+    "StatusLine",
+    {bg = custom_statusline_color.colors.background, fg = custom_statusline_color.colors.background}
+  )
+  vim.api.nvim_set_hl(
+    statusline_hl_ns,
+    "StatusLineNC",
+    {bg = custom_statusline_color.colors.foreground, fg = custom_statusline_color.colors.foreground}
+  )
 end
 
 return Galaxy

@@ -17,10 +17,10 @@ function NvimTree.reset_size()
 end
 
 function NvimTree.keymap()
-  local remap = vim.api.nvim_set_keymap
-  remap("n", "<F2>", ":NvimTreeToggle<CR>", {noremap = true, silent = true})
-  remap("n", "<F3>", ":NvimTreeRefresh<CR>", {noremap = true, silent = true})
-  remap("n", "<F4>", ":NvimTreeFindFile<CR>", {noremap = true, silent = true})
+  local keymap_set = vim.keymap.set
+  keymap_set("n", "<F2>", ":NvimTreeToggle<CR>", {noremap = true, silent = true})
+  keymap_set("n", "<F3>", ":NvimTreeRefresh<CR>", {noremap = true, silent = true})
+  keymap_set("n", "<F4>", ":NvimTreeFindFile<CR>", {noremap = true, silent = true})
 end
 
 function NvimTree.config()

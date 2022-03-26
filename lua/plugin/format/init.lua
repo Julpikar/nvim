@@ -1,18 +1,12 @@
 local Format = {}
 
 function Format.keymap()
-  local remap = vim.api.nvim_set_keymap
-  remap("n", "<F10>", ":Format<CR>", {noremap = true, silent = true})
-  remap("v", "<F10>", ":Format<CR>", {noremap = true, silent = true})
+  vim.keymap.set({"n", "v"}, "<F10>", "<CMD>Format<CR>", {noremap = true, silent = true})
 
-  vim.api.nvim_exec(
-    [[
-    augroup FormatAutogroup
-      autocmd!
-      autocmd BufWritePost *.js,*.py,*.rs,*.lua FormatWrite
-    augroup END
-    ]],
-    true
+  local format_augroup = vim.api.nvim_create_augroup("FormatAutogroup", {clear = true})
+  vim.api.nvim_create_autocmd(
+    "BufWritePost",
+    {command = "FormatWrite", pattern = "*.js,*.py,*.rs,*.lua", group = format_augroup}
   )
 end
 

@@ -13,9 +13,10 @@ local keymaps = {
 local Mapping = {}
 
 function Mapping.setup()
+  local keymap_set = vim.keymap.set
   for _, group in pairs(keymaps) do
     for _, keymap in pairs(group) do
-      vim.api.nvim_set_keymap(unpack(keymap))
+      keymap_set(unpack(keymap))
     end
   end
 end

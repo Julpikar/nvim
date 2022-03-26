@@ -1,6 +1,6 @@
 require("impatient")
 
-local execute = vim.api.nvim_command
+local api = vim.api
 local fn = vim.fn
 
 function _G.auto_reload()
@@ -16,16 +16,23 @@ function _G.auto_reload()
   end
 end
 
-execute("augroup Reload")
-execute("autocmd!")
-execute("autocmd BufWritePre $MYVIMRC lua auto_reload()")
-execute("augroup END")
+local reload_augroups = api.nvim_create_augroup("Reload", {clear = true})
+api.nvim_create_autocmd(
+  "BufWritePre",
+  {
+    callback = function()
+      vim.schedule(auto_reload)
+    end,
+    pattern = "$MYVIMRC",
+    group = reload_augroups
+  }
+)
 
 local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
 
 if fn.empty(fn.glob(install_path)) > 0 then
-  execute("!git clone https://github.com/wbthomason/packer.nvim " .. install_path)
-  execute [[packadd packer.nvim"]]
+  api.nvim_command("!git clone https://github.com/wbthomason/packer.nvim " .. install_path)
+  api.nvim_command([[packadd packer.nvim"]])
 end
 
 require("local").load_settings()

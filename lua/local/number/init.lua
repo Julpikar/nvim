@@ -1,104 +1,93 @@
 -- from numbers.vim, see https://github.com/myusuf3/numbers.vim
-
-local utils = require("utils")
-
 local cmd = vim.cmd
-local fn = vim.fn
-local o = vim.o
-
 local mode = false
-local center = true
+local focus = true
 
 local Number = {
   enable_number = true,
   numbers_exclude = {"dashboard", "floaterm", "NvimTree", "Outline", "packer", "telescope"}
 }
 
-local function relative_off()
+local function relative_number_off()
   cmd [[set norelativenumber]]
   cmd [[set number]]
 end
 
-function Number.toggle()
+local function number_set_toggle()
   if mode == true then
     mode = false
     cmd [[set relativenumber]]
   else
     mode = true
-    relative_off()
+    relative_number_off()
   end
 end
 
-function Number.reset_number()
-  if center == false then
-    relative_off()
+local function reset_number()
+  if focus == false then
+    relative_number_off()
   elseif mode == false then
     cmd [[set relativenumber]]
   else
-    relative_off()
+    relative_number_off()
   end
 
-  if fn.index(Number.numbers_exclude, o.filetype) >= 0 then
+  if vim.fn.index(Number.numbers_exclude, vim.o.filetype) >= 0 then
     cmd [[setlocal norelativenumber]]
     cmd [[setlocal nonumber]]
   end
 end
-function Number.set_number()
+local function set_number()
   mode = true
-  Number.reset_number()
+  reset_number()
 end
 
-function Number.set_relative()
+local function set_relative()
   mode = false
-  Number.reset_number()
+  reset_number()
 end
 
-function Number.center()
-  center = true
-  Number.reset_number()
+local function win_on_focus()
+  focus = true
+  reset_number()
 end
 
-function Number.uncenter()
-  center = false
-  Number.reset_number()
+local function win_not_focus()
+  focus = false
+  reset_number()
 end
 
-function Number.enable()
-  local autocmd = {
-    enable = {
-      {"InsertEnter", "*", "lua require('local.number').set_number()"},
-      {"InsertLeave", "*", "lua require('local.number').set_relative()"},
-      {"BufNewFile", "*", "lua require('local.number').reset_number()"},
-      {"BufReadPost", "*", "lua require('local.number').reset_number()"},
-      {"FocusLost", "*", "lua require('local.number').uncenter()"},
-      {"FocusGained", "*", "lua require('local.number').center()"},
-      {"WinEnter", "*", "lua require('local.number').set_relative()"},
-      {"WinLeave", "*", "lua require('local.number').set_number()"}
-    }
-  }
+local function number_create_autocmd(group)
+  local nvim_create_autocmd = vim.api.nvim_create_autocmd
+  nvim_create_autocmd({"InsertEnter", "WinLeave"}, {callback = set_number, group = group})
+  nvim_create_autocmd({"InsertLeave", "WinEnter"}, {callback = set_relative, group = group})
+  nvim_create_autocmd({"BufNewFile", "BufReadPost"}, {callback = reset_number, group = group})
+  nvim_create_autocmd("FocusLost", {callback = win_not_focus, group = group})
+  nvim_create_autocmd("FocusGained", {callback = win_on_focus, group = group})
+end
 
+local function number_set_enable()
+  local number_enable_augroup = vim.api.nvim_create_augroup("EnableNumber", {clear = true})
+  number_create_autocmd(number_enable_augroup)
   Number.enable_number = true
   cmd [[set relativenumber]]
   cmd [[set number]]
-  utils.nvim_create_augroups(autocmd)
 end
 
-function Number.disable()
+local function number_set_disable()
   Number.enable_number = false
   cmd [[:set nu]]
   cmd [[:set nu!]]
 
-  cmd [[augroup disable]]
-  cmd [[au!]]
-  cmd [[au! enable]]
-  cmd [[augroup END]]
+  local number_disable_augroup = vim.api.nvim_create_augroup("DisableNumber", {clear = true})
+  number_create_autocmd(number_disable_augroup)
 end
 
-function Number.switch_on_off()
+local function number_switch_on_off()
   if Number.enable_number == true then
-    Number.disable()
+    number_set_disable()
   else
-    Number.enable()
+    number_set_enable()
   end
 end
 
@@ -107,15 +96,15 @@ function Number.setup(config)
     Number.enable_number = config.enable_number
   end
 
-  cmd [[command! -nargs=0 NumberToggle lua require('local.number').toggle()]]
-  cmd [[command! -nargs=0 NumberEnable lua require('local.number').enable()]]
-  cmd [[command! -nargs=0 NumberDisable lua require('local.number').disable()]]
-  cmd [[command! -nargs=0 NumberOnOff lua require('local.number').switch_on_off()]]
-
+  local nvim_add_user_command = vim.api.nvim_add_user_command
+  nvim_add_user_command("NumberToggle", number_set_toggle, {bang = true, nargs = 0})
+  nvim_add_user_command("NumberEnable", number_set_enable, {bang = true, nargs = 0})
+  nvim_add_user_command("NumberDisable", number_set_disable, {bang = true, nargs = 0})
+  nvim_add_user_command("NumberOnOff", number_switch_on_off, {bang = true, nargs = 0})
   if Number.enable_number then
-    Number.enable()
+    number_set_enable()
   else
-    Number.disable()
+    number_set_disable()
   end
 end
 

@@ -1,28 +1,17 @@
--- ============================================================================
--- File:        vim-lastplace.vim
--- Description: Reopen files where you left off. Configurable.
--- Author:      Gregory L. Dietsche <vim@gregd.org>
--- Licence:     MIT
--- Website:     https://www.gregd.org/
--- Version:     3.2.1
--- ============================================================================
-
-local utils = require("Utils")
-local cmd = vim.cmd
-local fn = vim.fn
-local o = vim.o
+-- lua rewritted vim-lastplace.vim
 local filetype_ignore = {"gitcommit", "gitrebase", "svn", "hgcommit"}
 local buftype_ignore = {"quickfix", "nofile", "help"}
 local open_fold = false
 
 local Lastplace = {}
 
-function Lastplace.find()
-  if fn.index(buftype_ignore, o.buftype) ~= -1 then
+local function find()
+  local fn = vim.fn
+  if fn.index(buftype_ignore, vim.o.buftype) ~= -1 then
     return
   end
 
-  if fn.index(filetype_ignore, o.filetype) ~= -1 then
+  if fn.index(filetype_ignore, vim.o.filetype) ~= -1 then
     return
   end
 
@@ -49,7 +38,7 @@ function Lastplace.find()
       -- bottom of the screen. We intentionally leave the
       -- last line blank by pressing <c-e> so the user has a
       -- clue that they are near the end of the file.
-      cmd [[execute "normal! \G'\"\<c-e>"]]
+      vim.cmd [[execute "normal! \G'\"\<c-e>"]]
     end
   end
   if fn.foldclosed(".") ~= -1 and open_fold then
@@ -59,8 +48,9 @@ function Lastplace.find()
 end
 
 function Lastplace.setup()
-  local augroup_lastplace = {{"BufWinEnter", "*", "lua require('local.lastplace').find()"}}
-  utils.create_augroup(augroup_lastplace, "lastplace")
+  local api = vim.api
+  local lastplace_augroup = api.nvim_create_augroup("LastPlace", {clear = true})
+  api.nvim_create_autocmd("BufWinEnter", {callback = find, group = lastplace_augroup})
 end
 
 return Lastplace

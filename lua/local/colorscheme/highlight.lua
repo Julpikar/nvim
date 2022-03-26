@@ -1,6 +1,6 @@
 local colors = require("local.colorscheme.colors")
 local highlight = vim.api.nvim_set_hl
-local set_hl_ns = vim.api.nvim__set_hl_ns or vim.api.nvim_set_hl_ns
+local set_hl_ns = vim.api.nvim__set_hl_ns
 local create_namespace = vim.api.nvim_create_namespace
 local Highlight = {}
 local hl = {plugins = {}}
@@ -19,24 +19,24 @@ local function set_color(color)
   }
 
   hl.common = {
-    Normal = {fg = color.fg, bg = color.bg0},
-    Terminal = {fg = color.fg, bg = color.bg0},
-    EndOfBuffer = {fg = color.bg2, bg = color.bg0},
-    FoldColumn = {fg = color.fg, bg = color.bg1},
-    Folded = {fg = color.fg, bg = color.bg1},
-    SignColumn = {fg = color.fg, bg = color.bg0},
+    Normal = {fg = color.fg, bg = color.bg1},
+    Terminal = {fg = color.fg, bg = color.bg1},
+    EndOfBuffer = {fg = color.bg3, bg = color.bg1},
+    FoldColumn = {fg = color.fg, bg = color.bg2},
+    Folded = {fg = color.fg, bg = color.bg2},
+    SignColumn = {fg = color.fg, bg = color.bg1},
     ToolbarLine = {fg = color.fg},
     Cursor = {reverse = true},
     vCursor = {reverse = true},
     iCursor = {reverse = true},
     lCursor = {reverse = true},
     CursorIM = {reverse = true},
-    CursorColumn = {bg = color.bg1},
-    CursorLine = {bg = color.bg1},
-    ColorColumn = {bg = color.bg1},
+    CursorColumn = {bg = color.bg2},
+    CursorLine = {bg = color.bg2},
+    ColorColumn = {bg = color.bg2},
     CursorLineNr = {fg = color.fg},
     LineNr = {fg = color.grey},
-    Conceal = {fg = color.grey, bg = color.bg1},
+    Conceal = {fg = color.grey, bg = color.bg2},
     DiffAdd = {fg = color.none, bg = color.diff_add},
     DiffChange = {fg = color.none, bg = color.diff_change},
     DiffDelete = {fg = color.diff_delete, bg = color.diff_delete},
@@ -49,37 +49,37 @@ local function set_color(color)
     ErrorMsg = {fg = color.red, bold = true, underline = true},
     WarningMsg = {fg = color.yellow, bold = true},
     MoreMsg = {fg = color.blue, bold = true},
-    IncSearch = {fg = color.bg0, bg = color.orange},
-    Search = {fg = color.bg0, bg = color.bg_yellow},
+    IncSearch = {fg = color.bg1, bg = color.orange},
+    Search = {fg = color.bg1, bg = color.bg_yellow},
     MatchParen = {fg = color.none, bg = color.grey},
     NonText = {fg = color.grey},
     Whitespace = {fg = color.grey},
     SpecialKey = {fg = color.grey},
-    Pmenu = {fg = color.fg, bg = color.bg1},
-    PmenuSbar = {fg = color.none, bg = color.bg1},
-    PmenuSel = {fg = color.bg0, bg = color.bg_blue},
-    WildMenu = {fg = color.bg0, bg = color.blue},
+    Pmenu = {fg = color.fg, bg = color.bg2},
+    PmenuSbar = {fg = color.none, bg = color.bg2},
+    PmenuSel = {fg = color.bg1, bg = color.bg_blue},
+    WildMenu = {fg = color.bg1, bg = color.blue},
     PmenuThumb = {fg = color.none, bg = color.grey},
     Question = {fg = color.yellow},
     SpellBad = {fg = color.red, underline = true, sp = color.red},
     SpellCap = {fg = color.yellow, underline = true, sp = color.yellow},
     SpellLocal = {fg = color.blue, underline = true, sp = color.blue},
     SpellRare = {fg = color.purple, underline = true, sp = color.purple},
-    StatusLine = {fg = color.fg, bg = color.bg2},
-    StatusLineTerm = {fg = color.fg, bg = color.bg2},
-    StatusLineNC = {fg = color.grey, bg = color.bg1},
-    StatusLineTermNC = {fg = color.grey, bg = color.bg1},
-    TabLine = {fg = color.fg, bg = color.bg1},
-    TabLineFill = {fg = color.grey, bg = color.bg1},
-    TabLineSel = {fg = color.bg0, bg = color.fg},
-    VertSplit = {fg = color.bg1},
-    Visual = {bg = color.bg3},
-    VisualNOS = {fg = color.none, bg = color.bg2, underline = true},
+    StatusLine = {fg = color.fg, bg = color.bg3},
+    StatusLineTerm = {fg = color.fg, bg = color.bg3},
+    StatusLineNC = {fg = color.grey, bg = color.bg2},
+    StatusLineTermNC = {fg = color.grey, bg = color.bg2},
+    TabLine = {fg = color.fg, bg = color.bg2},
+    TabLineFill = {fg = color.grey, bg = color.bg2},
+    TabLineSel = {fg = color.bg1, bg = color.fg},
+    VertSplit = {fg = color.bg2},
+    Visual = {bg = color.bg4},
+    VisualNOS = {fg = color.none, bg = color.bg3, underline = true},
     QuickFixLine = {fg = color.blue, underline = true},
     Debug = {fg = color.yellow},
-    debugPC = {fg = color.bg0, bg = color.green},
-    debugBreakpoint = {fg = color.bg0, bg = color.red},
-    ToolbarButton = {fg = color.bg0, bg = color.bg_blue}
+    debugPC = {fg = color.bg1, bg = color.green},
+    debugBreakpoint = {fg = color.bg1, bg = color.red},
+    ToolbarButton = {fg = color.bg1, bg = color.bg_blue}
   }
 
   hl.treesitter = {
@@ -174,10 +174,10 @@ local function set_color(color)
   }
 
   hl.plugins.hop = {
-    HopNextKey = {fg = c.bg0, bg = c.orange},
-    HopNextKey1 = {fg = c.bg0, bg = c.orange},
-    HopNextKey2 = {fg = c.bg0, bg = c.bg_yellow},
-    HopUnmatched = {fg = c.fg, bg = c.bg1}
+    HopNextKey = {fg = c.bg1, bg = c.orange},
+    HopNextKey1 = {fg = c.bg1, bg = c.orange},
+    HopNextKey2 = {fg = c.bg1, bg = c.bg_yellow},
+    HopUnmatched = {fg = c.fg, bg = c.bg2}
   }
 
   hl.plugins.diffview = {
@@ -220,8 +220,8 @@ local function set_color(color)
   }
 
   hl.plugins.nvim_tree = {
-    NvimTreeNormal = {fg = c.fg, bg = c.bg_d},
-    NvimTreeEndOfBuffer = {fg = c.bg2, bg = c.bg_d},
+    NvimTreeNormal = {fg = c.fg, bg = c.bg0},
+    NvimTreeEndOfBuffer = {fg = c.bg3, bg = c.bg0},
     NvimTreeRootFolder = {fg = c.yellow, bold = true},
     NvimTreeGitDirty = c.Yellow,
     NvimTreeGitNew = c.Green,
@@ -237,7 +237,7 @@ local function set_color(color)
     TelescopeBorder = c.Green,
     TelescopeMatching = c.Yellow,
     TelescopePromptPrefix = c.Blue,
-    TelescopeSelection = {bg = c.bg2},
+    TelescopeSelection = {bg = c.bg3},
     TelescopeSelectionCaret = c.Blue
   }
 
