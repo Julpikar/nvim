@@ -57,18 +57,15 @@ local function win_not_focus()
   reset_number()
 end
 
-local function number_create_autocmd(group)
-  local nvim_create_autocmd = vim.api.nvim_create_autocmd
-  nvim_create_autocmd({"InsertEnter", "WinLeave"}, {callback = set_number, group = group})
-  nvim_create_autocmd({"InsertLeave", "WinEnter"}, {callback = set_relative, group = group})
-  nvim_create_autocmd({"BufNewFile", "BufReadPost"}, {callback = reset_number, group = group})
-  nvim_create_autocmd("FocusLost", {callback = win_not_focus, group = group})
-  nvim_create_autocmd("FocusGained", {callback = win_on_focus, group = group})
-end
-
 local function number_set_enable()
   local number_enable_augroup = vim.api.nvim_create_augroup("EnableNumber", {clear = true})
-  number_create_autocmd(number_enable_augroup)
+  local nvim_create_autocmd = vim.api.nvim_create_autocmd
+  nvim_create_autocmd({"InsertEnter", "WinLeave"}, {callback = set_number, group = number_enable_augroup})
+  nvim_create_autocmd({"InsertLeave", "WinEnter"}, {callback = set_relative, group = number_enable_augroup})
+  nvim_create_autocmd({"BufNewFile", "BufReadPost"}, {callback = reset_number, group = number_enable_augroup})
+  nvim_create_autocmd("FocusLost", {callback = win_not_focus, group = number_enable_augroup})
+  nvim_create_autocmd("FocusGained", {callback = win_on_focus, group = number_enable_augroup})
+
   Number.enable_number = true
   cmd [[set relativenumber]]
   cmd [[set number]]
@@ -79,8 +76,7 @@ local function number_set_disable()
   cmd [[:set nu]]
   cmd [[:set nu!]]
 
-  local number_disable_augroup = vim.api.nvim_create_augroup("DisableNumber", {clear = true})
-  number_create_autocmd(number_disable_augroup)
+  vim.api.nvim_del_augroup_by_name("EnableNumber")
 end
 
 local function number_switch_on_off()

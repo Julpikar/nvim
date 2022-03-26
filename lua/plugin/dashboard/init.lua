@@ -28,9 +28,7 @@ local function set_logo()
 end
 
 function Dashboard.keymap()
-  local keymap_set = vim.keymap.set
-  keymap_set("n", "<HOME>", "<CMD>Dashboard<CR>", {silent = true})
-  keymap_set("v", "<HOME>", "<CMD>Dashboard<CR>", {silent = true})
+  vim.keymap.set({"n", "v"}, "<HOME>", "<CMD>Dashboard<CR>", {silent = true})
 end
 
 function Dashboard.setup()

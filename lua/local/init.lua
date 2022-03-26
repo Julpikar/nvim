@@ -1,4 +1,5 @@
 local colorscheme = require("local.colorscheme")
+local cursor = require("local.cursor")
 local lastplace = require("local.lastplace")
 local number = require("local.number")
 local mapping = require("local.mapping")
@@ -46,6 +47,8 @@ function Global.load_settings()
   -- Postponed redraw
   o.lazyredraw = true
 
+  -- Cursor fix
+  cursor.setup()
   -- Goto last position when open a file
   lastplace.setup()
 
