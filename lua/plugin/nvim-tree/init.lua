@@ -25,13 +25,12 @@ end
 
 function NvimTree.config()
   require "nvim-tree".setup {
+    disable_netrw = true,
     -- hijack the cursor in the tree to put it at the start of the filename
     hijack_cursor = true,
     -- updates the root directory of the tree on `DirChanged` (when your run `:cd` usually)
     update_cwd = true,
     view = {
-      -- if true the tree will resize itself after opening a file
-      auto_resize = true,
       mappings = {
         -- list of mappings to set on the tree manually
         list = {

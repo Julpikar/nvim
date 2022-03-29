@@ -1,5 +1,4 @@
 local config = {
-  linters = {},
   lsp = {
     lua = {
       provider = "sumneko_lua",

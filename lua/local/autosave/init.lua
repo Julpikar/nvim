@@ -1,10 +1,9 @@
-local exclude_filetype = {"help"}
 local timeout_in_ms = 300
 local api = vim.api
 local cmd = vim.cmd
 local fn = vim.fn
 
-local M = {}
+local AutoSave = {}
 
 local function write()
   if not api.nvim_buf_get_option(0, "modified") then
@@ -45,10 +44,10 @@ local function save()
   defer_func(write, timeout_in_ms)
 end
 
-function M.setup()
+function AutoSave.setup()
   local event = {"InsertLeave", "TextChanged"}
   local auto_save_augroup = api.nvim_create_augroup("AutoSave", {clear = true})
   api.nvim_create_autocmd(event, {callback = save, group = auto_save_augroup})
 end
 
-return M
+return AutoSave

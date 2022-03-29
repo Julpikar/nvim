@@ -1,5 +1,6 @@
+local null_ls = require("null-ls")
+
 local config = {
-  linters = {},
   lsp = {
     python = {provider = "pyright"}
   }

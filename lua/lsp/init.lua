@@ -1,6 +1,8 @@
 local lspconfig = require("lspconfig")
 local api = vim.api
 
+local LSPConfig = {}
+
 local function lsp_client_active(name)
   local clients = vim.lsp.get_active_clients()
   for _, client in pairs(clients) do
@@ -11,7 +13,11 @@ local function lsp_client_active(name)
   return false
 end
 
-local function document_highlight_capabilities(client)
+local function common_on_attach(client, bufnr)
+  -- Enable completion triggered by <c-x><c-o>
+  api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
+
+  -- Set document highlight on event CursorHold and CursorHoldI
   -- Set autocommands conditional on server_capabilities
   if client.resolved_capabilities.document_highlight then
     local lsp_doc_hi_augroup = api.nvim_create_augroup("LSPDocHighlight", {clear = true})
@@ -26,7 +32,7 @@ local function document_highlight_capabilities(client)
       }
     )
     api.nvim_create_autocmd(
-      "CursorMoved",
+      {"CursorMoved", "InsertEnter"},
       {
         callback = function()
           vim.schedule(vim.lsp.buf.clear_references)
@@ -37,14 +43,24 @@ local function document_highlight_capabilities(client)
     )
 
     local nvim_set_hl = api.nvim_set_hl
-    nvim_set_hl(0, "LspReferenceRead", {ctermbg = "red", bg = "LightYellow", bold = true})
-    nvim_set_hl(0, "LspReferenceText", {ctermbg = "red", bg = "LightYellow", bold = true})
-    nvim_set_hl(0, "LspReferenceWrite", {ctermbg = "red", bg = "LightYellow", bold = true})
+    nvim_set_hl(0, "LspReferenceRead", {fg = "red", bg = "LightYellow", bold = true})
+    nvim_set_hl(0, "LspReferenceText", {fg = "red", bg = "LightYellow", bold = true})
+    nvim_set_hl(0, "LspReferenceWrite", {fg = "red", bg = "LightYellow", bold = true})
   end
-end
 
-local function lsp_diagnostic_sign()
-  local group = {
+  -- Diagnostic setting
+  vim.lsp.handlers["textDocument/publishDiagnostics"] =
+    vim.lsp.with(
+    vim.lsp.diagnostic.on_publish_diagnostics,
+    {
+      underline = true,
+      update_in_insert = false,
+      severity_sort = true
+    }
+  )
+
+  -- Set diagnostic sign
+  local groups = {
     err_group = {
       highlight = "LspDiagnosticsSignError",
       sign = ""
@@ -63,26 +79,9 @@ local function lsp_diagnostic_sign()
     }
   }
 
-  for _, g in pairs(group) do
-    vim.fn.sign_define(g.highlight, {text = g.sign, texthl = g.highlight, linehl = "", numhl = ""})
+  for _, group in pairs(groups) do
+    vim.fn.sign_define(group.highlight, {text = group.sign, texthl = group.highlight, linehl = "", numhl = ""})
   end
-end
-
-local function lsp_handlers()
-  vim.lsp.handlers["textDocument/publishDiagnostics"] =
-    vim.lsp.with(
-    vim.lsp.diagnostic.on_publish_diagnostics,
-    {
-      underline = true,
-      update_in_insert = false,
-      severity_sort = true
-    }
-  )
-end
-
-local function lsp_keymaps(bufnr)
-  -- Enable completion triggered by <c-x><c-o>
-  api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 
   -- Mappings
   local opts = {buffer = bufnr, noremap = true, silent = true}
@@ -123,13 +122,8 @@ local function lsp_keymaps(bufnr)
   for _, keymap in pairs(keymaps) do
     keymap_set(unpack(keymap))
   end
-end
 
-local function common_on_attach(client, bufnr)
-  lsp_keymaps(bufnr)
-  lsp_handlers()
-  lsp_diagnostic_sign()
-  document_highlight_capabilities(client)
+  -- document_highlight_capabilities(client)
   require("lsp_signature").on_attach()
 end
 
@@ -154,27 +148,27 @@ local function common_capabilities()
   return capabilities
 end
 
-local M = {}
+function LSPConfig.setup(config)
+  -- Common LSP setup
+  local lsp_common_config = {
+    on_attach = common_on_attach,
+    capabilities = common_capabilities(),
+    autostart = false
+  }
 
-function M.setup(config)
-  local list_lsp = config.lsp
-  for _, lsp in pairs(list_lsp) do
-    if lsp_client_active(lsp.provider) then
-      return
+  -- Registering server
+  local lang_servers = config.lsp
+  for _, server in pairs(lang_servers) do
+    if lsp_client_active(server.provider) then
+      break
     end
 
-    local setup = {
-      on_attach = common_on_attach,
-      capabilities = common_capabilities(),
-      autostart = false
-    }
-
-    if lsp.setup ~= nil then
-      setup = vim.tbl_extend("force", setup, lsp.setup)
+    if server.setup ~= nil then
+      lsp_common_config = vim.tbl_extend("force", lsp_common_config, server.setup)
     end
 
-    lspconfig[lsp.provider].setup(setup)
+    lspconfig[server.provider].setup(lsp_common_config)
   end
 end
 
-return M
+return LSPConfig

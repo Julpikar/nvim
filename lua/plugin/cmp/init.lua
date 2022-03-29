@@ -26,17 +26,17 @@ local itemkind = {
   TypeParameter = "   TypeParameter"
 }
 
-local M = {}
+local Compe = {}
 
 local check_back_space = function()
   local col = vim.fn.col(".") - 1
   return col == 0 or vim.fn.getline("."):sub(col, col):match("%s")
 end
 
-function M.config()
-  vim.cmd [[set pumheight=20]]
-  vim.cmd [[set shortmess+=c]]
-  vim.cmd [[set completeopt=menu,menuone,noinsert]]
+function Compe.config()
+  vim.o.pumheight = 20
+  vim.opt.shortmess:append("c")
+  vim.o.completeopt = "menu,menuone,noinsert"
 
   local cmp = require("cmp")
   cmp.setup {
@@ -106,4 +106,4 @@ function M.config()
   }
 end
 
-return M
+return Compe

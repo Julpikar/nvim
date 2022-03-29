@@ -1,5 +1,4 @@
 local config = {
-  linters = {},
   lsp = {
     html = {provider = "html"},
     tailwindcss = {provider = "tailwindcss"}

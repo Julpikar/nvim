@@ -114,6 +114,11 @@ function WhichKey.config()
     {
       g = {
         name = "git/version_control",
+        d = {
+          name = "diff_mode",
+          o = {"<CMD>DiffviewOpen<CR>", "open"},
+          c = {"<CMD>DiffviewClose<CR>", "close"}
+        },
         n = {"<CMD>Neogit<CR>", "neogit_mode"},
         g = {"<CMD>FloatermNew lazygit<CR>", "git"}
       }

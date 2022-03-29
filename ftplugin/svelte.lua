@@ -1,5 +1,4 @@
 local config = {
-  linters = {},
   lsp = {
     svelte = {provider = "svelte"}
   }

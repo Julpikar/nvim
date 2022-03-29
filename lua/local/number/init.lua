@@ -1,22 +1,22 @@
 -- from numbers.vim, see https://github.com/myusuf3/numbers.vim
-local cmd = vim.cmd
+local o = vim.o
 local mode = false
 local focus = true
 
 local Number = {
   enable_number = true,
-  numbers_exclude = {"dashboard", "floaterm", "NvimTree", "Outline", "packer", "telescope"}
+  numbers_exclude = {"dashboard", "DiffviewFiles", "floaterm", "NvimTree", "Outline", "packer", "telescope"}
 }
 
 local function relative_number_off()
-  cmd [[set norelativenumber]]
-  cmd [[set number]]
+  o.relativenumber = false
+  o.number = true
 end
 
 local function number_set_toggle()
   if mode == true then
     mode = false
-    cmd [[set relativenumber]]
+    o.relativenumber = true
   else
     mode = true
     relative_number_off()
@@ -27,14 +27,14 @@ local function reset_number()
   if focus == false then
     relative_number_off()
   elseif mode == false then
-    cmd [[set relativenumber]]
+    o.relativenumber = true
   else
     relative_number_off()
   end
 
-  if vim.fn.index(Number.numbers_exclude, vim.o.filetype) >= 0 then
-    cmd [[setlocal norelativenumber]]
-    cmd [[setlocal nonumber]]
+  if vim.fn.index(Number.numbers_exclude, o.filetype) >= 0 then
+    vim.o.relativenumber = false
+    vim.o.number = false
   end
 end
 local function set_number()
@@ -67,15 +67,13 @@ local function number_set_enable()
   nvim_create_autocmd("FocusGained", {callback = win_on_focus, group = number_enable_augroup})
 
   Number.enable_number = true
-  cmd [[set relativenumber]]
-  cmd [[set number]]
+  o.relativenumber = true
+  o.number = true
 end
 
 local function number_set_disable()
   Number.enable_number = false
-  cmd [[:set nu]]
-  cmd [[:set nu!]]
-
+  o.number = false
   vim.api.nvim_del_augroup_by_name("EnableNumber")
 end
 

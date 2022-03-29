@@ -16,8 +16,8 @@ function Global.load_settings()
   cmd("source $VIMRUNTIME/mswin.vim")
 
   -- Safe heaven
-  cmd("set swapfile")
-  cmd("set undofile")
+  vim.o.swapfile = true
+  vim.o.undofile = true
 
   -- Window split
   o.splitright = true

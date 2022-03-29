@@ -118,7 +118,7 @@ local function plugin_init(use)
   use {
     "TimUntersberger/neogit",
     cmd = "Neogit",
-    requires = {{"sindrets/diffview.nvim", cmd = "Neogit"}},
+    requires = "sindrets/diffview.nvim",
     config = function()
       require("neogit").setup {
         integration = {
@@ -186,7 +186,6 @@ local function plugin_init(use)
     "neovim/nvim-lspconfig",
     requires = "ray-x/lsp_signature.nvim"
   }
-  use {"jose-elias-alvarez/null-ls.nvim"}
   use {
     "folke/trouble.nvim",
     cmd = "TroubleToggle",
