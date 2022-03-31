@@ -1,7 +1,7 @@
 local config = {
-  lsp = {
-    go = {provider = "gopls"}
-  }
+	lsp = {
+		go = { provider = "gopls" },
+	},
 }
 
 require("lsp").setup(config)
