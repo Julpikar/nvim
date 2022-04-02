@@ -14,10 +14,8 @@ local function plugin_init(use)
 		config = [[require("plugin.truezen").config()]],
 	})
 	use("editorconfig/editorconfig-vim")
-
 	use({
 		"mg979/vim-visual-multi",
-		keys = { { "n", "<C-Up>" }, { "n", "<C-Down>" } },
 		setup = [[vim.g.VM_theme = "neon"]],
 	})
 	use({
@@ -30,6 +28,7 @@ local function plugin_init(use)
 		setup = [[require("plugin.easyalign").keymap()]],
 	})
 	use("ThePrimeagen/refactoring.nvim")
+
 	-- Comment
 	use({ "b3nj5m1n/kommentary", event = "BufRead" })
 
@@ -59,6 +58,10 @@ local function plugin_init(use)
 	})
 
 	-- Navigation
+	use({
+		"lukas-reineke/indent-blankline.nvim",
+		config = [[require("plugin.indent-blankline").config()]],
+	})
 	use({
 		"phaazon/hop.nvim",
 		cmd = { "HopChar1", "HopChar2", "HopLine", "HopPattern", "HopWord" },

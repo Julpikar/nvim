@@ -11,7 +11,7 @@ local function cursorHold_eventignore()
 		return
 	end
 	eventignore:remove("CursorHold")
-	vim.api.nvim_exec_autocmd("CursorHold", { modeline = false })
+	vim.api.nvim_exec_autocmds("CursorHold", { modeline = false })
 	eventignore:append("CursorHold")
 end
 
@@ -20,7 +20,7 @@ local function cursorHoldI_eventignore()
 		return
 	end
 	eventignore:remove("CursorHoldI")
-	vim.api.nvim_exec_autocmd("CursorHoldI", { modeline = false })
+	vim.api.nvim_exec_autocmds("CursorHoldI", { modeline = false })
 	eventignore:append("CursorHoldI")
 end
 

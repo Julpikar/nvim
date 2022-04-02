@@ -5,7 +5,7 @@ local focus = true
 
 local Number = {
 	enable_number = true,
-	numbers_exclude = { "dashboard", "DiffviewFiles", "floaterm", "NvimTree", "Outline", "packer", "telescope" },
+	numbers_exclude = { "dashboard", "DiffviewFiles", "floaterm", "NvimTree", "Outline", "packer", "telescope" ,'Trouble'},
 }
 
 local function relative_number_off()

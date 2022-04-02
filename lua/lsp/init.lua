@@ -169,10 +169,13 @@ function LSPConfig.setup(config)
 		on_attach = common_on_attach,
 		capabilities = common_capabilities(),
 	}
+	local common_exclude_ft = {'NvimTree'}
 	local null_ls_common_sources = {
 		null_ls.builtins.code_actions.gitsigns,
 		null_ls.builtins.code_actions.refactoring,
-		null_ls.builtins.diagnostics.codespell,
+		null_ls.builtins.diagnostics.codespell.with({
+			disabled_filetypes = common_exclude_ft,
+		}),
 	}
 	local null_ls_user_config = config.null_ls
 	if null_ls_user_config ~= nil then
@@ -188,8 +191,8 @@ function LSPConfig.setup(config)
 
 		-- Autoformat
 		local delayed_auto_format = function()
-			local duration = 500
-			vim.defer_fn(vim.lsp.buf.formatting, duration)
+			local duration_in_ms = 500
+			vim.lsp.buf.formatting_sync({}, duration_in_ms)
 		end
 
 		api.nvim_create_autocmd("BufWritePost", { callback = delayed_auto_format })
