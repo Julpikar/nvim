@@ -16,7 +16,7 @@ local function plugin_init(use)
 	use("editorconfig/editorconfig-vim")
 	use({
 		"mg979/vim-visual-multi",
-		setup = [[vim.g.VM_theme = "neon"]],
+		config = [[vim.g.VM_theme = "neon"]],
 	})
 	use({
 		"ntpeters/vim-better-whitespace",
@@ -30,7 +30,12 @@ local function plugin_init(use)
 	use("ThePrimeagen/refactoring.nvim")
 
 	-- Comment
-	use({ "b3nj5m1n/kommentary", event = "BufRead" })
+	use({
+		"numToStr/Comment.nvim",
+		config = function()
+			require("Comment").setup()
+		end,
+	})
 
 	-- Dashboard
 	use({
