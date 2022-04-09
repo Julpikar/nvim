@@ -48,7 +48,8 @@ function Global.load_settings()
 	o.lazyredraw = true
 
 	-- Cursor fix
-	cursor.setup()
+	 cursor.setup()
+
 	-- Goto last position when open a file
 	lastplace.setup()
 

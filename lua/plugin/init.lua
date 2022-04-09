@@ -32,9 +32,7 @@ local function plugin_init(use)
 	-- Comment
 	use({
 		"numToStr/Comment.nvim",
-		config = function()
-			require("Comment").setup()
-		end,
+		config = [[require("Comment").setup()]],
 	})
 
 	-- Dashboard
@@ -78,6 +76,7 @@ local function plugin_init(use)
 			vim.g.scrollview_excluded_filetypes = {
 				"dashboard",
 				"Outline",
+				"packer",
 			}
 			vim.g.scrollview_winblend = 10
 		end,
@@ -187,7 +186,14 @@ local function plugin_init(use)
 	})
 	use({
 		"j-hui/fidget.nvim",
-		config = [[require("fidget").setup()]],
+		config = function()
+			require("fidget").setup({
+				text = { spinner = "moon" },
+			})
+			local set_hl = vim.api.nvim_set_hl
+			set_hl(0, "FidgetTitle", { fg = "#4ebd9d" })
+			set_hl(0, "FidgetTask", { fg = "#1e97a2" })
+		end,
 	})
 	use({
 		"simrat39/symbols-outline.nvim",
@@ -217,7 +223,6 @@ local function plugin_init(use)
 	-- AutoPair
 	use({
 		"windwp/nvim-autopairs",
-		after = "nvim-cmp",
 		config = [[require("plugin.autopairs").config()]],
 	})
 

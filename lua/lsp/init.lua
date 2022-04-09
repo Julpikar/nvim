@@ -1,17 +1,8 @@
 local lspconfig = require("lspconfig")
+local null_ls = require("null-ls")
 local api = vim.api
 
 local LSPConfig = {}
-
-local function lsp_client_active(name)
-	local clients = vim.lsp.get_active_clients()
-	for _, client in pairs(clients) do
-		if client.name == name then
-			return true
-		end
-	end
-	return false
-end
 
 local function common_on_attach(client, bufnr)
 	-- Enable completion triggered by <c-x><c-o>
@@ -54,7 +45,7 @@ local function common_on_attach(client, bufnr)
 	local groups = {
 		err_group = {
 			highlight = "DiagnosticSignError",
-			sign = "",
+			sign = "",
 		},
 		warn_group = {
 			highlight = "DiagnosticSignWarn",
@@ -139,64 +130,83 @@ local function common_capabilities()
 	return capabilities
 end
 
-function LSPConfig.setup(config)
-	-- Common LSP setup
+local function list_registered_formatting_source(filetype)
+	local s = require("null-ls.sources")
+	local available_sources = s.get_available(filetype)
+	local registered = {}
+	for _, source in ipairs(available_sources) do
+		for method in pairs(source.methods) do
+			if method == null_ls.methods.FORMATTING then
+				registered[method] = registered[method] or {}
+				table.insert(registered[method], source.name)
+			end
+		end
+	end
+	return registered
+end
+
+local function common_on_init(client, bufnr)
+	if not client.resolved_capabilities.document_formatting then
+		return
+	end
+	local client_filetypes = client.config.filetypes or {}
+	for _, filetype in ipairs(client_filetypes) do
+		if #vim.tbl_keys(list_registered_formatting_source(filetype)) > 0 then
+			client.resolved_capabilities.document_formatting = false
+			client.resolved_capabilities.document_range_formatting = false
+		end
+	end
+end
+
+function LSPConfig.load_settings()
+	-- Common config
+	local null_ls_common_config = {
+		on_attach = common_on_attach,
+		capabilities = common_capabilities(),
+		sources = {},
+		update_in_insert = false,
+		debug = true,
+	}
+	local null_ls_common_sources = {
+		null_ls.builtins.code_actions.gitsigns,
+		null_ls.builtins.code_actions.refactoring,
+	}
 	local lsp_common_config = {
 		on_attach = common_on_attach,
+		on_init = common_on_init,
 		capabilities = common_capabilities(),
 		autostart = false,
 	}
 
-	-- Registering server
-	local lang_servers = config.lsp
-	if lang_servers ~= nil then
-		for _, server in pairs(lang_servers) do
-			if lsp_client_active(server.provider) then
-				break
-			end
-
-			local server_config = {}
-			if server.setup ~= nil then
-				server_config = vim.tbl_extend("force", lsp_common_config, server.setup)
-			end
-			lspconfig[server.provider].setup(server_config)
+	-- Server setup
+	local user_configs = require("lsp.config")
+	for _, configs in pairs(user_configs) do
+		-- Registering null-ls
+		local null_ls_user_config = configs.null_ls
+		local null_ls_config = {}
+		if null_ls_user_config ~= nil then
+			null_ls_config = vim.tbl_extend("force", null_ls_common_config, null_ls_user_config)
+			vim.list_extend(null_ls_config.sources, null_ls_common_sources)
+			null_ls.setup(null_ls_config)
 		end
+
+		-- Registering LSP server
+		local provider = configs.provider
+		local lsp_config = configs.setup
+		local server_config = {}
+		if lsp_config ~= nil then
+			server_config = vim.tbl_extend("force", lsp_common_config, lsp_config)
+		end
+		lspconfig[provider].setup(server_config)
 	end
 
-	-- Registering null-ls
-	local null_ls = require("null-ls")
-	local null_ls_common_config = {
-		on_attach = common_on_attach,
-		capabilities = common_capabilities(),
-	}
-	local common_exclude_ft = {'NvimTree'}
-	local null_ls_common_sources = {
-		null_ls.builtins.code_actions.gitsigns,
-		null_ls.builtins.code_actions.refactoring,
-		null_ls.builtins.diagnostics.codespell.with({
-			disabled_filetypes = common_exclude_ft,
-		}),
-	}
-	local null_ls_user_config = config.null_ls
-	if null_ls_user_config ~= nil then
-		null_ls_common_config = vim.tbl_extend("force", null_ls_common_config, null_ls_user_config)
-
-		-- Join null_ls_common_sources
-		if null_ls_common_sources ~= nil then
-			for i = 1, #null_ls_common_sources do
-				null_ls_common_config.sources[#null_ls_common_config.sources + 1] = null_ls_common_sources[i]
-			end
-		end
-		null_ls.setup(null_ls_common_config)
-
-		-- Autoformat
-		local delayed_auto_format = function()
-			local duration_in_ms = 500
-			vim.lsp.buf.formatting_sync({}, duration_in_ms)
-		end
-
-		api.nvim_create_autocmd("BufWritePost", { callback = delayed_auto_format })
+	-- Autoformat
+	local delayed_auto_format = function()
+		local duration_in_ms = 2000
+		vim.lsp.buf.formatting_sync(nil, duration_in_ms)
 	end
+
+	api.nvim_create_autocmd("BufWritePost", { callback = delayed_auto_format })
 end
 
 return LSPConfig

@@ -34,3 +34,4 @@ end
 
 require("local").load_settings()
 require("plugin").load_plugins()
+require("lsp").load_settings()
