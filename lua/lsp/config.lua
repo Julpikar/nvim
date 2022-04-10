@@ -1,6 +1,19 @@
 local null_ls = require("null-ls")
 
 local user_config = {}
+-- Null-ls config
+user_config.null_ls = {
+	provider = "null-ls",
+	setup = {
+		sources = {
+			null_ls.builtins.code_actions.gitsigns,
+			null_ls.builtins.code_actions.refactoring,
+			null_ls.builtins.formatting.stylua,
+			null_ls.builtins.formatting.black,
+			null_ls.builtins.diagnostics.flake8,
+		},
+	},
+}
 
 -- Lua LSP config
 user_config.lua = {
@@ -36,18 +49,11 @@ user_config.lua = {
 		},
 		autostart = true,
 	},
-	null_ls = { sources = { null_ls.builtins.formatting.stylua } },
 }
 
 -- Python LSP config
 user_config.python = {
 	provider = "pyright",
-	null_ls = {
-		sources = {
-			null_ls.builtins.formatting.black,
-			null_ls.builtins.diagnostics.flake8,
-		},
-	},
 }
 
 -- Rust LSP config

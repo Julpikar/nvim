@@ -159,45 +159,38 @@ local function common_on_init(client, bufnr)
 end
 
 function LSPConfig.load_settings()
-	-- Common config
+	-- Server setup
+	local user_configs = require("lsp.config")
+
+	-- Registering null-ls
 	local null_ls_common_config = {
 		on_attach = common_on_attach,
 		capabilities = common_capabilities(),
-		sources = {},
-		update_in_insert = false,
-		debug = true,
 	}
-	local null_ls_common_sources = {
-		null_ls.builtins.code_actions.gitsigns,
-		null_ls.builtins.code_actions.refactoring,
-	}
+	local user_null_ls_setup_config = user_configs.null_ls.setup
+	local null_ls_config = {}
+	if user_null_ls_setup_config ~= nil then
+		null_ls_config = vim.tbl_extend("force", null_ls_common_config, user_null_ls_setup_config)
+	  	null_ls.setup(null_ls_config)
+	end
+
+	-- Registering LSP server
 	local lsp_common_config = {
 		on_attach = common_on_attach,
 		on_init = common_on_init,
 		capabilities = common_capabilities(),
 		autostart = false,
 	}
-
-	-- Server setup
-	local user_configs = require("lsp.config")
 	for _, configs in pairs(user_configs) do
-		-- Registering null-ls
-		local null_ls_user_config = configs.null_ls
-		local null_ls_config = {}
-		if null_ls_user_config ~= nil then
-			null_ls_config = vim.tbl_extend("force", null_ls_common_config, null_ls_user_config)
-			vim.list_extend(null_ls_config.sources, null_ls_common_sources)
-			null_ls.setup(null_ls_config)
-		end
-
-		-- Registering LSP server
 		local provider = configs.provider
-		local lsp_config = configs.setup
-		local server_config = {}
-		if lsp_config ~= nil then
-			server_config = vim.tbl_extend("force", lsp_common_config, lsp_config)
+		if provider ~= "null-ls" then
+			local user_lsp_setup_config = configs.setup
+			local server_config = {}
+			if user_lsp_setup_config ~= nil then
+				server_config = vim.tbl_extend("force", lsp_common_config, user_lsp_setup_config)
+			end
+			lspconfig[provider].setup(server_config)
 		end
-		lspconfig[provider].setup(server_config)
 	end
 
 	-- Autoformat
