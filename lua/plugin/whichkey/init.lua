@@ -41,6 +41,20 @@ function WhichKey.config()
 	}, { prefix = "<leader>" })
 
 	wk.register({
+		c = {
+			name = "console/terminal",
+			h = { "<CMD>FloatermNew --wintype=split --height=6<CR>", "horizontal_terminal" },
+			v = { "<CMD>FloatermNew --wintype=vsplit --width=0.5<CR>", "vertical_terminal" },
+			g = { "<CMD>FloatermNew lazygit<CR>", "git" },
+			l = { "<CMD>FloatermNew lf<CR>", "lf" },
+			n = { "<CMD>FloatermNew node<CR>", "node" },
+			p = { "<CMD>FloatermNew python<CR>", "python" },
+			m = { "<CMD>FloatermNew lazynpm<CR>", "npm" },
+			t = { "<CMD>FloatermToggle<CR>", "toggle" },
+		},
+	}, { prefix = "<leader>" })
+
+	wk.register({
 		d = {
 			name = "debug",
 			b = { "<CMD>lua require('dap').toggle_breakpoint()<CR>", "toggle_breakpoint" },
@@ -192,37 +206,27 @@ function WhichKey.config()
 	}, { prefix = "<leader>" })
 
 	wk.register({
-		s = {
-			name = "search/show",
+		t = {
+			name = "telescope",
 			e = { "<CMD>Telescope filetypes<CR>", "filetypes" },
+			b = { "<CMD>Telescope buffers<CR>", "buffers" },
 			B = { "<CMD>Telescope git_branches<CR>", "git_branches" },
 			c = { "<CMD>Telescope colorscheme<CR>", "colorschemes" },
-			d = { "<CMD>Telescope lsp_document_diagnostics<CR>", "document_diagnostics" },
-			D = { "<CMD>Telescope lsp_workspace_diagnostics<CR>", "workspace_diagnostics" },
+			d = { "<CMD>Telescope diagnostics<CR>", "workspace_diagnostics" },
 			f = { "<CMD>Telescope find_files<CR>", "files" },
 			h = { "<CMD>Telescope command_history<CR>", "history" },
-			i = { "<CMD>Telescope media_files<CR>", "media_files" },
+			H = { "<CMD>Telescope help_tags<CR>", "help" },
+			p = { "<CMD>Telescope lsp_implementations<CR>", "implementation" },
 			m = { "<CMD>Telescope marks<CR>", "marks" },
 			M = { "<CMD>Telescope man_pages<CR>", "man_pages" },
 			o = { "<CMD>Telescope vim_options<CR>", "vim_options" },
-			s = { "<CMD>Telescope session-lens search_session<CR>", "session_load" },
+			q = { "<CMD>Telescope lsp_definitions<CR>", "definition" },
+			r = { "<CMD>Telescope lsp_references<CR>", "references" },
+			s = { "<CMD>Telescope lsp_document_symbols<CR>", "document symbols" },
+			S = { "<CMD>Telescope lsp_workspace_symbols<CR>", "workspace symbols" },
 			t = { "<CMD>Telescope live_grep<CR>", "text" },
-			z = { "<CMD>Telescope registers<CR>", "registers" },
-			w = { "<CMD>Telescope file_browser<CR>", "buf_fuz_find" },
-		},
-	}, { prefix = "<leader>" })
-
-	wk.register({
-		t = {
-			name = "terminal",
-			h = { "<CMD>FloatermNew --wintype=split --height=6<CR>", "horizontal_terminal" },
-			v = { "<CMD>FloatermNew --wintype=vsplit --width=0.5<CR>", "vertical_terminal" },
-			g = { "<CMD>FloatermNew lazygit<CR>", "git" },
-			l = { "<CMD>FloatermNew lf<CR>", "lf" },
-			n = { "<CMD>FloatermNew node<CR>", "node" },
-			p = { "<CMD>FloatermNew python<CR>", "python" },
-			m = { "<CMD>FloatermNew lazynpm<CR>", "npm" },
-			t = { "<CMD>FloatermToggle<CR>", "toggle" },
+			x = { "<CMD>Telescope registers<CR>", "registers" },
+			z = { "<CMD>Telescope builtin<CR>", "builtin" },
 		},
 	}, { prefix = "<leader>" })
 
