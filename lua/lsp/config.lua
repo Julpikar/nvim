@@ -3,8 +3,6 @@ local null_ls = require("null-ls")
 local user_config = {}
 -- Null-ls config
 user_config.null_ls = {
-	provider = "null-ls",
-	setup = {
 		sources = {
 			null_ls.builtins.code_actions.gitsigns,
 			null_ls.builtins.code_actions.refactoring,
@@ -12,53 +10,48 @@ user_config.null_ls = {
 			null_ls.builtins.formatting.black,
 			null_ls.builtins.diagnostics.flake8,
 		},
-	},
-}
+	}
 
 -- Lua LSP config
-user_config.lua = {
-	provider = "sumneko_lua",
-	setup = {
-		cmd = { "C:/tools/sumneko/bin/Windows/lua-language-server", "-E", "C:/tools/sumneko/main.lua" },
-		settings = {
-			Lua = {
-				runtime = {
-					-- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-					version = "LuaJIT",
-					-- Setup your lua path
-					path = vim.split(package.path, ";"),
+user_config.sumneko_lua = {
+	cmd = { "C:/tools/sumneko/bin/Windows/lua-language-server", "-E", "C:/tools/sumneko/main.lua" },
+	settings = {
+		Lua = {
+			runtime = {
+				-- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+				version = "LuaJIT",
+				-- Setup your lua path
+				path = vim.split(package.path, ";"),
+			},
+			diagnostics = {
+				-- Get the language server to recognize the `vim` global
+				globals = { "vim" },
+			},
+			workspace = {
+				-- Make the server aware of Neovim runtime files
+				library = {
+					[vim.fn.expand("$VIMRUNTIME/lua")] = true,
+					[vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
 				},
-				diagnostics = {
-					-- Get the language server to recognize the `vim` global
-					globals = { "vim" },
-				},
-				workspace = {
-					-- Make the server aware of Neovim runtime files
-					library = {
-						[vim.fn.expand("$VIMRUNTIME/lua")] = true,
-						[vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
-					},
-					maxPreload = 100000,
-					preloadFileSize = 1000,
-				},
-				-- Do not send telemetry data containing a randomized but unique identifier
-				telemetry = {
-					enable = false,
-				},
+				maxPreload = 100000,
+				preloadFileSize = 1000,
+			},
+			-- Do not send telemetry data containing a randomized but unique identifier
+			telemetry = {
+				enable = false,
 			},
 		},
-		autostart = true,
 	},
 }
 
 -- Python LSP config
-user_config.python = {
-	provider = "pyright",
+user_config.pyright = {
+	autostart = false,
 }
 
 -- Rust LSP config
-user_config.rust = {
-	provider = "rls",
+user_config.rls = {
+	autostart = false,
 }
 
 return user_config

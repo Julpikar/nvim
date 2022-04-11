@@ -112,28 +112,44 @@ local function left_config()
 		DiagnosticWarn = {
 			provider = "DiagnosticWarn",
 			icon = icons.diagnostic.warn .. " ",
-			highlight = { custom_statusline_color.colors.foreground, custom_statusline_color.colors.background, "bold" },
+			highlight = {
+				custom_statusline_color.colors.foreground,
+				custom_statusline_color.colors.background,
+				"bold",
+			},
 		},
 	}
 	left[4] = {
 		DiagnosticInfo = {
 			provider = "DiagnosticInfo",
 			icon = icons.diagnostic.info .. " ",
-			highlight = { custom_statusline_color.colors.foreground, custom_statusline_color.colors.background, "bold" },
+			highlight = {
+				custom_statusline_color.colors.foreground,
+				custom_statusline_color.colors.background,
+				"bold",
+			},
 		},
 	}
 	left[5] = {
 		DiagnosticHint = {
 			provider = "DiagnosticHint",
 			icon = icons.diagnostic.hint .. " ",
-			highlight = { custom_statusline_color.colors.foreground, custom_statusline_color.colors.background, "bold" },
+			highlight = {
+				custom_statusline_color.colors.foreground,
+				custom_statusline_color.colors.background,
+				"bold",
+			},
 		},
 	}
 	left[6] = {
 		FileIcon = {
 			provider = "FileIcon",
 			condition = buffer_not_empty,
-			highlight = { custom_statusline_color.colors.foreground, custom_statusline_color.colors.background, "bold" },
+			highlight = {
+				custom_statusline_color.colors.foreground,
+				custom_statusline_color.colors.background,
+				"bold",
+			},
 		},
 	}
 	left[7] = {
@@ -144,7 +160,11 @@ local function left_config()
 				return string.len(fullname) > 40 and shortname or fullname
 			end,
 			condition = buffer_not_empty,
-			highlight = { custom_statusline_color.colors.foreground, custom_statusline_color.colors.background, "bold" },
+			highlight = {
+				custom_statusline_color.colors.foreground,
+				custom_statusline_color.colors.background,
+				"bold",
+			},
 			separator = icons.slant.right,
 			separator_highlight = {
 				custom_statusline_color.colors.background,
@@ -168,8 +188,11 @@ local function left_config()
 					end
 				end
 
-				local lsp_client = table.concat(msg, "  ")
-				return " " .. lsp_client
+				local full_msg = table.concat(msg, "  ")
+				if full_msg ~= "" then
+					full_msg = " " .. full_msg
+				end
+				return full_msg
 			end,
 			condition = function()
 				local tbl = { ["dashboard"] = true, [""] = true }
@@ -190,7 +213,11 @@ local function right_config()
 			provider = "GitBranch",
 			condition = condition.check_git_workspace,
 			icon = icons.git.branch .. " ",
-			highlight = { custom_statusline_color.colors.foreground, custom_statusline_color.colors.background, "bold" },
+			highlight = {
+				custom_statusline_color.colors.foreground,
+				custom_statusline_color.colors.background,
+				"bold",
+			},
 		},
 	}
 	right[2] = {
@@ -206,7 +233,11 @@ local function right_config()
 			provider = "DiffAdd",
 			condition = condition.hide_in_width,
 			icon = icons.git.add .. " ",
-			highlight = { custom_statusline_color.colors.foreground, custom_statusline_color.colors.background, "bold" },
+			highlight = {
+				custom_statusline_color.colors.foreground,
+				custom_statusline_color.colors.background,
+				"bold",
+			},
 		},
 	}
 	right[4] = {
@@ -214,7 +245,11 @@ local function right_config()
 			provider = "DiffModified",
 			condition = condition.hide_in_width,
 			icon = icons.git.modified .. " ",
-			highlight = { custom_statusline_color.colors.foreground, custom_statusline_color.colors.background, "bold" },
+			highlight = {
+				custom_statusline_color.colors.foreground,
+				custom_statusline_color.colors.background,
+				"bold",
+			},
 		},
 	}
 	right[5] = {
@@ -222,21 +257,33 @@ local function right_config()
 			provider = "DiffRemove",
 			condition = condition.hide_in_width,
 			icon = icons.git.remove .. " ",
-			highlight = { custom_statusline_color.colors.foreground, custom_statusline_color.colors.background, "bold" },
+			highlight = {
+				custom_statusline_color.colors.foreground,
+				custom_statusline_color.colors.background,
+				"bold",
+			},
 		},
 	}
 	right[6] = {
 		LineColumn = {
 			provider = "LineColumn",
 			condition = buffer_not_empty,
-			highlight = { custom_statusline_color.colors.foreground, custom_statusline_color.colors.background, "bold" },
+			highlight = {
+				custom_statusline_color.colors.foreground,
+				custom_statusline_color.colors.background,
+				"bold",
+			},
 		},
 	}
 	right[7] = {
 		LinePercent = {
 			provider = "LinePercent",
 			condition = buffer_not_empty,
-			highlight = { custom_statusline_color.colors.foreground, custom_statusline_color.colors.background, "bold" },
+			highlight = {
+				custom_statusline_color.colors.foreground,
+				custom_statusline_color.colors.background,
+				"bold",
+			},
 		},
 	}
 end

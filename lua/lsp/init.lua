@@ -167,11 +167,11 @@ function LSPConfig.load_settings()
 		on_attach = common_on_attach,
 		capabilities = common_capabilities(),
 	}
-	local user_null_ls_setup_config = user_configs.null_ls.setup
+	local user_null_ls_setup_config = user_configs.null_ls
 	local null_ls_config = {}
 	if user_null_ls_setup_config ~= nil then
 		null_ls_config = vim.tbl_extend("force", null_ls_common_config, user_null_ls_setup_config)
-	  	null_ls.setup(null_ls_config)
+		null_ls.setup(null_ls_config)
 	end
 
 	-- Registering LSP server
@@ -179,17 +179,14 @@ function LSPConfig.load_settings()
 		on_attach = common_on_attach,
 		on_init = common_on_init,
 		capabilities = common_capabilities(),
-		autostart = false,
 	}
-	for _, configs in pairs(user_configs) do
-		local provider = configs.provider
-		if provider ~= "null-ls" then
-			local user_lsp_setup_config = configs.setup
+	for server, config in pairs(user_configs) do
+		if server ~= "null_ls" then
 			local server_config = {}
-			if user_lsp_setup_config ~= nil then
-				server_config = vim.tbl_extend("force", lsp_common_config, user_lsp_setup_config)
+			if config ~= nil then
+				server_config = vim.tbl_extend("force", lsp_common_config, config)
 			end
-			lspconfig[provider].setup(server_config)
+			lspconfig[server].setup(server_config)
 		end
 	end
 

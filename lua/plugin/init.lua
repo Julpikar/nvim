@@ -107,7 +107,7 @@ local function plugin_init(use)
 
 	-- Line
 	use({
-		"akinsho/nvim-bufferline.lua",
+		"akinsho/bufferline.nvim",
 		config = [[require("plugin.bufferline").config()]],
 	})
 	use({
