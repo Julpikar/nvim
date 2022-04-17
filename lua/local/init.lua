@@ -4,7 +4,6 @@ local lastplace = require("local.lastplace")
 local number = require("local.number")
 local mapping = require("local.mapping")
 local autosave = require("local.autosave")
-local cmd = vim.cmd
 local o = vim.o
 
 local Global = {}
@@ -12,12 +11,9 @@ local Global = {}
 function Global.load_settings()
 	colorscheme.setup("onedark")
 
-	-- Windows mapping
-	cmd("source $VIMRUNTIME/mswin.vim")
-
 	-- Safe heaven
-	vim.o.swapfile = true
-	vim.o.undofile = true
+	o.swapfile = true
+	o.undofile = true
 
 	-- Window split
 	o.splitright = true
@@ -48,7 +44,7 @@ function Global.load_settings()
 	o.lazyredraw = true
 
 	-- Cursor fix
-	 cursor.setup()
+	cursor.setup()
 
 	-- Goto last position when open a file
 	lastplace.setup()
