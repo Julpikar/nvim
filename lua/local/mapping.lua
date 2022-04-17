@@ -8,6 +8,9 @@ local keymaps = {
 		{ "n", "<c-s-down>", "<CMD>wincmd j<CR>", opts },
 		{ "n", "<c-s-home>", "<CMD>wincmd p<CR>", opts },
 	},
+	stop = {
+		{{ "n", "i", "v", "s", "x", "c", "o" },'<c-z>','<nop>'},
+	},
 }
 
 local Mapping = {}
