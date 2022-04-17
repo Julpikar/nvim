@@ -3,7 +3,7 @@ require("impatient")
 local api = vim.api
 local fn = vim.fn
 
-function _G.auto_reload()
+local function auto_reload()
 	local hls_status = vim.v.hlsearch
 	for name, _ in pairs(package.loaded) do
 		if name:match("^cnull") then

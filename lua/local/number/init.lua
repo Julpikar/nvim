@@ -90,11 +90,11 @@ function Number.setup(config)
 		Number.enable_number = config.enable_number
 	end
 
-	local nvim_add_user_command = vim.api.nvim_add_user_command
-	nvim_add_user_command("NumberToggle", number_set_toggle, { bang = true, nargs = 0 })
-	nvim_add_user_command("NumberEnable", number_set_enable, { bang = true, nargs = 0 })
-	nvim_add_user_command("NumberDisable", number_set_disable, { bang = true, nargs = 0 })
-	nvim_add_user_command("NumberOnOff", number_switch_on_off, { bang = true, nargs = 0 })
+	local nvim_create_user_command = vim.api.nvim_create_user_command
+	nvim_create_user_command("NumberToggle", number_set_toggle, { bang = true, nargs = 0 })
+	nvim_create_user_command("NumberEnable", number_set_enable, { bang = true, nargs = 0 })
+	nvim_create_user_command("NumberDisable", number_set_disable, { bang = true, nargs = 0 })
+	nvim_create_user_command("NumberOnOff", number_switch_on_off, { bang = true, nargs = 0 })
 	if Number.enable_number then
 		number_set_enable()
 	else

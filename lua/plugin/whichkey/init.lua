@@ -50,7 +50,7 @@ function WhichKey.config()
 			n = { "<CMD>FloatermNew node<CR>", "node" },
 			p = { "<CMD>FloatermNew python<CR>", "python" },
 			m = { "<CMD>FloatermNew lazynpm<CR>", "npm" },
-			t = { "<CMD>FloatermToggle<CR>", "toggle" },
+			c = { "<CMD>FloatermToggle<CR>", "toggle" },
 		},
 	}, { prefix = "<leader>" })
 

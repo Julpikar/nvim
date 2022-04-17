@@ -201,7 +201,10 @@ local function left_config()
 				end
 				return true
 			end,
-			highlight = { custom_statusline_color.colors.foreground, custom_statusline_color.colors.background },
+			highlight = {
+				custom_statusline_color.colors.foreground,
+				custom_statusline_color.colors.background,
+			},
 		},
 	}
 end
