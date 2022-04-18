@@ -47,8 +47,11 @@ function Compe.config()
 				vim.fn["vsnip#anonymous"](args.body)
 			end,
 		},
+		window = {
+			documentation = cmp.config.window.bordered(),
+		},
 		-- You must set mapping.
-		mapping = {
+		mapping = cmp.mapping.preset.insert({
 			["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
 			["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
 			["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
@@ -72,7 +75,7 @@ function Compe.config()
 					fallback()
 				end
 			end,
-		},
+		}),
 		formatting = {
 			format = function(entry, vim_item)
 				vim_item.kind = itemkind[vim_item.kind]
