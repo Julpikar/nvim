@@ -259,7 +259,7 @@ local function plugin_init(use)
 	})
 
 	-- CMake
-	use("Shatur/neovim-cmake")
+	use("ilyachur/cmake4vim")
 
 	-- Lua Repl
 	use({ "rafcamlet/nvim-luapad", cmd = { "Luapad" } })
