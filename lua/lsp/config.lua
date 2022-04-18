@@ -4,7 +4,9 @@ local user_config = {}
 -- Null-ls config
 user_config.null_ls = {
 	sources = {
-		null_ls.builtins.code_actions.gitsigns,
+		null_ls.builtins.code_actions.gitsigns.with({
+			disabled_filetypes = { "NvimTree" },
+		}),
 		null_ls.builtins.code_actions.refactoring,
 		null_ls.builtins.formatting.stylua,
 		null_ls.builtins.formatting.black,
@@ -14,6 +16,11 @@ user_config.null_ls = {
 
 -- Clangd
 user_config.clangd = {
+	autostart = false,
+}
+
+-- CMake
+user_config.cmake = {
 	autostart = false,
 }
 

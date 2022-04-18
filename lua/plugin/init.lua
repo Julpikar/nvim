@@ -24,7 +24,6 @@ local function plugin_init(use)
 	})
 	use({
 		"junegunn/vim-easy-align",
-		cmd = "EasyAlign",
 		setup = [[require("plugin.easyalign").keymap()]],
 	})
 	use("ThePrimeagen/refactoring.nvim")
@@ -67,7 +66,6 @@ local function plugin_init(use)
 	})
 	use({
 		"phaazon/hop.nvim",
-		cmd = { "HopChar1", "HopChar2", "HopLine", "HopPattern", "HopWord" },
 		config = [[require("hop").setup({create_hl_autocmd = false})]],
 	})
 	use({
@@ -83,7 +81,6 @@ local function plugin_init(use)
 	})
 	use({
 		"kazhala/close-buffers.nvim",
-		cmd = { "BDelete", "BWipeout" },
 		config = function()
 			require("close_buffers").setup({
 				preserve_window_layout = { "this" },
@@ -121,7 +118,6 @@ local function plugin_init(use)
 	-- Git
 	use({
 		"TimUntersberger/neogit",
-		cmd = "Neogit",
 		requires = "sindrets/diffview.nvim",
 		config = function()
 			require("neogit").setup({
@@ -139,7 +135,6 @@ local function plugin_init(use)
 	-- Floating terminal
 	use({
 		"voldikss/vim-floaterm",
-		cmd = { "FloatermNew", "FloatermToggle" },
 		setup = [[require("plugin.floaterm").setup()]],
 	})
 
@@ -149,7 +144,6 @@ local function plugin_init(use)
 		config = [[require("plugin.treesitter").config()]],
 	})
 	use("p00f/nvim-ts-rainbow")
-
 	use({
 		"windwp/nvim-ts-autotag",
 		ft = { "blade", "html", "tsx", "vue", "svelte", "php" },
@@ -166,7 +160,6 @@ local function plugin_init(use)
 	-- Telescope
 	use({
 		"nvim-telescope/telescope.nvim",
-		cmd = "Telescope",
 		requires = {
 			"nvim-lua/popup.nvim",
 			"nvim-lua/plenary.nvim",
@@ -181,7 +174,6 @@ local function plugin_init(use)
 	use("jose-elias-alvarez/null-ls.nvim")
 	use({
 		"folke/trouble.nvim",
-		cmd = "TroubleToggle",
 		config = [[require("trouble").setup()]],
 	})
 	use({
@@ -229,13 +221,9 @@ local function plugin_init(use)
 	-- Interacting with databases
 	use({
 		"kristijanhusak/vim-dadbod-ui",
-		cmd = "DBUIToggle",
 		requires = {
-			{ "tpope/vim-dadbod", cmd = "DBUIToggle" },
-			{
-				"kristijanhusak/vim-dadbod-completion",
-				cmd = "DBUIToggle",
-			},
+			"tpope/vim-dadbod",
+			"kristijanhusak/vim-dadbod-completion",
 		},
 		setup = function()
 			vim.g.db_ui_show_database_icon = 1
@@ -246,33 +234,21 @@ local function plugin_init(use)
 	-- Debugger
 	use({
 		"mfussenegger/nvim-dap",
-		keys = "<F5>",
 		requires = {
 			{
 				"theHamsta/nvim-dap-virtual-text",
-				keys = "<F5>",
 				config = [[vim.g.dap_virtual_text = true]],
 			},
 		},
 		config = [[require("plugin.nvim-dap").config()]],
 	})
-
 	use({
 		"rcarriga/nvim-dap-ui",
-		keys = "<F5>",
 		config = [[require("dapui").setup()]],
 	})
 	use({
 		"nvim-telescope/telescope-dap.nvim",
-		after = { "nvim-dap", "telescope.nvim" },
 		config = [[require("telescope").load_extension("dap")]],
-	})
-
-	-- Lua Debugger
-	use({
-		"jbyuki/one-small-step-for-vimkind",
-		keys = "<F5>",
-		ft = "lua",
 	})
 
 	-- Golang
@@ -283,7 +259,7 @@ local function plugin_init(use)
 	})
 
 	-- CMake
-	use({ "Shatur/neovim-cmake", cmd = "CMake" })
+	use("Shatur/neovim-cmake")
 
 	-- Lua Repl
 	use({ "rafcamlet/nvim-luapad", cmd = { "Luapad" } })
