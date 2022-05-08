@@ -1,4 +1,4 @@
-local timeout_in_ms = 300
+ local timeout_in_ms = 300
 local api = vim.api
 local cmd = vim.cmd
 local fn = vim.fn
