@@ -1,5 +1,4 @@
 local null_ls = require("null-ls")
-local server_path = vim.fn.stdpath("data") .. "/lsp_servers"
 
 local user_config = {}
 -- Null-ls config
@@ -29,13 +28,11 @@ user_config.gopls = {
   autostart = false,
 }
 
+-- Json LSP config
+user_config.jsonls = {}
+
 -- Lua LSP config
 user_config.sumneko_lua = {
-  cmd = {
-    server_path .. "/sumneko_lua/extension/server/bin/lua-language-server",
-    "-E",
-    server_path .. "/sumneko_lua/extension/server/bin/main.lua",
-  },
   settings = {
     Lua = {
       runtime = {

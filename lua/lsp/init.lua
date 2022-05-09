@@ -159,6 +159,9 @@ local function common_on_init(client, bufnr)
 end
 
 function LSPConfig.load_settings()
+  -- Server installer setup
+  require("nvim-lsp-installer").setup()
+  
   -- Server setup
   local user_configs = require("lsp.config")
 
