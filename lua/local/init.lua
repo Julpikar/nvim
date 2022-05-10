@@ -4,11 +4,15 @@ local lastplace = require("local.lastplace")
 local number = require("local.number")
 local mapping = require("local.mapping")
 local autosave = require("local.autosave")
+local cmd = vim.cmd
 local o = vim.o
 
 local Global = {}
 
 function Global.load_settings()
+  -- Windows mapping
+  cmd("source $VIMRUNTIME/mswin.vim")
+
   colorscheme.setup("onedark")
 
   -- Safe heaven
