@@ -161,7 +161,7 @@ end
 function LSPConfig.load_settings()
   -- Server installer setup
   require("nvim-lsp-installer").setup()
-  
+
   -- Server setup
   local user_configs = require("lsp.config")
 
@@ -195,8 +195,7 @@ function LSPConfig.load_settings()
 
   -- Autoformat
   local delayed_auto_format = function()
-    local duration_in_ms = 2000
-    vim.lsp.buf.formatting_sync(nil, duration_in_ms)
+    vim.lsp.buf.format({ timeout_ms = 2000 })
   end
 
   api.nvim_create_autocmd("BufWritePost", { callback = delayed_auto_format })
