@@ -204,12 +204,6 @@ local function plugin_init(use)
     config = [[require("plugin.cmp").config()]],
   })
 
-  -- Code runner
-  use({
-    "CRAG666/code_runner.nvim",
-    config = [[require("plugin.runner").config()]],
-  })
-
   -- AutoPair
   use({
     "windwp/nvim-autopairs",
@@ -227,26 +221,6 @@ local function plugin_init(use)
       vim.g.db_ui_show_database_icon = 1
       vim.g.db_ui_use_nerd_fonts = 1
     end,
-  })
-
-  -- Debugger
-  use({
-    "mfussenegger/nvim-dap",
-    requires = {
-      {
-        "theHamsta/nvim-dap-virtual-text",
-        config = [[vim.g.dap_virtual_text = true]],
-      },
-    },
-    config = [[require("plugin.nvim-dap").config()]],
-  })
-  use({
-    "rcarriga/nvim-dap-ui",
-    config = [[require("dapui").setup()]],
-  })
-  use({
-    "nvim-telescope/telescope-dap.nvim",
-    config = [[require("telescope").load_extension("dap")]],
   })
 
   -- Golang

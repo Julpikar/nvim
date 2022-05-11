@@ -50,33 +50,6 @@ function WhichKey.config()
   }, { prefix = "<leader>" })
 
   wk.register({
-    d = {
-      name = "debug",
-      b = { "<CMD>lua require('dap').toggle_breakpoint()<CR>", "toggle_breakpoint" },
-      c = { "<CMD>lua require('dap').continue()<CR>", "continue" },
-      i = { "<CMD>lua require('dap').step_into()<CR>", "step_into" },
-      o = { "<CMD>lua require('dap').step_over()<CR>", "step_over" },
-      r = { "<CMD>lua require('dap').repl.open({}, 'vsplit')<CR>", "open_repl" },
-      t = {
-        name = "telescope_debug",
-        c = { "<CMD>Telescope dap commands<CR>", "dap_commands" },
-        o = { "<CMD>Telescope dap configurations<CR>", "dap_configuratios" },
-        l = { "<CMD>Telescope dap list_breakpoints<CR>", "dap_breakpoints" },
-        v = { "<CMD>Telescope dap variables<CR>", "dap_variables" },
-        f = { "<CMD>Telescope dap frames<CR>", "dap_frames" },
-      },
-      u = {
-        name = "ui",
-        c = { "<CMD>lua require('dapui').close()<CR>", "close" },
-        o = { "<CMD>lua require('dapui').open()<CR>", "open" },
-        t = { "<CMD>lua require('dapui').toggle()<CR>", "toggle" },
-      },
-      x = { "<CMD>execute 'lua require('dap').step_out()'<CR>", "step_out" },
-      z = { "<CMD>execute 'lua require('dap').run_last()'<CR>", "run_start" },
-    },
-  }, { prefix = "<leader>" })
-
-  wk.register({
     e = {
       name = "edit",
       d = {
@@ -186,18 +159,6 @@ function WhichKey.config()
   wk.register({
     q = { "<CMD>q<CR>", "quit" },
     ["`"] = { "<CMD>qa!<CR>", "quit_without_saving" },
-  }, { prefix = "<leader>" })
-
-  wk.register({
-    r = {
-      name = "runner",
-      r = { "<CMD>RunCode<CR>", "run_code" },
-      f = { "<CMD>RunFile<CR>", "run_file" },
-      p = { "<CMD>RunProject<CR>", "run_project" },
-      c = { "<CMD>RunClose<CR>", "run_close" },
-      x = { "<CMD>CRFiletype<CR>", "config_file" },
-      z = { "<CMD>CRProjects<CR>", "config_project" },
-    },
   }, { prefix = "<leader>" })
 
   wk.register({
