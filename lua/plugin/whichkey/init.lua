@@ -42,11 +42,16 @@ function WhichKey.config()
 
   wk.register({
     c = {
-      name = "console/terminal",
-      h = { "<CMD>FloatermNew --wintype=split --height=6<CR>", "horizontal_terminal" },
-      v = { "<CMD>FloatermNew --wintype=vsplit --width=0.5<CR>", "vertical_terminal" },
-      c = { "<CMD>FloatermToggle<CR>", "toggle" },
-    },
+      name = "cmake",
+      b = { "<CMD>CMakeBuild<CR>", 'build' },
+      i = { "<CMD>CMakeInfo<CR>", 'info' },
+      n = {
+        name = 'ninja',
+        g = { "<CMD>CMake -GNinja<CR>", 'generate_ninja' },
+        r = { "<CMD>CMakeResetAndReload -GNinja<CR>", 'generate_ninja' }
+      },
+      r = { "<CMD>CMakeRun<CR>", 'run' },
+      x = { "<CMD>CMakeReset<CR>", 'reset' } }
   }, { prefix = "<leader>" })
 
   wk.register({
@@ -159,6 +164,15 @@ function WhichKey.config()
   wk.register({
     q = { "<CMD>q<CR>", "quit" },
     ["`"] = { "<CMD>qa!<CR>", "quit_without_saving" },
+  }, { prefix = "<leader>" })
+
+  wk.register({
+    s = {
+      name = "shell",
+      h = { "<CMD>FloatermNew --wintype=split --height=6<CR>", "horizontal_terminal" },
+      v = { "<CMD>FloatermNew --wintype=vsplit --width=0.5<CR>", "vertical_terminal" },
+      c = { "<CMD>FloatermToggle<CR>", "toggle" },
+    },
   }, { prefix = "<leader>" })
 
   wk.register({
