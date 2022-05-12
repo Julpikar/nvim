@@ -48,7 +48,7 @@ function WhichKey.config()
       n = {
         name = 'ninja',
         g = { "<CMD>CMake -GNinja<CR>", 'generate_ninja' },
-        r = { "<CMD>CMakeResetAndReload -GNinja<CR>", 'generate_ninja' }
+        r = { "<CMD>CMakeResetAndReload -GNinja<CR>", 'reset_ninja' }
       },
       r = { "<CMD>CMakeRun<CR>", 'run' },
       x = { "<CMD>CMakeReset<CR>", 'reset' } }
