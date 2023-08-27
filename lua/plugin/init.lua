@@ -1,257 +1,200 @@
-local packer = require("packer")
+local Plugin = {}
 
-local Plugin_manager = {}
-
-local function plugin_init(use)
-  use("wbthomason/packer.nvim")
-  use("lewis6991/impatient.nvim")
-
-  -- Editing
-  use({
-    "Pocco81/TrueZen.nvim",
-    cmd = { "TZAtaraxis", "TZFocus", "TZMinimalist" },
-    setup = [[require("plugin.truezen").keymap()]],
-    config = [[require("plugin.truezen").config()]],
-  })
-  use("editorconfig/editorconfig-vim")
-  use({
-    "mg979/vim-visual-multi",
-    config = [[vim.g.VM_theme = "neon"]],
-  })
-  use({
-    "ntpeters/vim-better-whitespace",
-    config = [[require("plugin.whitespace").config()]],
-  })
-  use({
-    "junegunn/vim-easy-align",
-    setup = [[require("plugin.easyalign").keymap()]],
-  })
-  use("ThePrimeagen/refactoring.nvim")
-
-  -- Comment
-  use({
-    "numToStr/Comment.nvim",
-    config = [[require("Comment").setup()]],
-  })
-
-  -- Dashboard
-  use({
-    "glepnir/dashboard-nvim",
-    setup = function()
-      local dashboard = require("plugin.dashboard")
-      dashboard.keymap()
-      dashboard.setup()
-    end,
-  })
-
-  -- Explorer
-  use({
-    "kyazdani42/nvim-tree.lua",
-    cmd = { "NvimTreeToggle", "NvimTreeRefresh", "NvimTreeFindFile" },
-    setup = [[require("plugin.nvim-tree").keymap()]],
-    config = [[require("plugin.nvim-tree").config()]],
-  })
-  use({
-    "airblade/vim-rooter",
-    setup = function()
-      vim.g.rooter_patterns = { ".git", "Makefile", "*.sln", "build/env.sh" }
-      vim.g.rooter_change_directory_for_non_project_files = "current"
-    end,
-  })
-
-  -- Navigation
-  use({
-    "lukas-reineke/indent-blankline.nvim",
-    config = [[require("plugin.indent-blankline").config()]],
-  })
-  use({
-    "phaazon/hop.nvim",
-    config = [[require("hop").setup({create_hl_autocmd = false})]],
-  })
-  use({
-    "dstein64/nvim-scrollview",
-    config = function()
-      vim.g.scrollview_excluded_filetypes = {
-        "dashboard",
-        "Outline",
-        "packer",
-      }
-      vim.g.scrollview_winblend = 10
-    end,
-  })
-  use({
-    "kazhala/close-buffers.nvim",
-    config = function()
-      require("close_buffers").setup({
-        preserve_window_layout = { "this" },
-        next_buffer_cmd = function(windows)
-          require("bufferline").cycle(1)
-          local bufnr = vim.api.nvim_get_current_buf()
-
-          for _, window in ipairs(windows) do
-            vim.api.nvim_win_set_buf(window, bufnr)
-          end
-        end,
-      })
-    end,
-  })
-
-  -- Keymap guide
-  use({
-    "folke/which-key.nvim",
-    config = [[require("plugin.whichkey").config()]],
-  })
-
-  -- Line
-  use({
-    "akinsho/bufferline.nvim",
-    config = [[require("plugin.bufferline").config()]],
-  })
-  use({
-    "NTBBloodbath/galaxyline.nvim",
-    config = [[require("plugin.galaxyline").config()]],
-  })
-
-  -- Icons
-  use("kyazdani42/nvim-web-devicons")
-
-  -- Git
-  use({
-    "TimUntersberger/neogit",
-    requires = "sindrets/diffview.nvim",
-    config = function()
-      require("neogit").setup({
-        integration = {
-          diffview = true,
-        },
-      })
-    end,
-  })
-  use({
-    "lewis6991/gitsigns.nvim",
-    config = [[require("gitsigns").setup {keymaps = {}}]],
-  })
-
-  -- Floating terminal
-  use({
-    "voldikss/vim-floaterm",
-    config = [[require("plugin.floaterm").config()]] })
-
-  -- Treesitter
-  use({
-    "nvim-treesitter/nvim-treesitter",
-    config = [[require("plugin.treesitter").config()]],
-  })
-  use("p00f/nvim-ts-rainbow")
-  use({
-    "windwp/nvim-ts-autotag",
-    ft = { "blade", "html", "tsx", "vue", "svelte", "php" },
-    config = [[require("nvim-ts-autotag").setup()]],
-  })
-
-  -- Colorizer
-  use({
-    "norcalli/nvim-colorizer.lua",
-    ft = { "css", "html", "javascript", "lua", "typescript" },
-    config = [[require("colorizer").setup()]],
-  })
-
-  -- Telescope
-  use({
-    "nvim-telescope/telescope.nvim",
-    requires = {
-      "nvim-lua/popup.nvim",
-      "nvim-lua/plenary.nvim",
-    },
-  })
-
-  -- LSP
-  use("williamboman/nvim-lsp-installer")
-  use("neovim/nvim-lspconfig")
-  use("ray-x/lsp_signature.nvim")
-  use("jose-elias-alvarez/null-ls.nvim")
-  use({
-    "folke/trouble.nvim",
-    config = [[require("trouble").setup()]],
-  })
-  use({
-    "j-hui/fidget.nvim",
-    config = function()
-      require("fidget").setup({
-        text = { spinner = "moon" },
-      })
-      local set_hl = vim.api.nvim_set_hl
-      set_hl(0, "FidgetTitle", { fg = "#4ebd9d" })
-      set_hl(0, "FidgetTask", { fg = "#1e97a2" })
-    end,
-  })
-  use({
-    "simrat39/symbols-outline.nvim",
-    config = [[require("plugin.outline").config()]],
-  })
-
-  -- Autocomplete
-  use({
-    "hrsh7th/nvim-cmp",
-    requires = {
-      "hrsh7th/cmp-buffer",
-      "hrsh7th/cmp-vsnip",
-      { "hrsh7th/cmp-nvim-lsp", config = [[require("cmp_nvim_lsp").setup()]] },
-      "hrsh7th/cmp-path",
-      "hrsh7th/vim-vsnip",
-      "rafamadriz/friendly-snippets",
-    },
-    config = [[require("plugin.cmp").config()]],
-  })
-
-  -- AutoPair
-  use({
-    "windwp/nvim-autopairs",
-    config = [[require("plugin.autopairs").config()]],
-  })
-
-  -- Interacting with databases
-  use({
-    "kristijanhusak/vim-dadbod-ui",
-    requires = {
-      "tpope/vim-dadbod",
-      "kristijanhusak/vim-dadbod-completion",
-    },
-    setup = function()
-      vim.g.db_ui_show_database_icon = 1
-      vim.g.db_ui_use_nerd_fonts = 1
-    end,
-  })
-
-  -- Golang
-  use({
-    "crispgm/nvim-go",
-    ft = "go",
-    config = [[require("plugin.nvim-go").config()]],
-  })
-
-  -- CMake
-  use("ilyachur/cmake4vim")
-
-  -- Lua Repl
-  use({ "rafcamlet/nvim-luapad", cmd = { "Luapad" } })
-end
-
-function Plugin_manager.load_plugins()
-  packer.init({
-    max_jobs = 1,
-    git = { clone_timeout = 300 },
-    display = {
-      open_fn = function()
-        return require("packer.util").float({ border = "rounded" })
+function Plugin.setup()
+  require("lazy").setup({
+    {
+      -- colorscheme
+      "catppuccin/nvim",
+      name = "catppuccin",
+      priority = 1000,
+      config = function()
+        require("catppuccin").setup({
+          flavour = "latte",
+        })
+        vim.cmd("colorscheme catppuccin")
       end,
     },
-    profile = {
-      enable = true,
-      threshold = 1, -- integer in milliseconds, plugins which load faster than this won't be shown in profile output
+
+    -- Essential Tool
+    "nvim-lua/plenary.nvim",
+    {
+      "nvim-telescope/telescope.nvim",
+      tag = "0.1.2",
+      event = "VeryLazy",
+      config = function()
+        vim.api.nvim_set_keymap("n", "<F6>", "<CMD>Telescope oldfiles<CR>", {})
+      end,
+    },
+    { "nvim-treesitter/nvim-treesitter", lazy = true },
+    "HiPhish/rainbow-delimiters.nvim",
+    "NvChad/nvim-colorizer.lua",
+    {
+      "voldikss/vim-floaterm",
+      event = "VeryLazy",
+      config = function()
+        require("plugin.vim-floaterm").config()
+      end,
+    },
+
+    -- Project
+    {
+      "airblade/vim-rooter",
+      config = function()
+        vim.g.rooter_patterns = { ".git", "Makefile", "*.sln", "build/env.sh" }
+        vim.g.rooter_change_directory_for_non_project_files = "current"
+      end,
+    },
+
+    -- File Manager
+    {
+      "nvim-tree/nvim-tree.lua",
+      event = "VeryLazy",
+      config = function()
+        require("plugin.nvim-tree").config()
+      end,
+    },
+    { "nvim-tree/nvim-web-devicons", lazy = true },
+
+    -- Git Integration
+    {
+      "lewis6991/gitsigns.nvim",
+      config = function()
+        require("gitsigns").setup()
+      end,
+    },
+
+    -- Navigation
+    "lewis6991/satellite.nvim",
+    {
+      "folke/flash.nvim",
+      event = "VeryLazy",
+      opts = {},
+      keys = {
+        {
+          "s",
+          mode = { "n", "x", "o" },
+          function()
+            require("flash").jump()
+          end,
+          desc = "Flash",
+        },
+        {
+          "S",
+          mode = { "n", "o", "x" },
+          function()
+            require("flash").treesitter()
+          end,
+          desc = "Flash Treesitter",
+        },
+        {
+          "r",
+          mode = "o",
+          function()
+            require("flash").remote()
+          end,
+          desc = "Remote Flash",
+        },
+        {
+          "R",
+          mode = { "o", "x" },
+          function()
+            require("flash").treesitter_search()
+          end,
+          desc = "Treesitter Search",
+        },
+        {
+          "<c-s>",
+          mode = { "c" },
+          function()
+            require("flash").toggle()
+          end,
+          desc = "Toggle Flash Search",
+        },
+      },
+    },
+    {
+      "akinsho/bufferline.nvim",
+      config = function()
+        require("plugin.bufferline").config()
+      end,
+    },
+    {
+      "NTBBloodbath/galaxyline.nvim",
+      config = function()
+        require("plugin.galaxyline").config()
+      end,
+    },
+
+    -- LSP Integration
+    {
+      "hrsh7th/nvim-cmp",
+      event = "InsertEnter",
+      dependencies = {
+        "hrsh7th/cmp-nvim-lsp",
+        "hrsh7th/cmp-buffer",
+        "L3MON4D3/LuaSnip",
+        "rafamadriz/friendly-snippets",
+      },
+      config = function()
+        require("plugin.nvim-cmp").config()
+      end,
+    },
+    {
+      "neovim/nvim-lspconfig",
+      config = function()
+        require("plugin.nvim-lspconfig").config()
+      end,
+    },
+    { "folke/trouble.nvim", lazy = true },
+    {
+      "ray-x/lsp_signature.nvim",
+      event = "VeryLazy",
+    },
+    {
+      "j-hui/fidget.nvim",
+      tag = "legacy",
+      event = "LspAttach",
+      opts = { text = { spinner = "moon" } },
+    },
+
+    -- Editing Support
+    {
+      "kylechui/nvim-surround",
+      version = "*", -- Use for stability; omit to use `main` branch for the latest features
+      event = "VeryLazy",
+    },
+    {
+      "windwp/nvim-autopairs",
+      event = "InsertEnter",
+      config = function()
+        require("plugin.nvim-autopairs").config()
+      end,
+    },
+    {
+      "emileferreira/nvim-strict",
+      config = function()
+        require("strict").setup({
+          excluded_filetypes = { "text", "markdown", "html" },
+          deep_nesting = {
+            depth_limit = 5,
+            ignored_trailing_characters = ",",
+            ignored_leading_characters = ".",
+          },
+          overlong_lines = {
+            length_limit = 120,
+          },
+        })
+      end,
+    },
+    "numToStr/Comment.nvim",
+    {
+      "mhartington/formatter.nvim",
+      config = function()
+        require("plugin.formatter").config()
+        vim.api.nvim_set_keymap("n", "<F9>", "<CMD>Format<CR>", {})
+      end,
     },
   })
-  return packer.startup(plugin_init)
 end
 
-return Plugin_manager
+return Plugin

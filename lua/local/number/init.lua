@@ -1,11 +1,10 @@
--- from numbers.vim, see https://github.com/myusuf3/numbers.vim
 local o = vim.o
 local mode = false
 local focus = true
 
 local Number = {
   enable_number = true,
-  numbers_exclude = { "dashboard", "DiffviewFiles", "floaterm", "NvimTree", "Outline", "packer", "telescope", 'Trouble' },
+  numbers_exclude = { "floaterm", "lazy", "NvimTree", "TelescopePrompt", "Trouble" },
 }
 
 local function relative_number_off()
@@ -86,11 +85,7 @@ local function number_switch_on_off()
   end
 end
 
-function Number.setup(config)
-  if config ~= nil then
-    Number.enable_number = config.enable_number
-  end
-
+function Number.setup()
   local nvim_create_user_command = vim.api.nvim_create_user_command
   nvim_create_user_command("NumberToggle", number_set_toggle, { bang = true, nargs = 0 })
   nvim_create_user_command("NumberEnable", number_set_enable, { bang = true, nargs = 0 })

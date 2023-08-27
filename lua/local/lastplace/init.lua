@@ -1,4 +1,3 @@
--- lua rewritted vim-lastplace.vim
 local filetype_ignore = { "gitcommit", "gitrebase", "svn", "hgcommit" }
 local buftype_ignore = { "quickfix", "nofile", "help" }
 local open_fold = false

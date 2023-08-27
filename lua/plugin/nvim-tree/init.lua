@@ -1,4 +1,4 @@
-local NvimTree = {}
+local NVIMTree = {}
 
 local function resize(size)
   local view = require("nvim-tree.view")
@@ -6,41 +6,48 @@ local function resize(size)
   view.resize()
 end
 
-function NvimTree.resize(size)
+function NVIMTree.resize(size)
   local width = tonumber(size) + vim.api.nvim_win_get_width(0)
   resize(width)
 end
 
-function NvimTree.reset_size()
+function NVIMTree.reset_size()
   local default_width = 30
   resize(default_width)
 end
+local function on_attach(bufnr)
+  local api = require("nvim-tree.api")
 
-function NvimTree.keymap()
+  local function opts(desc)
+    return { desc = "nvim-tree: " .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
+  end
+
+  -- copy default mappings here from defaults in next section
+  -- vim.keymap.set('n', '<C-]>', api.tree.change_root_to_node,          opts('CD'))
+  -- vim.keymap.set('n', '<C-e>', api.node.open.replace_tree_buffer,     opts('Open: In Place'))
+  ---
+  -- OR use all default mappings
+  api.config.mappings.default_on_attach(bufnr)
+
+  -- remove a default
+  -- vim.keymap.del('n', '<C-]>', { buffer = bufnr })
+
+  -- override a default
+  -- vim.keymap.set('n', '<C-e>', api.tree.reload,                       opts('Refresh'))
+
+  -- add your mappings
+end
+
+function NVIMTree.config()
+  require("nvim-tree").setup({
+    on_attach = on_attach,
+  })
+  -- vim.keymap.set('n', '<C-e>', api.tree.reload,                       opts('Refresh'))
+
+  -- add your mappings
   local keymap_set = vim.keymap.set
   keymap_set("n", "<F2>", "<CMD>NvimTreeToggle<CR>", { noremap = true, silent = true })
   keymap_set("n", "<F3>", "<CMD>NvimTreeRefresh<CR>", { noremap = true, silent = true })
-  keymap_set("n", "<F4>", "<CMD>NvimTreeFindFile<CR>", { noremap = true, silent = true })
 end
 
-function NvimTree.config()
-  require("nvim-tree").setup({
-    disable_netrw = true,
-    -- hijack the cursor in the tree to put it at the start of the filename
-    hijack_cursor = true,
-    -- updates the root directory of the tree on `DirChanged` (when your run `:cd` usually)
-    update_cwd = true,
-    view = {
-      mappings = {
-        -- list of mappings to set on the tree manually
-        list = {
-          { key = { "+", "=" }, cb = "<CMD>lua require('plugin.nvim-tree').resize('+10')<CR>" },
-          { key = { "-" }, cb = "<CMD>lua require('plugin.nvim-tree').resize('-10')<CR>" },
-          { key = { "0" }, cb = "<CMD>lua require('plugin.nvim-tree').reset_size()<CR>" },
-        },
-      },
-    },
-  })
-end
-
-return NvimTree
+return NVIMTree

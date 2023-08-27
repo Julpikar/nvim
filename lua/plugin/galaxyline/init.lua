@@ -24,7 +24,7 @@ local icons = {
     hint = "",
   },
   git = {
-    branch = "",
+    branch = "☮",
     add = "",
     modified = "",
     remove = "",
@@ -33,8 +33,8 @@ local icons = {
 
 local custom_statusline_color = {
   colors = {
-    background = "#F2A60D",
-    foreground = "#1b1f24",
+    background = "#FFB06B",
+    foreground = "#000000",
   },
 }
 
@@ -60,7 +60,7 @@ local mode_color = function()
   return mode_colors[fn.mode()]
 end
 
-local Galaxy = {}
+local Galaxyline = {}
 
 local function left_config()
   local left = line.section.left
@@ -79,7 +79,7 @@ local function left_config()
           [""] = "Ⓢ ",
           R = "Ⓡ ",
           r = "Ⓡ ",
-          ["!"] = "𥉉 ",
+          ["!"] = "❕ ",
           t = "Ⓣ ",
         }
         local color = mode_color()
@@ -188,9 +188,9 @@ local function left_config()
           end
         end
 
-        local full_msg = table.concat(msg, "  ")
+        local full_msg = table.concat(msg, " ⚡ ")
         if full_msg ~= "" then
-          full_msg = " " .. full_msg
+          full_msg = "⚡ " .. full_msg
         end
         return full_msg
       end,
@@ -291,8 +291,8 @@ local function right_config()
   }
 end
 
-function Galaxy.config()
-  line.short_line_list = { "DiffviewFiles", "NvimTree", "Outline", "packer" }
+function Galaxyline.config()
+  line.short_line_list = { "NvimTree" }
   left_config()
   right_config()
 
@@ -310,4 +310,4 @@ function Galaxy.config()
   )
 end
 
-return Galaxy
+return Galaxyline
