@@ -12,6 +12,13 @@ local function custom_capabilities()
 end
 
 local function custom_server()
+  -- C++
+  lspconfig.clangd.setup({
+    on_attach = custom_on_attach,
+    capabilities = custom_capabilities(),
+  })
+
+  -- Go
   lspconfig.lua_ls.setup({
     on_attach = custom_on_attach,
     capabilities = custom_capabilities(),
