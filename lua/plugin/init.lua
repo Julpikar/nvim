@@ -12,6 +12,9 @@ function Plugin.setup()
           flavour = "latte",
         })
         vim.cmd("colorscheme catppuccin")
+        vim.cmd("highlight Cursor cterm=bold gui=bold guibg=#FFB06B guifg=black")
+        vim.cmd("highlight Cursor2 guifg=red guibg=red")
+        vim.o.guicursor = "n-v-c:block-Cursor/lCursor,i-ci-ve:ver25-Cursor2/lCursor2,r-cr:hor20,o:hor20"
       end,
     },
 
@@ -22,7 +25,7 @@ function Plugin.setup()
       tag = "0.1.2",
       event = "VeryLazy",
       config = function()
-        vim.api.nvim_set_keymap("n", "<F6>", "<CMD>Telescope oldfiles<CR>", {})
+        vim.api.nvim_set_keymap("n", "<LEADER>o", "<CMD>Telescope oldfiles<CR>", {})
       end,
     },
     { "nvim-treesitter/nvim-treesitter", lazy = true },
@@ -68,7 +71,7 @@ function Plugin.setup()
     {
       "folke/flash.nvim",
       event = "VeryLazy",
-      opts = {},
+      opts = { excluded_filetypes = { "qf" } },
       keys = {
         {
           "s",
@@ -208,6 +211,8 @@ function Plugin.setup()
       event = { "CmdlineEnter" },
       ft = { "go", "gomod" },
     },
+    -- CMake
+    "ilyachur/cmake4vim",
   })
 end
 

@@ -22,17 +22,7 @@ function Bufferline.config()
       close_icon = "",
       left_trunc_marker = "",
       right_trunc_marker = "",
-      --- name_formatter can be used to change the buffer's label in the bufferline.
-      --- Please note some names can/will break the
-      --- bufferline so use this at your discretion knowing that it has
-      --- some limitations that will *NOT* be fixed.
       name_formatter = function(buf) -- buf contains:
-        -- name                | str        | the basename of the active file
-        -- path                | str        | the full path of the active file
-        -- bufnr (buffer only) | int        | the number of the active buffer
-        -- buffers (tabs only) | table(int) | the numbers of the buffers in the tab
-        -- tabnr (tabs only)   | int        | the "handle" of the tab, can be converted to its ordinal number
-        -- using: `vim.api.nvim_tabpage_get_number(buf.tabnr)`
       end,
       max_name_length = 18,
       max_prefix_length = 15, -- prefix used when a buffer is de-duplicated

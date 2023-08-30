@@ -24,7 +24,7 @@ local icons = {
     hint = "",
   },
   git = {
-    branch = "☮",
+    branch = "󰊢",
     add = "",
     modified = "",
     remove = "",
@@ -79,7 +79,7 @@ local function left_config()
           [""] = "Ⓢ ",
           R = "Ⓡ ",
           r = "Ⓡ ",
-          ["!"] = "❕ ",
+          ["!"] = "󰈅 ",
           t = "Ⓣ ",
         }
         local color = mode_color()
@@ -188,9 +188,9 @@ local function left_config()
           end
         end
 
-        local full_msg = table.concat(msg, " ⚡ ")
+        local full_msg = table.concat(msg, "  ")
         if full_msg ~= "" then
-          full_msg = "⚡ " .. full_msg
+          full_msg = " " .. full_msg
         end
         return full_msg
       end,

@@ -12,6 +12,10 @@ function Formatter.config()
     log_level = vim.log.levels.WARN,
     -- All formatter configurations are opt-in
     filetype = {
+      c = { require("formatter.filetypes.cpp").clangformat },
+      cpp = { require("formatter.filetypes.cpp").clangformat },
+      cmake = { require("formatter.filetypes.cmake").cmakeformat },
+      go = { require("formatter.filetypes.go").gofmt },
       -- Formatter configurations for filetype "lua" go here
       -- and will be executed in order
       lua = {
