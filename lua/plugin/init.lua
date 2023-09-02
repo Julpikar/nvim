@@ -3,15 +3,12 @@ local Plugin = {}
 function Plugin.setup()
   require("lazy").setup({
     {
-      -- colorscheme
-      "catppuccin/nvim",
-      name = "catppuccin",
-      priority = 1000,
+      "oxfist/night-owl.nvim",
+      lazy = false, -- make sure we load this during startup if it is your main colorscheme
+      priority = 1000, -- make sure to load this before all the other start plugins
       config = function()
-        require("catppuccin").setup({
-          flavour = "latte",
-        })
-        vim.cmd("colorscheme catppuccin")
+        -- load the colorscheme here
+        vim.cmd.colorscheme("night-owl")
         vim.cmd("highlight Cursor cterm=bold gui=bold guibg=#FFB06B guifg=black")
         vim.cmd("highlight Cursor2 guifg=red guibg=red")
         vim.o.guicursor = "n-v-c:block-Cursor/lCursor,i-ci-ve:ver25-Cursor2/lCursor2,r-cr:hor20,o:hor20"
@@ -30,7 +27,12 @@ function Plugin.setup()
     },
     { "nvim-treesitter/nvim-treesitter", lazy = true },
     "HiPhish/rainbow-delimiters.nvim",
-    "NvChad/nvim-colorizer.lua",
+    {
+      "NvChad/nvim-colorizer.lua",
+      config = function()
+        require("colorizer").setup()
+      end,
+    },
     {
       "voldikss/vim-floaterm",
       event = "VeryLazy",
@@ -41,10 +43,11 @@ function Plugin.setup()
 
     -- Project
     {
-      "airblade/vim-rooter",
+      "ahmedkhalf/project.nvim",
       config = function()
-        vim.g.rooter_patterns = { ".git", "Makefile", "*.sln", "build/env.sh" }
-        vim.g.rooter_change_directory_for_non_project_files = "current"
+        require("project_nvim").setup({
+          detection_methods = { "pattern", "lsp" },
+        })
       end,
     },
 
@@ -53,7 +56,7 @@ function Plugin.setup()
       "nvim-tree/nvim-tree.lua",
       event = "VeryLazy",
       config = function()
-        require("plugin.nvim-tree").config()
+        require("plugin.nvim-tree-lua").config()
       end,
     },
     { "nvim-tree/nvim-web-devicons", lazy = true },
@@ -122,9 +125,9 @@ function Plugin.setup()
       end,
     },
     {
-      "NTBBloodbath/galaxyline.nvim",
+      "nvim-lualine/lualine.nvim",
       config = function()
-        require("plugin.galaxyline").config()
+        require("plugin.lualine").config()
       end,
     },
 
@@ -148,7 +151,29 @@ function Plugin.setup()
         require("plugin.nvim-lspconfig").config()
       end,
     },
-    { "folke/trouble.nvim", lazy = true },
+    {
+      "folke/trouble.nvim",
+      config = function()
+        vim.keymap.set("n", "<leader>xx", function()
+          require("trouble").open()
+        end)
+        vim.keymap.set("n", "<leader>xw", function()
+          require("trouble").open("workspace_diagnostics")
+        end)
+        vim.keymap.set("n", "<leader>xd", function()
+          require("trouble").open("document_diagnostics")
+        end)
+        vim.keymap.set("n", "<leader>xq", function()
+          require("trouble").open("quickfix")
+        end)
+        vim.keymap.set("n", "<leader>xl", function()
+          require("trouble").open("loclist")
+        end)
+        vim.keymap.set("n", "gR", function()
+          require("trouble").open("lsp_references")
+        end)
+      end,
+    },
     {
       "ray-x/lsp_signature.nvim",
       event = "VeryLazy",

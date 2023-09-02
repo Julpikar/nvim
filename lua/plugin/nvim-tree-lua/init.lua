@@ -38,8 +38,15 @@ end
 function NVIMTree.config()
   require("nvim-tree").setup({
     on_attach = on_attach,
+    sync_root_with_cwd = true,
+    respect_buf_cwd = true,
+
+    filters = { git_ignored = true },
+    update_focused_file = {
+      enable = true,
+      update_root = true,
+    },
   })
-  -- vim.keymap.set('n', '<C-e>', api.tree.reload,                       opts('Refresh'))
 
   -- add your mappings
   local keymap_set = vim.keymap.set
