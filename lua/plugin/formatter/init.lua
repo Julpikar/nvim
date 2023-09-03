@@ -16,8 +16,7 @@ function Formatter.config()
       cpp = { require("formatter.filetypes.cpp").clangformat },
       cmake = { require("formatter.filetypes.cmake").cmakeformat },
       go = { require("formatter.filetypes.go").gofmt },
-      -- Formatter configurations for filetype "lua" go here
-      -- and will be executed in order
+      json = { require("formatter.filetypes.json").prettier },
       lua = {
         -- "formatter.filetypes.lua" defines default configurations for the
         -- "lua" filetype

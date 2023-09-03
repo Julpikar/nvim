@@ -47,7 +47,15 @@ function Plugin.setup()
       config = function()
         require("project_nvim").setup({
           detection_methods = { "pattern", "lsp" },
+          patterns = { ".git", "_darcs", ".hg", ".bzr", ".svn", "Makefile", "package.json", "CMakeLists.txt" },
         })
+        require("telescope").load_extension("projects")
+        vim.api.nvim_set_keymap(
+          "n",
+          "<LEADER>p",
+          "<CMD>lua require('telescope').extensions.projects.projects{}<CR>",
+          { buffer = bufnr, noremap = true, silent = true, nowait = true }
+        )
       end,
     },
 
@@ -70,7 +78,14 @@ function Plugin.setup()
     },
 
     -- Navigation
-    "lewis6991/satellite.nvim",
+    {
+      "lewis6991/satellite.nvim",
+      config = function()
+        require("satellite").setup({
+          excluded_filetypes = { "cmake_tools_terminal" },
+        })
+      end,
+    },
     {
       "folke/flash.nvim",
       event = "VeryLazy",
@@ -147,7 +162,10 @@ function Plugin.setup()
     },
     {
       "neovim/nvim-lspconfig",
+      dependencies = { "williamboman/mason.nvim", "williamboman/mason-lspconfig.nvim" },
       config = function()
+        require("mason").setup()
+        require("mason-lspconfig").setup()
         require("plugin.nvim-lspconfig").config()
       end,
     },
@@ -237,7 +255,7 @@ function Plugin.setup()
       ft = { "go", "gomod" },
     },
     -- CMake
-    "ilyachur/cmake4vim",
+    "Civitasv/cmake-tools.nvim",
   })
 end
 

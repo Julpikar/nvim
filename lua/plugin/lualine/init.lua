@@ -98,13 +98,12 @@ function Lualine.config()
       ["!"] = { "", colors.red },
       t = { "", colors.red },
     }
-    local mode = vim.fn.mode()
     return {
       function()
-        return item[mode][1]
+        return item[vim.fn.mode()][1]
       end,
       color = function()
-        return { fg = item[mode][2] }
+        return { fg = item[vim.fn.mode()][2] }
       end,
     }
   end)
@@ -122,7 +121,7 @@ function Lualine.config()
       function()
         local filename = vim.fn.expand("%:~:p")
         filename = string.gsub(filename, "\\", " > ")
-        filename = string.gsub(filename, "~ > ", "~")
+        filename = string.gsub(filename, "~ > ", "")
         return filename
       end,
       cond = conditions.buffer_not_empty,
@@ -164,11 +163,12 @@ function Lualine.config()
 
         local full_msg = table.concat(msg, "  ")
         if full_msg ~= "" then
-          full_msg = " " .. full_msg
+          full_msg = " " .. full_msg
         end
         return full_msg
       end,
       color = { fg = colors.yellow },
+      cond = conditions.buffer_not_empty,
     }
   end)
 
@@ -192,10 +192,10 @@ function Lualine.config()
 
   -- Navigation
   insert_component(right, function()
-    return { "location", colors = { fg = colors.purple } }
+    return { "location", colors = { fg = colors.purple }, cond = conditions.buffer_not_empty }
   end)
   insert_component(right, function()
-    return { "progress", color = { fg = colors.magenta } }
+    return { "progress", color = { fg = colors.magenta }, cond = conditions.buffer_not_empty }
   end)
 
   lualine.setup(config)

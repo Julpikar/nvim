@@ -30,9 +30,9 @@ local function on_attach(bufnr)
   api.config.mappings.default_on_attach(bufnr)
 
   -- add your mappings
-  vim.keymap.set("n", "=", "<CMD>lua require('plugin.nvim-tree').resize('+10')<CR>", opts("Expand Window"))
-  vim.keymap.set("n", "-", "<CMD>lua require('plugin.nvim-tree').resize('-10')<CR>", opts("Shrink Window"))
-  vim.keymap.set("n", "0", "<CMD>lua require('plugin.nvim-tree').reset_size()CR>", opts("Reset Window"))
+  vim.keymap.set("n", "=", "<CMD>lua require('plugin.nvim-tree-lua').resize('+10')<CR>", opts("Expand Window"))
+  vim.keymap.set("n", "-", "<CMD>lua require('plugin.nvim-tree-lua').resize('-10')<CR>", opts("Shrink Window"))
+  vim.keymap.set("n", "0", "<CMD>lua require('plugin.nvim-tree-lua').reset_size()CR>", opts("Reset Window"))
 end
 
 function NVIMTree.config()
