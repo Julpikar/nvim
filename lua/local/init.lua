@@ -35,6 +35,8 @@ function Local.setup()
     { "n", "wk", "<CMD>wincmd k<CR>", opts },
     { "n", "wl", "<CMD>wincmd l<CR>", opts },
     { "n", "wj", "<CMD>wincmd j<CR>", opts },
+    { "n", "wn", "<CMD>bnext<CR>", opts },
+    { "n", "wb", "<CMD>previous<CR>", opts },
   }
 
   local keymap_set = vim.keymap.set

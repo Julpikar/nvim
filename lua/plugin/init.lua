@@ -255,7 +255,12 @@ function Plugin.setup()
       ft = { "go", "gomod" },
     },
     -- CMake
-    "Civitasv/cmake-tools.nvim",
+    {
+      "Civitasv/cmake-tools.nvim",
+      config = function()
+        require("cmake-tools").setup({})
+      end,
+    },
   })
 end
 

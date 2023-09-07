@@ -1,4 +1,5 @@
 local lualine = require("lualine")
+local cmake = require("cmake-tools")
 
 local Lualine = {}
 
@@ -119,13 +120,173 @@ function Lualine.config()
   insert_component(left, function()
     return {
       function()
-        local filename = vim.fn.expand("%:~:p")
+        local function get_filename()
+          if cmake.is_cmake_project() then
+            return vim.fn.expand("%:r") .. "." .. vim.fn.expand("%:e")
+          end
+          return vim.fn.expand("%:~:p")
+        end
+
+        local filename = get_filename()
         filename = string.gsub(filename, "\\", " > ")
         filename = string.gsub(filename, "~ > ", "")
         return filename
       end,
       cond = conditions.buffer_not_empty,
       color = { fg = colors.cyan },
+    }
+  end)
+  -- Civitasv/cmake-tools.nvim
+  insert_component(left, function()
+    return {
+      function()
+        local c_preset = cmake.get_configure_preset()
+        return "CMake: [" .. (c_preset and c_preset or "✘") .. "]"
+      end,
+      icon = { "", color = { fg = "yellow" } },
+      cond = function()
+        return cmake.is_cmake_project() and cmake.has_cmake_preset() and conditions.buffer_not_empty()
+      end,
+      on_click = function(n, mouse)
+        if n == 1 then
+          if mouse == "l" then
+            vim.cmd("CMakeSelectConfigurePreset")
+          end
+        end
+      end,
+    }
+  end)
+  insert_component(left, function()
+    return {
+      function()
+        local type = cmake.get_build_type()
+        return "CMake: [" .. (type and type or "") .. "]"
+      end,
+      icon = { "", color = { fg = "yellow" } },
+      cond = function()
+        return cmake.is_cmake_project() and not cmake.has_cmake_preset() and conditions.buffer_not_empty()
+      end,
+      on_click = function(n, mouse)
+        if n == 1 then
+          if mouse == "l" then
+            vim.cmd("CMakeSelectBuildType")
+          end
+        end
+      end,
+    }
+  end)
+
+  insert_component(left, function()
+    return {
+      function()
+        local kit = cmake.get_kit()
+        return "[" .. (kit and kit or "✘") .. "]"
+      end,
+      icon = { "󰺾", color = { fg = "cyan" } },
+      cond = function()
+        return cmake.is_cmake_project() and not cmake.has_cmake_preset() and conditions.buffer_not_empty()
+      end,
+      on_click = function(n, mouse)
+        if n == 1 then
+          if mouse == "l" then
+            vim.cmd("CMakeSelectKit")
+          end
+        end
+      end,
+    }
+  end)
+
+  insert_component(left, function()
+    return {
+      function()
+        return "Build"
+      end,
+      icon = { "", color = { fg = "red" } },
+      cond = function()
+        return cmake.is_cmake_project() and conditions.buffer_not_empty()
+      end,
+      on_click = function(n, mouse)
+        if n == 1 then
+          if mouse == "l" then
+            vim.cmd("CMakeBuild")
+          end
+        end
+      end,
+    }
+  end)
+
+  insert_component(left, function()
+    return {
+      function()
+        local b_preset = cmake.get_build_preset()
+        return "[" .. (b_preset and b_preset or "✘") .. "]"
+      end,
+      icon = { "", color = { fg = "green" } },
+      cond = function()
+        return cmake.is_cmake_project() and cmake.has_cmake_preset() and conditions.buffer_not_empty()
+      end,
+      on_click = function(n, mouse)
+        if n == 1 then
+          if mouse == "l" then
+            vim.cmd("CMakeSelectBuildPreset")
+          end
+        end
+      end,
+    }
+  end)
+
+  insert_component(left, function()
+    return {
+      function()
+        return " "
+      end,
+      cond = function()
+        return cmake.is_cmake_project() and conditions.buffer_not_empty()
+      end,
+      on_click = function(n, mouse)
+        if n == 1 then
+          if mouse == "l" then
+            vim.cmd("CMakeDebug")
+          end
+        end
+      end,
+    }
+  end)
+
+  insert_component(left, function()
+    return {
+      function()
+        return "󰜎"
+      end,
+      cond = function()
+        return cmake.is_cmake_project() and conditions.buffer_not_empty()
+      end,
+      on_click = function(n, mouse)
+        if n == 1 then
+          if mouse == "l" then
+            vim.cmd("CMakeRun")
+          end
+        end
+      end,
+    }
+  end)
+
+  insert_component(left, function()
+    return {
+      function()
+        local l_target = cmake.get_launch_target()
+        return "[" .. (l_target and l_target or "X") .. "]"
+      end,
+      cond = function()
+        return cmake.is_cmake_project() and conditions.buffer_not_empty()
+      end,
+      on_click = function(n, mouse)
+        if n == 1 then
+          if mouse == "l" then
+            vim.cmd("CMakeSelectLaunchTarget")
+          end
+        end
+      end,
     }
   end)
 
@@ -143,6 +304,13 @@ function Lualine.config()
         color_warn = { fg = colors.yellow },
         color_info = { fg = colors.cyan },
       },
+      on_click = function(n, mouse)
+        if n == 1 then
+          if mouse == "l" then
+            vim.cmd("Trouble")
+          end
+        end
+      end,
     }
   end)
   insert_component(right, function()
