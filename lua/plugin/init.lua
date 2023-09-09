@@ -41,6 +41,15 @@ function Plugin.setup()
       end,
     },
 
+    -- Startup
+    {
+      "goolord/alpha-nvim",
+      dependencies = { "nvim-tree/nvim-web-devicons" },
+      config = function()
+        require("plugin.alpha-nvim").config()
+      end,
+    },
+
     -- Project
     {
       "ahmedkhalf/project.nvim",
@@ -258,7 +267,10 @@ function Plugin.setup()
     {
       "Civitasv/cmake-tools.nvim",
       config = function()
-        require("cmake-tools").setup({})
+        require("cmake-tools").setup({
+          cmake_build_directory_prefix = "",
+          cmake_soft_link_compile_commands = false,
+        })
       end,
     },
   })

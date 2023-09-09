@@ -13,7 +13,16 @@ end
 
 local function custom_server()
   -- C++
-  lspconfig.clangd.setup({ on_attach = custom_on_attach, capabilities = custom_capabilities() })
+  lspconfig.clangd.setup({
+    on_attach = custom_on_attach,
+    capabilities = custom_capabilities(),
+    on_new_config = function(new_config, new_cwd)
+      local status, cmake = pcall(require, "cmake-tools")
+      if status then
+        cmake.clangd_on_new_config(new_config)
+      end
+    end,
+  })
 
   -- CMake
   lspconfig.cmake.setup({ on_attach = custom_on_attach, capabilities = custom_capabilities() })

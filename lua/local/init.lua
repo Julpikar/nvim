@@ -7,6 +7,10 @@ local o = vim.o
 local Local = {}
 
 function Local.setup()
+  -- Safe heaven
+  o.swapfile = true
+  o.undofile = true
+
   -- Indentation setting
   o.autoindent = true
   o.shiftwidth = 2
