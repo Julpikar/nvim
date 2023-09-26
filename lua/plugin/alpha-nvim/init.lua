@@ -22,7 +22,8 @@ function AlphaNvim.config()
     [[    ⬛🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨⬛🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨⬛🟨🟨🟨⬛🟨🟨🟨⬛⬜⬜⬜⬜⬜⬜⬜]],
     [[    ⬛🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨⬛🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨🟨⬛🟨🟨🟨⬛🟨🟨⬛⬜⬜⬜⬜⬜⬜⬜]],
   }
-
+  startify.section.header.opts = { position = "center" }
+  startify.section.top_buttons.val = { { type = "padding", val = 0 } }
   startify.section.mru_cwd.val = { { type = "padding", val = 0 } }
   alpha.setup(startify.config)
 end

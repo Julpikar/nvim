@@ -11,6 +11,10 @@ function Local.setup()
   o.swapfile = true
   o.undofile = true
 
+  -- Window split
+  o.splitright = true
+  o.splitbelow = true
+
   -- Indentation setting
   o.autoindent = true
   o.shiftwidth = 2
@@ -33,14 +37,13 @@ function Local.setup()
   number.setup()
 
   -- Key Mapping
-  local opts = { noremap = true, silent = true }
   local keys = {
-    { "n", "wh", "<CMD>wincmd h<CR>", opts },
-    { "n", "wk", "<CMD>wincmd k<CR>", opts },
-    { "n", "wl", "<CMD>wincmd l<CR>", opts },
-    { "n", "wj", "<CMD>wincmd j<CR>", opts },
-    { "n", "wn", "<CMD>bnext<CR>", opts },
-    { "n", "wb", "<CMD>previous<CR>", opts },
+    { "n", "wh", "<CMD>wincmd h<CR>" },
+    { "n", "wk", "<CMD>wincmd k<CR>" },
+    { "n", "wl", "<CMD>wincmd l<CR>" },
+    { "n", "wj", "<CMD>wincmd j<CR>" },
+    { "n", "wn", "<CMD>bnext<CR>" },
+    { "n", "wb", "<CMD>previous<CR>" },
   }
 
   local keymap_set = vim.keymap.set

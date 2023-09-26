@@ -49,9 +49,8 @@ function NVIMTree.config()
   })
 
   -- add your mappings
-  local keymap_set = vim.keymap.set
-  keymap_set("n", "<F2>", "<CMD>NvimTreeToggle<CR>", { noremap = true, silent = true })
-  keymap_set("n", "<F3>", "<CMD>NvimTreeRefresh<CR>", { noremap = true, silent = true })
+  vim.keymap.set("n", "<F2>", "<CMD>NvimTreeToggle<CR>", { noremap = true, silent = true })
+  vim.keymap.set("n", "<F3>", "<CMD>NvimTreeRefresh<CR>", { noremap = true, silent = true })
 end
 
 return NVIMTree

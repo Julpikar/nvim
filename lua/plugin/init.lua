@@ -1,6 +1,8 @@
 local Plugin = {}
 
 function Plugin.setup()
+  local keymap_set = vim.keymap.set
+
   require("lazy").setup({
     {
       "oxfist/night-owl.nvim",
@@ -22,7 +24,7 @@ function Plugin.setup()
       tag = "0.1.2",
       event = "VeryLazy",
       config = function()
-        vim.api.nvim_set_keymap("n", "<LEADER>o", "<CMD>Telescope oldfiles<CR>", {})
+        keymap_set("n", "<LEADER>o", "<CMD>Telescope oldfiles<CR>")
       end,
     },
     { "nvim-treesitter/nvim-treesitter", lazy = true },
@@ -59,12 +61,7 @@ function Plugin.setup()
           patterns = { ".git", "_darcs", ".hg", ".bzr", ".svn", "Makefile", "package.json", "CMakeLists.txt" },
         })
         require("telescope").load_extension("projects")
-        vim.api.nvim_set_keymap(
-          "n",
-          "<LEADER>p",
-          "<CMD>lua require('telescope').extensions.projects.projects{}<CR>",
-          { buffer = bufnr, noremap = true, silent = true, nowait = true }
-        )
+        keymap_set("n", "<LEADER>p", require("telescope").extensions.projects.projects)
       end,
     },
 
@@ -206,6 +203,30 @@ function Plugin.setup()
       event = "VeryLazy",
     },
     {
+      "rmagatti/goto-preview",
+      config = function()
+        require("goto-preview").setup()
+        keymap_set({ "v", "n" }, "gd", require("goto-preview").goto_preview_definition)
+        keymap_set({ "v", "n" }, "gt", require("goto-preview").goto_preview_type_definition)
+        keymap_set({ "v", "n" }, "gi", require("goto-preview").goto_preview_implementation)
+        keymap_set({ "v", "n" }, "gP", require("goto-preview").close_all_win)
+        keymap_set({ "v", "n" }, "gr", require("goto-preview").goto_preview_references)
+      end,
+    },
+    {
+      "aznhe21/actions-preview.nvim",
+      config = function()
+        keymap_set({ "v", "n" }, "gf", require("actions-preview").code_actions)
+      end,
+    },
+    {
+      "Wansmer/symbol-usage.nvim",
+      event = "BufReadPre", -- need run before LspAttach if you use nvim 0.9. On 0.10 use 'LspAttach'
+      config = function()
+        require("symbol-usage").setup()
+      end,
+    },
+    {
       "j-hui/fidget.nvim",
       tag = "legacy",
       event = "LspAttach",
@@ -246,7 +267,7 @@ function Plugin.setup()
       "mhartington/formatter.nvim",
       config = function()
         require("plugin.formatter").config()
-        vim.api.nvim_set_keymap("n", "<F9>", "<CMD>Format<CR>", {})
+        keymap_set("n", "<F9>", "<CMD>Format<CR>")
       end,
     },
 
@@ -268,9 +289,12 @@ function Plugin.setup()
       "Civitasv/cmake-tools.nvim",
       config = function()
         require("cmake-tools").setup({
-          cmake_build_directory_prefix = "",
           cmake_soft_link_compile_commands = false,
+          cmake_compile_commands_from_lsp = true,
         })
+        keymap_set("n", "<LEADER>qg", "<CMD>CMakeGenerate<CR>")
+        keymap_set("n", "<LEADER>qb", "<CMD>CMakeBuild<CR>")
+        keymap_set("n", "<LEADER>qr", "<CMD>CMakeRun<CR>")
       end,
     },
   })
