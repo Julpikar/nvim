@@ -66,9 +66,9 @@ end
 
 local function lsp_mapping()
   local keymap_set = vim.keymap.set
-  keymap_set("n", "<LEADER>ls", "LspStart")
-  keymap_set("n", "<LEADER>lx", "LspStop")
-  keymap_set("n", "<LEADER>lr", "LspRestart")
+  keymap_set("n", "<LEADER>ls", "<CMD>LspStart<CR>")
+  keymap_set("n", "<LEADER>lx", "<CMD>LspStop<CR>")
+  keymap_set("n", "<LEADER>lr", "<CMD>LspRestart<CR>")
 
   -- Global mappings.
   -- See `:help vim.diagnostic.*` for documentation on any of the below functions

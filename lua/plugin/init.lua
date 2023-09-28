@@ -264,10 +264,9 @@ function Plugin.setup()
     },
     "numToStr/Comment.nvim",
     {
-      "mhartington/formatter.nvim",
+      "stevearc/conform.nvim",
       config = function()
-        require("plugin.formatter").config()
-        keymap_set("n", "<F9>", "<CMD>Format<CR>")
+        require("plugin.conform").config()
       end,
     },
 
