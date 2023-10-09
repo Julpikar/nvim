@@ -27,12 +27,6 @@ local function custom_server()
   -- CMake
   lspconfig.cmake.setup({ on_attach = custom_on_attach, capabilities = custom_capabilities() })
 
-  -- GO
-  lspconfig.gopls.setup({ on_attach = custom_on_attach, capabilities = custom_capabilities() })
-
-  -- Json
-  lspconfig.jsonls.setup({ on_attach = custom_on_attach, capabilities = custom_capabilities() })
-
   -- Lua
   lspconfig.lua_ls.setup({
     on_attach = custom_on_attach,
@@ -62,6 +56,9 @@ local function custom_server()
       return true
     end,
   })
+
+  -- Rust
+  lspconfig.rust_analyzer.setup({ on_attach = custom_on_attach, capabilities = custom_capabilities() })
 end
 
 local function lsp_mapping()
