@@ -7,7 +7,7 @@ function Conform.config()
       c = { "clang_format" },
       cpp = { "clang_format" },
       cmake = { "cmake_format" },
-      json = { "prettier" },
+      json = { "clang_format" },
       lua = { "stylua" },
     },
   })

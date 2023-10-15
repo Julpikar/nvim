@@ -262,7 +262,12 @@ function Plugin.setup()
         })
       end,
     },
-    "numToStr/Comment.nvim",
+    {
+      "numToStr/Comment.nvim",
+      config = function()
+        require("Comment").setup()
+      end,
+    },
     {
       "stevearc/conform.nvim",
       config = function()
