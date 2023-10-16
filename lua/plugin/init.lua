@@ -27,7 +27,7 @@ function Plugin.setup()
         keymap_set("n", "<LEADER>o", "<CMD>Telescope oldfiles<CR>")
       end,
     },
-    { "nvim-treesitter/nvim-treesitter", lazy = true },
+    "nvim-treesitter/nvim-treesitter",
     "HiPhish/rainbow-delimiters.nvim",
     {
       "NvChad/nvim-colorizer.lua",
@@ -140,9 +140,9 @@ function Plugin.setup()
       },
     },
     {
-      "akinsho/bufferline.nvim",
+      "willothy/nvim-cokeline",
       config = function()
-        require("plugin.bufferline").config()
+        require("plugin.nvim-cokeline").config()
       end,
     },
     {
