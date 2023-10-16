@@ -6,7 +6,7 @@ local timeout_in_ms = 300
 local AutoSave = {}
 
 local function write()
-  if not api.nvim_buf_get_option(0, "modified") then
+  if not api.nvim_get_option_value("modifiable", { buf = 0 }) then
     return
   end
 
@@ -35,7 +35,7 @@ local function defer_func(func, timeout)
 end
 
 local function save()
-  if not api.nvim_buf_get_option(0, "modifiable") then
+  if not api.nvim_get_option_value("modifiable", { buf = 0 }) then
     return
   end
   defer_func(write, timeout_in_ms)

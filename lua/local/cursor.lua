@@ -1,6 +1,6 @@
 local eventignore = vim.opt.eventignore
 local mode = vim.fn.mode
-local timer = vim.loop.new_timer()
+local timer = vim.uv.new_timer()
 
 Cursor = {
   update_time = 100,
