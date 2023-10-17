@@ -1,11 +1,13 @@
 local resession = require("resession")
+vim.notify = require("notify")
+
 local Resession = {}
 
 local function mappings()
   local save_dir = function()
     local session_name = vim.fn.getcwd():gsub(":", ""):gsub("\\", "#")
     resession.save(session_name, { dir = "session", notify = false })
-    print("Session save at " .. session_name)
+    vim.notify("Session save at " .. session_name, vim.log.levels.INFO, { title = "resession.nvim", icon = "" })
   end
   -- Resession does NOTHING automagically, so we have to set up some keymaps
   vim.keymap.set("n", "<leader>ss", save_dir)
@@ -24,12 +26,17 @@ local function load_and_save_session()
         local found = vim.fs.find(session_name .. ".json", { path = dir })
         if not next(found) == nil then
           resession.load(session_name, { dir = "session", silence_errors = true })
-          print(session_name .. " has loaded")
+          vim.notify(
+            "Session save at " .. session_name,
+            vim.log.levels.INFO,
+            { title = "resession.nvim", icon = "" }
+          )
         end
         vim.ui.input({ prompt = "Load last session?(y/N) " }, function(input)
           if input == "y" then
             resession.load("last")
-            print("Last session has loaded")
+            vim.notify("Last session has loaded", vim.log.levels.INFO, { title = "resession.nvim", icon = "" })
+            print("")
           end
         end)
       end

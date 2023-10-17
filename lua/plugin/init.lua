@@ -220,12 +220,7 @@ function Plugin.setup()
         require("symbol-usage").setup()
       end,
     },
-    {
-      "j-hui/fidget.nvim",
-      tag = "legacy",
-      event = "LspAttach",
-      opts = { text = { spinner = "moon" } },
-    },
+    { "rcarriga/nvim-notify", event = "VeryLazy" },
 
     -- Editing Support
     {
