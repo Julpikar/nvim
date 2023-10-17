@@ -24,9 +24,14 @@ local function load_and_save_session()
         local found = vim.fs.find(session_name .. ".json", { path = dir })
         if not next(found) == nil then
           resession.load(session_name, { dir = "session", silence_errors = true })
-        else
-          resession.save("last")
+          print(session_name .. " has loaded")
         end
+        vim.ui.input({ prompt = "Load last session?(y/N) " }, function(input)
+          if input == "y" then
+            resession.load("last")
+            print("Last session has loaded")
+          end
+        end)
       end
     end,
   })
