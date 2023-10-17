@@ -43,12 +43,11 @@ function Plugin.setup()
       end,
     },
 
-    -- Startup
+    -- Session
     {
-      "goolord/alpha-nvim",
-      dependencies = { "nvim-tree/nvim-web-devicons" },
+      "stevearc/resession.nvim",
       config = function()
-        require("plugin.alpha-nvim").config()
+        require("plugin.resession").config()
       end,
     },
 
@@ -159,6 +158,7 @@ function Plugin.setup()
       dependencies = {
         "hrsh7th/cmp-nvim-lsp",
         "hrsh7th/cmp-buffer",
+        "hrsh7th/cmp-cmdline",
         "L3MON4D3/LuaSnip",
         "rafamadriz/friendly-snippets",
       },
@@ -178,22 +178,22 @@ function Plugin.setup()
     {
       "folke/trouble.nvim",
       config = function()
-        vim.keymap.set("n", "<leader>xx", function()
+        keymap_set("n", "<leader>xx", function()
           require("trouble").open()
         end)
-        vim.keymap.set("n", "<leader>xw", function()
+        keymap_set("n", "<leader>xw", function()
           require("trouble").open("workspace_diagnostics")
         end)
-        vim.keymap.set("n", "<leader>xd", function()
+        keymap_set("n", "<leader>xd", function()
           require("trouble").open("document_diagnostics")
         end)
-        vim.keymap.set("n", "<leader>xq", function()
+        keymap_set("n", "<leader>xq", function()
           require("trouble").open("quickfix")
         end)
-        vim.keymap.set("n", "<leader>xl", function()
+        keymap_set("n", "<leader>xl", function()
           require("trouble").open("loclist")
         end)
-        vim.keymap.set("n", "gR", function()
+        keymap_set("n", "gR", function()
           require("trouble").open("lsp_references")
         end)
       end,
@@ -209,14 +209,8 @@ function Plugin.setup()
         keymap_set({ "v", "n" }, "gd", require("goto-preview").goto_preview_definition)
         keymap_set({ "v", "n" }, "gt", require("goto-preview").goto_preview_type_definition)
         keymap_set({ "v", "n" }, "gi", require("goto-preview").goto_preview_implementation)
-        keymap_set({ "v", "n" }, "gP", require("goto-preview").close_all_win)
+        keymap_set({ "v", "n" }, "gx", require("goto-preview").close_all_win)
         keymap_set({ "v", "n" }, "gr", require("goto-preview").goto_preview_references)
-      end,
-    },
-    {
-      "aznhe21/actions-preview.nvim",
-      config = function()
-        keymap_set({ "v", "n" }, "gf", require("actions-preview").code_actions)
       end,
     },
     {
@@ -238,6 +232,9 @@ function Plugin.setup()
       "kylechui/nvim-surround",
       version = "*", -- Use for stability; omit to use `main` branch for the latest features
       event = "VeryLazy",
+      config = function()
+        require("nvim-surround").setup()
+      end,
     },
     {
       "windwp/nvim-autopairs",
@@ -272,6 +269,13 @@ function Plugin.setup()
       "stevearc/conform.nvim",
       config = function()
         require("plugin.conform").config()
+      end,
+    },
+    {
+      "lukas-reineke/indent-blankline.nvim",
+      main = "ibl",
+      config = function()
+        require("ibl").setup()
       end,
     },
 
