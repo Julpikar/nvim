@@ -284,9 +284,9 @@ function Plugin.setup()
           cmake_compile_commands_from_lsp = true,
           cmake_build_directory = "out\\${variant:buildType}",
         })
-        keymap_set("n", "<LEADER>qg", "<CMD>CMakeGenerate<CR>")
-        keymap_set("n", "<LEADER>qb", "<CMD>CMakeBuild<CR>")
-        keymap_set("n", "<LEADER>qr", "<CMD>CMakeRun<CR>")
+        keymap_set("n", "<LEADER>cg", "<CMD>CMakeGenerate<CR>")
+        keymap_set("n", "<LEADER>cb", "<CMD>CMakeBuild<CR>")
+        keymap_set("n", "<LEADER>cr", "<CMD>CMakeRun<CR>")
       end,
     },
   })
