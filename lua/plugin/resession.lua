@@ -3,6 +3,11 @@ vim.notify = require("notify")
 
 local Resession = {}
 
+local function find_session_dir(session_name)
+  local dir = vim.fn.stdpath("data") .. "\\session"
+  return vim.fs.find(session_name .. ".json", { path = dir })
+end
+
 local function mappings()
   local save_dir = function()
     local session_name = vim.fn.getcwd():gsub(":", ""):gsub("\\", "#")
@@ -21,22 +26,21 @@ local function load_and_save_session()
     callback = function()
       -- Only load the session if nvim was started with no args
       if vim.fn.argc(-1) == 0 then
-        local dir = vim.fn.stdpath("data") .. "\\session"
         local session_name = vim.fn.getcwd():gsub(":", ""):gsub("\\", "#")
-        local found = vim.fs.find(session_name .. ".json", { path = dir })
-        if not next(found) == nil then
+        local found = find_session_dir(session_name)
+        if next(found) ~= nil then
           resession.load(session_name, { dir = "session", silence_errors = true })
           vim.notify(
-            "Session save at " .. session_name,
+            "Session load at " .. session_name,
             vim.log.levels.INFO,
             { title = "resession.nvim", icon = "" }
           )
+          return
         end
         vim.ui.input({ prompt = "Load last session?(y/N) " }, function(input)
           if input == "y" then
             resession.load("last")
             vim.notify("Last session has loaded", vim.log.levels.INFO, { title = "resession.nvim", icon = "" })
-            print("")
           end
         end)
       end
@@ -44,6 +48,12 @@ local function load_and_save_session()
   })
   vim.api.nvim_create_autocmd("VimLeavePre", {
     callback = function()
+      local session_name = vim.fn.getcwd():gsub(":", ""):gsub("\\", "#")
+      local found = find_session_dir(session_name)
+      if next(found) ~= nil then
+        resession.save(session_name, { dir = "session", notify = false })
+        vim.notify("Session Save at " .. session_name, vim.log.levels.INFO, { title = "resession.nvim", icon = "" })
+      end
       resession.save("last")
     end,
   })
