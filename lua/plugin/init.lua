@@ -91,7 +91,12 @@ function Plugin.setup()
         })
       end,
     },
-    "RRethy/vim-illuminate",
+    {
+      "RRethy/vim-illuminate",
+      config = function()
+        require("illuminate").configure({ modes_denylist = { "v", "vs", "V", "Vs", "CTRL_V", "CTRL_Vs" } })
+      end,
+    },
     {
       "folke/flash.nvim",
       event = "VeryLazy",
