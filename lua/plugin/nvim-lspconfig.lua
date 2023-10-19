@@ -107,8 +107,6 @@ local function lsp_mapping()
 end
 
 local function notify()
-  vim.notify = require("notify")
-
   -- Utility functions shared between progress reports for LSP and DAP
   local client_notifs = {}
 

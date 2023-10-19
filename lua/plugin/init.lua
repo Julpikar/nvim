@@ -178,6 +178,7 @@ function Plugin.setup()
     },
     {
       "folke/trouble.nvim",
+      event = "VeryLazy",
       config = function()
         keymap_set("n", "<leader>xx", function()
           require("trouble").open()
@@ -205,6 +206,7 @@ function Plugin.setup()
     },
     {
       "rmagatti/goto-preview",
+      event = "VeryLazy",
       config = function()
         require("goto-preview").setup()
         keymap_set({ "v", "n" }, "gd", require("goto-preview").goto_preview_definition)
@@ -279,6 +281,7 @@ function Plugin.setup()
     -- CMake
     {
       "Civitasv/cmake-tools.nvim",
+      event = "VeryLazy",
       config = function()
         require("cmake-tools").setup({
           cmake_soft_link_compile_commands = false,
