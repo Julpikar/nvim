@@ -91,6 +91,7 @@ function Plugin.setup()
         })
       end,
     },
+    "RRethy/vim-illuminate",
     {
       "folke/flash.nvim",
       event = "VeryLazy",
