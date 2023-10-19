@@ -1,4 +1,5 @@
 local resession = require("resession")
+vim.notify = require("notify")
 
 local Resession = {}
 
