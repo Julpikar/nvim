@@ -52,7 +52,14 @@ local config = {
     lualine_z = {},
   },
   tabline = {},
-  winbar = {},
+  winbar = {
+    lualine_a = {},
+    lualine_b = {},
+    lualine_c = { "filename" },
+    lualine_x = {},
+    lualine_y = {},
+    lualine_z = {},
+  },
   inactive_winbar = {},
   extensions = {},
 }
@@ -110,36 +117,37 @@ local function provider_filetype()
     icon_only = true,
   }
 end
+
+local function get_filename()
+  local filename = cmake.is_cmake_project() and vim.fn.expand("%:r") .. "." .. vim.fn.expand("%:e")
+    or vim.fn.expand("%:~:p")
+  filename = string.gsub(filename, "\\", " > ")
+  filename = string.gsub(filename, "~ > ", "")
+  return filename
+end
+
 local function provider_filename()
   return {
-    function()
-      local function get_filename()
-        if cmake.is_cmake_project() then
-          return vim.fn.expand("%:r") .. "." .. vim.fn.expand("%:e")
-        end
-        return vim.fn.expand("%:~:p")
-      end
-
-      local filename = get_filename()
-      filename = string.gsub(filename, "\\", " > ")
-      filename = string.gsub(filename, "~ > ", "")
-      return filename
-    end,
+    get_filename,
     cond = buffer_not_empty,
     color = { fg = colors.cyan },
   }
 end
 
+local function cmake_project_and_preset_buf_not_empty()
+  return cmake.is_cmake_project() and cmake.has_cmake_preset() and buffer_not_empty()
+end
+
+local function get_configure_preset()
+  local c_preset = cmake.get_configure_preset()
+  return "CMake: [" .. (c_preset and c_preset or "✘") .. "]"
+end
+
 local function provider_cmake_select_configure_preset()
   return {
-    function()
-      local c_preset = cmake.get_configure_preset()
-      return "CMake: [" .. (c_preset and c_preset or "✘") .. "]"
-    end,
+    get_configure_preset,
     icon = { "", color = { fg = "yellow" } },
-    cond = function()
-      return cmake.is_cmake_project() and cmake.has_cmake_preset() and buffer_not_empty()
-    end,
+    cond = cmake_project_and_preset_buf_not_empty,
     on_click = function(n, mouse)
       if n == 1 then
         if mouse == "l" then
@@ -149,16 +157,21 @@ local function provider_cmake_select_configure_preset()
     end,
   }
 end
+
+local function cmake_project_and_not_preset_buf_not_empty()
+  return cmake.is_cmake_project() and not cmake.has_cmake_preset() and buffer_not_empty()
+end
+
+local function get_build_type()
+  local type = cmake.get_build_type()
+  return "CMake: [" .. (type and type or "") .. "]"
+end
+
 local function provider_cmake_select_build_type()
   return {
-    function()
-      local type = cmake.get_build_type()
-      return "CMake: [" .. (type and type or "") .. "]"
-    end,
+    get_build_type,
     icon = { "", color = { fg = "yellow" } },
-    cond = function()
-      return cmake.is_cmake_project() and not cmake.has_cmake_preset() and buffer_not_empty()
-    end,
+    cond = cmake_project_and_not_preset_buf_not_empty,
     on_click = function(n, mouse)
       if n == 1 then
         if mouse == "l" then
@@ -168,15 +181,18 @@ local function provider_cmake_select_build_type()
     end,
   }
 end
+
+local function get_kit()
+  local kit = cmake.get_kit()
+  return "[" .. (kit and kit or "✘") .. "]"
+end
+
 local function provider_cmake_select_kit()
   return {
-    function()
-      local kit = cmake.get_kit()
-      return "[" .. (kit and kit or "✘") .. "]"
-    end,
+    get_kit,
     icon = { "󰺾", color = { fg = "cyan" } },
     cond = function()
-      return cmake.is_cmake_project() and not cmake.has_cmake_preset() and buffer_not_empty()
+      return cmake_project_and_not_preset_buf_not_empty
     end,
     on_click = function(n, mouse)
       if n == 1 then
@@ -187,15 +203,18 @@ local function provider_cmake_select_kit()
     end,
   }
 end
+
+local function cmake_project_buf_not_empty()
+  return cmake.is_cmake_project() and buffer_not_empty()
+end
+
 local function provider_cmake_build()
   return {
     function()
       return "Build"
     end,
     icon = { "", color = { fg = "red" } },
-    cond = function()
-      return cmake.is_cmake_project() and buffer_not_empty()
-    end,
+    cond = cmake_project_buf_not_empty,
     on_click = function(n, mouse)
       if n == 1 then
         if mouse == "l" then
@@ -205,16 +224,17 @@ local function provider_cmake_build()
     end,
   }
 end
+
+local function get_build_preset()
+  local b_preset = cmake.get_build_preset()
+  return "[" .. (b_preset and b_preset or "✘") .. "]"
+end
+
 local function provider_cmake_select_build_preset()
   return {
-    function()
-      local b_preset = cmake.get_build_preset()
-      return "[" .. (b_preset and b_preset or "✘") .. "]"
-    end,
+    get_build_preset,
     icon = { "", color = { fg = "green" } },
-    cond = function()
-      return cmake.is_cmake_project() and cmake.has_cmake_preset() and buffer_not_empty()
-    end,
+    cond = cmake_project_and_preset_buf_not_empty,
     on_click = function(n, mouse)
       if n == 1 then
         if mouse == "l" then
@@ -224,14 +244,13 @@ local function provider_cmake_select_build_preset()
     end,
   }
 end
+
 local function provider_cmake_debug()
   return {
     function()
       return " "
     end,
-    cond = function()
-      return cmake.is_cmake_project() and buffer_not_empty()
-    end,
+    cond = cmake_project_buf_not_empty,
     on_click = function(n, mouse)
       if n == 1 then
         if mouse == "l" then
@@ -241,14 +260,13 @@ local function provider_cmake_debug()
     end,
   }
 end
+
 local function provider_cmake_run()
   return {
     function()
       return "󰜎"
     end,
-    cond = function()
-      return cmake.is_cmake_project() and buffer_not_empty()
-    end,
+    cond = cmake_project_buf_not_empty,
     on_click = function(n, mouse)
       if n == 1 then
         if mouse == "l" then
@@ -258,15 +276,16 @@ local function provider_cmake_run()
     end,
   }
 end
+
+local function get_launch_target()
+  local l_target = cmake.get_launch_target()
+  return "[" .. (l_target and l_target or "X") .. "]"
+end
+
 local function provider_cmake_select_launch_target()
   return {
-    function()
-      local l_target = cmake.get_launch_target()
-      return "[" .. (l_target and l_target or "X") .. "]"
-    end,
-    cond = function()
-      return cmake.is_cmake_project() and buffer_not_empty()
-    end,
+    get_launch_target,
+    cond = cmake_project_buf_not_empty,
     on_click = function(n, mouse)
       if n == 1 then
         if mouse == "l" then
@@ -276,6 +295,7 @@ local function provider_cmake_select_launch_target()
     end,
   }
 end
+
 local function provider_diagnostic()
   return {
     "diagnostics",
@@ -295,6 +315,7 @@ local function provider_diagnostic()
     end,
   }
 end
+
 local function provider_git_diff()
   return {
     "diff",
@@ -308,6 +329,7 @@ local function provider_git_diff()
     cond = hide_in_width,
   }
 end
+
 local function provider_git_branch()
   return { "branch", icon = "", color = { fg = colors.cyan } }
 end
@@ -320,28 +342,30 @@ local function provider_cursor_progress()
   return { "progress", color = { fg = colors.magenta }, cond = buffer_not_empty }
 end
 
+local function LSP_message()
+  local buf_ft = vim.api.nvim_get_option_value("filetype", { buf = 0 })
+  local clients = vim.lsp.get_clients()
+  if next(clients) == nil then
+    return "No Active LSP"
+  end
+  local msg = {}
+  for _, client in ipairs(clients) do
+    local filetypes = client.config.filetypes
+    if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 and not vim.tbl_contains(msg, client.name) then
+      table.insert(msg, client.name)
+    end
+  end
+
+  local full_msg = table.concat(msg, "  ")
+  if full_msg ~= "" then
+    full_msg = " " .. full_msg
+  end
+  return full_msg
+end
+
 local function provider_LSP_client()
   return {
-    function()
-      local buf_ft = vim.api.nvim_get_option_value("filetype", { buf = 0 })
-      local clients = vim.lsp.get_clients()
-      if next(clients) == nil then
-        return "No Active LSP"
-      end
-      local msg = {}
-      for _, client in ipairs(clients) do
-        local filetypes = client.config.filetypes
-        if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 and not vim.tbl_contains(msg, client.name) then
-          table.insert(msg, client.name)
-        end
-      end
-
-      local full_msg = table.concat(msg, "  ")
-      if full_msg ~= "" then
-        full_msg = " " .. full_msg
-      end
-      return full_msg
-    end,
+    LSP_message,
     color = { fg = colors.yellow },
     cond = buffer_not_empty,
   }
