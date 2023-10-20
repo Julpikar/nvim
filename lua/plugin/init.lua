@@ -21,7 +21,7 @@ function Plugin.setup()
     "nvim-lua/plenary.nvim",
     {
       "nvim-telescope/telescope.nvim",
-      tag = "0.1.2",
+      branch = "0.1.x",
       event = "VeryLazy",
       config = function()
         keymap_set("n", "<LEADER>o", "<CMD>Telescope oldfiles<CR>")
