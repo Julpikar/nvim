@@ -1,4 +1,5 @@
 local Cokeline = {}
+
 function Cokeline.config()
   local get_hex = require("cokeline.hlgroups").get_hl_attr
   local fg = "#00060b"
@@ -8,7 +9,7 @@ function Cokeline.config()
   local error = get_hex("DiagnosticError", "fg")
   local warn = get_hex("DiagnosticWarn", "fg")
 
-  require("cokeline").setup({
+  local config = {
     default_hl = {
       fg = function(buffer)
         return buffer.is_focused and fg or inactive_fg
@@ -18,10 +19,17 @@ function Cokeline.config()
       end,
     },
     sidebar = {
-      filetype = "NvimTree",
+      filetype = { "aerial", "NvimTree" },
       components = {
         {
-          text = " 󰙅  File Explorer ",
+          text = function(buf)
+            local filetype = buf.filetype
+            if filetype == "aerial" then
+              return "Symbol Outline"
+            elseif filetype == "NvimTree" then
+              return " 󰙅  File Explorer "
+            end
+          end,
           style = "bold",
         },
       },
@@ -92,6 +100,7 @@ function Cokeline.config()
         text = "   ",
       },
     },
-  })
+  }
+  require("cokeline").setup(config)
 end
 return Cokeline

@@ -3,7 +3,7 @@ local Plugin = {}
 function Plugin.setup()
   local keymap_set = vim.keymap.set
 
-  require("lazy").setup({
+  local config = {
     {
       "oxfist/night-owl.nvim",
       lazy = false, -- make sure we load this during startup if it is your main colorscheme
@@ -156,6 +156,35 @@ function Plugin.setup()
         require("plugin.lualine").config()
       end,
     },
+    {
+      "stevearc/aerial.nvim",
+      config = function()
+        require("aerial").setup({
+          -- optionally use on_attach to set keymaps when aerial has attached to a buffer
+          on_attach = function(bufnr)
+            -- Jump forwards/backwards with '{' and '}'
+            keymap_set("n", "{", "<CMD>AerialPrev<CR>")
+            keymap_set("n", "}", "<CMD>AerialNext<CR>")
+          end,
+          show_guides = true,
+
+          -- Customize the characters used when show_guides = true
+          guides = {
+            -- When the child item has a sibling below it
+            mid_item = "├─",
+            -- When the child item is the last in the list
+            last_item = "└─",
+            -- When there are nested child guides to the right
+            nested_top = "│ ",
+            -- Raw indentation
+            whitespace = "  ",
+          },
+        })
+        -- You probably also want to set a keymap to toggle aerial
+        keymap_set("n", "<LEADER>as", "<CMD>AerialToggle!<CR>")
+        keymap_set("n", "<LEADER>af", require("telescope").extensions.aerial.aerial)
+      end,
+    },
 
     -- LSP Integration
     {
@@ -185,19 +214,17 @@ function Plugin.setup()
       "folke/trouble.nvim",
       event = "VeryLazy",
       config = function()
-        keymap_set("n", "<leader>xx", function()
-          require("trouble").open()
-        end)
-        keymap_set("n", "<leader>xw", function()
+        keymap_set("n", "<LEADER>xx", require("trouble").open)
+        keymap_set("n", "<LEADER>xw", function()
           require("trouble").open("workspace_diagnostics")
         end)
-        keymap_set("n", "<leader>xd", function()
+        keymap_set("n", "<LEADER>xd", function()
           require("trouble").open("document_diagnostics")
         end)
-        keymap_set("n", "<leader>xq", function()
+        keymap_set("n", "<LEADER>xq", function()
           require("trouble").open("quickfix")
         end)
-        keymap_set("n", "<leader>xl", function()
+        keymap_set("n", "<LEADER>xl", function()
           require("trouble").open("loclist")
         end)
         keymap_set("n", "gR", function()
@@ -228,7 +255,12 @@ function Plugin.setup()
         require("symbol-usage").setup()
       end,
     },
-    { "rcarriga/nvim-notify", event = "VeryLazy" },
+    {
+      "rcarriga/nvim-notify",
+      config = function()
+        vim.notify = require("notify")
+      end,
+    },
 
     -- Editing Support
     {
@@ -298,7 +330,9 @@ function Plugin.setup()
         keymap_set("n", "<LEADER>cr", "<CMD>CMakeRun<CR>")
       end,
     },
-  })
+  }
+
+  require("lazy").setup(config)
 end
 
 return Plugin

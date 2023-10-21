@@ -112,8 +112,7 @@ local function provider_filetype()
 end
 
 local function get_filename()
-  local filename = cmake.is_cmake_project() and vim.fn.expand("%:r") .. "." .. vim.fn.expand("%:e")
-    or vim.fn.expand("%:~:p")
+  local filename = vim.fn.expand("%:r") .. "." .. vim.fn.expand("%:e") or vim.fn.expand("%:~:p")
   filename = string.gsub(filename, "\\", " > ")
   filename = string.gsub(filename, "~ > ", "")
   return filename
@@ -127,8 +126,8 @@ local function provider_filename()
   }
 end
 
-local function cmake_project_and_preset_buf_not_empty()
-  return cmake.is_cmake_project() and cmake.has_cmake_preset() and buffer_not_empty()
+local function cmake_preset_and_buf_not_empty()
+  return cmake.has_cmake_preset() and buffer_not_empty()
 end
 
 local function get_configure_preset()
@@ -140,7 +139,7 @@ local function provider_cmake_select_configure_preset()
   return {
     get_configure_preset,
     icon = { "", color = { fg = "yellow" } },
-    cond = cmake_project_and_preset_buf_not_empty,
+    cond = cmake_preset_and_buf_not_empty,
     on_click = function(n, mouse)
       if n == 1 then
         if mouse == "l" then
@@ -151,8 +150,8 @@ local function provider_cmake_select_configure_preset()
   }
 end
 
-local function cmake_project_and_not_preset_buf_not_empty()
-  return cmake.is_cmake_project() and not cmake.has_cmake_preset() and buffer_not_empty()
+local function cmake_not_preset_and_buf_not_empty()
+  return not cmake.has_cmake_preset() and buffer_not_empty()
 end
 
 local function get_build_type()
@@ -164,7 +163,7 @@ local function provider_cmake_select_build_type()
   return {
     get_build_type,
     icon = { "", color = { fg = "yellow" } },
-    cond = cmake_project_and_not_preset_buf_not_empty,
+    cond = cmake_not_preset_and_buf_not_empty,
     on_click = function(n, mouse)
       if n == 1 then
         if mouse == "l" then
@@ -185,7 +184,7 @@ local function provider_cmake_select_kit()
     get_kit,
     icon = { "󰺾", color = { fg = "cyan" } },
     cond = function()
-      return cmake_project_and_not_preset_buf_not_empty
+      return cmake_not_preset_and_buf_not_empty
     end,
     on_click = function(n, mouse)
       if n == 1 then
@@ -197,17 +196,13 @@ local function provider_cmake_select_kit()
   }
 end
 
-local function cmake_project_buf_not_empty()
-  return cmake.is_cmake_project() and buffer_not_empty()
-end
-
 local function provider_cmake_build()
   return {
     function()
       return "Build"
     end,
     icon = { "", color = { fg = "red" } },
-    cond = cmake_project_buf_not_empty,
+    cond = buffer_not_empty,
     on_click = function(n, mouse)
       if n == 1 then
         if mouse == "l" then
@@ -227,7 +222,7 @@ local function provider_cmake_select_build_preset()
   return {
     get_build_preset,
     icon = { "", color = { fg = "green" } },
-    cond = cmake_project_and_preset_buf_not_empty,
+    cond = cmake_preset_and_buf_not_empty,
     on_click = function(n, mouse)
       if n == 1 then
         if mouse == "l" then
@@ -243,7 +238,7 @@ local function provider_cmake_debug()
     function()
       return " "
     end,
-    cond = cmake_project_buf_not_empty,
+    cond = buffer_not_empty,
     on_click = function(n, mouse)
       if n == 1 then
         if mouse == "l" then
@@ -259,7 +254,7 @@ local function provider_cmake_run()
     function()
       return "󰜎"
     end,
-    cond = cmake_project_buf_not_empty,
+    cond = buffer_not_empty,
     on_click = function(n, mouse)
       if n == 1 then
         if mouse == "l" then
@@ -278,7 +273,7 @@ end
 local function provider_cmake_select_launch_target()
   return {
     get_launch_target,
-    cond = cmake_project_buf_not_empty,
+    cond = buffer_not_empty,
     on_click = function(n, mouse)
       if n == 1 then
         if mouse == "l" then
@@ -376,14 +371,16 @@ function Lualine.config()
   insert_component(left, provider_filename)
 
   -- Civitasv/cmake-tools.nvim
-  insert_component(left, provider_cmake_select_configure_preset)
-  insert_component(left, provider_cmake_select_build_type)
-  insert_component(left, provider_cmake_select_kit)
-  insert_component(left, provider_cmake_build)
-  insert_component(left, provider_cmake_select_build_preset)
-  insert_component(left, provider_cmake_debug)
-  insert_component(left, provider_cmake_run)
-  insert_component(left, provider_cmake_select_launch_target)
+  if cmake.is_cmake_project() then
+    insert_component(left, provider_cmake_select_configure_preset)
+    insert_component(left, provider_cmake_select_build_type)
+    insert_component(left, provider_cmake_select_kit)
+    insert_component(left, provider_cmake_build)
+    insert_component(left, provider_cmake_select_build_preset)
+    insert_component(left, provider_cmake_debug)
+    insert_component(left, provider_cmake_run)
+    insert_component(left, provider_cmake_select_launch_target)
+  end
 
   -- Right section
   local right = config.sections.lualine_x

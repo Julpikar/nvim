@@ -4,7 +4,7 @@ local focus = true
 
 local Number = {
   enable_number = true,
-  numbers_exclude = { "alpha", "floaterm", "lazy", "NvimTree", "mason", "TelescopePrompt", "Trouble" },
+  numbers_exclude = { "aerial", "alpha", "floaterm", "lazy", "NvimTree", "mason", "TelescopePrompt", "Trouble" },
 }
 
 local function relative_number_off()

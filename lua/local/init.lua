@@ -24,6 +24,13 @@ function Local.setup()
   o.softtabstop = 2
   o.expandtab = true
 
+  -- Fold
+  o.foldcolumn = "2"
+  o.foldlevel = 99
+  o.foldlevelstart = 99
+  o.foldenable = true
+  o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
+
   -- AutoSave
   autosave.setup()
 
@@ -44,6 +51,8 @@ function Local.setup()
     { "n", "wj", "<CMD>wincmd j<CR>" },
     { "n", "wn", "<CMD>bnext<CR>" },
     { "n", "wb", "<CMD>previous<CR>" },
+    { { "n", "v" }, "<LEADER>n", "<CMD>NumberOnOff<CR>" },
+    { { "n", "v" }, "<LEADER>q", "<CMD>quit<CR>" },
   }
 
   local keymap_set = vim.keymap.set

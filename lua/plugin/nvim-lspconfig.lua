@@ -1,5 +1,4 @@
 local lspconfig = require("lspconfig")
-vim.notify = require("notify")
 
 local LSPConfig = {}
 
