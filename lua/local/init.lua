@@ -1,5 +1,4 @@
 local autosave = require("local.autosave")
-local cursor = require("local.cursor")
 local lastplace = require("local.lastplace")
 local number = require("local.number")
 local o = vim.o
@@ -33,9 +32,6 @@ function Local.setup()
 
   -- AutoSave
   autosave.setup()
-
-  -- Smooth cursor
-  cursor.setup()
 
   -- Goto last position when open a file
   lastplace.setup()

@@ -25,7 +25,7 @@ function Cokeline.config()
           text = function(buf)
             local filetype = buf.filetype
             if filetype == "aerial" then
-              return "Symbol Outline"
+              return "   Symbol Outline"
             elseif filetype == "NvimTree" then
               return " 󰙅  File Explorer "
             end

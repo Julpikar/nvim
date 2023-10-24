@@ -77,6 +77,7 @@ function Plugin.setup()
     -- Git Integration
     {
       "lewis6991/gitsigns.nvim",
+      event = "VeryLazy",
       config = function()
         require("gitsigns").setup()
       end,
@@ -93,6 +94,7 @@ function Plugin.setup()
     },
     {
       "RRethy/vim-illuminate",
+      event = "VeryLazy",
       config = function()
         require("illuminate").configure({ modes_denylist = { "v", "vs", "V", "Vs", "CTRL_V", "CTRL_Vs" } })
       end,
@@ -158,8 +160,10 @@ function Plugin.setup()
     },
     {
       "stevearc/aerial.nvim",
+      event = "VeryLazy",
       config = function()
         require("aerial").setup({
+          backends = { "treesitter" },
           -- optionally use on_attach to set keymaps when aerial has attached to a buffer
           on_attach = function(bufnr)
             -- Jump forwards/backwards with '{' and '}'
@@ -182,7 +186,9 @@ function Plugin.setup()
         })
         -- You probably also want to set a keymap to toggle aerial
         keymap_set("n", "<LEADER>as", "<CMD>AerialToggle!<CR>")
-        keymap_set("n", "<LEADER>af", require("telescope").extensions.aerial.aerial)
+        keymap_set("n", "<LEADER>af", function()
+          require("telescope").extensions.aerial.aerial()
+        end)
       end,
     },
 
@@ -252,7 +258,7 @@ function Plugin.setup()
       "Wansmer/symbol-usage.nvim",
       event = "BufReadPre", -- need run before LspAttach if you use nvim 0.9. On 0.10 use 'LspAttach'
       config = function()
-        require("symbol-usage").setup()
+        require("plugin.symbol-usage").config()
       end,
     },
     {
@@ -280,6 +286,7 @@ function Plugin.setup()
     },
     {
       "emileferreira/nvim-strict",
+      event = "VeryLazy",
       config = function()
         require("strict").setup({
           excluded_filetypes = { "text", "markdown", "html" },
@@ -296,12 +303,14 @@ function Plugin.setup()
     },
     {
       "numToStr/Comment.nvim",
+      event = "VeryLazy",
       config = function()
         require("Comment").setup()
       end,
     },
     {
       "stevearc/conform.nvim",
+      event = "VeryLazy",
       config = function()
         require("plugin.conform").config()
       end,
@@ -309,10 +318,14 @@ function Plugin.setup()
     {
       "lukas-reineke/indent-blankline.nvim",
       main = "ibl",
+      event = "VeryLazy",
       config = function()
         require("ibl").setup()
       end,
     },
+
+    -- LuaPad
+    { "rafcamlet/nvim-luapad", event = VeryLazy },
 
     -- Programming Language Support
     -- CMake
@@ -321,8 +334,6 @@ function Plugin.setup()
       event = "VeryLazy",
       config = function()
         require("cmake-tools").setup({
-          cmake_soft_link_compile_commands = false,
-          cmake_compile_commands_from_lsp = true,
           cmake_build_directory = "out\\${variant:buildType}",
         })
         keymap_set("n", "<LEADER>cg", "<CMD>CMakeGenerate<CR>")
