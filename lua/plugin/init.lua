@@ -324,9 +324,6 @@ function Plugin.setup()
       end,
     },
 
-    -- LuaPad
-    { "rafcamlet/nvim-luapad", event = VeryLazy },
-
     -- Programming Language Support
     -- CMake
     {
