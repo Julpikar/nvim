@@ -2,10 +2,10 @@ local Cokeline = {}
 
 function Cokeline.config()
   local get_hex = require("cokeline.hlgroups").get_hl_attr
-  local fg = "#00060b"
-  local inactive_fg = "#d6deeb"
-  local bg = "#d6deeb"
-  local inactive_bg = "#00060b"
+  local inactive_fg = "#4e5a64"
+  local fg = "#d6deeb"
+  local inactive_bg = "#d6deeb"
+  local bg = "#4e5a64"
   local error = get_hex("DiagnosticError", "fg")
   local warn = get_hex("DiagnosticWarn", "fg")
 

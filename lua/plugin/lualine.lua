@@ -3,23 +3,18 @@ local cmake = require("cmake-tools")
 
 local Lualine = {}
 
-local colors = {
-  red = "#ff1818",
-  light_cyan = "#caece6",
-  blue = "#03c6e3",
-  green = "#39FF13",
-  cyan = "#05eeff",
-  orange = "#ff6700",
-  yellow = "#ccff00",
-  light_purple = "#a599e9",
-  purple = "#bc13fe",
-  magenta = "#ea00ff",
-}
-
+local function theme()
+  return {
+    normal = {
+      c = { fg = "#4e5a64", bg = "#d6deeb" },
+      x = { fg = "#4e5a64", bg = "#d6deeb" },
+    },
+  }
+end
 local config = {
   options = {
     icons_enabled = true,
-    theme = "auto",
+    theme = theme,
     component_separators = {},
     section_separators = {},
     disabled_filetypes = {
@@ -73,32 +68,29 @@ end
 -- Mode
 local function provider_mode()
   local item = {
-    n = { "", colors.red },
-    i = { "󰴓", colors.green },
-    v = { "", colors.blue },
-    [""] = { "", colors.blue },
-    V = { "󰈈", colors.blue },
-    c = { "", colors.magenta },
-    no = { "", colors.red },
-    s = { "󰒅", colors.orange },
-    S = { "󱊁", colors.orange },
-    [""] = { "󰒆", colors.orange },
-    ic = { "󰏪", colors.yellow },
-    R = { "", colors.purple },
-    Rv = { "", colors.purple },
-    cv = { "", colors.red },
-    r = { "", colors.cyan },
-    rm = { "", colors.cyan },
-    ["r?"] = { "󰹪", colors.cyan },
-    ["!"] = { "", colors.red },
-    t = { "", colors.red },
+    n = { "" },
+    i = { "󰴓" },
+    v = { "" },
+    [""] = { "" },
+    V = { "󰈈" },
+    c = { "" },
+    no = { "" },
+    s = { "󰒅" },
+    S = { "󱊁" },
+    [""] = { "󰒆" },
+    ic = { "󰏪" },
+    R = { "" },
+    Rv = { "" },
+    cv = { "" },
+    r = { "" },
+    rm = { "" },
+    ["r?"] = { "󰹪" },
+    ["!"] = { "" },
+    t = { "" },
   }
   return {
     function()
       return item[vim.fn.mode()][1]
-    end,
-    color = function()
-      return { fg = item[vim.fn.mode()][2] }
     end,
   }
 end
@@ -107,6 +99,7 @@ local function provider_filetype()
   return {
     "filetype",
     cond = buffer_not_empty,
+    colored = false,
     icon_only = true,
   }
 end
@@ -122,7 +115,6 @@ local function provider_filename()
   return {
     get_filename,
     cond = buffer_not_empty,
-    color = { fg = colors.cyan },
   }
 end
 
@@ -138,7 +130,7 @@ end
 local function provider_cmake_select_configure_preset()
   return {
     get_configure_preset,
-    icon = { "", color = { fg = "yellow" } },
+    icon = { "" },
     cond = cmake_preset_and_buf_not_empty,
     on_click = function(n, mouse)
       if n == 1 then
@@ -162,7 +154,7 @@ end
 local function provider_cmake_select_build_type()
   return {
     get_build_type,
-    icon = { "", color = { fg = "yellow" } },
+    icon = { "" },
     cond = cmake_not_preset_and_buf_not_empty,
     on_click = function(n, mouse)
       if n == 1 then
@@ -182,7 +174,7 @@ end
 local function provider_cmake_select_kit()
   return {
     get_kit,
-    icon = { "󰺾", color = { fg = "cyan" } },
+    icon = { "󰺾" },
     cond = function()
       return cmake_not_preset_and_buf_not_empty
     end,
@@ -201,7 +193,7 @@ local function provider_cmake_build()
     function()
       return "Build"
     end,
-    icon = { "", color = { fg = "red" } },
+    icon = { "" },
     cond = buffer_not_empty,
     on_click = function(n, mouse)
       if n == 1 then
@@ -221,7 +213,7 @@ end
 local function provider_cmake_select_build_preset()
   return {
     get_build_preset,
-    icon = { "", color = { fg = "green" } },
+    icon = { "" },
     cond = cmake_preset_and_buf_not_empty,
     on_click = function(n, mouse)
       if n == 1 then
@@ -287,13 +279,10 @@ end
 local function provider_diagnostic()
   return {
     "diagnostics",
+    colored = false,
     sources = { "nvim_diagnostic" },
     symbols = { error = " ", warn = " ", info = " " },
-    diagnostics_color = {
-      color_error = { fg = colors.red },
-      color_warn = { fg = colors.yellow },
-      color_info = { fg = colors.cyan },
-    },
+
     on_click = function(n, mouse)
       if n == 1 then
         if mouse == "l" then
@@ -307,27 +296,24 @@ end
 local function provider_git_diff()
   return {
     "diff",
+    colored = false,
     -- Is it me or the symbol for modified us really weird
     symbols = { added = " ", modified = "󰝤 ", removed = " " },
-    diff_color = {
-      added = { fg = colors.green },
-      modified = { fg = colors.orange },
-      removed = { fg = colors.red },
-    },
+
     cond = hide_in_width,
   }
 end
 
 local function provider_git_branch()
-  return { "branch", icon = "", color = { fg = colors.cyan } }
+  return { "branch", icon = "" }
 end
 
 local function provider_cursor_location()
-  return { "location", colors = { fg = colors.purple }, cond = buffer_not_empty }
+  return { "location", cond = buffer_not_empty }
 end
 
 local function provider_cursor_progress()
-  return { "progress", color = { fg = colors.magenta }, cond = buffer_not_empty }
+  return { "progress", cond = buffer_not_empty }
 end
 
 local function LSP_message()
@@ -354,7 +340,6 @@ end
 local function provider_LSP_client()
   return {
     LSP_message,
-    color = { fg = colors.yellow },
     cond = buffer_not_empty,
   }
 end
