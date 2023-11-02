@@ -8,7 +8,7 @@ function Conform.config()
       cpp = { "clang_format" },
       cmake = { "cmake_format" },
       json = { "clang_format" },
-      -- lua = { "stylua" },
+      lua = { "stylua" },
     },
   })
   vim.api.nvim_create_autocmd("BufWritePre", {

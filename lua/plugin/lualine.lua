@@ -6,8 +6,39 @@ local Lualine = {}
 local function theme()
   return {
     normal = {
-      c = { fg = "#4e5a64", bg = "#d6deeb" },
-      x = { fg = "#4e5a64", bg = "#d6deeb" },
+      c = { bg = "#1e2326", fg = "#a7c080", gui = "bold" },
+      b = { bg = "#414b50", fg = "#9da9a0" },
+      a = { bg = "#2e383c", fg = "#859289" },
+    },
+    insert = {
+      c = { bg = "#1e2326", fg = "#d3c6aa", gui = "bold" },
+      b = { bg = "#414b50", fg = "#d3c6aa" },
+      a = { bg = "#2e383c", fg = "#d3c6aa" },
+    },
+    visual = {
+      c = { bg = "#1e2326", fg = "#e67e80", gui = "bold" },
+      b = { bg = "#414b50", fg = "#d3c6aa" },
+      a = { bg = "#2e383c", fg = "#d3c6aa" },
+    },
+    replace = {
+      c = { bg = "#1e2326", fg = "#e69875", gui = "bold" },
+      b = { bg = "#414b50", fg = "#d3c6aa" },
+      a = { bg = "#2e383c", fg = "#d3c6aa" },
+    },
+    command = {
+      c = { bg = "#1e2326", fg = "#83c092", gui = "bold" },
+      b = { bg = "#414b50", fg = "#d3c6aa" },
+      a = { bg = "#2e383c", fg = "#d3c6aa" },
+    },
+    terminal = {
+      c = { bg = "#1e2326", fg = "#d699b6", gui = "bold" },
+      b = { bg = "#414b50", fg = "#d3c6aa" },
+      a = { bg = "#2e383c", fg = "#d3c6aa" },
+    },
+    inactive = {
+      c = { bg = "#2e383c", fg = "#859289" },
+      b = { bg = "#2e383c", fg = "#859289" },
+      a = { bg = "#2e383c", fg = "#859289" },
     },
   }
 end
@@ -68,30 +99,31 @@ end
 -- Mode
 local function provider_mode()
   local item = {
-    n = { "" },
-    i = { "󰴓" },
-    v = { "" },
-    [""] = { "" },
-    V = { "󰈈" },
-    c = { "" },
-    no = { "" },
-    s = { "󰒅" },
-    S = { "󱊁" },
-    [""] = { "󰒆" },
-    ic = { "󰏪" },
-    R = { "" },
-    Rv = { "" },
-    cv = { "" },
-    r = { "" },
-    rm = { "" },
-    ["r?"] = { "󰹪" },
-    ["!"] = { "" },
-    t = { "" },
+    n = { "", "#e67e80" },
+    i = { "󰴓", "#a7c080" },
+    v = { "", "#dbbc7f" },
+    [""] = { "", "#" },
+    V = { "󰈈", "#" },
+    c = { "", "#" },
+    no = { "", "#" },
+    s = { "󰒅", "#" },
+    S = { "󱊁", "#" },
+    [""] = { "󰒆", "#" },
+    ic = { "󰏪", "#" },
+    R = { "", "#" },
+    Rv = { "", "#" },
+    cv = { "", "#" },
+    r = { "", "#" },
+    rm = { "", "#" },
+    ["r?"] = { "󰹪", "#" },
+    ["!"] = { "", "#" },
+    t = { "", "#" },
   }
   return {
     function()
       return item[vim.fn.mode()][1]
     end,
+    -- color = function()
   }
 end
 
@@ -99,7 +131,6 @@ local function provider_filetype()
   return {
     "filetype",
     cond = buffer_not_empty,
-    colored = false,
     icon_only = true,
   }
 end
@@ -115,6 +146,7 @@ local function provider_filename()
   return {
     get_filename,
     cond = buffer_not_empty,
+    color = { fg = "#dbbc7f" },
   }
 end
 
@@ -132,6 +164,7 @@ local function provider_cmake_select_configure_preset()
     get_configure_preset,
     icon = { "" },
     cond = cmake_preset_and_buf_not_empty,
+    color = { fg = "#a7c080" },
     on_click = function(n, mouse)
       if n == 1 then
         if mouse == "l" then
@@ -156,6 +189,7 @@ local function provider_cmake_select_build_type()
     get_build_type,
     icon = { "" },
     cond = cmake_not_preset_and_buf_not_empty,
+    color = { fg = "#a7c080" },
     on_click = function(n, mouse)
       if n == 1 then
         if mouse == "l" then
@@ -178,6 +212,7 @@ local function provider_cmake_select_kit()
     cond = function()
       return cmake_not_preset_and_buf_not_empty
     end,
+    color = { fg = "#a7c080" },
     on_click = function(n, mouse)
       if n == 1 then
         if mouse == "l" then
@@ -195,6 +230,7 @@ local function provider_cmake_build()
     end,
     icon = { "" },
     cond = buffer_not_empty,
+    color = { fg = "#dbbc7f" },
     on_click = function(n, mouse)
       if n == 1 then
         if mouse == "l" then
@@ -215,6 +251,7 @@ local function provider_cmake_select_build_preset()
     get_build_preset,
     icon = { "" },
     cond = cmake_preset_and_buf_not_empty,
+    color = { fg = "#dbbc7f" },
     on_click = function(n, mouse)
       if n == 1 then
         if mouse == "l" then
@@ -231,6 +268,7 @@ local function provider_cmake_debug()
       return " "
     end,
     cond = buffer_not_empty,
+    color = { fg = "#e67e80" },
     on_click = function(n, mouse)
       if n == 1 then
         if mouse == "l" then
@@ -247,6 +285,7 @@ local function provider_cmake_run()
       return "󰜎"
     end,
     cond = buffer_not_empty,
+    color = { fg = "#e67e80" },
     on_click = function(n, mouse)
       if n == 1 then
         if mouse == "l" then
@@ -266,6 +305,7 @@ local function provider_cmake_select_launch_target()
   return {
     get_launch_target,
     cond = buffer_not_empty,
+    color = { fg = "#e67e80" },
     on_click = function(n, mouse)
       if n == 1 then
         if mouse == "l" then
@@ -279,10 +319,15 @@ end
 local function provider_diagnostic()
   return {
     "diagnostics",
-    colored = false,
     sources = { "nvim_diagnostic" },
+    diagnostics_color = {
+      -- Same values as the general color option can be used here.
+      error = { fg = "#e67e80" }, -- Changes diagnostics' error color.
+      warn = { fg = "#dbbc7f" }, -- Changes diagnostics' warn color.
+      info = { fg = "#7fbbb3" }, -- Changes diagnostics' info color.
+      hint = { fg = "#a7c080" }, -- Changes diagnostics' hint color.
+    },
     symbols = { error = " ", warn = " ", info = " " },
-
     on_click = function(n, mouse)
       if n == 1 then
         if mouse == "l" then
@@ -293,27 +338,43 @@ local function provider_diagnostic()
   }
 end
 
+local function diff_source()
+  local gitsigns = vim.b.gitsigns_status_dict
+  if gitsigns then
+    return {
+      added = gitsigns.added,
+      modified = gitsigns.changed,
+      removed = gitsigns.removed,
+    }
+  end
+end
+
 local function provider_git_diff()
   return {
     "diff",
-    colored = false,
+    diff_color = {
+      -- Same color values as the general color option can be used here.
+      added = { fg = "#a7c080" }, -- Changes the diff's added color
+      modified = { fg = "#7fbbb3" }, -- Changes the diff's modified color
+      removed = { fg = "#e67e80" }, -- Changes the diff's removed color you
+    },
     -- Is it me or the symbol for modified us really weird
     symbols = { added = " ", modified = "󰝤 ", removed = " " },
-
+    source = diff_source,
     cond = hide_in_width,
   }
 end
 
 local function provider_git_branch()
-  return { "branch", icon = "" }
+  return { "branch", icon = "", color = { fg = "#e67e80" } }
 end
 
 local function provider_cursor_location()
-  return { "location", cond = buffer_not_empty }
+  return { "location", cond = buffer_not_empty, color = { fg = "#d3c6aa" } }
 end
 
 local function provider_cursor_progress()
-  return { "progress", cond = buffer_not_empty }
+  return { "progress", cond = buffer_not_empty, color = { fg = "#d699b6" } }
 end
 
 local function LSP_message()
@@ -341,6 +402,7 @@ local function provider_LSP_client()
   return {
     LSP_message,
     cond = buffer_not_empty,
+    color = { fg = "#e69875" },
   }
 end
 
