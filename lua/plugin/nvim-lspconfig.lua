@@ -1,15 +1,9 @@
+local custom_on_attach = require("lsp_signature").on_attach
+local custom_capabilities = require("cmp_nvim_lsp").default_capabilities
+
 local lspconfig = require("lspconfig")
 
 local LSPConfig = {}
-
-local function custom_on_attach(client, bufnr)
-  require("lsp_signature").on_attach()
-end
-
-local function custom_capabilities()
-  local capabilities = require("cmp_nvim_lsp").default_capabilities()
-  return capabilities
-end
 
 local function custom_server()
   -- C++
@@ -60,9 +54,6 @@ local function custom_server()
       return true
     end,
   })
-
-  -- Rust
-  lspconfig.rust_analyzer.setup({ on_attach = custom_on_attach, capabilities = custom_capabilities() })
 end
 
 local function lsp_mapping()
@@ -193,9 +184,17 @@ local function notify()
   end
 end
 
+local function diagnostic_signs()
+  vim.fn.sign_define("DiagnosticSignError", { text = "E󰁕", texthl = "DiagnosticSignError" })
+  vim.fn.sign_define("DiagnosticSignWarn", { text = "W󰁕", texthl = "DiagnosticSignWarn" })
+  vim.fn.sign_define("DiagnosticSignInfo", { text = "I󰁕", texthl = "DiagnosticSignInfo" })
+  vim.fn.sign_define("DiagnosticSignHint", { text = "H󰁕", texthl = "DiagnosticSignHint" })
+end
+
 function LSPConfig.config()
   custom_server()
   lsp_mapping()
+  diagnostic_signs()
   notify()
 end
 

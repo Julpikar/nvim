@@ -6,39 +6,39 @@ local Lualine = {}
 local function theme()
   return {
     normal = {
-      c = { bg = "#1e2326", fg = "#a7c080", gui = "bold" },
-      b = { bg = "#414b50", fg = "#9da9a0" },
       a = { bg = "#2e383c", fg = "#859289" },
+      b = { bg = "#414b50", fg = "#9da9a0" },
+      c = { bg = "#1e2326", fg = "#a7c080", gui = "bold" },
     },
     insert = {
-      c = { bg = "#1e2326", fg = "#d3c6aa", gui = "bold" },
-      b = { bg = "#414b50", fg = "#d3c6aa" },
       a = { bg = "#2e383c", fg = "#d3c6aa" },
+      b = { bg = "#414b50", fg = "#d3c6aa" },
+      c = { bg = "#1e2326", fg = "#d3c6aa", gui = "bold" },
     },
     visual = {
-      c = { bg = "#1e2326", fg = "#e67e80", gui = "bold" },
-      b = { bg = "#414b50", fg = "#d3c6aa" },
       a = { bg = "#2e383c", fg = "#d3c6aa" },
+      b = { bg = "#414b50", fg = "#d3c6aa" },
+      c = { bg = "#1e2326", fg = "#e67e80", gui = "bold" },
     },
     replace = {
-      c = { bg = "#1e2326", fg = "#e69875", gui = "bold" },
-      b = { bg = "#414b50", fg = "#d3c6aa" },
       a = { bg = "#2e383c", fg = "#d3c6aa" },
+      b = { bg = "#414b50", fg = "#d3c6aa" },
+      c = { bg = "#1e2326", fg = "#e69875", gui = "bold" },
     },
     command = {
-      c = { bg = "#1e2326", fg = "#83c092", gui = "bold" },
-      b = { bg = "#414b50", fg = "#d3c6aa" },
       a = { bg = "#2e383c", fg = "#d3c6aa" },
+      b = { bg = "#414b50", fg = "#d3c6aa" },
+      c = { bg = "#1e2326", fg = "#83c092", gui = "bold" },
     },
     terminal = {
-      c = { bg = "#1e2326", fg = "#d699b6", gui = "bold" },
-      b = { bg = "#414b50", fg = "#d3c6aa" },
       a = { bg = "#2e383c", fg = "#d3c6aa" },
+      b = { bg = "#414b50", fg = "#d3c6aa" },
+      c = { bg = "#1e2326", fg = "#d699b6", gui = "bold" },
     },
     inactive = {
-      c = { bg = "#2e383c", fg = "#859289" },
-      b = { bg = "#2e383c", fg = "#859289" },
       a = { bg = "#2e383c", fg = "#859289" },
+      b = { bg = "#2e383c", fg = "#859289" },
+      c = { bg = "#2e383c", fg = "#859289" },
     },
   }
 end
@@ -49,7 +49,7 @@ local config = {
     component_separators = {},
     section_separators = {},
     disabled_filetypes = {
-      statusline = { "NvimTree" },
+      statusline = { "aerial", "NvimTree" },
       winbar = {},
     },
     ignore_focus = {},

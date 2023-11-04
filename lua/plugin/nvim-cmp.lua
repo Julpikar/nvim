@@ -30,6 +30,12 @@ local kind_icons = {
   TypeParameter = "󰅲",
 }
 
+local source_name = {
+  buffer = "[Buffer]",
+  nvim_lsp = "[LSP]",
+  luasnip = "[LuaSnip]",
+  nvim_lua = "[Lua]",
+}
 function NVIMCmp.config()
   vim.o.completeopt = "menu,menuone,noselect"
 
@@ -45,16 +51,9 @@ function NVIMCmp.config()
       fields = { "kind", "abbr", "menu" },
       format = function(entry, vim_item)
         -- Source
-        vim_item.menu = string.format(
-          "%-13s %9s",
-          vim_item.kind,
-          ({
-            buffer = "[Buffer]",
-            nvim_lsp = "[LSP]",
-            luasnip = "[LuaSnip]",
-            nvim_lua = "[Lua]",
-          })[entry.source.name]
-        )
+        vim_item.menu = source_name[entry.source.name]
+            and string.format("%-13s %9s", vim_item.kind, source_name[entry.source.name])
+          or ""
         -- Kind icons
         vim_item.kind = string.format(" %s ", kind_icons[vim_item.kind])
         return vim_item

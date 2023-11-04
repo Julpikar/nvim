@@ -8,15 +8,16 @@ function Conform.config()
       cpp = { "clang_format" },
       cmake = { "cmake_format" },
       json = { "clang_format" },
-      lua = { "stylua" },
+      -- lua = { "stylua" },
+    },
+    format_on_save = {
+      -- These options will be passed to conform.format()
+      timeout_ms = 500,
+      lsp_fallback = true,
     },
   })
-  vim.api.nvim_create_autocmd("BufWritePre", {
-    pattern = "*",
-    callback = function(args)
-      conform.format({ bufnr = args.buf })
-    end,
-  })
+
+  vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
   vim.keymap.set({ "n", "v" }, "<F9>", conform.format)
 end
 

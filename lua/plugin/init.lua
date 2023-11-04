@@ -53,10 +53,10 @@ function Plugin.setup()
       end,
     },
     {
-      "voldikss/vim-floaterm",
-      event = "VeryLazy",
+      "akinsho/toggleterm.nvim",
+      version = "*",
       config = function()
-        require("plugin.vim-floaterm").config()
+        require("plugin.toggleterm").config()
       end,
     },
 
@@ -356,6 +356,15 @@ function Plugin.setup()
         keymap_set("n", "<LEADER>cg", "<CMD>CMakeGenerate<CR>")
         keymap_set("n", "<LEADER>cb", "<CMD>CMakeBuild<CR>")
         keymap_set("n", "<LEADER>cr", "<CMD>CMakeRun<CR>")
+      end,
+    },
+    -- Rust
+    {
+      "mrcjkb/rustaceanvim",
+      version = "^3", -- Recommended
+      ft = { "rust" },
+      config = function()
+        require("plugin.rustaceanvim").config()
       end,
     },
   }
