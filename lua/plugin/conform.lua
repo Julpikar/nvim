@@ -8,12 +8,7 @@ function Conform.config()
       cpp = { "clang_format" },
       cmake = { "cmake_format" },
       json = { "clang_format" },
-      -- lua = { "stylua" },
-    },
-    format_on_save = {
-      -- These options will be passed to conform.format()
-      timeout_ms = 500,
-      lsp_fallback = true,
+      lua = { "stylua" },
     },
   })
 
