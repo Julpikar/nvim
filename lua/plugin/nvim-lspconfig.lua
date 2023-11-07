@@ -1,11 +1,11 @@
-local custom_on_attach = require("lsp_signature").on_attach
-local custom_capabilities = require("cmp_nvim_lsp").default_capabilities
-
 local lspconfig = require("lspconfig")
 
 local LSPConfig = {}
 
 local function custom_server()
+  local custom_on_attach = require("lsp_signature").on_attach
+  local custom_capabilities = require("cmp_nvim_lsp").default_capabilities
+
   -- C++
   lspconfig.clangd.setup({
     on_attach = custom_on_attach,
