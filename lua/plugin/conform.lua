@@ -10,9 +10,14 @@ function Conform.config()
       json = { "clang_format" },
       lua = { "stylua" },
     },
+    format_on_save = {
+      -- These options will be passed to conform.format()
+      timeout_ms = 500,
+      lsp_fallback = true,
+    },
   })
 
-  vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
+  vim.o.formatexpr = "v:lua.require('conform').formatexpr()"
   vim.keymap.set({ "n", "v" }, "<F9>", conform.format)
 end
 

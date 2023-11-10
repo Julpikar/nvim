@@ -53,6 +53,8 @@ function Local.setup()
     { "n", "wb", "<CMD>previous<CR>" },
     { { "n", "v" }, "<LEADER>n", "<CMD>NumberOnOff<CR>" },
     { { "n", "v" }, "<LEADER>q", "<CMD>quit<CR>" },
+    { { "n", "v" }, "<LEADER>vs", "<CMD>vsplit<CR>" },
+    { { "n", "v" }, "<LEADER>vh", "<CMD>split<CR>" },
   }
 
   local keymap_set = vim.keymap.set

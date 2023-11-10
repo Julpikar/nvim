@@ -6,7 +6,9 @@ local timeout_in_ms = 300
 local AutoSave = {}
 
 local function write()
-  if not api.nvim_get_option_value("modifiable", { buf = 0 }) then
+  if
+    not api.nvim_get_option_value("modified", { buf = 0 }) or not api.nvim_get_option_value("modifiable", { buf = 0 })
+  then
     return
   end
 
@@ -18,8 +20,8 @@ local function write()
   fn.setpos("'[", first_char_pos)
   fn.setpos("']", last_char_pos)
 
-  local time = vim.fn.strftime("%H:%M:%S")
-  print("autosave at " .. time)
+  local time = fn.strftime("%H:%M:%S")
+  vim.notify("File has saved at " .. time, vim.log.levels.INFO, { title = "Auto Save", icon = "󱣫" })
 end
 
 local queued = false
@@ -35,7 +37,9 @@ local function defer_func(func, timeout)
 end
 
 local function save()
-  if not api.nvim_get_option_value("modifiable", { buf = 0 }) then
+  if
+    not api.nvim_get_option_value("modified", { buf = 0 }) or not api.nvim_get_option_value("modifiable", { buf = 0 })
+  then
     return
   end
   defer_func(write, timeout_in_ms)

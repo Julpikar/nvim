@@ -76,8 +76,9 @@ function Plugin.setup()
           detection_methods = { "pattern", "lsp" },
           patterns = { ".git", "_darcs", ".hg", ".bzr", ".svn", "Makefile", "package.json", "CMakeLists.txt" },
         })
-        require("telescope").load_extension("projects")
-        keymap_set("n", "<LEADER>p", require("telescope").extensions.projects.projects)
+        local telescope = require("telescope")
+        telescope.load_extension("projects")
+        keymap_set("n", "<LEADER>p", telescope.extensions.projects.projects)
       end,
     },
 
@@ -97,6 +98,23 @@ function Plugin.setup()
       event = "VeryLazy",
       config = function()
         require("gitsigns").setup()
+      end,
+    },
+    {
+      "NeogitOrg/neogit",
+      dependencies = {
+        "sindrets/diffview.nvim",
+      },
+      config = function()
+        require("neogit").setup({
+          signs = {
+            -- { CLOSED, OPENED }
+            hunk = { "", "" },
+            item = { "󰧂", "󰦿" },
+            section = { "󰧂", "󰦿" },
+          },
+        })
+        keymap_set("n", "<LEADER>gn", "<CMD>Neogit<CR>")
       end,
     },
 
@@ -240,21 +258,23 @@ function Plugin.setup()
       "folke/trouble.nvim",
       event = "VeryLazy",
       config = function()
-        keymap_set("n", "<LEADER>xx", require("trouble").open)
+        local trouble = require("trouble")
+        keymap_set("n", "<LEADER>xo", trouble.open)
+        keymap_set("n", "<LEADER>xx", trouble.close)
         keymap_set("n", "<LEADER>xw", function()
-          require("trouble").open("workspace_diagnostics")
+          trouble.open("workspace_diagnostics")
         end)
         keymap_set("n", "<LEADER>xd", function()
-          require("trouble").open("document_diagnostics")
+          trouble.open("document_diagnostics")
         end)
         keymap_set("n", "<LEADER>xq", function()
-          require("trouble").open("quickfix")
+          trouble.open("quickfix")
         end)
         keymap_set("n", "<LEADER>xl", function()
-          require("trouble").open("loclist")
+          trouble.open("loclist")
         end)
         keymap_set("n", "gR", function()
-          require("trouble").open("lsp_references")
+          trouble.open("lsp_references")
         end)
       end,
     },
@@ -266,12 +286,13 @@ function Plugin.setup()
       "rmagatti/goto-preview",
       event = "VeryLazy",
       config = function()
-        require("goto-preview").setup()
-        keymap_set({ "v", "n" }, "gd", require("goto-preview").goto_preview_definition)
-        keymap_set({ "v", "n" }, "gt", require("goto-preview").goto_preview_type_definition)
-        keymap_set({ "v", "n" }, "gi", require("goto-preview").goto_preview_implementation)
-        keymap_set({ "v", "n" }, "gx", require("goto-preview").close_all_win)
-        keymap_set({ "v", "n" }, "gr", require("goto-preview").goto_preview_references)
+        local goto_preview = require("goto-preview")
+        goto_preview.setup()
+        keymap_set({ "v", "n" }, "gd", goto_preview.goto_preview_definition)
+        keymap_set({ "v", "n" }, "gt", goto_preview.goto_preview_type_definition)
+        keymap_set({ "v", "n" }, "gi", goto_preview.goto_preview_implementation)
+        keymap_set({ "v", "n" }, "gx", goto_preview.close_all_win)
+        keymap_set({ "v", "n" }, "gr", goto_preview.goto_preview_references)
       end,
     },
     {
@@ -341,6 +362,40 @@ function Plugin.setup()
       event = "VeryLazy",
       config = function()
         require("ibl").setup()
+      end,
+    },
+
+    -- Debugger
+    {
+      "mfussenegger/nvim-dap",
+      lazy = true,
+      config = function()
+        require("plugin.nvim-dap").config()
+      end,
+    },
+    {
+      "rcarriga/nvim-dap-ui",
+      event = "VeryLazy",
+      config = function()
+        local dap = require("dap")
+        local dapui = require("dapui")
+        dapui.setup()
+        dap.listeners.after.event_initialized["dapui_config"] = function()
+          dapui.open()
+        end
+        dap.listeners.before.event_terminated["dapui_config"] = function()
+          dapui.close()
+        end
+        dap.listeners.before.event_exited["dapui_config"] = function()
+          dapui.close()
+        end
+      end,
+    },
+    {
+      "theHamsta/nvim-dap-virtual-text",
+      event = "VeryLazy",
+      config = function()
+        require("nvim-dap-virtual-text").setup({ commented = true })
       end,
     },
 
