@@ -59,6 +59,14 @@ function Plugin.setup()
         require("plugin.toggleterm").config()
       end,
     },
+    {
+      "j-hui/fidget.nvim",
+      config = function()
+        local fidget = require("fidget")
+        fidget.setup()
+        vim.notify = fidget.notify
+      end,
+    },
 
     -- Session
     {
@@ -300,12 +308,6 @@ function Plugin.setup()
       event = "BufReadPre", -- need run before LspAttach if you use nvim 0.9. On 0.10 use 'LspAttach'
       config = function()
         require("plugin.symbol-usage").config()
-      end,
-    },
-    {
-      "rcarriga/nvim-notify",
-      config = function()
-        vim.notify = require("notify")
       end,
     },
 
