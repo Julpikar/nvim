@@ -53,6 +53,7 @@ local function custom_server()
       end
       return true
     end,
+    autostart = false,
   })
 end
 
