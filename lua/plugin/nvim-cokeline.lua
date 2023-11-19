@@ -96,7 +96,7 @@ local function bufferline_setup()
       {
         text = function(buffer)
           if buffer.is_focused then
-            return " "
+            return "󰍐 "
           end
           return ""
         end,

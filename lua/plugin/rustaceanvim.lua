@@ -11,9 +11,8 @@ function Rustaceanvim.config()
     server = {
       on_attach = custom_on_attach,
       capabilities = custom_capabilities(),
-      autostart = false,
     },
-    -- DAP configuration
+    - DAP configuration
     dap = {},
   }
 end

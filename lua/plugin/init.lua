@@ -232,6 +232,7 @@ function Plugin.setup()
         })
         -- You probably also want to set a keymap to toggle aerial
         keymap_set("n", "<LEADER>as", "<CMD>AerialToggle!<CR>")
+        keymap_set("n", "<LEADER>ax", "<CMD>AerialClose<CR>")
         keymap_set("n", "<LEADER>af", function()
           require("telescope").extensions.aerial.aerial()
         end)

@@ -36,7 +36,7 @@ local function load_and_save_session()
           )
           return
         end
-        vim.ui.input({ prompt = "Load last session?(y/N) " }, function(input)
+        vim.ui.input({ prompt = "Load last session?(y/n) " }, function(input)
           if input == "y" then
             resession.load("last")
             vim.notify("Last session has loaded", vim.log.levels.INFO, { title = "resession.nvim", icon = "" })
