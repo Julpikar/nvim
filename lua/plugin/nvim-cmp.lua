@@ -42,8 +42,11 @@ local source_name = {
   luasnip = "[LuaSnip]",
   nvim_lua = "[Lua]",
 }
+
 function NVIMCmp.config()
+  require("luasnip.loaders.from_vscode").lazy_load()
   vim.opt.completeopt = { "menu", "menuone", "noinsert" }
+  vim.o.pumheight = 20
 
   cmp.setup({
     window = {
@@ -66,6 +69,7 @@ function NVIMCmp.config()
         return vim_item
       end,
     },
+
     snippet = {
       -- REQUIRED - you must specify a snippet engine
       expand = function(args)
@@ -140,9 +144,6 @@ function NVIMCmp.config()
       { name = "cmdline" },
     }),
   })
-
-  -- Limit
-  vim.o.pumheight = 20
 end
 
 return NVIMCmp

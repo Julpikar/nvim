@@ -10,21 +10,21 @@ local function symbol_highlight()
     "SymbolUsageContent",
     { bg = nvim_get_hl(0, { name = "CursorLine" }).bg, fg = nvim_get_hl(0, { name = "Comment" }).fg, italic = true }
   )
-  nvim_set_hl(
-    0,
-    "SymbolUsageRef",
-    { fg = nvim_get_hl(0, { name = "Function" }).fg, bg = nvim_get_hl(0, { name = "CursorLine" }).bg, italic = true }
-  )
+  nvim_set_hl(0, "SymbolUsageRef", {
+    fg = nvim_get_hl(0, { name = "Function" }).fg,
+    bg = nvim_get_hl(0, { name = "CursorLine" }).bg,
+    italic = true,
+  })
   nvim_set_hl(
     0,
     "SymbolUsageDef",
     { fg = nvim_get_hl(0, { name = "Type" }).fg, bg = nvim_get_hl(0, { name = "CursorLine" }).bg, italic = true }
   )
-  nvim_set_hl(
-    0,
-    "SymbolUsageImpl",
-    { fg = nvim_get_hl(0, { name = "@keyword" }).fg, bg = nvim_get_hl(0, { name = "CursorLine" }).bg, italic = true }
-  )
+  nvim_set_hl(0, "SymbolUsageImpl", {
+    fg = nvim_get_hl(0, { name = "@keyword" }).fg,
+    bg = nvim_get_hl(0, { name = "CursorLine" }).bg,
+    italic = true,
+  })
 end
 
 local function text_format(symbol)

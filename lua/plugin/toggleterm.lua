@@ -30,14 +30,14 @@ local function term_cmd_root()
     cmd.direction = "vertical"
     cmd:toggle()
   end
-  vim.keymap.set("n", "<LEADER>sv", toggle_cmd_sv)
+  vim.keymap.set("n", "<LEADER>tv", toggle_cmd_sv)
 
   local toggle_cmd_sh = function()
     cmd.dir = vim.fn.getcwd()
     cmd.direction = "horizontal"
     cmd:toggle()
   end
-  vim.keymap.set("n", "<LEADER>sh", toggle_cmd_sh)
+  vim.keymap.set("n", "<LEADER>th", toggle_cmd_sh)
 end
 
 local function term_cmd_buffer()

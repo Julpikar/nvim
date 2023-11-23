@@ -13,7 +13,11 @@ function Conform.config()
   })
 
   vim.o.formatexpr = "v:lua.require('conform').formatexpr()"
-  vim.keymap.set({ "n", "v" }, "<F9>", conform.format)
+  vim.keymap.set({ "n", "v" }, "<F9>", function()
+    conform.format({ lsp_fallback = true }, function()
+      vim.notify(vim.fn.expand("%") .. " has formatted", vim.log.levels.INFO, { title = "conform.nvim", icon = "󰾽" })
+    end)
+  end)
 end
 
 return Conform

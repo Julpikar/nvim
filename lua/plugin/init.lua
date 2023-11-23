@@ -264,30 +264,6 @@ function Plugin.setup()
       end,
     },
     {
-      "folke/trouble.nvim",
-      event = "VeryLazy",
-      config = function()
-        local trouble = require("trouble")
-        keymap_set("n", "<LEADER>xo", trouble.open)
-        keymap_set("n", "<LEADER>xx", trouble.close)
-        keymap_set("n", "<LEADER>xw", function()
-          trouble.open("workspace_diagnostics")
-        end)
-        keymap_set("n", "<LEADER>xd", function()
-          trouble.open("document_diagnostics")
-        end)
-        keymap_set("n", "<LEADER>xq", function()
-          trouble.open("quickfix")
-        end)
-        keymap_set("n", "<LEADER>xl", function()
-          trouble.open("loclist")
-        end)
-        keymap_set("n", "gR", function()
-          trouble.open("lsp_references")
-        end)
-      end,
-    },
-    {
       "ray-x/lsp_signature.nvim",
       event = "VeryLazy",
     },
@@ -309,6 +285,32 @@ function Plugin.setup()
       event = "BufReadPre", -- need run before LspAttach if you use nvim 0.9. On 0.10 use 'LspAttach'
       config = function()
         require("plugin.symbol-usage").config()
+      end,
+    },
+
+    -- Diagnostic
+    {
+      "folke/trouble.nvim",
+      event = "VeryLazy",
+      config = function()
+        local trouble = require("trouble")
+        keymap_set("n", "<LEADER>xs", trouble.open)
+        keymap_set("n", "<LEADER>xx", trouble.close)
+        keymap_set("n", "<LEADER>xw", function()
+          trouble.open("workspace_diagnostics")
+        end)
+        keymap_set("n", "<LEADER>xd", function()
+          trouble.open("document_diagnostics")
+        end)
+        keymap_set("n", "<LEADER>xq", function()
+          trouble.open("quickfix")
+        end)
+        keymap_set("n", "<LEADER>xl", function()
+          trouble.open("loclist")
+        end)
+        keymap_set("n", "gR", function()
+          trouble.open("lsp_references")
+        end)
       end,
     },
 
