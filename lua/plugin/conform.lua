@@ -6,9 +6,10 @@ function Conform.config()
     formatters_by_ft = {
       c = { "clang_format" },
       cpp = { "clang_format" },
-      cmake = { "cmake_format" },
+      javascript = { "prettierd" },
       json = { "clang_format" },
       lua = { "stylua" },
+      typescript = { "prettierd" },
     },
   })
 

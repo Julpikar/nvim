@@ -18,7 +18,6 @@ function Plugin.setup()
       "nvim-treesitter/nvim-treesitter",
       config = function()
         require("nvim-treesitter.configs").setup({
-
           highlight = {
             enable = true,
 
@@ -28,12 +27,8 @@ function Plugin.setup()
             -- list of language that will be disabled
             -- disable = { "c", "rust" },
             -- Or use a function for more flexibility, e.g. to disable slow treesitter highlight for large files
-            disable = function(lang, buf)
-              local max_filesize = 100 * 1024 -- 100 KB
-              local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-              if ok and stats and stats.size > max_filesize then
-                return true
-              end
+            disable = function(lang, bufnr)
+              return vim.api.nvim_buf_line_count(bufnr) > 50000
             end,
 
             -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
@@ -130,9 +125,7 @@ function Plugin.setup()
     {
       "lewis6991/satellite.nvim",
       config = function()
-        require("satellite").setup({
-          excluded_filetypes = { "cmake_tools_terminal" },
-        })
+        require("satellite").setup()
       end,
     },
     {
@@ -405,19 +398,6 @@ function Plugin.setup()
     },
 
     -- Programming Language Support
-    -- CMake
-    {
-      "Civitasv/cmake-tools.nvim",
-      event = "VeryLazy",
-      config = function()
-        require("cmake-tools").setup({
-          cmake_build_directory = "out\\${variant:buildType}",
-        })
-        keymap_set("n", "<LEADER>cg", "<CMD>CMakeGenerate<CR>")
-        keymap_set("n", "<LEADER>cb", "<CMD>CMakeBuild<CR>")
-        keymap_set("n", "<LEADER>cr", "<CMD>CMakeRun<CR>")
-      end,
-    },
     -- Rust
     {
       "mrcjkb/rustaceanvim",
@@ -426,6 +406,18 @@ function Plugin.setup()
       config = function()
         require("plugin.rustaceanvim").config()
       end,
+    },
+
+    -- Golang
+    {
+      "ray-x/go.nvim",
+      dependencies = { -- optional packages
+        "ray-x/guihua.lua",
+      },
+      config = function()
+        require("plugin.gonvim").config()
+      end,
+      ft = { "go", "gomod" },
     },
   }
 
