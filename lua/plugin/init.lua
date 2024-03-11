@@ -397,6 +397,16 @@ function Plugin.setup()
       end,
     },
 
+    -- Linter
+    {
+      "mfussenegger/nvim-lint",
+      event = "VeryLazy",
+      dependencies = "rshkarin/mason-nvim-lint",
+      config = function()
+        require("plugin.nvim-lint").config()
+      end,
+    },
+
     -- Programming Language Support
     -- Rust
     {
