@@ -47,6 +47,11 @@ local function custom_server()
     autostart = false,
   })
 
+  lspconfig.pyright.setup({
+    on_attach = custom_on_attach,
+    capabilities = custom_capabilities(),
+  })
+
   lspconfig.tsserver.setup({
     on_attach = custom_on_attach,
     capabilities = custom_capabilities(),
