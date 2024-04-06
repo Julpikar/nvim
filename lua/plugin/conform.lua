@@ -10,6 +10,7 @@ function Conform.config()
       json = { "clang_format" },
       lua = { "stylua" },
       typescript = { "prettierd" },
+      python = { "ruff_format" },
     },
   })
 

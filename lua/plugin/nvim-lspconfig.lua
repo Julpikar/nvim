@@ -83,7 +83,6 @@ local function lsp_mapping()
       -- See `:help vim.lsp.*` for documentation on any of the below functions
       local opts = { buffer = ev.buf }
       keymap_set("n", "gD", vim.lsp.buf.declaration, opts)
-      keymap_set("n", "K", vim.lsp.buf.hover, opts)
       keymap_set("n", "<C-k>", vim.lsp.buf.signature_help, opts)
       keymap_set("n", "<space>wa", vim.lsp.buf.add_workspace_folder, opts)
       keymap_set("n", "<space>wr", vim.lsp.buf.remove_workspace_folder, opts)
@@ -106,10 +105,15 @@ local function diagnostic_signs()
   vim.fn.sign_define("DiagnosticSignHint", { text = "H󰁕", texthl = "DiagnosticSignHint" })
 end
 
+local function lsp_handler()
+  vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
+end
+
 function LSPConfig.config()
   custom_server()
   lsp_mapping()
   diagnostic_signs()
+  lsp_handler()
 end
 
 return LSPConfig
