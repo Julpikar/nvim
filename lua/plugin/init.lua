@@ -12,6 +12,7 @@ function Plugin.setup()
       event = "VeryLazy",
       config = function()
         keymap_set("n", "<LEADER>o", "<CMD>Telescope oldfiles<CR>")
+        keymap_set("n", "<LEADER>t", "<CMD>Telescope<CR>")
       end,
     },
     {
@@ -328,7 +329,7 @@ function Plugin.setup()
       event = "VeryLazy",
       config = function()
         require("strict").setup({
-          excluded_filetypes = { "text", "markdown", "html" },
+          excluded_filetypes = { "html", "make", "markdown", "text" },
           deep_nesting = {
             depth_limit = 5,
             ignored_trailing_characters = ",",

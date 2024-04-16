@@ -6,9 +6,7 @@ local Number = {
   enable_number = true,
   numbers_exclude = {
     "aerial",
-    "alpha",
     "DiffviewFiles",
-    "floaterm",
     "lazy",
     "mason",
     "NeogitStatus",

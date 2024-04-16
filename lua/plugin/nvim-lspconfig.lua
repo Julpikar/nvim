@@ -106,7 +106,7 @@ local function diagnostic_signs()
 end
 
 local function lsp_handler()
-  vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
+  vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded", width = 120 })
 end
 
 function LSPConfig.config()
