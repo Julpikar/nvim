@@ -3,11 +3,25 @@ local lspconfig = require("lspconfig")
 local LSPConfig = {}
 
 local function custom_server()
-  local custom_on_attach = require("lsp_signature").on_attach
   local custom_capabilities = require("cmp_nvim_lsp").default_capabilities
+  local custom_on_attach = function(client, bufnr)
+    local config = {
+      bind = true, -- This is mandatory, otherwise border config won't get registered.
+      handler_opts = {
+        border = "rounded",
+      },
+    }
+    require("lsp_signature").on_attach(config, bufnr)
+  end
 
   -- C++
   lspconfig.clangd.setup({
+    on_attach = custom_on_attach,
+    capabilities = custom_capabilities(),
+  })
+
+  -- CMake
+  lspconfig.cmake.setup({
     on_attach = custom_on_attach,
     capabilities = custom_capabilities(),
   })
@@ -50,6 +64,24 @@ local function custom_server()
   lspconfig.pyright.setup({
     on_attach = custom_on_attach,
     capabilities = custom_capabilities(),
+  })
+
+  lspconfig.sqls.setup({
+    on_attach = function(client, bufnr)
+      custom_on_attach()
+      require("sqls").on_attach(client, bufnr)
+    end,
+    capabilities = custom_capabilities(),
+    settings = {
+      sqls = {
+        connections = {
+          {
+            driver = "sqlite3",
+            dataSourceName = "db.sqlite3",
+          },
+        },
+      },
+    },
   })
 
   lspconfig.tsserver.setup({
@@ -99,10 +131,16 @@ local function lsp_mapping()
 end
 
 local function diagnostic_signs()
-  vim.fn.sign_define("DiagnosticSignError", { text = "E󰁕", texthl = "DiagnosticSignError" })
-  vim.fn.sign_define("DiagnosticSignWarn", { text = "W󰁕", texthl = "DiagnosticSignWarn" })
-  vim.fn.sign_define("DiagnosticSignInfo", { text = "I󰁕", texthl = "DiagnosticSignInfo" })
-  vim.fn.sign_define("DiagnosticSignHint", { text = "H󰁕", texthl = "DiagnosticSignHint" })
+  vim.diagnostic.config({
+    signs = {
+      text = {
+        [vim.diagnostic.severity.ERROR] = "E󰁕",
+        [vim.diagnostic.severity.ERROR] = "W󰁕",
+        [vim.diagnostic.severity.ERROR] = "I󰁕",
+        [vim.diagnostic.severity.ERROR] = "H󰁕",
+      },
+    },
+  })
 end
 
 local function lsp_handler()

@@ -393,15 +393,8 @@ function Plugin.setup()
     },
 
     -- Programming Language Support
-    -- Rust
-    {
-      "mrcjkb/rustaceanvim",
-      version = "^3", -- Recommended
-      ft = { "rust" },
-      config = function()
-        require("plugin.rustaceanvim").config()
-      end,
-    },
+    -- CMake
+    { "Civitasv/cmake-tools.nvim",  },
 
     -- Golang
     {
@@ -414,6 +407,19 @@ function Plugin.setup()
       end,
       ft = { "go", "gomod" },
     },
+
+    -- Rust
+    {
+      "mrcjkb/rustaceanvim",
+      version = "^3", -- Recommended
+      ft = { "rust" },
+      config = function()
+        require("plugin.rustaceanvim").config()
+      end,
+    },
+
+    -- SQL
+    { "nanotee/sqls.nvim", ft = { "sql" } },
   }
 
   local opts = {
