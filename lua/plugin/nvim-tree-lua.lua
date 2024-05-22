@@ -36,16 +36,35 @@ local function on_attach(bufnr)
 end
 
 function NVIMTree.config()
+  local width = 80
+  local height = 30
+
+  local col = (vim.opt.columns:get() - width) / 2
+  local line = (vim.opt.lines:get() - height) / 2
+
   require("nvim-tree").setup({
     on_attach = on_attach,
     sync_root_with_cwd = true,
     respect_buf_cwd = true,
-
-    filters = { git_ignored = true },
+    view = {
+      float = {
+        enable = true,
+        quit_on_focus_loss = true,
+        open_win_config = {
+          relative = "editor",
+          border = "rounded",
+          width = width,
+          height = height,
+          row = line,
+          col = col,
+        },
+      },
+    },
     update_focused_file = {
       enable = true,
       update_root = true,
     },
+    filters = { git_ignored = true },
   })
 
   -- add your mappings

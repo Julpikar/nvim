@@ -5,7 +5,6 @@ local focus = true
 local Number = {
   enable_number = true,
   numbers_exclude = {
-    "aerial",
     "DiffviewFiles",
     "lazy",
     "mason",

@@ -48,7 +48,7 @@ local config = {
     component_separators = {},
     section_separators = {},
     disabled_filetypes = {
-      statusline = { "aerial", "NvimTree" },
+      statusline = { "NvimTree" },
       winbar = {},
     },
     ignore_focus = {},

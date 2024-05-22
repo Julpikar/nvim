@@ -25,17 +25,10 @@ local function bufferline_setup()
       end,
     },
     sidebar = {
-      filetype = { "aerial", "NvimTree" },
+      filetype = { "NvimTree" },
       components = {
         {
-          text = function(buf)
-            local filetype = buf.filetype
-            if filetype == "aerial" then
-              return "   Symbol Outline"
-            elseif filetype == "NvimTree" then
-              return " 󰙅  File Explorer "
-            end
-          end,
+          text = " 󰙅  File Explorer ",
           style = "bold",
         },
       },

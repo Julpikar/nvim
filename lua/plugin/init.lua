@@ -195,43 +195,6 @@ function Plugin.setup()
         require("plugin.lualine").config()
       end,
     },
-    {
-      "stevearc/aerial.nvim",
-      event = "VeryLazy",
-      config = function()
-        require("aerial").setup({
-          backends = { "treesitter" },
-          layout = {
-            min_width = 30,
-          },
-          -- optionally use on_attach to set keymaps when aerial has attached to a buffer
-          on_attach = function(bufnr)
-            -- Jump forwards/backwards with '{' and '}'
-            keymap_set("n", "{", "<CMD>AerialPrev<CR>")
-            keymap_set("n", "}", "<CMD>AerialNext<CR>")
-          end,
-          show_guides = true,
-
-          -- Customize the characters used when show_guides = true
-          guides = {
-            -- When the child item has a sibling below it
-            mid_item = "├─",
-            -- When the child item is the last in the list
-            last_item = "└─",
-            -- When there are nested child guides to the right
-            nested_top = "│ ",
-            -- Raw indentation
-            whitespace = "  ",
-          },
-        })
-        -- You probably also want to set a keymap to toggle aerial
-        keymap_set("n", "<LEADER>as", "<CMD>AerialToggle!<CR>")
-        keymap_set("n", "<LEADER>ax", "<CMD>AerialClose<CR>")
-        keymap_set("n", "<LEADER>af", function()
-          require("telescope").extensions.aerial.aerial()
-        end)
-      end,
-    },
 
     -- LSP Integration
     {
@@ -289,6 +252,7 @@ function Plugin.setup()
       event = "VeryLazy",
       config = function()
         local trouble = require("trouble")
+        trouble.setup()
         keymap_set("n", "<LEADER>xs", trouble.open)
         keymap_set("n", "<LEADER>xx", trouble.close)
         keymap_set("n", "<LEADER>xw", function()
@@ -394,7 +358,7 @@ function Plugin.setup()
 
     -- Programming Language Support
     -- CMake
-    { "Civitasv/cmake-tools.nvim",  },
+    { "Civitasv/cmake-tools.nvim" },
 
     -- Golang
     {
