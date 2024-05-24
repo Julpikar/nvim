@@ -2,6 +2,8 @@ local autosave = require("local.autosave")
 local colorscheme = require("local.colorscheme")
 local lastplace = require("local.lastplace")
 local number = require("local.number")
+local root = require("local.root")
+
 local o = vim.o
 
 local Local = {}
@@ -42,6 +44,9 @@ function Local.setup()
 
   -- Line number setting
   number.setup()
+
+  -- Find root file
+  root.setup()
 
   -- Key Mapping
   local keys = {

@@ -72,20 +72,6 @@ function Plugin.setup()
       end,
     },
 
-    -- Project
-    {
-      "ahmedkhalf/project.nvim",
-      config = function()
-        require("project_nvim").setup({
-          detection_methods = { "pattern", "lsp" },
-          patterns = { ".git", "_darcs", ".hg", ".bzr", ".svn", "Makefile", "package.json", "CMakeLists.txt" },
-        })
-        local telescope = require("telescope")
-        telescope.load_extension("projects")
-        keymap_set("n", "<LEADER>p", telescope.extensions.projects.projects)
-      end,
-    },
-
     -- File Manager
     {
       "nvim-tree/nvim-tree.lua",
