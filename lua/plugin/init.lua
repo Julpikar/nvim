@@ -361,7 +361,7 @@ function Plugin.setup()
     -- Rust
     {
       "mrcjkb/rustaceanvim",
-      version = "^3", -- Recommended
+      version = "^4", -- Recommended
       ft = { "rust" },
       config = function()
         require("plugin.rustaceanvim").config()
