@@ -35,13 +35,26 @@ local function on_attach(bufnr)
   vim.keymap.set("n", "0", "<CMD>lua require('plugin.nvim-tree-lua').reset_size()CR>", opts("Reset Window"))
 end
 
+local function float_win_config()
+  local col = vim.opt.columns:get()
+  local line = vim.opt.lines:get()
+
+  local width = (col * 0.8) > 80 and 80 or 40
+  local height = (col * 0.8) > 30 and 30 or 20
+
+  local ccol = (col - width) / 2
+  local cline = (line - height) / 2
+
+  return {
+    relative = "editor",
+    border = "rounded",
+    width = width,
+    height = height,
+    row = cline,
+    col = ccol,
+  }
+end
 function NVIMTree.config()
-  local width = 80
-  local height = 30
-
-  local col = (vim.opt.columns:get() - width) / 2
-  local line = (vim.opt.lines:get() - height) / 2
-
   require("nvim-tree").setup({
     on_attach = on_attach,
     sync_root_with_cwd = true,
@@ -50,14 +63,9 @@ function NVIMTree.config()
       float = {
         enable = true,
         quit_on_focus_loss = true,
-        open_win_config = {
-          relative = "editor",
-          border = "rounded",
-          width = width,
-          height = height,
-          row = line,
-          col = col,
-        },
+        open_win_config = function()
+          return float_win_config()
+        end,
       },
     },
     update_focused_file = {
