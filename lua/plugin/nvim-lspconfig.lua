@@ -92,6 +92,7 @@ end
 
 local function lsp_mapping()
   local keymap_set = vim.keymap.set
+
   keymap_set("n", "<LEADER>ls", "<CMD>LspStart<CR>")
   keymap_set("n", "<LEADER>lx", "<CMD>LspStop<CR>")
   keymap_set("n", "<LEADER>lr", "<CMD>LspRestart<CR>")
@@ -101,6 +102,30 @@ local function lsp_mapping()
   keymap_set("n", "<space>e", vim.diagnostic.open_float)
   keymap_set("n", "[d", vim.diagnostic.goto_prev)
   keymap_set("n", "]d", vim.diagnostic.goto_next)
+  keymap_set("n", "[e", function()
+    vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR })
+  end)
+  keymap_set("n", "]e", function()
+    vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR })
+  end)
+  keymap_set("n", "[w", function()
+    vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.WARN })
+  end)
+  keymap_set("n", "]w", function()
+    vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.WARN })
+  end)
+  keymap_set("n", "[i", function()
+    vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.INFO })
+  end)
+  keymap_set("n", "]i", function()
+    vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.INFO })
+  end)
+  keymap_set("n", "[h", function()
+    vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.HINT })
+  end)
+  keymap_set("n", "]h", function()
+    vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.HINT })
+  end)
   keymap_set("n", "<space>q", vim.diagnostic.setloclist)
 
   -- Use LspAttach autocommand to only map the following keys
@@ -135,9 +160,9 @@ local function diagnostic_signs()
     signs = {
       text = {
         [vim.diagnostic.severity.ERROR] = "E󰁕",
-        [vim.diagnostic.severity.ERROR] = "W󰁕",
-        [vim.diagnostic.severity.ERROR] = "I󰁕",
-        [vim.diagnostic.severity.ERROR] = "H󰁕",
+        [vim.diagnostic.severity.WARN] = "W󰁕",
+        [vim.diagnostic.severity.INFO] = "I󰁕",
+        [vim.diagnostic.severity.HINT] = "H󰁕",
       },
     },
   })
