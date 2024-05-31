@@ -24,15 +24,6 @@ local function bufferline_setup()
         return buffer.is_focused and bg or inactive_bg
       end,
     },
-    sidebar = {
-      filetype = { "NvimTree" },
-      components = {
-        {
-          text = " 󰙅  File Explorer ",
-          style = "bold",
-        },
-      },
-    },
     components = {
       {
         text = function(buffer)
