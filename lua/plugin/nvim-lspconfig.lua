@@ -3,7 +3,7 @@ local lspconfig = require("lspconfig")
 local LSPConfig = {}
 
 local function custom_server()
-  local custom_capabilities = require("cmp_nvim_lsp").default_capabilities
+  local custom_capabilities = require("cmp_nvim_lsp").default_capabilities()
   local custom_on_attach = function(client, bufnr)
     local config = {
       bind = true, -- This is mandatory, otherwise border config won't get registered.
@@ -17,19 +17,19 @@ local function custom_server()
   -- C++
   lspconfig.clangd.setup({
     on_attach = custom_on_attach,
-    capabilities = custom_capabilities(),
+    capabilities = custom_capabilities,
   })
 
   -- CMake
   lspconfig.cmake.setup({
     on_attach = custom_on_attach,
-    capabilities = custom_capabilities(),
+    capabilities = custom_capabilities,
   })
 
   -- Lua
   lspconfig.lua_ls.setup({
     on_attach = custom_on_attach,
-    capabilities = custom_capabilities(),
+    capabilities = custom_capabilities,
     on_init = function(client)
       local path = client.workspace_folders[1].name
       if not vim.uv.fs_stat(path .. "/.luarc.json") and not vim.uv.fs_stat(path .. "/.luarc.jsonc") then
@@ -63,7 +63,7 @@ local function custom_server()
 
   lspconfig.pyright.setup({
     on_attach = custom_on_attach,
-    capabilities = custom_capabilities(),
+    capabilities = custom_capabilities,
   })
 
   lspconfig.sqls.setup({
@@ -71,7 +71,7 @@ local function custom_server()
       custom_on_attach()
       require("sqls").on_attach(client, bufnr)
     end,
-    capabilities = custom_capabilities(),
+    capabilities = custom_capabilities,
     settings = {
       sqls = {
         connections = {
@@ -86,7 +86,7 @@ local function custom_server()
 
   lspconfig.tsserver.setup({
     on_attach = custom_on_attach,
-    capabilities = custom_capabilities(),
+    capabilities = custom_capabilities,
   })
 end
 
@@ -100,31 +100,35 @@ local function lsp_mapping()
   -- Global mappings.
   -- See `:help vim.diagnostic.*` for documentation on any of the below functions
   keymap_set("n", "<space>e", vim.diagnostic.open_float)
-  keymap_set("n", "[d", vim.diagnostic.goto_prev)
-  keymap_set("n", "]d", vim.diagnostic.goto_next)
+  keymap_set("n", "[d", function()
+    vim.diagnostic.goto_prev({ float = { border = "rounded" } })
+  end)
+  keymap_set("n", "]d", function()
+    vim.diagnostic.goto_next({ float = { border = "rounded" } })
+  end)
   keymap_set("n", "[e", function()
-    vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR })
+    vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR, float = { border = "rounded" } })
   end)
   keymap_set("n", "]e", function()
-    vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR })
+    vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR, float = { border = "rounded" } })
   end)
   keymap_set("n", "[w", function()
-    vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.WARN })
+    vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.WARN, float = { border = "rounded" } })
   end)
   keymap_set("n", "]w", function()
-    vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.WARN })
+    vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.WARN, float = { border = "rounded" } })
   end)
   keymap_set("n", "[i", function()
-    vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.INFO })
+    vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.INFO, float = { border = "rounded" } })
   end)
   keymap_set("n", "]i", function()
-    vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.INFO })
+    vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.INFO, float = { border = "rounded" } })
   end)
   keymap_set("n", "[h", function()
-    vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.HINT })
+    vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.HINT, float = { border = "rounded" } })
   end)
   keymap_set("n", "]h", function()
-    vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.HINT })
+    vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.HINT, float = { border = "rounded" } })
   end)
   keymap_set("n", "<space>q", vim.diagnostic.setloclist)
 

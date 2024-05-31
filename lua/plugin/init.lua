@@ -60,7 +60,8 @@ function Plugin.setup()
       config = function()
         local fidget = require("fidget")
         fidget.setup()
-        vim.notify = fidget.notify
+        vim.notify = fidget.notification.notify
+        keymap_set("n", "<LEADER>h", "<CMD>Fidget history<CR>")
       end,
     },
 

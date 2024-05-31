@@ -41,6 +41,7 @@ local function theme()
     },
   }
 end
+
 local config = {
   options = {
     icons_enabled = true,

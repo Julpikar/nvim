@@ -1,4 +1,4 @@
-local custom_capabilities = require("cmp_nvim_lsp").default_capabilities
+local custom_capabilities = require("cmp_nvim_lsp").default_capabilities()
 local custom_on_attach = function(client, bufnr)
   local config = {
     bind = true, -- This is mandatory, otherwise border config won't get registered.
@@ -18,7 +18,7 @@ function Rustaceanvim.config()
     -- LSP configuration
     server = {
       on_attach = custom_on_attach,
-      capabilities = custom_capabilities(),
+      capabilities = custom_capabilities,
     },
     -- DAP configuration
     dap = {},
