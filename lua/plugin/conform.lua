@@ -6,11 +6,8 @@ function Conform.config()
     formatters_by_ft = {
       c = { "clang_format" },
       cpp = { "clang_format" },
-      javascript = { "prettierd" },
       json = { "clang_format" },
       lua = { "stylua" },
-      typescript = { "prettierd" },
-      python = { "ruff_format" },
     },
   })
 
