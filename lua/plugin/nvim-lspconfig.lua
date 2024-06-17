@@ -21,7 +21,7 @@ local function custom_server()
   })
 
   -- CMake
-  lspconfig.cmake.setup({
+  lspconfig.neocmake.setup({
     on_attach = custom_on_attach,
     capabilities = custom_capabilities,
   })
