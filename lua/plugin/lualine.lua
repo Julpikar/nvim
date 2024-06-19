@@ -47,9 +47,9 @@ local config = {
     icons_enabled = true,
     theme = theme,
     component_separators = {},
-    section_separators = {},
+    section_separators = { "▊" },
     disabled_filetypes = {
-      statusline = { "NvimTree" },
+      statusline = {},
       winbar = {},
     },
     ignore_focus = {},
@@ -99,10 +99,10 @@ end
 -- Mode
 local function provider_mode()
   local item = {
-    n = { "" },
+    n = { "" },
     i = { "󰴓" },
-    v = { "" },
-    [""] = { "" },
+    v = { "" },
+    [""] = { "" },
     V = { "󰈈" },
     c = { "" },
     no = { "" },
@@ -123,7 +123,6 @@ local function provider_mode()
     function()
       return item[vim.fn.mode()][1]
     end,
-    -- color = function()
   }
 end
 
@@ -225,9 +224,9 @@ local function LSP_message()
     end
   end
 
-  local full_msg = table.concat(msg, "  ")
+  local full_msg = table.concat(msg, "  ")
   if full_msg ~= "" then
-    full_msg = " " .. full_msg
+    full_msg = " " .. full_msg
   end
   return full_msg
 end

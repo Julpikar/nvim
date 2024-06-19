@@ -26,18 +26,7 @@ local function bufferline_setup()
     },
     components = {
       {
-        text = function(buffer)
-          if buffer.index == 1 and require("nvim-tree.api").tree.is_visible() then
-            return "▎ "
-          end
-          return ""
-        end,
-        fg = border_fg,
-      },
-      {
-        text = function(buffer)
-          return (buffer.index ~= 1) and "▎  " or "   "
-        end,
+        text = "▎",
         fg = border_fg,
       },
       {
@@ -64,7 +53,10 @@ local function bufferline_setup()
         end,
       },
       {
-        text = " ",
+        text = "▊",
+        fg = function(buffer)
+          return buffer.is_focused and bg or inactive_bg
+        end,
       },
       {
         text = function(buffer)
@@ -79,15 +71,6 @@ local function bufferline_setup()
       },
       {
         text = function(buffer)
-          if buffer.is_focused then
-            return "󰍐 "
-          end
-          return ""
-        end,
-        fg = border_fg,
-      },
-      {
-        text = function(buffer)
           if buffer.is_readonly then
             return ""
           end
@@ -96,11 +79,16 @@ local function bufferline_setup()
           end
           return ""
         end,
-        fg = border_fg,
+        fg = function(buffer)
+          return buffer.is_focused and "#a7c080" or inactive_fg
+        end,
         delete_buffer_on_left_click = true,
       },
       {
-        text = "   ",
+        text = "▊",
+        fg = function(buffer)
+          return buffer.is_focused and bg or inactive_bg
+        end,
       },
     },
   }
