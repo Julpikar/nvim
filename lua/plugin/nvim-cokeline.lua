@@ -3,10 +3,6 @@ local is_picking_close = require("cokeline.mappings").is_picking_close
 
 local Cokeline = {}
 
-local function border_fg(buffer)
-  return buffer.is_focused and "#a7c080" or "#e67e80"
-end
-
 local function bufferline_setup()
   local inactive_fg = "#859289"
   local fg = "#d3c6aa"
@@ -14,6 +10,10 @@ local function bufferline_setup()
   local bg = "#272e33"
   local error = "#e67e80"
   local warn = "#dbbc7f"
+
+  local function border_fg(buffer)
+    return buffer.is_focused and "#a7c080" or error
+  end
 
   local config = {
     default_hl = {
@@ -67,6 +67,20 @@ local function bufferline_setup()
         end,
         italic = function(buffer)
           return not buffer.is_focused
+        end,
+      },
+      {
+        text = function(buffer)
+          return buffer.is_focused and "" or "▊"
+        end,
+        fg = function(buffer)
+          return buffer.is_focused and "#a7c080" or inactive_bg
+        end,
+      },
+      {
+        text = "▊",
+        fg = function(buffer)
+          return buffer.is_focused and bg or inactive_bg
         end,
       },
       {
