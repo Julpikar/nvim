@@ -120,7 +120,10 @@ function Plugin.setup()
       "RRethy/vim-illuminate",
       event = "VeryLazy",
       config = function()
-        require("illuminate").configure({ modes_denylist = { "v", "vs", "V", "Vs", "CTRL_V", "CTRL_Vs" } })
+        require("illuminate").configure({
+          filetypes_denylist = { "NvimTree" },
+          modes_denylist = { "v", "vs", "V", "Vs", "CTRL_V", "CTRL_Vs" },
+        })
       end,
     },
     {

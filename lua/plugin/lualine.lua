@@ -136,8 +136,9 @@ end
 
 local function get_filename()
   local filename = vim.fn.expand("%:r") .. "." .. vim.fn.expand("%:e") or vim.fn.expand("%:~:p")
-  filename = string.gsub(filename, "\\", " > ")
-  filename = string.gsub(filename, "~ > ", "")
+  filename = string.gsub(filename, "\\", " ")
+  filename = string.gsub(filename, "~", "")
+  filename = string.gsub(filename, ":", "")
   return filename
 end
 

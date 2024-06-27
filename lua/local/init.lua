@@ -60,7 +60,7 @@ function Local.setup()
     { "n", "bd", "<CMD>bdelete<CR>" },
     { "n", "b]", "<CMD>bnext<CR>" },
     { "n", "bn", "<CMD>bnext<CR>" },
-    { "n", "b[", "<CMD>previous<CR>" },
+    { "n", "b[", "<CMD>bprevious<CR>" },
     { { "n", "v" }, "<LEADER>n", "<CMD>NumberOnOff<CR>" },
     { { "n", "v" }, "<LEADER>q", "<CMD>quit<CR>" },
     { { "n", "v" }, "<LEADER>vs", "<CMD>vsplit<CR>" },

@@ -74,7 +74,7 @@ local function bufferline_setup()
           return buffer.is_focused and "" or "▊"
         end,
         fg = function(buffer)
-          return buffer.is_focused and "#a7c080" or inactive_bg
+          return buffer.is_focused and "#e67e80" or inactive_bg
         end,
       },
       {

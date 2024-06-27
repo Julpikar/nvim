@@ -18,6 +18,7 @@ local function custom_server()
   lspconfig.clangd.setup({
     on_attach = custom_on_attach,
     capabilities = custom_capabilities,
+    autostart = false,
   })
 
   -- CMake
