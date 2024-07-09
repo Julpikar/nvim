@@ -8,6 +8,7 @@ function Conform.config()
       cpp = { "clang_format" },
       json = { "clang_format" },
       lua = { "stylua" },
+      python = { "ruff_format" },
     },
   })
 

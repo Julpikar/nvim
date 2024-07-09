@@ -29,7 +29,7 @@ function Plugin.setup()
             -- disable = { "c", "rust" },
             -- Or use a function for more flexibility, e.g. to disable slow treesitter highlight for large files
             disable = function(lang, bufnr)
-              return vim.api.nvim_buf_line_count(bufnr) > 50000
+              return vim.api.nvim_buf_line_count(bufnr) > 500
             end,
 
             -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
@@ -123,6 +123,9 @@ function Plugin.setup()
         require("illuminate").configure({
           filetypes_denylist = { "NvimTree" },
           modes_denylist = { "v", "vs", "V", "Vs", "CTRL_V", "CTRL_Vs" },
+          should_enable = function(bufnr)
+            return vim.api.nvim_buf_line_count(bufnr) > 500
+          end,
         })
       end,
     },

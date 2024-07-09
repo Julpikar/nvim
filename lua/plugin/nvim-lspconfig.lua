@@ -62,6 +62,18 @@ local function custom_server()
     autostart = false,
   })
 
+  lspconfig.basedpyright.setup({
+    on_attach = custom_on_attach,
+    capabilities = custom_capabilities,
+    autostart = false,
+  })
+
+  lspconfig.ruff.setup({
+    on_attach = custom_on_attach,
+    capabilities = custom_capabilities,
+    autostart = false,
+  })
+
   lspconfig.sqls.setup({
     on_attach = function(client, bufnr)
       custom_on_attach()
