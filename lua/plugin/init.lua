@@ -64,6 +64,20 @@ function Plugin.setup()
         keymap_set("n", "<LEADER>h", "<CMD>Fidget history<CR>")
       end,
     },
+    {
+      "williamboman/mason.nvim",
+      event = "VeryLazy",
+      dependencies = {
+        "williamboman/mason-lspconfig.nvim",
+        "rshkarin/mason-nvim-lint",
+        "jay-babu/mason-nvim-dap.nvim",
+      },
+      config = function()
+        require("mason").setup()
+        require("mason-lspconfig").setup()
+        require("mason-nvim-dap").setup()
+      end,
+    },
 
     -- Session
     {
@@ -124,7 +138,7 @@ function Plugin.setup()
           filetypes_denylist = { "NvimTree" },
           modes_denylist = { "v", "vs", "V", "Vs", "CTRL_V", "CTRL_Vs" },
           should_enable = function(bufnr)
-            return vim.api.nvim_buf_line_count(bufnr) > 500
+            return vim.api.nvim_buf_line_count(bufnr) < 500
           end,
         })
       end,
@@ -207,10 +221,7 @@ function Plugin.setup()
     },
     {
       "neovim/nvim-lspconfig",
-      dependencies = { "williamboman/mason.nvim", "williamboman/mason-lspconfig.nvim" },
       config = function()
-        require("mason").setup()
-        require("mason-lspconfig").setup()
         require("plugin.nvim-lspconfig").config()
       end,
     },
@@ -343,7 +354,6 @@ function Plugin.setup()
     {
       "mfussenegger/nvim-lint",
       event = "VeryLazy",
-      dependencies = "rshkarin/mason-nvim-lint",
       config = function()
         require("plugin.nvim-lint").config()
       end,

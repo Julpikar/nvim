@@ -3,42 +3,45 @@ local dap = require("dap")
 local DAP = {}
 
 local function adapter_definition()
-  dap.adapters.lldb = {
-    type = "executable",
-    command = "codelldb", -- adjust as needed, must be absolute path
-    name = "lldb",
+  dap.adapters.codelldb = {
+    type = "server",
+    port = "${port}",
+    executable = {
+      -- CHANGE THIS to your path!
+      command = "codelldb.cmd",
+      args = { "--port", "${port}" },
+
+      -- On windows you may have to uncomment this:
+      -- detached = false,
+    },
   }
 end
 
 local function language_configuration()
-  dap.configurations.cpp = {
+  dap.configurations.c = {
     {
       name = "Launch",
-      type = "lldb",
+      type = "codelldb",
       request = "launch",
       program = function()
-        return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+        local path = vim.fn.input({
+          prompt = "Path to executable: ",
+          default = vim.fn.getcwd() .. "\\",
+          completion = "file",
+        })
+        return (path and path ~= "") and path or dap.ABORT
       end,
-      cwd = "${workspaceFolder}",
       stopOnEntry = false,
-      args = {},
-
-      -- 💀
-      -- if you change `runInTerminal` to true, you might need to change the yama/ptrace_scope setting:
-      --
-      --    echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
-      --
-      -- Otherwise you might get the following error:
-      --
-      --    Error on launch: Failed to attach to the target process
-      --
-      -- But you should be aware of the implications:
-      -- https://www.kernel.org/doc/html/latest/admin-guide/LSM/Yama.html
-      runInTerminal = false,
+    },
+    {
+      name = "Attach to process (code-LLDB)",
+      type = "lldb",
+      request = "attach",
+      processId = require("dap.utils").pick_process,
     },
   }
-  dap.configurations.c = dap.configurations.cpp
-  dap.configurations.rust = dap.configurations.cpp
+  dap.configurations.cpp = dap.configurations.c
+  dap.configurations.rust = dap.configurations.c
 end
 
 local function mappings()
@@ -84,6 +87,7 @@ function DAP.config()
   adapter_definition()
   language_configuration()
   mappings()
+  dapui_setup()
 end
 
 return DAP
