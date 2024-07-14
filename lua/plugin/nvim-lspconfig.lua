@@ -1,99 +1,38 @@
-local lspconfig = require("lspconfig")
+local LspConfig = {
+  "neovim/nvim-lspconfig",
+}
 
-local LSPConfig = {}
+local custom_capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-local function custom_server()
-  local custom_capabilities = require("cmp_nvim_lsp").default_capabilities()
-  local custom_on_attach = function(client, bufnr)
-    local config = {
-      bind = true, -- This is mandatory, otherwise border config won't get registered.
-      handler_opts = {
-        border = "rounded",
-      },
-    }
-    require("lsp_signature").on_attach(config, bufnr)
-  end
+local function custom_on_attach(client, bufnr)
+  local config = {
+    bind = true,
+    handler_opts = {
+      border = "rounded",
+    },
+  }
+  require("lsp_signature").on_attach(config, bufnr)
+end
 
-  -- C++
-  lspconfig.clangd.setup({
-    on_attach = custom_on_attach,
-    capabilities = custom_capabilities,
-    autostart = false,
-  })
-
-  -- CMake
-  lspconfig.neocmake.setup({
-    on_attach = custom_on_attach,
-    capabilities = custom_capabilities,
-  })
-
-  -- Lua
-  lspconfig.lua_ls.setup({
-    on_attach = custom_on_attach,
-    capabilities = custom_capabilities,
-    on_init = function(client)
-      local path = client.workspace_folders[1].name
-      if not vim.uv.fs_stat(path .. "/.luarc.json") and not vim.uv.fs_stat(path .. "/.luarc.jsonc") then
-        client.config.settings = vim.tbl_deep_extend("force", client.config.settings, {
-          Lua = {
-            runtime = {
-              -- Tell the language server which version of Lua you're using
-              -- (most likely LuaJIT in the case of Neovim)
-              version = "LuaJIT",
-            },
-            -- Make the server aware of Neovim runtime files
-            workspace = {
-              checkThirdParty = false,
-              library = {
-                vim.env.VIMRUNTIME,
-                -- "${3rd}/luv/library"
-                -- "${3rd}/busted/library",
-              },
-              -- or pull in all of 'runtimepath'. NOTE: this is a lot slower
-              -- library = vim.api.nvim_get_runtime_file("", true)
-            },
-          },
-        })
-
-        client.notify("workspace/didChangeConfiguration", { settings = client.config.settings })
-      end
-      return true
-    end,
-    autostart = false,
-  })
-
-  lspconfig.basedpyright.setup({
-    on_attach = custom_on_attach,
-    capabilities = custom_capabilities,
-    autostart = false,
-  })
-
-  lspconfig.ruff.setup({
-    on_attach = custom_on_attach,
-    capabilities = custom_capabilities,
-    autostart = false,
-  })
-
-  lspconfig.sqls.setup({
-    on_attach = function(client, bufnr)
-      custom_on_attach()
-      require("sqls").on_attach(client, bufnr)
-    end,
-    capabilities = custom_capabilities,
-    settings = {
-      sqls = {
-        connections = {
-          {
-            driver = "sqlite3",
-            dataSourceName = "db.sqlite3",
-          },
-        },
+local function custom_diagnostic()
+  vim.diagnostic.config({
+    signs = {
+      text = {
+        [vim.diagnostic.severity.ERROR] = "E󰁕",
+        [vim.diagnostic.severity.WARN] = "W󰁕",
+        [vim.diagnostic.severity.INFO] = "I󰁕",
+        [vim.diagnostic.severity.HINT] = "H󰁕",
       },
     },
   })
 end
 
-local function lsp_mapping()
+local function custom_handlers()
+  vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover,
+  { border = "rounded", width = 120 })
+end
+
+function mapping()
   local keymap_set = vim.keymap.set
 
   keymap_set("n", "<LEADER>ls", "<CMD>LspStart<CR>")
@@ -101,7 +40,8 @@ local function lsp_mapping()
   keymap_set("n", "<LEADER>lr", "<CMD>LspRestart<CR>")
 
   -- Global mappings.
-  -- See `:help vim.diagnostic.*` for documentation on any of the below functions
+  -- See `:help vim.diagnostic.*` for documentation on any of the below
+  -- functions
   keymap_set("n", "<space>e", vim.diagnostic.open_float)
   keymap_set("n", "[d", function()
     vim.diagnostic.goto_prev({ float = { border = "rounded" } })
@@ -110,28 +50,36 @@ local function lsp_mapping()
     vim.diagnostic.goto_next({ float = { border = "rounded" } })
   end)
   keymap_set("n", "[e", function()
-    vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR, float = { border = "rounded" } })
+    vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR, float =
+    { border = "rounded" } })
   end)
   keymap_set("n", "]e", function()
-    vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR, float = { border = "rounded" } })
+    vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR, float =
+    { border = "rounded" } })
   end)
   keymap_set("n", "[w", function()
-    vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.WARN, float = { border = "rounded" } })
+    vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.WARN, float =
+    { border = "rounded" } })
   end)
   keymap_set("n", "]w", function()
-    vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.WARN, float = { border = "rounded" } })
+    vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.WARN, float =
+    { border = "rounded" } })
   end)
   keymap_set("n", "[i", function()
-    vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.INFO, float = { border = "rounded" } })
+    vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.INFO, float =
+    { border = "rounded" } })
   end)
   keymap_set("n", "]i", function()
-    vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.INFO, float = { border = "rounded" } })
+    vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.INFO, float =
+    { border = "rounded" } })
   end)
   keymap_set("n", "[h", function()
-    vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.HINT, float = { border = "rounded" } })
+    vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.HINT, float =
+    { border = "rounded" } })
   end)
   keymap_set("n", "]h", function()
-    vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.HINT, float = { border = "rounded" } })
+    vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.HINT, float =
+    { border = "rounded" } })
   end)
   keymap_set("n", "<space>q", vim.diagnostic.setloclist)
 
@@ -162,28 +110,91 @@ local function lsp_mapping()
   })
 end
 
-local function diagnostic_signs()
-  vim.diagnostic.config({
-    signs = {
-      text = {
-        [vim.diagnostic.severity.ERROR] = "E󰁕",
-        [vim.diagnostic.severity.WARN] = "W󰁕",
-        [vim.diagnostic.severity.INFO] = "I󰁕",
-        [vim.diagnostic.severity.HINT] = "H󰁕",
+local function server_register()
+  local lspconfig = require("lspconfig")
+
+  -- LSP setup
+  lspconfig.basedpyright.setup({
+    on_attach = custom_on_attach,
+    capabilities = custom_capabilities,
+    autostart = false,
+  })
+
+  -- C++
+  lspconfig.clangd.setup({
+    on_attach = custom_on_attach,
+    capabilities = custom_capabilities,
+    autostart = false,
+  })
+
+  -- CMake
+  lspconfig.neocmake.setup({
+    on_attach = custom_on_attach,
+    capabilities = custom_capabilities,
+  })
+
+  -- Lua
+  lspconfig.lua_ls.setup({
+    on_attach = custom_on_attach,
+    capabilities = custom_capabilities,
+    on_init = function(client)
+      local path = client.workspace_folders[1].name
+      if not vim.uv.fs_stat(path .. "/.luarc.json") and not vim.uv.fs_stat(path
+        .. "/.luarc.jsonc") then
+        client.config.settings = vim.tbl_deep_extend("force",
+        client.config.settings, {
+          Lua = {
+            runtime = {
+              -- Tell the language server which version of Lua you're using
+              -- (most likely LuaJIT in the case of Neovim)
+              version = "LuaJIT",
+            },
+            -- Make the server aware of Neovim runtime files
+            workspace = {
+              checkThirdParty = false,
+              library = {
+                vim.env.VIMRUNTIME,
+                -- "${3rd}/luv/library"
+                -- "${3rd}/busted/library",
+              },
+              -- or pull in all of 'runtimepath'. NOTE: this is a lot slower
+              -- library = vim.api.nvim_get_runtime_file("", true)
+            },
+          },
+        })
+
+        client.notify("workspace/didChangeConfiguration", { settings =
+        client.config.settings })
+      end
+      return true
+    end,
+    autostart = false,
+  })
+
+  lspconfig.sqls.setup({
+    on_attach = function(client, bufnr)
+      custom_on_attach()
+      require("sqls").on_attach(client, bufnr)
+    end,
+    capabilities = custom_capabilities,
+    settings = {
+      sqls = {
+        connections = {
+          {
+            driver = "sqlite3",
+            dataSourceName = "db.sqlite3",
+          },
+        },
       },
     },
   })
 end
 
-local function lsp_handler()
-  vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded", width = 120 })
+LspConfig.config = function()
+  custom_handlers()
+  custom_diagnostic()
+  mapping()
+  server_register()
 end
 
-function LSPConfig.config()
-  custom_server()
-  lsp_mapping()
-  diagnostic_signs()
-  lsp_handler()
-end
-
-return LSPConfig
+return LspConfig

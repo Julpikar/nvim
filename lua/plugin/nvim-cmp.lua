@@ -1,11 +1,19 @@
-local cmp = require("cmp")
-local luasnip = require("luasnip")
-
-local NVIMCmp = {}
+local NvimCmp = {
+  "hrsh7th/nvim-cmp",
+  event = "InsertEnter",
+  dependencies = {
+    "hrsh7th/cmp-buffer",
+    "hrsh7th/cmp-cmdline",
+    "L3MON4D3/LuaSnip",
+    "saadparwaiz1/cmp_luasnip",
+    "rafamadriz/friendly-snippets",
+  },
+}
 
 local has_words_before = function()
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line,
+  true)[1]:sub(col, col):match("%s") == nil
 end
 
 local kind_icons = {
@@ -43,8 +51,11 @@ local source_name = {
   nvim_lua = "[Lua]",
 }
 
-function NVIMCmp.config()
+NvimCmp.config = function()
+  local cmp = require("cmp")
+  local luasnip = require("luasnip")
   require("luasnip.loaders.from_vscode").lazy_load()
+
   vim.opt.completeopt = { "menu", "menuone", "noinsert" }
   vim.o.pumheight = 20
 
@@ -57,7 +68,8 @@ function NVIMCmp.config()
       format = function(entry, vim_item)
         -- Source
         vim_item.menu = source_name[entry.source.name]
-            and string.format("%-13s %9s", vim_item.kind, source_name[entry.source.name])
+            and string.format("%-13s %9s", vim_item.kind,
+            source_name[entry.source.name])
           or ""
         -- Kind icons
         vim_item.kind = string.format(" %s ", kind_icons[vim_item.kind])
@@ -81,7 +93,8 @@ function NVIMCmp.config()
       ["<Tab>"] = cmp.mapping(function(fallback)
         if cmp.visible() then
           cmp.select_next_item()
-        -- You could replace the expand_or_jumpable() calls with expand_or_locally_jumpable()
+        -- You could replace the expand_or_jumpable() calls with
+        -- expand_or_locally_jumpable()
         -- that way you will only jump inside the snippet region
         elseif luasnip.expand_or_jumpable() then
           luasnip.expand_or_jump()
@@ -122,7 +135,9 @@ function NVIMCmp.config()
     }),
   })
 
-  -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
+  -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this
+  -- won't
+  -- work anymore).
   cmp.setup.cmdline({ "/", "?" }, {
     mapping = cmp.mapping.preset.cmdline(),
     sources = {
@@ -130,7 +145,9 @@ function NVIMCmp.config()
     },
   })
 
-  -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+  -- Use cmdline & path source for ':' (if you enabled `native_menu`, this
+  -- won't
+  -- work anymore).
   cmp.setup.cmdline(":", {
     mapping = cmp.mapping.preset.cmdline(),
     sources = cmp.config.sources({
@@ -141,4 +158,4 @@ function NVIMCmp.config()
   })
 end
 
-return NVIMCmp
+return NvimCmp

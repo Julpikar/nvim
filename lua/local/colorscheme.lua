@@ -1,9 +1,9 @@
-local nvim_set_hl = vim.api.nvim_set_hl
-
 local Colorscheme = {}
 
 function Colorscheme.setup()
   vim.o.termguicolors = true
+
+  local nvim_set_hl = vim.api.nvim_set_hl
 
   -- Terminal colors
   vim.g.terminal_color_0 = "#414b50"
@@ -24,13 +24,12 @@ function Colorscheme.setup()
   vim.g.terminal_color_15 = "#d3c6aa"
 
   -- Neovim default higlight group
-  nvim_set_hl(0, "ColorColumn", { bg = "#2e383c" })
   nvim_set_hl(0, "Conceal", { fg = "#7a8478" })
   nvim_set_hl(0, "CurSearch", { fg = "#272e33", bg = "#e67e80" })
   nvim_set_hl(0, "Cursor", { fg = "#d3c6aa", bg = "#e67e80" })
   -- nvim_set_hl(0, "lCursor", {  })
   -- nvim_set_hl(0, "CursorIM", {  })
-  -- nvim_set_hl(0, "CursorColumn", { bg = "#2e383c" })
+  nvim_set_hl(0, "CursorColumn", { bg = "#2e383c" })
   -- nvim_set_hl(0, "CursorLine", { bg = "#2e383c" })
   nvim_set_hl(0, "Directory", { fg = "#a7c080" })
   nvim_set_hl(0, "DiffAdd", { fg = "#3c4841" })
@@ -189,23 +188,32 @@ function Colorscheme.setup()
   nvim_set_hl(0, "LspInlayHint", { fg = "#9da9a0" })
   nvim_set_hl(0, "LspCodeLens", { fg = "#7fbbb3", bg = "#384b55" })
   nvim_set_hl(0, "LspCodeLensSeparator", { fg = "#a7c080", bg = "#3c4841" })
-  nvim_set_hl(0, "LspSignatureActiveParameter", { fg = "#272e33", bg = "#a7c080" })
+  nvim_set_hl(0, "LspSignatureActiveParameter", { fg = "#272e33", bg = "#a7c080"
+})
 
   -- Diagnostic
-  nvim_set_hl(0, "DiagnosticError", { bg = "#493b40", sp = "#e67e80", undercurl = true })
-  nvim_set_hl(0, "DiagnosticWarn", { bg = "#45443c", sp = "#dbbc7f", undercurl = true })
-  nvim_set_hl(0, "DiagnosticInfo", { bg = "#384b55", sp = "#7fbbb3", undercurl = true })
-  nvim_set_hl(0, "DiagnosticHint", { bg = "#3c4841", sp = "#a7c080", undercurl = true })
+  nvim_set_hl(0, "DiagnosticError", { bg = "#493b40", sp = "#e67e80", undercurl
+  = true })
+  nvim_set_hl(0, "DiagnosticWarn", { bg = "#45443c", sp = "#dbbc7f", undercurl =
+  true })
+  nvim_set_hl(0, "DiagnosticInfo", { bg = "#384b55", sp = "#7fbbb3", undercurl =
+  true })
+  nvim_set_hl(0, "DiagnosticHint", { bg = "#3c4841", sp = "#a7c080", undercurl =
+  true })
   -- nvim_set_hl(0, "DiagnosticOk", {})
   nvim_set_hl(0, "DiagnosticVirtualTextError", { fg = "#e67e80" })
   nvim_set_hl(0, "DiagnosticVirtualTextWarn", { fg = "#dbbc7f" })
   nvim_set_hl(0, "DiagnosticVirtualTextInfo", { fg = "#7fbbb3" })
   nvim_set_hl(0, "DiagnosticVirtualTextHint", { fg = "#a7c080" })
   -- nvim_set_hl(0, "DiagnosticVirtualTextOk", {})
-  nvim_set_hl(0, "DiagnosticUnderlineError", { bg = "#493b40", sp = "#e67e80", undercurl = true })
-  nvim_set_hl(0, "DiagnosticUnderlineWarn", { bg = "#45443c", sp = "#dbbc7f", undercurl = true })
-  nvim_set_hl(0, "DiagnosticUnderlineInfo", { bg = "#384b55", sp = "#7fbbb3", undercurl = true })
-  nvim_set_hl(0, "DiagnosticUnderlineHint", { bg = "#3c4841", sp = "#a7c080", undercurl = true })
+  nvim_set_hl(0, "DiagnosticUnderlineError", { bg = "#493b40", sp = "#e67e80",
+  undercurl = true })
+  nvim_set_hl(0, "DiagnosticUnderlineWarn", { bg = "#45443c", sp = "#dbbc7f",
+  undercurl = true })
+  nvim_set_hl(0, "DiagnosticUnderlineInfo", { bg = "#384b55", sp = "#7fbbb3",
+  undercurl = true })
+  nvim_set_hl(0, "DiagnosticUnderlineHint", { bg = "#3c4841", sp = "#a7c080",
+  undercurl = true })
   -- nvim_set_hl(0, "DiagnosticUnderlineOk", {})
   nvim_set_hl(0, "DiagnosticFloatingError", { fg = "#e67e80" })
   nvim_set_hl(0, "DiagnosticFloatingWarn", { fg = "#dbbc7f" })
@@ -218,7 +226,8 @@ function Colorscheme.setup()
   nvim_set_hl(0, "DiagnosticSignHint", { fg = "#a7c080", bg = "#2e383c" })
   -- -- nvim_set_hl(0, "DiagnosticSignOk", {})
   -- nvim_set_hl(0, "DiagnosticDeprecated", {})
-  nvim_set_hl(0, "DiagnosticUnnecessary", { bg = "#45443c", sp = "#dbbc7f", undercurl = true })
+  nvim_set_hl(0, "DiagnosticUnnecessary", { bg = "#45443c", sp = "#dbbc7f",
+  undercurl = true })
 
   -- Git Sign (https://github.com/lewis6991/gitsigns.nvim)
   nvim_set_hl(0, "GitSignsAdd", { fg = "#a7c080", bg = "#2e383c" })
@@ -257,7 +266,8 @@ function Colorscheme.setup()
   nvim_set_hl(0, "NeogitDiffAdd", { fg = "#1e2326", bg = "#83c092" })
   nvim_set_hl(0, "NeogitDiffAddHighlight", { fg = "#1e2326", bg = "#a7c080" })
   nvim_set_hl(0, "NeogitDiffDelete", { fg = "#1e2326", bg = "#e69875" })
-  nvim_set_hl(0, "NeogitDiffDeleteHighlight", { fg = "#1e2326", bg = "#e67e80" })
+  nvim_set_hl(0, "NeogitDiffDeleteHighlight", { fg = "#1e2326", bg = "#e67e80"
+})
   nvim_set_hl(0, "NeogitUnstagedchanges", { fg = "#e67e80" })
   nvim_set_hl(0, "NeogitStagedchanges", { fg = "#a7c080" })
   nvim_set_hl(0, "NeogitUnmergedInto", { fg = "#dbbc7f" })
@@ -328,18 +338,30 @@ function Colorscheme.setup()
   -- nvim_set_hl(0,'NvimTreeFolderNew',{ link='NvimTreeFileNew' })
   -- nvim_set_hl(0,'NvimTreeFolderDeleted',{ link='NvimTreeFileDeleted' })
   -- nvim_set_hl(0,'NvimTreeFolderIgnored',{ link='NvimTreeFileIgnored' })
-  nvim_set_hl(0, "NvimTreeLspDiagnosticsError", { fg = "#e67e80", bg = "#2e383c" })
-  nvim_set_hl(0, "NvimTreeLspDiagnosticsWarning", { fg = "#dbbc7f", bg = "#2e383c" })
-  nvim_set_hl(0, "NvimTreeLspDiagnosticsInformation", { fg = "#7fbbb3", bg = "#2e383c" })
-  nvim_set_hl(0, "NvimTreeLspDiagnosticsHint", { fg = "#a7c080", bg = "#2e383c" })
-  -- nvim_set_hl(0,'NvimTreeLspDiagnosticsErrorText',{ link='NvimTreeLspDiagnosticsError' })
-  -- nvim_set_hl(0,'NvimTreeLspDiagnosticsWarningText'   ,{ link='NvimTreeLspDiagnosticsWarning' })
-  -- nvim_set_hl(0,'NvimTreeLspDiagnosticsInfoText',{ link='NvimTreeLspDiagnosticsInformation' })
-  -- nvim_set_hl(0,'NvimTreeLspDiagnosticsHintText',{ link='NvimTreeLspDiagnosticsHint' })
-  -- nvim_set_hl(0,'NvimTreeLspDiagnosticsErrorFolderText',{ link='NvimTreeLspDiagnosticsErrorText' })
-  -- nvim_set_hl(0,'NvimTreeLspDiagnosticsWarningFolderText',{ link='NvimTreeLspDiagnosticsWarningText' })
-  -- nvim_set_hl(0,'NvimTreeLspDiagnosticsInfoFolderText',{ link='NvimTreeLspDiagnosticsInfoText' })
-  -- nvim_set_hl(0,'NvimTreeLspDiagnosticsHintFolderText',{ link='NvimTreeLspDiagnosticsHintText' })
+  nvim_set_hl(0, "NvimTreeLspDiagnosticsError", { fg = "#e67e80", bg = "#2e383c"
+})
+  nvim_set_hl(0, "NvimTreeLspDiagnosticsWarning", { fg = "#dbbc7f", bg =
+  "#2e383c" })
+  nvim_set_hl(0, "NvimTreeLspDiagnosticsInformation", { fg = "#7fbbb3", bg =
+  "#2e383c" })
+  nvim_set_hl(0, "NvimTreeLspDiagnosticsHint", { fg = "#a7c080", bg = "#2e383c"
+})
+  -- nvim_set_hl(0,'NvimTreeLspDiagnosticsErrorText',{
+  -- link='NvimTreeLspDiagnosticsError' })
+  -- nvim_set_hl(0,'NvimTreeLspDiagnosticsWarningText'   ,{
+  -- link='NvimTreeLspDiagnosticsWarning' })
+  -- nvim_set_hl(0,'NvimTreeLspDiagnosticsInfoText',{
+  -- link='NvimTreeLspDiagnosticsInformation' })
+  -- nvim_set_hl(0,'NvimTreeLspDiagnosticsHintText',{
+  -- link='NvimTreeLspDiagnosticsHint' })
+  -- nvim_set_hl(0,'NvimTreeLspDiagnosticsErrorFolderText',{
+  -- link='NvimTreeLspDiagnosticsErrorText' })
+  -- nvim_set_hl(0,'NvimTreeLspDiagnosticsWarningFolderText',{
+  -- link='NvimTreeLspDiagnosticsWarningText' })
+  -- nvim_set_hl(0,'NvimTreeLspDiagnosticsInfoFolderText',{
+  -- link='NvimTreeLspDiagnosticsInfoText' })
+  -- nvim_set_hl(0,'NvimTreeLspDiagnosticsHintFolderText',{
+  -- link='NvimTreeLspDiagnosticsHintText' })
 
   -- Indent marker (https://github.com/lukas-reineke/indent-blankline.nvim)
   nvim_set_hl(0, "IblIndent", { fg = "#495156", nocombine = true })
@@ -406,7 +428,8 @@ function Colorscheme.setup()
   }
 
   for i = 1, #lsp_kind_color do
-    nvim_set_hl(0, "CmpItemKind" .. lsp_kind_color[i][1], { fg = "#374145", bg = lsp_kind_color[i][2] })
+    nvim_set_hl(0, "CmpItemKind" .. lsp_kind_color[i][1], { fg = "#374145", bg =
+    lsp_kind_color[i][2] })
   end
 
   -- ('https://github.com/folke/trouble.nvim')

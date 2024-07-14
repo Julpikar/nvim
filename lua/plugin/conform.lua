@@ -1,23 +1,36 @@
-local Conform = {}
+local Conform = {
+  "stevearc/conform.nvim",
+  event = "VeryLazy",
+}
 
-function Conform.config()
-  local conform = require("conform")
-  conform.setup({
-    formatters_by_ft = {
-      c = { "clang_format" },
-      cpp = { "clang_format" },
-      json = { "clang_format" },
-      lua = { "stylua" },
-      python = { "ruff_format" },
-    },
-  })
+Conform.opts = {
+  formatters_by_ft = {
+    c = { "clang_format" },
+    cpp = { "clang_format" },
+    json = { "clang_format" },
+    lua = { "stylua" },
+    python = { "ruff_format" },
+  },
+}
 
+Conform.keys = {
+  {
+    "<F9>",
+    function()
+      require("conform").format({ lsp_fallback = true }, function()
+        vim.notify(
+          vim.fn.expand("%") .. " has formatted",
+          vim.log.levels.INFO,
+          { title = "conform.nvim", icon = "󰾽" }
+        )
+      end)
+    end,
+  },
+}
+
+Conform.config = function(_, opts)
+  require("conform").setup(opts)
   vim.o.formatexpr = "v:lua.require('conform').formatexpr()"
-  vim.keymap.set({ "n", "v" }, "<F9>", function()
-    conform.format({ lsp_fallback = true }, function()
-      vim.notify(vim.fn.expand("%") .. " has formatted", vim.log.levels.INFO, { title = "conform.nvim", icon = "󰾽" })
-    end)
-  end)
 end
 
 return Conform

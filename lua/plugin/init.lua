@@ -1,134 +1,69 @@
 local Plugin = {}
 
 function Plugin.setup()
-  local keymap_set = vim.keymap.set
-
-  local config = {
+  local spec = {
     -- Essential Tool
     "nvim-lua/plenary.nvim",
     {
       "nvim-telescope/telescope.nvim",
       branch = "0.1.x",
       event = "VeryLazy",
-      config = function()
-        keymap_set("n", "<LEADER>o", "<CMD>Telescope oldfiles<CR>")
-        keymap_set("n", "<LEADER>t", "<CMD>Telescope<CR>")
-      end,
+      keys = {
+        { "<LEADER>o", "<CMD>Telescope oldfiles<CR>" },
+        { "<LEADER>t", "<CMD>Telescope<CR>", desc = "Open Telescope" },
+      },
     },
-    {
-      "nvim-treesitter/nvim-treesitter",
-      config = function()
-        require("nvim-treesitter.configs").setup({
-          highlight = {
-            enable = true,
-
-            -- NOTE: these are the names of the parsers and not the filetype. (for example if you want to
-            -- disable highlighting for the `tex` filetype, you need to include `latex` in this list as this is
-            -- the name of the parser)
-            -- list of language that will be disabled
-            -- disable = { "c", "rust" },
-            -- Or use a function for more flexibility, e.g. to disable slow treesitter highlight for large files
-            disable = function(lang, bufnr)
-              return vim.api.nvim_buf_line_count(bufnr) > 500
-            end,
-
-            -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-            -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-            -- Using this option may slow down your editor, and you may see some duplicate highlights.
-            -- Instead of true it can also be a list of languages
-            additional_vim_regex_highlighting = false,
-          },
-        })
-      end,
-    },
+    { import = "plugin.treesitter" },
     "HiPhish/rainbow-delimiters.nvim",
     {
       "NvChad/nvim-colorizer.lua",
-      config = function()
-        require("colorizer").setup()
-      end,
+      config = true,
     },
-    {
-      "akinsho/toggleterm.nvim",
-      version = "*",
-      config = function()
-        require("plugin.toggleterm").config()
-      end,
-    },
-    {
-      "j-hui/fidget.nvim",
-      config = function()
-        local fidget = require("fidget")
-        fidget.setup()
-        vim.notify = fidget.notification.notify
-        keymap_set("n", "<LEADER>h", "<CMD>Fidget history<CR>")
-      end,
-    },
+    { import = "plugin.toggleterm" },
+    { import = "plugin.fidget" },
+
+    -- External Tool Manager
     {
       "williamboman/mason.nvim",
-      event = "VeryLazy",
-      dependencies = {
-        "williamboman/mason-lspconfig.nvim",
-        "rshkarin/mason-nvim-lint",
-        "jay-babu/mason-nvim-dap.nvim",
-      },
-      config = function()
-        require("mason").setup()
-        require("mason-lspconfig").setup()
-        require("mason-nvim-dap").setup()
-      end,
+      config = true,
     },
+    { "williamboman/mason-lspconfig.nvim", config = true },
+    { "rshkarin/mason-nvim-lint", config = true },
+    { "jay-babu/mason-nvim-dap.nvim", config = true },
 
     -- Session
-    {
-      "stevearc/resession.nvim",
-      config = function()
-        require("plugin.resession").config()
-      end,
-    },
+    { import = "plugin.resession" },
 
     -- File Manager
-    {
-      "nvim-tree/nvim-tree.lua",
-      event = "VeryLazy",
-      config = function()
-        require("plugin.nvim-tree-lua").config()
-      end,
-    },
+    { import = "plugin.nvim-tree" },
     { "nvim-tree/nvim-web-devicons", lazy = true },
 
     -- Git Integration
     {
       "lewis6991/gitsigns.nvim",
       event = "VeryLazy",
-      config = function()
-        require("gitsigns").setup()
-      end,
+      config = true,
     },
     {
       "NeogitOrg/neogit",
       dependencies = {
         "sindrets/diffview.nvim",
       },
-      config = function()
-        require("neogit").setup({
-          signs = {
-            -- { CLOSED, OPENED }
-            hunk = { "", "" },
-            item = { "󰧂", "󰦿" },
-            section = { "󰧂", "󰦿" },
-          },
-        })
-        keymap_set("n", "<LEADER>gn", "<CMD>Neogit<CR>")
-      end,
+      opts = {
+        signs = {
+          -- { CLOSED, OPENED }
+          hunk = { "", "" },
+          item = { "󰧂", "󰦿" },
+          section = { "󰧂", "󰦿" },
+        },
+      },
+      keys = { { "<LEADER>gn", "<CMD>Neogit<CR>" } },
     },
 
     -- Navigation
     {
       "lewis6991/satellite.nvim",
-      config = function()
-        require("satellite").setup()
-      end,
+      config = true,
     },
     {
       "RRethy/vim-illuminate",
@@ -143,257 +78,129 @@ function Plugin.setup()
         })
       end,
     },
-    {
-      "folke/flash.nvim",
-      event = "VeryLazy",
-      opts = { excluded_filetypes = { "qf" } },
-      keys = {
-        {
-          "s",
-          mode = { "n", "x", "o" },
-          function()
-            require("flash").jump()
-          end,
-          desc = "Flash",
-        },
-        {
-          "S",
-          mode = { "n", "o", "x" },
-          function()
-            require("flash").treesitter()
-          end,
-          desc = "Flash Treesitter",
-        },
-        {
-          "r",
-          mode = "o",
-          function()
-            require("flash").remote()
-          end,
-          desc = "Remote Flash",
-        },
-        {
-          "R",
-          mode = { "o", "x" },
-          function()
-            require("flash").treesitter_search()
-          end,
-          desc = "Treesitter Search",
-        },
-        {
-          "<c-s>",
-          mode = { "c" },
-          function()
-            require("flash").toggle()
-          end,
-          desc = "Toggle Flash Search",
-        },
-      },
-    },
-    {
-      "willothy/nvim-cokeline",
-      config = function()
-        require("plugin.nvim-cokeline").config()
-      end,
-    },
-    {
-      "nvim-lualine/lualine.nvim",
-      config = function()
-        require("plugin.lualine").config()
-      end,
-    },
+    { import = "plugin.flash" },
+    { import = "plugin.nvim-cokeline" },
+    { import = "plugin.lualine" },
 
     -- LSP Integration
-    {
-      "hrsh7th/nvim-cmp",
-      event = "InsertEnter",
-      dependencies = {
-        "hrsh7th/cmp-nvim-lsp",
-        "hrsh7th/cmp-buffer",
-        "hrsh7th/cmp-cmdline",
-        "L3MON4D3/LuaSnip",
-        "saadparwaiz1/cmp_luasnip",
-        "rafamadriz/friendly-snippets",
-      },
-      config = function()
-        require("plugin.nvim-cmp").config()
-      end,
-    },
-    {
-      "neovim/nvim-lspconfig",
-      config = function()
-        require("plugin.nvim-lspconfig").config()
-      end,
-    },
+    { import = "plugin.nvim-cmp" },
+    { "hrsh7th/cmp-nvim-lsp", lazy = true },
+    { import = "plugin.nvim-lspconfig" },
     {
       "ray-x/lsp_signature.nvim",
-      event = "VeryLazy",
+      lazy = true,
+      config = true,
     },
     {
       "rmagatti/goto-preview",
       event = "VeryLazy",
-      config = function()
-        local goto_preview = require("goto-preview")
-        goto_preview.setup()
-        keymap_set({ "v", "n" }, "gd", goto_preview.goto_preview_definition)
-        keymap_set({ "v", "n" }, "gt", goto_preview.goto_preview_type_definition)
-        keymap_set({ "v", "n" }, "gi", goto_preview.goto_preview_implementation)
-        keymap_set({ "v", "n" }, "gx", goto_preview.close_all_win)
-        keymap_set({ "v", "n" }, "gr", goto_preview.goto_preview_references)
-      end,
+      config = true,
+      keys = {
+        { "gd", "require('goto-preview').goto_preview_definition" },
+        { "gt", "require('goto-preview').goto_preview_type_definition" },
+        { "gi", "require('goto-preview').goto_preview_implementation" },
+        { "gx", "require('goto-preview').close_all_win" },
+        { "gr", "require('goto-preview').goto_preview_references" },
+      },
     },
-    {
-      "Wansmer/symbol-usage.nvim",
-      event = "BufReadPre", -- need run before LspAttach if you use nvim 0.9. On 0.10 use 'LspAttach'
-      config = function()
-        require("plugin.symbol-usage").config()
-      end,
-    },
+    { import = "plugin.symbol-usage" },
 
     -- Diagnostic
-    {
-      "folke/trouble.nvim",
-      event = "VeryLazy",
-      config = function()
-        local trouble = require("trouble")
-        trouble.setup()
-        keymap_set("n", "<LEADER>xs", trouble.open)
-        keymap_set("n", "<LEADER>xx", trouble.close)
-        keymap_set("n", "<LEADER>xw", function()
-          trouble.open("workspace_diagnostics")
-        end)
-        keymap_set("n", "<LEADER>xd", function()
-          trouble.open("document_diagnostics")
-        end)
-        keymap_set("n", "<LEADER>xq", function()
-          trouble.open("quickfix")
-        end)
-        keymap_set("n", "<LEADER>xl", function()
-          trouble.open("loclist")
-        end)
-        keymap_set("n", "gR", function()
-          trouble.open("lsp_references")
-        end)
-      end,
-    },
+    { import = "plugin.trouble" },
 
     -- Editing Support
     {
       "kylechui/nvim-surround",
-      version = "*", -- Use for stability; omit to use `main` branch for the latest features
+      version = "*",
       event = "VeryLazy",
-      config = function()
-        require("nvim-surround").setup()
-      end,
+      config = true,
     },
-    {
-      "windwp/nvim-autopairs",
-      event = "InsertEnter",
-      config = function()
-        require("plugin.nvim-autopairs").config()
-      end,
-    },
+    { import = "plugin.nvim-autopairs" },
     {
       "emileferreira/nvim-strict",
       event = "VeryLazy",
-      config = function()
-        require("strict").setup({
-          excluded_filetypes = { "html", "make", "markdown", "text" },
-          deep_nesting = {
-            depth_limit = 5,
-            ignored_trailing_characters = ",",
-            ignored_leading_characters = ".",
-          },
-          overlong_lines = {
-            length_limit = 120,
-          },
-        })
-      end,
+      opts = {
+        excluded_filetypes = {
+          "help",
+          "html",
+          "make",
+          "markdown",
+          "nofile",
+          "prompt",
+          "terminal",
+          "text",
+        },
+        deep_nesting = {
+          depth_limit = 5,
+          ignored_trailing_characters = ",",
+          ignored_leading_characters = ".",
+        },
+        overlong_lines = {
+          length_limit = 80,
+        },
+      },
     },
     {
       "numToStr/Comment.nvim",
       event = "VeryLazy",
-      config = function()
-        require("Comment").setup()
-      end,
+      config = true,
     },
-    {
-      "stevearc/conform.nvim",
-      event = "VeryLazy",
-      config = function()
-        require("plugin.conform").config()
-      end,
-    },
+    { import = "plugin.conform" },
     {
       "lukas-reineke/indent-blankline.nvim",
       main = "ibl",
       event = "VeryLazy",
-      config = function()
-        require("ibl").setup()
-      end,
+      config = true,
     },
 
     -- Debugger
+    { import = "plugin.nvim-dap" },
     {
-      "mfussenegger/nvim-dap",
-      lazy = true,
-      dependencies = { "rcarriga/nvim-dap-ui", "nvim-neotest/nvim-nio" },
+      "rcarriga/nvim-dap-ui",
       config = function()
-        require("plugin.nvim-dap").config()
+        local dap = require("dap")
+        local dapui = require("dapui")
+
+        dapui.setup()
+
+        dap.listeners.after.event_initialized["dapui_config"] = function()
+          dapui.open()
+        end
+        dap.listeners.before.event_terminated["dapui_config"] = function()
+          dapui.close()
+        end
+        dap.listeners.before.event_exited["dapui_config"] = function()
+          dapui.close()
+        end
       end,
     },
     {
       "theHamsta/nvim-dap-virtual-text",
       event = "VeryLazy",
-      config = function()
-        require("nvim-dap-virtual-text").setup({ commented = true })
-      end,
+      opts = { commented = true },
     },
 
     -- Linter
-    {
-      "mfussenegger/nvim-lint",
-      event = "VeryLazy",
-      config = function()
-        require("plugin.nvim-lint").config()
-      end,
-    },
+    { import = "plugin.nvim-lint" },
 
     -- Programming Language Support
     -- CMake
-    { "Civitasv/cmake-tools.nvim" },
+    { "Civitasv/cmake-tools.nvim", config = true },
 
     -- Golang
-    {
-      "ray-x/go.nvim",
-      dependencies = { -- optional packages
-        "ray-x/guihua.lua",
-      },
-      config = function()
-        require("plugin.gonvim").config()
-      end,
-      ft = { "go", "gomod" },
-    },
+    { import = "plugin.gonvim" },
 
     -- Rust
-    {
-      "mrcjkb/rustaceanvim",
-      version = "^4", -- Recommended
-      ft = { "rust" },
-      config = function()
-        require("plugin.rustaceanvim").config()
-      end,
-    },
+    { import = "plugin.rustaceanvim" },
 
     -- SQL
     { "nanotee/sqls.nvim", ft = { "sql" } },
   }
 
-  local opts = {
-    concurrency = 1,
-  }
-
-  require("lazy").setup(config, opts)
+  require("lazy").setup({
+    spec = spec,
+    checker = { concurrency = 1 },
+  })
 end
 
 return Plugin

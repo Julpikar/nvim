@@ -1,8 +1,26 @@
-local Terminal = require("toggleterm.terminal").Terminal
+local ToggleTerm = {
+  "akinsho/toggleterm.nvim",
+  version = "*",
+}
 
-local Toggleterm = {}
+ToggleTerm.opts = {
+  -- size can be a number or function which is passed the current
+  -- terminal
+  size = function(term)
+    if term.direction == "horizontal" then
+      return 15
+    elseif term.direction == "vertical" then
+      return vim.o.columns / 2
+    end
+  end,
+}
 
-local function term_lazygit()
+ToggleTerm.config = function(_, opts)
+  require("toggleterm").setup(opts)
+
+  local Terminal = require("toggleterm.terminal").Terminal
+
+  -- Lazygit
   local lazygit = Terminal:new({
     cmd = "lazygit",
     direction = "float",
@@ -13,9 +31,8 @@ local function term_lazygit()
     lazygit:toggle()
   end
   vim.keymap.set("n", "<f5>", toggle_lazygit)
-end
 
-local function term_cmd_root()
+  -- Global CMD
   local cmd = Terminal:new({ cmd = "cmd", hidden = true })
 
   local toggle_cmd_float = function()
@@ -38,31 +55,15 @@ local function term_cmd_root()
     cmd:toggle()
   end
   vim.keymap.set("n", "<LEADER>th", toggle_cmd_sh)
-end
 
-local function term_cmd_buffer()
-  local cmd = Terminal:new({ cmd = "cmd", direction = "float", hidden = true })
+  -- Buffer CMD
+  local buffer_cmd = Terminal:new({ cmd = "cmd", direction = "float", hidden =
+  true })
   local toggle_cmd = function()
-    cmd.dir = vim.fn.expand("%:p:h")
-    cmd:toggle()
+    buffer_cmd.dir = vim.fn.expand("%:p:h")
+    buffer_cmd:toggle()
   end
   vim.keymap.set("n", "<f7>", toggle_cmd)
 end
 
-function Toggleterm.config()
-  require("toggleterm").setup({
-    -- size can be a number or function which is passed the current terminal
-    size = function(term)
-      if term.direction == "horizontal" then
-        return 15
-      elseif term.direction == "vertical" then
-        return vim.o.columns / 2
-      end
-    end,
-  })
-  term_lazygit()
-  term_cmd_root()
-  term_cmd_buffer()
-end
-
-return Toggleterm
+return ToggleTerm

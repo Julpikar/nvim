@@ -1,7 +1,12 @@
-local custom_capabilities = require("cmp_nvim_lsp").default_capabilities()
+local Rustaceanvim = {
+  "mrcjkb/rustaceanvim",
+  version = "^4", -- Recommended
+  ft = { "rust" },
+}
+
 local custom_on_attach = function(client, bufnr)
   local config = {
-    bind = true, -- This is mandatory, otherwise border config won't get registered.
+    bind = true,
     handler_opts = {
       border = "rounded",
     },
@@ -9,9 +14,9 @@ local custom_on_attach = function(client, bufnr)
   require("lsp_signature").on_attach(config, bufnr)
 end
 
-local Rustaceanvim = {}
+local custom_capabilities = require("cmp_nvim_lsp").default_capabilities()
 
-function Rustaceanvim.config()
+Rustaceanvim.config = function()
   vim.g.rustaceanvim = {
     -- Plugin configuration
     tools = {},

@@ -1,6 +1,6 @@
-local lualine = require("lualine")
-
-local Lualine = {}
+local Lualine = {
+  "nvim-lualine/lualine.nvim",
+}
 
 local function theme()
   return {
@@ -240,7 +240,7 @@ local function provider_LSP_client()
   }
 end
 
-function Lualine.config()
+Lualine.config = function()
   -- Left section
   local left = config.sections.lualine_c
 
@@ -266,7 +266,7 @@ function Lualine.config()
   insert_component(right, provider_cursor_location)
   insert_component(right, provider_cursor_progress)
 
-  lualine.setup(config)
+  require("lualine").setup(config)
 end
 
 return Lualine

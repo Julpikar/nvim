@@ -1,19 +1,32 @@
-local is_picking_focus = require("cokeline.mappings").is_picking_focus
-local is_picking_close = require("cokeline.mappings").is_picking_close
+local Cokeline = {
+  "willothy/nvim-cokeline",
+}
 
-local Cokeline = {}
+Cokeline.keys = {
+  {
+    "<leader>bp",
+    function()
+      require("cokeline.mappings").pick("focus")
+    end,
+  },
+  {
+    "<leader>bx",
+    function()
+      require("cokeline.mappings").pick("close")
+    end,
+  },
+}
 
-local function bufferline_setup()
+Cokeline.init = function()
+  local is_picking_focus = require("cokeline.mappings").is_picking_focus
+  local is_picking_close = require("cokeline.mappings").is_picking_close
+
   local inactive_fg = "#859289"
   local fg = "#d3c6aa"
   local inactive_bg = "#1e2326"
   local bg = "#272e33"
   local error = "#e67e80"
   local warn = "#dbbc7f"
-
-  local function border_fg(buffer)
-    return buffer.is_focused and "#a7c080" or error
-  end
 
   local config = {
     default_hl = {
@@ -27,7 +40,9 @@ local function bufferline_setup()
     components = {
       {
         text = "▎",
-        fg = border_fg,
+        fg = function(buffer)
+          return buffer.is_focused and "#a7c080" or error
+        end,
       },
       {
         text = function(buffer)
@@ -106,22 +121,9 @@ local function bufferline_setup()
       },
     },
   }
+
+  -- Setup
   require("cokeline").setup(config)
-end
-
-local function mappings()
-  vim.keymap.set("n", "<leader>bp", function()
-    require("cokeline.mappings").pick("focus")
-  end, { desc = "Pick a buffer to focus" })
-
-  vim.keymap.set("n", "<leader>bx", function()
-    require("cokeline.mappings").pick("close")
-  end, { desc = "Pick a buffer to close" })
-end
-
-function Cokeline.config()
-  bufferline_setup()
-  mappings()
 end
 
 return Cokeline

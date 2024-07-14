@@ -1,6 +1,9 @@
-local NvimLint = {}
+local NvimLint = {
+  "mfussenegger/nvim-lint",
+  lazy = true,
+}
 
-function NvimLint.config()
+NvimLint.config = function()
   local lint = require("lint")
 
   vim.api.nvim_create_autocmd({ "BufWritePost" }, {
@@ -10,7 +13,7 @@ function NvimLint.config()
   })
 
   lint.linters_by_ft = {
-    javascript = { "biomejs" },
+    python = "ruff",
   }
 end
 
