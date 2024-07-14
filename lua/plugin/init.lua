@@ -28,7 +28,7 @@ function Plugin.setup()
       config = true,
     },
     { "williamboman/mason-lspconfig.nvim", config = true },
-    { "rshkarin/mason-nvim-lint", config = true },
+    { "rshkarin/mason-nvim-lint", opts = { automatic_installation = false } },
     { "jay-babu/mason-nvim-dap.nvim", config = true },
 
     -- Session

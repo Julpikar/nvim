@@ -13,7 +13,7 @@ NvimLint.config = function()
   })
 
   lint.linters_by_ft = {
-    python = "ruff",
+    python = { "ruff" },
   }
 end
 
