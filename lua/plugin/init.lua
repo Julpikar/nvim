@@ -14,22 +14,13 @@ function Plugin.setup()
       },
     },
     { import = "plugin.treesitter" },
-    "HiPhish/rainbow-delimiters.nvim",
-    {
-      "NvChad/nvim-colorizer.lua",
-      config = true,
-    },
+    { "HiPhish/rainbow-delimiters.nvim" },
+    { "NvChad/nvim-colorizer.lua", config = true },
     { import = "plugin.toggleterm" },
     { import = "plugin.fidget" },
 
     -- External Tool Manager
-    {
-      "williamboman/mason.nvim",
-      config = true,
-    },
-    { "williamboman/mason-lspconfig.nvim", config = true },
-    { "rshkarin/mason-nvim-lint", opts = { automatic_installation = false } },
-    { "jay-babu/mason-nvim-dap.nvim", config = true },
+    { "williamboman/mason.nvim", config = true },
 
     -- Session
     { import = "plugin.resession" },
@@ -39,11 +30,7 @@ function Plugin.setup()
     { "nvim-tree/nvim-web-devicons", lazy = true },
 
     -- Git Integration
-    {
-      "lewis6991/gitsigns.nvim",
-      event = "VeryLazy",
-      config = true,
-    },
+    { "lewis6991/gitsigns.nvim", event = "BufEnter", config = true },
     {
       "NeogitOrg/neogit",
       dependencies = {
@@ -61,10 +48,7 @@ function Plugin.setup()
     },
 
     -- Navigation
-    {
-      "lewis6991/satellite.nvim",
-      config = true,
-    },
+    { "lewis6991/satellite.nvim", config = true },
     {
       "RRethy/vim-illuminate",
       event = "VeryLazy",
@@ -84,13 +68,8 @@ function Plugin.setup()
 
     -- LSP Integration
     { import = "plugin.nvim-cmp" },
-    { "hrsh7th/cmp-nvim-lsp", lazy = true },
     { import = "plugin.nvim-lspconfig" },
-    {
-      "ray-x/lsp_signature.nvim",
-      lazy = true,
-      config = true,
-    },
+    { "ray-x/lsp_signature.nvim", lazy = true, config = true },
     {
       "rmagatti/goto-preview",
       event = "VeryLazy",
@@ -140,11 +119,7 @@ function Plugin.setup()
         },
       },
     },
-    {
-      "numToStr/Comment.nvim",
-      event = "VeryLazy",
-      config = true,
-    },
+    { "numToStr/Comment.nvim", event = "BufEnter", config = true },
     { import = "plugin.conform" },
     {
       "lukas-reineke/indent-blankline.nvim",
@@ -185,7 +160,7 @@ function Plugin.setup()
 
     -- Programming Language Support
     -- CMake
-    { "Civitasv/cmake-tools.nvim", config = true },
+    { "Civitasv/cmake-tools.nvim", ft = { "cmake" }, config = true },
 
     -- Golang
     { import = "plugin.gonvim" },
@@ -199,7 +174,7 @@ function Plugin.setup()
 
   require("lazy").setup({
     spec = spec,
-    checker = { concurrency = 1 },
+    concurrency = 1,
   })
 end
 

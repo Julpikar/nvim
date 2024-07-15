@@ -1,6 +1,9 @@
 local NvimLint = {
   "mfussenegger/nvim-lint",
-  lazy = true,
+  event = "VeryLazy",
+  dependencies = {
+    { "rshkarin/mason-nvim-lint", opts = { automatic_installation = false } },
+  },
 }
 
 NvimLint.config = function()

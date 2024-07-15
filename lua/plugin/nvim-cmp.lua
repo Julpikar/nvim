@@ -2,13 +2,27 @@ local NvimCmp = {
   "hrsh7th/nvim-cmp",
   event = "InsertEnter",
   dependencies = {
+    "hrsh7th/cmp-nvim-lsp",
     "hrsh7th/cmp-buffer",
     "hrsh7th/cmp-cmdline",
-    "L3MON4D3/LuaSnip",
-    "saadparwaiz1/cmp_luasnip",
-    "rafamadriz/friendly-snippets",
+    {
+      "L3MON4D3/LuaSnip",
+      dependencies = {
+        "saadparwaiz1/cmp_luasnip",
+        "rafamadriz/friendly-snippets",
+      },
+      config = function()
+        local luasnip = require("luasnip")
+        require("luasnip.loaders.from_vscode").lazy_load()
+      end,
+    },
   },
 }
+
+NvimCmp.init = function()
+  vim.opt.completeopt = { "menu", "menuone", "noinsert" }
+  vim.o.pumheight = 20
+end
 
 local has_words_before = function()
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
@@ -53,11 +67,6 @@ local source_name = {
 
 NvimCmp.config = function()
   local cmp = require("cmp")
-  local luasnip = require("luasnip")
-  require("luasnip.loaders.from_vscode").lazy_load()
-
-  vim.opt.completeopt = { "menu", "menuone", "noinsert" }
-  vim.o.pumheight = 20
 
   cmp.setup({
     window = {

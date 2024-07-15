@@ -1,7 +1,10 @@
 local NvimDap = {
   "mfussenegger/nvim-dap",
   lazy = true,
-  dependencies = { "nvim-neotest/nvim-nio" },
+  dependencies = {
+    { "nvim-neotest/nvim-nio" },
+    { "jay-babu/mason-nvim-dap.nvim", config = true },
+  },
 }
 
 NvimDap.keys = {

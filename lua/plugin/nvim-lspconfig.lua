@@ -1,5 +1,8 @@
 local LspConfig = {
   "neovim/nvim-lspconfig",
+  dependencies = {
+    { "williamboman/mason-lspconfig.nvim", config = true },
+  },
 }
 
 local custom_capabilities = require("cmp_nvim_lsp").default_capabilities()
@@ -18,10 +21,10 @@ local function custom_diagnostic()
   vim.diagnostic.config({
     signs = {
       text = {
-        [vim.diagnostic.severity.ERROR] = "E󰁕",
-        [vim.diagnostic.severity.WARN] = "W󰁕",
-        [vim.diagnostic.severity.INFO] = "I󰁕",
-        [vim.diagnostic.severity.HINT] = "H󰁕",
+        [vim.diagnostic.severity.ERROR] = "E ",
+        [vim.diagnostic.severity.WARN] = "W ",
+        [vim.diagnostic.severity.INFO] = "I ",
+        [vim.diagnostic.severity.HINT] = "H ",
       },
     },
   })
