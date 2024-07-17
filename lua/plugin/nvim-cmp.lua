@@ -89,7 +89,7 @@ NvimCmp.config = function()
     snippet = {
       -- REQUIRED - you must specify a snippet engine
       expand = function(args)
-        luasnip.lsp_expand(args.body) -- For `luasnip` users.
+        require("luasnip").lsp_expand(args.body) -- For `luasnip` users.
       end,
     },
 
