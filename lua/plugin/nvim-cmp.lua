@@ -67,6 +67,7 @@ local source_name = {
 
 NvimCmp.config = function()
   local cmp = require("cmp")
+  local luasnip = require("luasnip")
 
   cmp.setup({
     window = {
@@ -89,7 +90,7 @@ NvimCmp.config = function()
     snippet = {
       -- REQUIRED - you must specify a snippet engine
       expand = function(args)
-        require("luasnip").lsp_expand(args.body) -- For `luasnip` users.
+        luasnip.lsp_expand(args.body) -- For `luasnip` users.
       end,
     },
 

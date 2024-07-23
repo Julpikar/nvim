@@ -53,14 +53,14 @@ function Local.setup()
 
   -- Key Mapping
   local keys = {
-    { "n", "wh", "<CMD>wincmd h<CR>" },
-    { "n", "wk", "<CMD>wincmd k<CR>" },
-    { "n", "wl", "<CMD>wincmd l<CR>" },
-    { "n", "wj", "<CMD>wincmd j<CR>" },
-    { "n", "bd", "<CMD>bdelete<CR>" },
-    { "n", "b]", "<CMD>bnext<CR>" },
-    { "n", "bn", "<CMD>bnext<CR>" },
-    { "n", "b[", "<CMD>bprevious<CR>" },
+    { "n", "<LEADER>h", "<CMD>wincmd h<CR>" },
+    { "n", "<LEADER>k", "<CMD>wincmd k<CR>" },
+    { "n", "<LEADER>l", "<CMD>wincmd l<CR>" },
+    { "n", "<LEADER>j", "<CMD>wincmd j<CR>" },
+    { "n", "<LEADER>bd", "<CMD>bdelete<CR>" },
+    { "n", "]b", "<CMD>bnext<CR>" },
+    { "n", "<LEADER>bn", "<CMD>bnext<CR>" },
+    { "n", "[b", "<CMD>bprevious<CR>" },
     { { "n", "v" }, "<LEADER>n", "<CMD>NumberOnOff<CR>" },
     { { "n", "v" }, "<LEADER>q", "<CMD>quit<CR>" },
     { { "n", "v" }, "<LEADER>vs", "<CMD>vsplit<CR>" },

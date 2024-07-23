@@ -33,13 +33,13 @@ NvimDap.keys = {
     end,
   },
   {
-    "<Leader>b",
+    "<Leader>db",
     function()
       require("dap").toggle_breakpoint()
     end,
   },
   {
-    "<Leader>B",
+    "<Leader>dB",
     function()
       require("dap").set_breakpoint()
     end,
@@ -64,49 +64,5 @@ NvimDap.keys = {
     end,
   },
 }
-
-NvimDap.config = function()
-  local dap = require("dap")
-
-  -- Adapter Definition
-  dap.adapters.codelldb = {
-    type = "server",
-    port = "${port}",
-    executable = {
-      -- CHANGE THIS to your path!
-      command = "codelldb",
-      args = { "--port", "${port}" },
-
-      -- On windows you may have to uncomment this:
-      detached = false,
-    },
-  }
-
-  -- Language Configuration
-  dap.configurations.c = {
-    {
-      name = "Launch",
-      type = "codelldb",
-      request = "launch",
-      program = function()
-        local path = vim.fn.input({
-          prompt = "Path to executable: ",
-          default = vim.fn.getcwd() .. "\\",
-          completion = "file",
-        })
-        return (path and path ~= "") and path or dap.ABORT
-      end,
-      stopOnEntry = false,
-    },
-    {
-      name = "Attach to process (code-LLDB)",
-      type = "lldb",
-      request = "attach",
-      processId = require("dap.utils").pick_process,
-    },
-  }
-  dap.configurations.cpp = dap.configurations.c
-  dap.configurations.rust = dap.configurations.c
-end
 
 return NvimDap
