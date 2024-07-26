@@ -155,6 +155,9 @@ function Plugin.setup()
       opts = { commented = true },
     },
 
+    -- Task runner
+    { "stevearc/overseer.nvim", event = "VeryLazy", config = true },
+
     -- Linter
     { import = "plugin.nvim-lint" },
 

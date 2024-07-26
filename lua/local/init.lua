@@ -59,7 +59,6 @@ function Local.setup()
     { "n", "<LEADER>j", "<CMD>wincmd j<CR>" },
     { "n", "<LEADER>bd", "<CMD>bdelete<CR>" },
     { "n", "]b", "<CMD>bnext<CR>" },
-    { "n", "<LEADER>bn", "<CMD>bnext<CR>" },
     { "n", "[b", "<CMD>bprevious<CR>" },
     { { "n", "v" }, "<LEADER>n", "<CMD>NumberOnOff<CR>" },
     { { "n", "v" }, "<LEADER>q", "<CMD>quit<CR>" },
