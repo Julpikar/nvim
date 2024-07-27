@@ -1,5 +1,6 @@
 local Fidget = {
   "j-hui/fidget.nvim",
+  lazy = false,
 }
 
 Fidget.opts = {

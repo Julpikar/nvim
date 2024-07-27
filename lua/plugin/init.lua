@@ -178,6 +178,7 @@ function Plugin.setup()
   require("lazy").setup({
     spec = spec,
     concurrency = 1,
+    rocks = { enable = false },
   })
 end
 
