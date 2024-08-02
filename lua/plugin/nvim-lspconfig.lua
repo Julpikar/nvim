@@ -3,19 +3,14 @@ local LspConfig = {
   dependencies = {
     { "williamboman/mason-lspconfig.nvim", config = true },
   },
+  keys = {
+    { "<LEADER>ls", "<CMD>LspStart<CR>" },
+    { "<LEADER>lx", "<CMD>LspStop<CR>" },
+    { "<LEADER>lr", "<CMD>LspRestart<CR>" },
+  },
 }
 
 local custom_capabilities = require("cmp_nvim_lsp").default_capabilities()
-
-local function custom_on_attach(client, bufnr)
-  local config = {
-    bind = true,
-    handler_opts = {
-      border = "rounded",
-    },
-  }
-  require("lsp_signature").on_attach(config, bufnr)
-end
 
 local function custom_diagnostic()
   vim.diagnostic.config({
@@ -35,12 +30,8 @@ local function custom_handlers()
   { border = "rounded", width = 120 })
 end
 
-function mapping()
+local function custom_on_attach()
   local keymap_set = vim.keymap.set
-
-  keymap_set("n", "<LEADER>ls", "<CMD>LspStart<CR>")
-  keymap_set("n", "<LEADER>lx", "<CMD>LspStop<CR>")
-  keymap_set("n", "<LEADER>lr", "<CMD>LspRestart<CR>")
 
   -- Global mappings.
   -- See `:help vim.diagnostic.*` for documentation on any of the below
@@ -202,7 +193,6 @@ end
 LspConfig.config = function()
   custom_handlers()
   custom_diagnostic()
-  mapping()
   server_register()
 end
 
