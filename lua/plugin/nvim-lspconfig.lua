@@ -191,6 +191,12 @@ local function server_register()
       },
     },
   })
+
+  -- Toml
+  lspconfig.taplo.setup({
+    on_attach = custom_on_attach,
+    capabilities = custom_capabilities,
+  })
 end
 
 LspConfig.config = function()

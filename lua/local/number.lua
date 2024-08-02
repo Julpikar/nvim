@@ -10,6 +10,7 @@ local Number = {
     "mason",
     "NeogitStatus",
     "NvimTree",
+    "OverseerList",
     "TelescopePrompt",
     "toggleterm",
     "Trouble",
@@ -67,13 +68,20 @@ local function win_not_focus()
 end
 
 local function number_set_enable()
-  local number_enable_augroup = vim.api.nvim_create_augroup("EnableNumber", { clear = true })
+  local number_enable_augroup = vim.api.nvim_create_augroup("EnableNumber", {
+    clear = true,
+  })
   local nvim_create_autocmd = vim.api.nvim_create_autocmd
-  nvim_create_autocmd({ "InsertEnter", "WinLeave" }, { callback = set_number, group = number_enable_augroup })
-  nvim_create_autocmd({ "InsertLeave", "WinEnter" }, { callback = set_relative, group = number_enable_augroup })
-  nvim_create_autocmd({ "BufNewFile", "BufReadPost" }, { callback = reset_number, group = number_enable_augroup })
-  nvim_create_autocmd("FocusLost", { callback = win_not_focus, group = number_enable_augroup })
-  nvim_create_autocmd("FocusGained", { callback = win_on_focus, group = number_enable_augroup })
+  nvim_create_autocmd({ "InsertEnter", "WinLeave" }, { callback = set_number,
+  group = number_enable_augroup })
+  nvim_create_autocmd({ "InsertLeave", "WinEnter" }, { callback = set_relative,
+  group = number_enable_augroup })
+  nvim_create_autocmd({ "BufNewFile", "BufReadPost" }, { callback =
+  reset_number, group = number_enable_augroup })
+  nvim_create_autocmd("FocusLost", { callback = win_not_focus, group =
+  number_enable_augroup })
+  nvim_create_autocmd("FocusGained", { callback = win_on_focus, group =
+  number_enable_augroup })
 
   Number.enable_number = true
   o.relativenumber = true
@@ -96,10 +104,14 @@ end
 
 function Number.setup()
   local nvim_create_user_command = vim.api.nvim_create_user_command
-  nvim_create_user_command("NumberToggle", number_set_toggle, { bang = true, nargs = 0 })
-  nvim_create_user_command("NumberEnable", number_set_enable, { bang = true, nargs = 0 })
-  nvim_create_user_command("NumberDisable", number_set_disable, { bang = true, nargs = 0 })
-  nvim_create_user_command("NumberOnOff", number_switch_on_off, { bang = true, nargs = 0 })
+  nvim_create_user_command("NumberToggle", number_set_toggle, { bang = true,
+  nargs = 0 })
+  nvim_create_user_command("NumberEnable", number_set_enable, { bang = true,
+  nargs = 0 })
+  nvim_create_user_command("NumberDisable", number_set_disable, { bang = true,
+  nargs = 0 })
+  nvim_create_user_command("NumberOnOff", number_switch_on_off, { bang = true,
+  nargs = 0 })
   if Number.enable_number then
     number_set_enable()
   else
