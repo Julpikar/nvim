@@ -11,13 +11,14 @@ Conform.opts = {
     lua = { "stylua" },
     python = { "ruff_format" },
   },
+  default_format_opts = { lsp_format = "fallback" },
 }
 
 Conform.keys = {
   {
     "<F9>",
     function()
-      require("conform").format({ lsp_fallback = true }, function()
+      require("conform").format({ async = true }, function()
         vim.notify(
           vim.fn.expand("%") .. " has formatted",
           vim.log.levels.INFO,

@@ -7,10 +7,12 @@ local Number = {
   numbers_exclude = {
     "DiffviewFiles",
     "lazy",
+    "log",
     "mason",
     "NeogitStatus",
     "NvimTree",
     "OverseerList",
+    "qf",
     "TelescopePrompt",
     "toggleterm",
     "Trouble",
