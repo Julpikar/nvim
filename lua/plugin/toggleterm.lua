@@ -57,8 +57,7 @@ ToggleTerm.config = function(_, opts)
   vim.keymap.set("n", "<LEADER>th", toggle_cmd_sh)
 
   -- Buffer CMD
-  local buffer_cmd = Terminal:new({ cmd = "cmd", direction = "float", hidden =
-  true })
+  local buffer_cmd = Terminal:new({ cmd = "cmd", direction = "float", hidden = true })
   local toggle_cmd = function()
     buffer_cmd.dir = vim.fn.expand("%:p:h")
     buffer_cmd:toggle()

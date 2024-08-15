@@ -26,8 +26,7 @@ end
 
 local has_words_before = function()
   local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line,
-  true)[1]:sub(col, col):match("%s") == nil
+  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
 
 local kind_icons = {
@@ -78,8 +77,7 @@ NvimCmp.config = function()
       format = function(entry, vim_item)
         -- Source
         vim_item.menu = source_name[entry.source.name]
-            and string.format("%-13s %9s", vim_item.kind,
-            source_name[entry.source.name])
+            and string.format("%-13s %9s", vim_item.kind, source_name[entry.source.name])
           or ""
         -- Kind icons
         vim_item.kind = string.format(" %s ", kind_icons[vim_item.kind])

@@ -26,8 +26,7 @@ local function custom_diagnostic()
 end
 
 local function custom_handlers()
-  vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover,
-  { border = "rounded", width = 120 })
+  vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded", width = 120 })
 end
 
 local function custom_on_attach()
@@ -44,36 +43,28 @@ local function custom_on_attach()
     vim.diagnostic.goto_next({ float = { border = "rounded" } })
   end)
   keymap_set("n", "[e", function()
-    vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR, float =
-    { border = "rounded" } })
+    vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR, float = { border = "rounded" } })
   end)
   keymap_set("n", "]e", function()
-    vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR, float =
-    { border = "rounded" } })
+    vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR, float = { border = "rounded" } })
   end)
   keymap_set("n", "[w", function()
-    vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.WARN, float =
-    { border = "rounded" } })
+    vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.WARN, float = { border = "rounded" } })
   end)
   keymap_set("n", "]w", function()
-    vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.WARN, float =
-    { border = "rounded" } })
+    vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.WARN, float = { border = "rounded" } })
   end)
   keymap_set("n", "[i", function()
-    vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.INFO, float =
-    { border = "rounded" } })
+    vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.INFO, float = { border = "rounded" } })
   end)
   keymap_set("n", "]i", function()
-    vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.INFO, float =
-    { border = "rounded" } })
+    vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.INFO, float = { border = "rounded" } })
   end)
   keymap_set("n", "[h", function()
-    vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.HINT, float =
-    { border = "rounded" } })
+    vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.HINT, float = { border = "rounded" } })
   end)
   keymap_set("n", "]h", function()
-    vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.HINT, float =
-    { border = "rounded" } })
+    vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.HINT, float = { border = "rounded" } })
   end)
   keymap_set("n", "<space>q", vim.diagnostic.setloclist)
 end
@@ -113,10 +104,8 @@ local function server_register()
     capabilities = custom_capabilities,
     on_init = function(client)
       local path = client.workspace_folders[1].name
-      if not vim.uv.fs_stat(path .. "/.luarc.json") and not vim.uv.fs_stat(path
-        .. "/.luarc.jsonc") then
-        client.config.settings = vim.tbl_deep_extend("force",
-        client.config.settings, {
+      if not vim.uv.fs_stat(path .. "/.luarc.json") and not vim.uv.fs_stat(path .. "/.luarc.jsonc") then
+        client.config.settings = vim.tbl_deep_extend("force", client.config.settings, {
           Lua = {
             runtime = {
               -- Tell the language server which version of Lua you're using
@@ -137,8 +126,7 @@ local function server_register()
           },
         })
 
-        client.notify("workspace/didChangeConfiguration", { settings =
-        client.config.settings })
+        client.notify("workspace/didChangeConfiguration", { settings = client.config.settings })
       end
       return true
     end,

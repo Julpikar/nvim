@@ -108,30 +108,6 @@ function Plugin.setup()
       config = true,
     },
     { import = "plugin.nvim-autopairs" },
-    {
-      "emileferreira/nvim-strict",
-      event = "VeryLazy",
-      opts = {
-        excluded_filetypes = {
-          "help",
-          "html",
-          "make",
-          "markdown",
-          "nofile",
-          "prompt",
-          "terminal",
-          "text",
-        },
-        deep_nesting = {
-          depth_limit = 5,
-          ignored_trailing_characters = ",",
-          ignored_leading_characters = ".",
-        },
-        overlong_lines = {
-          length_limit = 80,
-        },
-      },
-    },
     { "numToStr/Comment.nvim", event = "BufEnter", config = true },
     { import = "plugin.conform" },
     {

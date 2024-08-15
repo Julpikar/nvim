@@ -47,36 +47,28 @@ local function custom_on_attach()
     vim.diagnostic.goto_next({ float = { border = "rounded" } })
   end)
   keymap_set("n", "[e", function()
-    vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR, float =
-    { border = "rounded" } })
+    vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.ERROR, float = { border = "rounded" } })
   end)
   keymap_set("n", "]e", function()
-    vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR, float =
-    { border = "rounded" } })
+    vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.ERROR, float = { border = "rounded" } })
   end)
   keymap_set("n", "[w", function()
-    vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.WARN, float =
-    { border = "rounded" } })
+    vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.WARN, float = { border = "rounded" } })
   end)
   keymap_set("n", "]w", function()
-    vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.WARN, float =
-    { border = "rounded" } })
+    vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.WARN, float = { border = "rounded" } })
   end)
   keymap_set("n", "[i", function()
-    vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.INFO, float =
-    { border = "rounded" } })
+    vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.INFO, float = { border = "rounded" } })
   end)
   keymap_set("n", "]i", function()
-    vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.INFO, float =
-    { border = "rounded" } })
+    vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.INFO, float = { border = "rounded" } })
   end)
   keymap_set("n", "[h", function()
-    vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.HINT, float =
-    { border = "rounded" } })
+    vim.diagnostic.goto_prev({ severity = vim.diagnostic.severity.HINT, float = { border = "rounded" } })
   end)
   keymap_set("n", "]h", function()
-    vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.HINT, float =
-    { border = "rounded" } })
+    vim.diagnostic.goto_next({ severity = vim.diagnostic.severity.HINT, float = { border = "rounded" } })
   end)
   keymap_set("n", "<space>q", vim.diagnostic.setloclist)
 end
