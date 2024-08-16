@@ -3,6 +3,7 @@ local colorscheme = require("local.colorscheme")
 local lastplace = require("local.lastplace")
 local number = require("local.number")
 local root = require("local.root")
+local rules = require("local.rules")
 
 local o = vim.o
 
@@ -36,6 +37,9 @@ function Local.setup()
   o.foldenable = true
   o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
 
+  -- Length a line
+  o.textwidth = 80
+
   -- AutoSave
   autosave.setup()
 
@@ -50,6 +54,9 @@ function Local.setup()
 
   -- Find root file
   root.setup()
+
+  -- Editing rules
+  rules.setup()
 
   -- Key Mapping
   local keys = {

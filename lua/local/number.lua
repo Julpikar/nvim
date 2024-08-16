@@ -15,7 +15,7 @@ local Number = {
     "qf",
     "TelescopePrompt",
     "toggleterm",
-    "Trouble",
+    "trouble",
   },
 }
 

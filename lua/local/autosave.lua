@@ -48,7 +48,7 @@ end
 function AutoSave.setup()
   local event = { "InsertLeave", "TextChanged" }
   local auto_save_augroup = api.nvim_create_augroup("AutoSave", { clear = true })
-  api.nvim_create_autocmd(event, { callback = save, group = auto_save_augroup })
+  api.nvim_create_autocmd(event, { group = auto_save_augroup, callback = save })
 end
 
 return AutoSave
