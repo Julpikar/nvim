@@ -220,7 +220,7 @@ local function LSP_message()
   local msg = {}
   for _, client in ipairs(clients) do
     local filetypes = client.config.filetypes
-    if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 and not vim.tbl_contains(msg, client.name) then
+    if filetypes and vim.tbl_contains(filetypes, buf_ft) and not vim.tbl_contains(msg, client.name) then
       table.insert(msg, client.name)
     end
   end

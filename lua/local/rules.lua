@@ -4,7 +4,7 @@ local fn = vim.fn
 
 local Rules = {}
 
-local exclude_filetype = { "help", "html", "nofile", "prompt", "terminal", "toggleterm", "trouble" }
+local exclude_buftype = { "help", "nofile", "prompt", "terminal" }
 
 local rules = {
   { "\\s\\+$", "Trailing whitespace" },
@@ -12,12 +12,8 @@ local rules = {
   { "\\%>80v.\\+", "Overlong lines" },
 }
 
-local function violations()
+local function diagnostic_violations()
   fn.clearmatches()
-
-  if fn.index(exclude_filetype, bo.filetype) >= 0 then
-    return
-  end
 
   -- trailing empty lines
   local trailing_empty_lines_regex = "\\($\\n\\s*\\)\\+\\%$"
@@ -48,11 +44,49 @@ local function violations()
   vim.diagnostic.set(rules_namespace, 0, diagnostics, {})
 end
 
+local queued = false
+local function defer_func(timeout)
+  if queued then
+    return
+  end
+  vim.defer_fn(function()
+    queued = false
+    diagnostic_violations()
+  end, timeout)
+  queued = true
+end
+
+local function violations()
+  if not api.nvim_get_option_value("modifiable", { buf = 0 }) or vim.tbl_contains(exclude_buftype, bo.buftype) then
+    return
+  end
+
+  defer_func(500)
+end
+
+local function remove_by_cmd(command)
+  local view = vim.fn.winsaveview()
+  vim.cmd("silent keepjumps keeppatterns " .. command)
+  vim.fn.winrestview(view)
+end
+
+local function cleanup()
+  -- trailing whitespace
+  remove_by_cmd("%s/\\s\\+$//e")
+
+  -- trailing empty lines
+  remove_by_cmd("%s/\\($\\n\\s*\\)\\+\\%$//e")
+end
+
 function Rules.setup()
   local rules_augroup = api.nvim_create_augroup("Rules", { clear = true })
-  api.nvim_create_autocmd({ "BufEnter", "InsertLeave", "TermOpen" }, {
+  api.nvim_create_autocmd({ "BufEnter", "BufWritePost", "TermOpen" }, {
     group = rules_augroup,
     callback = violations,
+  })
+  api.nvim_create_autocmd({ "BufWrite" }, {
+    group = rules_augroup,
+    callback = cleanup,
   })
 end
 

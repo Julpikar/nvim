@@ -43,7 +43,7 @@ local function reset_number()
     relative_number_off()
   end
 
-  if vim.fn.index(Number.numbers_exclude, o.filetype) >= 0 then
+  if vim.tbl_contains(Number.numbers_exclude, o.filetype) then
     vim.o.relativenumber = false
     vim.o.number = false
   end

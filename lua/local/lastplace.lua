@@ -6,11 +6,11 @@ local Lastplace = {}
 
 local function find()
   local fn = vim.fn
-  if fn.index(buftype_ignore, vim.o.buftype) ~= -1 then
+  if vim.tbl_contains(buftype_ignore, vim.o.buftype) then
     return
   end
 
-  if fn.index(filetype_ignore, vim.o.filetype) ~= -1 then
+  if vim.tbl_contains(filetype_ignore, vim.o.filetype) then
     return
   end
 
