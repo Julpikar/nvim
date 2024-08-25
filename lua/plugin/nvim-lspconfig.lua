@@ -4,9 +4,27 @@ local LspConfig = {
     { "williamboman/mason-lspconfig.nvim", config = true },
   },
   keys = {
-    { "<LEADER>ls", "<CMD>LspStart<CR>" },
-    { "<LEADER>lx", "<CMD>LspStop<CR>" },
-    { "<LEADER>lr", "<CMD>LspRestart<CR>" },
+    {
+      "<LEADER>ls",
+      function()
+        vim.cmd("LspStart")
+        vim.notify("LSP has started for filetype " .. vim.bo.filetype)
+      end,
+    },
+    {
+      "<LEADER>lx",
+      function()
+        vim.cmd("LspStop")
+        vim.notify("LSP has stopped for filetype " .. vim.bo.filetype)
+      end,
+    },
+    {
+      "<LEADER>lr",
+      function()
+        vim.cmd("LspRestart")
+        vim.notify("LSP has restarted for filetype " .. vim.bo.filetype)
+      end,
+    },
   },
 }
 

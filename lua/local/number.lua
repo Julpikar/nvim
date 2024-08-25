@@ -4,7 +4,8 @@ local focus = true
 
 local Number = {
   enable_number = true,
-  numbers_exclude = {
+  buftype_exclude = { "terminal" },
+  filetype_exclude = {
     "DiffviewFiles",
     "lazy",
     "log",
@@ -43,7 +44,7 @@ local function reset_number()
     relative_number_off()
   end
 
-  if vim.tbl_contains(Number.numbers_exclude, o.filetype) then
+  if vim.tbl_contains(Number.filetype_exclude, o.filetype or vim.tbl_contains(Number.buftype_exclude, o.buftype)) then
     vim.o.relativenumber = false
     vim.o.number = false
   end

@@ -150,6 +150,9 @@ function Plugin.setup()
     -- Linter
     { import = "plugin.nvim-lint" },
 
+    -- Testing
+    { import = "plugin.neotest" },
+
     -- Programming Language Support
     -- CMake
     { "Civitasv/cmake-tools.nvim", ft = { "cmake" }, config = true },

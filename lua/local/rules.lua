@@ -8,7 +8,6 @@ local exclude_buftype = { "help", "nofile", "prompt", "terminal" }
 
 local rules = {
   { "\\s\\+$", "Trailing whitespace" },
-  { "\\(^\\s*\\)\\@<=\\t\\+", "Using tab indentation" },
   { "\\%>80v.\\+", "Overlong lines" },
 }
 
