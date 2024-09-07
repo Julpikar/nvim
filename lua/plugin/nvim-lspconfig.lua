@@ -151,6 +151,7 @@ local function server_register()
     autostart = false,
   })
 
+  -- SQL
   lspconfig.sqls.setup({
     on_attach = function(client, bufnr)
       custom_on_attach()
@@ -171,6 +172,12 @@ local function server_register()
 
   -- Toml
   lspconfig.taplo.setup({
+    on_attach = custom_on_attach,
+    capabilities = custom_capabilities,
+  })
+
+  -- YAML
+  lspconfig.yamlls.setup({
     on_attach = custom_on_attach,
     capabilities = custom_capabilities,
   })
