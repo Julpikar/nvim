@@ -10,7 +10,7 @@ Conform.opts = {
     json = { "clang_format" },
     lua = { "stylua" },
     python = { "ruff_format" },
-    sql = { "sqlfluff" },
+    sql = { "sql_formatter" },
   },
   default_format_opts = { lsp_format = "fallback" },
 }

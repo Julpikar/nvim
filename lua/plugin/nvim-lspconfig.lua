@@ -163,7 +163,7 @@ local function server_register()
         connections = {
           {
             driver = "sqlite3",
-            dataSourceName = "db.sqlite3",
+            -- dataSourceName = "db.sqlite3",
           },
         },
       },
