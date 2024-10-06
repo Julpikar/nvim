@@ -5,39 +5,39 @@ local Lualine = {
 local function theme()
   return {
     normal = {
-      a = { bg = "#2e383c", fg = "#859289" },
-      b = { bg = "#414b50", fg = "#9da9a0" },
-      c = { bg = "#1e2326", fg = "#a7c080", gui = "bold" },
+      a = { bg = "#3c3836", fg = "#859289" },
+      b = { bg = "#a89985", fg = "#9da9a0" },
+      c = { bg = "#232323", fg = "#a9b665", gui = "bold" },
     },
     insert = {
-      a = { bg = "#2e383c", fg = "#d3c6aa" },
-      b = { bg = "#414b50", fg = "#d3c6aa" },
-      c = { bg = "#1e2326", fg = "#d3c6aa", gui = "bold" },
+      a = { bg = "#3c3836", fg = "#d5c4a1" },
+      b = { bg = "#a89985", fg = "#d5c4a1" },
+      c = { bg = "#232323", fg = "#d5c4a1", gui = "bold" },
     },
     visual = {
-      a = { bg = "#2e383c", fg = "#d3c6aa" },
-      b = { bg = "#414b50", fg = "#d3c6aa" },
-      c = { bg = "#1e2326", fg = "#e67e80", gui = "bold" },
+      a = { bg = "#3c3836", fg = "#d5c4a1" },
+      b = { bg = "#a89985", fg = "#d5c4a1" },
+      c = { bg = "#232323", fg = "#ea6962", gui = "bold" },
     },
     replace = {
-      a = { bg = "#2e383c", fg = "#d3c6aa" },
-      b = { bg = "#414b50", fg = "#d3c6aa" },
-      c = { bg = "#1e2326", fg = "#e69875", gui = "bold" },
+      a = { bg = "#3c3836", fg = "#d5c4a1" },
+      b = { bg = "#a89985", fg = "#d5c4a1" },
+      c = { bg = "#232323", fg = "#e78a4e", gui = "bold" },
     },
     command = {
-      a = { bg = "#2e383c", fg = "#d3c6aa" },
-      b = { bg = "#414b50", fg = "#d3c6aa" },
-      c = { bg = "#1e2326", fg = "#83c092", gui = "bold" },
+      a = { bg = "#3c3836", fg = "#d5c4a1" },
+      b = { bg = "#a89985", fg = "#d5c4a1" },
+      c = { bg = "#232323", fg = "#89b482", gui = "bold" },
     },
     terminal = {
-      a = { bg = "#2e383c", fg = "#d3c6aa" },
-      b = { bg = "#414b50", fg = "#d3c6aa" },
-      c = { bg = "#1e2326", fg = "#d699b6", gui = "bold" },
+      a = { bg = "#3c3836", fg = "#d5c4a1" },
+      b = { bg = "#a89985", fg = "#d5c4a1" },
+      c = { bg = "#232323", fg = "#d3869b", gui = "bold" },
     },
     inactive = {
-      a = { bg = "#2e383c", fg = "#859289" },
-      b = { bg = "#2e383c", fg = "#859289" },
-      c = { bg = "#2e383c", fg = "#859289" },
+      a = { bg = "#3c3836", fg = "#859289" },
+      b = { bg = "#3c3836", fg = "#859289" },
+      c = { bg = "#3c3836", fg = "#859289" },
     },
   }
 end
@@ -146,7 +146,7 @@ local function provider_filename()
   return {
     get_filename,
     cond = buffer_not_empty,
-    color = { fg = "#dbbc7f" },
+    color = { fg = "#d8a657" },
   }
 end
 
@@ -156,10 +156,10 @@ local function provider_diagnostic()
     sources = { "nvim_diagnostic" },
     diagnostics_color = {
       -- Same values as the general color option can be used here.
-      error = { fg = "#e67e80" }, -- Changes diagnostics' error color.
-      warn = { fg = "#dbbc7f" }, -- Changes diagnostics' warn color.
-      info = { fg = "#7fbbb3" }, -- Changes diagnostics' info color.
-      hint = { fg = "#a7c080" }, -- Changes diagnostics' hint color.
+      error = { fg = "#ea6962" }, -- Changes diagnostics' error color.
+      warn = { fg = "#d8a657" }, -- Changes diagnostics' warn color.
+      info = { fg = "#7daea3" }, -- Changes diagnostics' info color.
+      hint = { fg = "#a9b665" }, -- Changes diagnostics' hint color.
     },
     symbols = { error = " ", warn = " ", info = " " },
     on_click = function(n, mouse)
@@ -188,9 +188,9 @@ local function provider_git_diff()
     "diff",
     diff_color = {
       -- Same color values as the general color option can be used here.
-      added = { fg = "#a7c080" }, -- Changes the diff's added color
-      modified = { fg = "#7fbbb3" }, -- Changes the diff's modified color
-      removed = { fg = "#e67e80" }, -- Changes the diff's removed color you
+      added = { fg = "#a9b665" }, -- Changes the diff's added color
+      modified = { fg = "#7daea3" }, -- Changes the diff's modified color
+      removed = { fg = "#ea6962" }, -- Changes the diff's removed color you
     },
     -- Is it me or the symbol for modified us really weird
     symbols = { added = " ", modified = "󰝤 ", removed = " " },
@@ -200,15 +200,15 @@ local function provider_git_diff()
 end
 
 local function provider_git_branch()
-  return { "branch", icon = "", color = { fg = "#e67e80" } }
+  return { "branch", icon = "", color = { fg = "#ea6962" } }
 end
 
 local function provider_cursor_location()
-  return { "location", cond = buffer_not_empty, color = { fg = "#d3c6aa" } }
+  return { "location", cond = buffer_not_empty, color = { fg = "#d5c4a1" } }
 end
 
 local function provider_cursor_progress()
-  return { "progress", cond = buffer_not_empty, color = { fg = "#d699b6" } }
+  return { "progress", cond = buffer_not_empty, color = { fg = "#d3869b" } }
 end
 
 local function LSP_message()
@@ -236,7 +236,7 @@ local function provider_LSP_client()
   return {
     LSP_message,
     cond = buffer_not_empty,
-    color = { fg = "#e69875" },
+    color = { fg = "#e78a4e" },
   }
 end
 

@@ -22,11 +22,11 @@ Cokeline.init = function()
   local is_picking_close = require("cokeline.mappings").is_picking_close
 
   local inactive_fg = "#859289"
-  local fg = "#d3c6aa"
-  local inactive_bg = "#1e2326"
-  local bg = "#272e33"
-  local error = "#e67e80"
-  local warn = "#dbbc7f"
+  local fg = "#ebdbb2"
+  local inactive_bg = "#232323"
+  local bg = "#3c3836"
+  local error = "#ea6962"
+  local warn = "#d8a657"
 
   local config = {
     default_hl = {
@@ -41,7 +41,7 @@ Cokeline.init = function()
       {
         text = "▎",
         fg = function(buffer)
-          return buffer.is_focused and "#a7c080" or error
+          return buffer.is_focused and "#a9b665" or error
         end,
       },
       {
@@ -89,7 +89,7 @@ Cokeline.init = function()
           return buffer.is_focused and "" or "▊"
         end,
         fg = function(buffer)
-          return buffer.is_focused and "#e67e80" or inactive_bg
+          return buffer.is_focused and "#ea6962" or inactive_bg
         end,
       },
       {
@@ -109,7 +109,7 @@ Cokeline.init = function()
           return ""
         end,
         fg = function(buffer)
-          return buffer.is_focused and "#a7c080" or inactive_fg
+          return buffer.is_focused and "#a9b665" or inactive_fg
         end,
         delete_buffer_on_left_click = true,
       },
