@@ -71,15 +71,15 @@ NvimCmp.config = function()
   cmp.setup({
     window = {
       documentation = cmp.config.window.bordered(),
+      col_offset = -3,
+      side_padding = 0,
     },
     formatting = {
-      fields = { "kind", "abbr", "menu" },
+      fields = { cmp.ItemField.Kind, cmp.ItemField.Abbr, cmp.ItemField.Menu },
       format = function(entry, vim_item)
-        -- Source
         vim_item.menu = source_name[entry.source.name]
             and string.format("%-13s %9s", vim_item.kind, source_name[entry.source.name])
           or ""
-        -- Kind icons
         vim_item.kind = string.format(" %s ", kind_icons[vim_item.kind])
         return vim_item
       end,

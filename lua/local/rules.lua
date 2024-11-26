@@ -7,8 +7,8 @@ local Rules = {}
 local exclude_buftype = { "help", "nofile", "prompt", "terminal" }
 
 local rules = {
-  { "\\s\\+$", "Trailing whitespace" },
-  { "\\%>80v.\\+", "Overlong lines" },
+  { "\\s\\+$", "Trailing whitespace!" },
+  { "\\%>120v.\\+", "Overlong lines, more than 120 character!" },
 }
 
 local function diagnostic_violations()
