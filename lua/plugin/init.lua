@@ -50,6 +50,13 @@ function Plugin.setup()
     -- Navigation
     { "lewis6991/satellite.nvim", config = true },
     {
+      "hedyhli/outline.nvim",
+      config=true,
+      keys = { -- Example mapping to toggle outline
+        { "<F10>", "<cmd>Outline<CR>", desc = "Toggle outline" },
+      },
+    },
+    {
       "RRethy/vim-illuminate",
       event = "VeryLazy",
       config = function()

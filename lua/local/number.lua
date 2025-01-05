@@ -12,6 +12,7 @@ local Number = {
     "mason",
     "NeogitStatus",
     "NvimTree",
+    "Outline",
     "OverseerList",
     "qf",
     "TelescopePrompt",

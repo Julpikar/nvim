@@ -8,7 +8,6 @@ local exclude_buftype = { "help", "nofile", "prompt", "terminal" }
 
 local rules = {
   { "\\s\\+$", "Trailing whitespace!" },
-  { "\\%>120v.\\+", "Overlong lines, more than 120 character!" },
 }
 
 local function diagnostic_violations()
@@ -21,7 +20,6 @@ local function diagnostic_violations()
   local rules_namespace = api.nvim_create_namespace("RulesNamespace")
   local lines = api.nvim_buf_get_lines(0, 0, -1, false)
   local diagnostics = {}
-  local empty_lines = { 0 }
 
   for i, line in ipairs(lines) do
     -- Other rules
