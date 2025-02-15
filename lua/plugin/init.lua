@@ -164,9 +164,6 @@ function Plugin.setup()
     -- CMake
     { "Civitasv/cmake-tools.nvim", ft = { "cmake" }, config = true },
 
-    -- Flutter
-    { import = "plugin.flutter-tools" },
-
     -- Golang
     { import = "plugin.gonvim" },
 
