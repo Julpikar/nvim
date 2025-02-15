@@ -170,9 +170,6 @@ function Plugin.setup()
     -- Golang
     { import = "plugin.gonvim" },
 
-    -- Rust
-    { import = "plugin.rustaceanvim" },
-
     -- SQL
     { "nanotee/sqls.nvim", ft = { "sql" } },
   }
