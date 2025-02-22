@@ -53,7 +53,9 @@ local function custom_on_attach()
   -- Global mappings.
   -- See `:help vim.diagnostic.*` for documentation on any of the below
   -- functions
-  keymap_set("n", "<space>e", vim.diagnostic.open_float)
+  keymap_set("n", "<space>e", function()
+    vim.diagnostic.open_float({ border = "rounded" })
+  end)
   keymap_set("n", "[d", function()
     vim.diagnostic.goto_prev({ float = { border = "rounded" } })
   end)
