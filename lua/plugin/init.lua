@@ -75,7 +75,6 @@ function Plugin.setup()
 
     -- LSP Integration
     { import = "plugin.nvim-cmp" },
-    { import = "plugin.nvim-lspconfig" },
     {
       "ray-x/lsp_signature.nvim",
       event = "VeryLazy",
