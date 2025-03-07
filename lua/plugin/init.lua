@@ -20,7 +20,7 @@ function Plugin.setup()
     { import = "plugin.fidget" },
 
     -- External Tool Manager
-    { "williamboman/mason.nvim", config = true },
+    { "williamboman/mason.nvim", config = true, cmd = "Mason" },
 
     -- Session
     { import = "plugin.resession" },
@@ -51,7 +51,7 @@ function Plugin.setup()
     { "lewis6991/satellite.nvim", config = true },
     {
       "hedyhli/outline.nvim",
-      config=true,
+      config = true,
       keys = { -- Example mapping to toggle outline
         { "<F10>", "<cmd>Outline<CR>", desc = "Toggle outline" },
       },
@@ -89,18 +89,6 @@ function Plugin.setup()
       config = function(_, opts)
         require("lsp_signature").setup(opts)
       end,
-    },
-    {
-      "rmagatti/goto-preview",
-      event = "VeryLazy",
-      config = true,
-      keys = {
-        { "gd", "require('goto-preview').goto_preview_definition" },
-        { "gt", "require('goto-preview').goto_preview_type_definition" },
-        { "gi", "require('goto-preview').goto_preview_implementation" },
-        { "gx", "require('goto-preview').close_all_win" },
-        { "gr", "require('goto-preview').goto_preview_references" },
-      },
     },
     { import = "plugin.symbol-usage" },
 
@@ -144,11 +132,7 @@ function Plugin.setup()
           dapui.close()
         end
       end,
-    },
-    {
-      "theHamsta/nvim-dap-virtual-text",
-      event = "VeryLazy",
-      opts = { commented = true },
+      cmd = { "DapNew", "DapContinue" },
     },
 
     -- Task runner

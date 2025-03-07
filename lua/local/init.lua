@@ -1,6 +1,8 @@
 local autosave = require("local.autosave")
 local colorscheme = require("local.colorscheme")
+local diagnostic = require("local.diagnostic")
 local lastplace = require("local.lastplace")
+local lsp = require("local.lsp")
 local number = require("local.number")
 local root = require("local.root")
 local rules = require("local.rules")
@@ -46,8 +48,14 @@ function Local.setup()
   -- colorscheme
   colorscheme.setup()
 
+  -- Diagnostic setting
+  diagnostic.setup()
+
   -- Goto last position when open a file
   lastplace.setup()
+
+  -- LSP support
+  lsp.setup()
 
   -- Line number setting
   number.setup()

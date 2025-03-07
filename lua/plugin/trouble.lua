@@ -2,6 +2,7 @@ local Trouble = {
   "folke/trouble.nvim",
   event = "VeryLazy",
   config = true,
+  cmd = "Trouble",
 }
 
 Trouble.keys = {

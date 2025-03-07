@@ -4,7 +4,9 @@ local NvimDap = {
   dependencies = {
     { "nvim-neotest/nvim-nio" },
     { "jay-babu/mason-nvim-dap.nvim", config = true },
+    { "theHamsta/nvim-dap-virtual-text", opts = { commented = true } },
   },
+  cmd = { "DapNew", "DapContinue" },
 }
 
 NvimDap.keys = {
