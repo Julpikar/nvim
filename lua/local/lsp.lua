@@ -8,10 +8,8 @@ local function get_configs_by_ft(ft)
     for lsp, _ in pairs(config) do
       local lsp_config = vim.lsp.config[lsp]
       local filetypes = lsp_config.filetypes
-      for _, filetype in ipairs(filetypes) do
-        if ft == filetype then
-          table.insert(matching_configs, lsp_config)
-        end
+      if filetypes and vim.tbl_contains(filetypes, ft) then
+        table.insert(matching_configs, lsp_config)
       end
     end
   end
