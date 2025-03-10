@@ -1,10 +1,7 @@
--- Cut-down version Project.nvim
--- https://github.com/ahmedkhalf/project.nvim
 local Root = {}
 
 local configs = {
-  detection_methods = { "lsp" },
-  patterns = { ".git", "_darcs", ".hg", ".bzr", ".svn", "Makefile", "package.json", "CMakeLists.txt" },
+  patterns = { ".git", "Makefile", "package.json", "CMakeLists.txt" },
 }
 
 local function find_lsp_root()
@@ -33,7 +30,7 @@ local function find_pattern_root()
       return root, pattern
     end
   end
-  return nil
+  return vim.fn.expand("%:p:h"), "filename"
 end
 
 local function set_pwd(dir, method)
@@ -45,10 +42,7 @@ local function set_pwd(dir, method)
       vim.notify("Set CWD from " .. norm_cwd .. " to " .. dir .. " using " .. method)
       return
     end
-    vim.notify("CWD not set because cwd: " .. norm_cwd .. " equal dir: " .. dir)
   end
-
-  vim.notify("root dir not found")
 end
 
 function Root.setup()

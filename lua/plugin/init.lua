@@ -88,7 +88,6 @@ function Plugin.setup()
       config = true,
     },
     { import = "plugin.nvim-autopairs" },
-    { "numToStr/Comment.nvim", event = "BufEnter", config = true },
     { import = "plugin.conform" },
     {
       "lukas-reineke/indent-blankline.nvim",
