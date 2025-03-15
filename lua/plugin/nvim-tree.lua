@@ -3,6 +3,38 @@ local NvimTree = {
   event = "VeryLazy",
 }
 
+NvimTree.init = function()
+  local set_hl = vim.api.nvim_set_hl
+
+  set_hl(0, "NvimTreeSymlink", { fg = "#d3c6aa" })
+  set_hl(0, "NvimTreeExecFile", { fg = "#d3c6aa" })
+  set_hl(0, "NvimTreeOpenedFile", { fg = "#d3c6aa" })
+  set_hl(0, "NvimTreeSpecialFile", { fg = "#d3c6aa" })
+  set_hl(0, "NvimTreeImageFile", { fg = "#d3c6aa" })
+  set_hl(0, "NvimTreeFolderName", { fg = "#a7c080" })
+  set_hl(0, "NvimTreeEmptyFolderName", { fg = "#a7c080" })
+  set_hl(0, "NvimTreeOpenedFolderName", { fg = "#a7c080" })
+  set_hl(0, "NvimTreeSymlinkFolderName", { fg = "#a7c080" })
+  set_hl(0, "NvimTreeRootFolder", { fg = "#859289" })
+  set_hl(0, "NvimTreeFolderIcon", { fg = "#e69875" })
+  set_hl(0, "NvimTreeIndentMarker", { fg = "#859289" })
+  set_hl(0, "NvimTreeNormal", { fg = "#d3c6aa", bg = "#272e33" })
+  set_hl(0, "NvimTreeNormalFloat", { fg = "#d3c6aa", bg = "#272e33" })
+  set_hl(0, "NvimTreeNormalNC", { link = "NormalFloat" })
+  set_hl(0, "NvimTreeWinSeparator", { fg = "#272e33", bg = "#272e33" })
+  set_hl(0, "NvimTreeCursorLine", { bg = "#272e33" })
+  set_hl(0, "NvimTreeGitDirty", { fg = "#dbbc7f" })
+  set_hl(0, "NvimTreeGitStaged", { fg = "#7fbbb3" })
+  set_hl(0, "NvimTreeGitMerge", { fg = "#e69875" })
+  set_hl(0, "NvimTreeGitRenamed", { fg = "#d699b6" })
+  set_hl(0, "NvimTreeGitNew", { fg = "#83c092" })
+  set_hl(0, "NvimTreeGitDeleted", { fg = "#e67e80" })
+  set_hl(0, "NvimTreeLspDiagnosticsError", { fg = "#e67e80", bg = "#2e383c" })
+  set_hl(0, "NvimTreeLspDiagnosticsWarning", { fg = "#dbbc7f", bg = "#2e383c" })
+  set_hl(0, "NvimTreeLspDiagnosticsInformation", { fg = "#7fbbb3", bg = "#2e383c" })
+  set_hl(0, "NvimTreeLspDiagnosticsHint", { fg = "#a7c080", bg = "#2e383c" })
+end
+
 local set_size = function(size)
   local view = require("nvim-tree.view")
   view.View.width = size

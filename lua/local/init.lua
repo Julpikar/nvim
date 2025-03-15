@@ -1,11 +1,11 @@
 local autosave = require("local.autosave")
-local colorscheme = require("local.colorscheme")
 local diagnostic = require("local.diagnostic")
 local lastplace = require("local.lastplace")
 local lsp = require("local.lsp")
 local number = require("local.number")
 local root = require("local.root")
 local rules = require("local.rules")
+local theme = require("local.theme")
 
 local o = vim.o
 
@@ -45,9 +45,6 @@ function Local.setup()
   -- AutoSave
   autosave.setup()
 
-  -- colorscheme
-  colorscheme.setup()
-
   -- Diagnostic setting
   diagnostic.setup()
 
@@ -65,6 +62,9 @@ function Local.setup()
 
   -- Editing rules
   rules.setup()
+
+  -- Theme
+  theme.setup()
 
   -- Key Mapping
   local keys = {

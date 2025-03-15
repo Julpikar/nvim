@@ -63,7 +63,6 @@ function Root.setup()
       local root, method = find_lsp_root()
       set_pwd(root, method)
     end,
-    nested = true,
   })
 end
 

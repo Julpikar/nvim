@@ -14,7 +14,7 @@ function Plugin.setup()
       },
     },
     { import = "plugin.treesitter" },
-    { "HiPhish/rainbow-delimiters.nvim" },
+    { import = "plugin.rainbow-delimiters" },
     { "NvChad/nvim-colorizer.lua", config = true },
     { import = "plugin.toggleterm" },
     { import = "plugin.fidget" },
@@ -30,25 +30,17 @@ function Plugin.setup()
     { "nvim-tree/nvim-web-devicons", lazy = true },
 
     -- Git Integration
-    { "lewis6991/gitsigns.nvim", event = "BufEnter", config = true },
-    {
-      "NeogitOrg/neogit",
-      dependencies = {
-        "sindrets/diffview.nvim",
-      },
-      opts = {
-        signs = {
-          -- { CLOSED, OPENED }
-          hunk = { "", "" },
-          item = { "󰧂", "󰦿" },
-          section = { "󰧂", "󰦿" },
-        },
-      },
-      keys = { { "<LEADER>gn", "<CMD>Neogit<CR>" } },
-    },
+    { import = "plugin.gitsign" },
+    { import = "plugin.neogit" },
 
     -- Navigation
-    { "lewis6991/satellite.nvim", config = true },
+    {
+      "lewis6991/satellite.nvim",
+      init = function()
+        vim.api.nvim_set_hl(0, "SatelliteBar", { bg = "#859289" })
+      end,
+      config = true,
+    },
     {
       "hedyhli/outline.nvim",
       config = true,
@@ -56,19 +48,7 @@ function Plugin.setup()
         { "<F10>", "<cmd>Outline<CR>", desc = "Toggle outline" },
       },
     },
-    {
-      "RRethy/vim-illuminate",
-      event = "VeryLazy",
-      config = function()
-        require("illuminate").configure({
-          filetypes_denylist = { "NvimTree" },
-          modes_denylist = { "v", "vs", "V", "Vs", "CTRL_V", "CTRL_Vs" },
-          should_enable = function(bufnr)
-            return vim.api.nvim_buf_line_count(bufnr) < 500
-          end,
-        })
-      end,
-    },
+    { import = "plugin.vim-illuminate" },
     { import = "plugin.flash" },
     { import = "plugin.nvim-cokeline" },
     { import = "plugin.lualine" },
@@ -93,6 +73,11 @@ function Plugin.setup()
       "lukas-reineke/indent-blankline.nvim",
       main = "ibl",
       event = "VeryLazy",
+      init = function()
+        local set_hl = vim.api.nvim_set_hl
+        set_hl(0, "IblIndent", { fg = "#495156", nocombine = true })
+        set_hl(0, "IblScope", { fg = "#859289", nocombine = true })
+      end,
       config = true,
     },
 

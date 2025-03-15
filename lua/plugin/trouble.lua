@@ -5,6 +5,14 @@ local Trouble = {
   cmd = "Trouble",
 }
 
+Trouble.init = function()
+  local set_hl = vim.api.nvim_set_hl
+
+  set_hl(0, "TroubleSource", { fg = "#859289" })
+  set_hl(0, "TroubleCode", { fg = "#859289" })
+  set_hl(0, "TroubleText", { fg = "#d3c6aa" })
+end
+
 Trouble.keys = {
   {
     "<leader>xs",

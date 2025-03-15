@@ -22,6 +22,57 @@ local NvimCmp = {
 NvimCmp.init = function()
   vim.opt.completeopt = { "menu", "menuone", "noinsert" }
   vim.o.pumheight = 20
+
+  local set_hl = vim.api.nvim_set_hl
+
+  set_hl(0, "CmpItemAbbr", { fg = "#d3c6aa" })
+  set_hl(0, "CmpItemAbbrDeprecated", { fg = "#859289" })
+  set_hl(0, "CmpItemAbbrMatch", { fg = "#a7c080", bold = true })
+  set_hl(0, "CmpItemAbbrMatchFuzzy", { fg = "#a7c080", bold = true })
+  set_hl(0, "CmpItemKind", { fg = "#e69875" })
+  set_hl(0, "CmpItemMenu", { fg = "#d3c6aa" })
+
+  local lsp_kind_color = {
+    { "Array", "#83c092" },
+    { "Boolean", "#83c092" },
+    { "Class", "#dbbc7f" },
+    { "Color", "#83c092" },
+    { "Constant", "#7fbbb3" },
+    { "Constructor", "#a7c080" },
+    { "Default", "#83c092" },
+    { "Enum", "#dbbc7f" },
+    { "EnumMember", "#d699b6" },
+    { "Event", "#e69875" },
+    { "Field", "#a7c080" },
+    { "File", "#a7c080" },
+    { "Folder", "#83c092" },
+    { "Function", "#a7c080" },
+    { "Interface", "#dbbc7f" },
+    { "Key", "#e67e80" },
+    { "Keyword", "#e67e80" },
+    { "Method", "#a7c080" },
+    { "Module", "#dbbc7f" },
+    { "Namespace", "#d699b6" },
+    { "Null", "#83c092" },
+    { "Number", "#83c092" },
+    { "Object", "#83c092" },
+    { "Operator", "#e69875" },
+    { "Package", "#d699b6" },
+    { "Property", "#7fbbb3" },
+    { "Reference", "#83c092" },
+    { "Snippet", "#83c092" },
+    { "String", "#83c092" },
+    { "Struct", "#dbbc7f" },
+    { "Text", "#d3c6aa" },
+    { "TypeParameter", "#dbbc7f" },
+    { "Unit", "#d699b6" },
+    { "Value", "#d699b6" },
+    { "Variable", "#7fbbb3" },
+  }
+
+  for i = 1, #lsp_kind_color do
+    set_hl(0, "CmpItemKind" .. lsp_kind_color[i][1], { fg = "#374145", bg = lsp_kind_color[i][2] })
+  end
 end
 
 local has_words_before = function()
