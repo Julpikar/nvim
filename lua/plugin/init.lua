@@ -48,7 +48,6 @@ function Plugin.setup()
         { "<F10>", "<cmd>Outline<CR>", desc = "Toggle outline" },
       },
     },
-    { import = "plugin.vim-illuminate" },
     { import = "plugin.flash" },
     { import = "plugin.nvim-cokeline" },
     { import = "plugin.lualine" },

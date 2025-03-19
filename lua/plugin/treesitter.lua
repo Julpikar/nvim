@@ -17,7 +17,7 @@ Treesitter.config = function()
       -- Or use a function for more flexibility, e.g. to disable slow
       -- treesitter highlight for large files
       disable = function(lang, bufnr)
-        return vim.api.nvim_buf_line_count(bufnr) > 500
+        return vim.api.nvim_buf_line_count(bufnr) > 1000
       end,
 
       -- Setting this to true will run `:h syntax` and tree-sitter at the

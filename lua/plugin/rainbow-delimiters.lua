@@ -1,6 +1,5 @@
 local Delimiters = {
   "HiPhish/rainbow-delimiters.nvim",
-  config = true,
 }
 
 Delimiters.init = function()
