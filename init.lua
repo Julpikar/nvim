@@ -1,5 +1,5 @@
 -- make neovim load faster
-vim.loader.enable()
+vim.loader.enable({ enable = true })
 
 -- disable netrw at the very start of your init.lua
 vim.g.loaded_netrw = 1

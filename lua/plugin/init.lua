@@ -53,7 +53,7 @@ function Plugin.setup()
     { import = "plugin.lualine" },
 
     -- LSP Integration
-    { import = "plugin.nvim-cmp" },
+    { import = "plugin.blink" },
     { import = "plugin.symbol-usage" },
 
     -- Diagnostic

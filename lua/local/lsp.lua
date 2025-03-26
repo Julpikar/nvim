@@ -1,19 +1,19 @@
 local LSP = {}
 
 local function get_configs_by_ft(ft)
-  local configs = vim.lsp.config
-  local matching_configs = {}
-
-  for _, config in pairs(configs) do
-    for lsp, _ in pairs(config) do
-      local lsp_config = vim.lsp.config[lsp]
-      local filetypes = lsp_config.filetypes
-      if filetypes and vim.tbl_contains(filetypes, ft) then
-        table.insert(matching_configs, lsp_config)
+  local rtp_config = {}
+  for _, v in ipairs(vim.api.nvim_get_runtime_file("lsp/*.{vim,lua}", true)) do
+    local config = assert(loadfile(v))() ---@type any?
+    if type(config) == "table" then
+      local filetypes = config.filetypes
+      if vim.tbl_contains(filetypes, ft) then
+        table.insert(rtp_config, config)
       end
+    else
+      vim.lsp.log.warn(string.format("%s does not return a table, ignoring", v))
     end
   end
-  return matching_configs
+  return rtp_config
 end
 
 local function start_lsp_by_ft(ft)
@@ -24,20 +24,23 @@ local function start_lsp_by_ft(ft)
 end
 
 function LSP.setup()
-  local custom_capabilities = vim.tbl_deep_extend("force", require("cmp_nvim_lsp").default_capabilities(), {
+  local custom_capabilities = {
     textDocument = {
       semanticTokens = {
         multilineTokenSupport = true,
       },
     },
-  })
+  }
+
+  local blink = require("blink.cmp")
+  local capabilities = blink.get_lsp_capabilities(custom_capabilities)
 
   vim.lsp.config("*", {
-    capabilities = custom_capabilities,
+    capabilities = capabilities,
     root_markers = { ".git" },
   })
 
-  vim.lsp.enable({ "basedpyright", "clangd", "luals", "neocmake", "yamlls" })
+  vim.lsp.enable({ "basedpyright", "clangd", "gopls", "luals", "neocmake", "yamlls" })
 
   vim.lsp.enable("sqls", {
     on_attach = function(client, bufnr)

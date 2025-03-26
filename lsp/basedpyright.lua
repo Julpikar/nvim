@@ -39,7 +39,7 @@ local BasedPyright = {
     },
     PyrightSetPythonPath = {
       function(path)
-        local clients = util.get_lsp_clients({
+        local clients = vim.lsp.get_lsp_clients({
           bufnr = vim.api.nvim_get_current_buf(),
           name = "basedpyright",
         })
