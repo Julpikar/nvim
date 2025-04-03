@@ -145,6 +145,7 @@ end
 local function provider_filename()
   return {
     get_filename,
+    padding = { left = 0, right = 1 },
     cond = buffer_not_empty,
     color = { fg = "#dbbc7f" },
   }

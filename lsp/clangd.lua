@@ -29,7 +29,7 @@ local Clangd = {
           )
         end
         local params = vim.lsp.util.make_text_document_params(bufnr)
-        client.request(method_name, params, function(err, result)
+        client:request(method_name, params, function(err, result)
           if err then
             error(tostring(err))
           end
@@ -51,7 +51,7 @@ local Clangd = {
         end
         local win = vim.api.nvim_get_current_win()
         local params = vim.lsp.util.make_position_params(win, client.offset_encoding)
-        client.request("textDocument/symbolInfo", params, function(err, res)
+        client:request("textDocument/symbolInfo", params, function(err, res)
           if err or #res == 0 then
             -- Clangd always returns an error, there is not reason to parse it
             return
