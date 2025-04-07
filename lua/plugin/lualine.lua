@@ -126,26 +126,10 @@ local function provider_mode()
   }
 end
 
-local function provider_filetype()
-  return {
-    "filetype",
-    cond = buffer_not_empty,
-    icon_only = true,
-  }
-end
-
-local function get_filename()
-  local filename = vim.fn.expand("%:r") .. "." .. vim.fn.expand("%:e") or vim.fn.expand("%:~:p")
-  filename = string.gsub(filename, "\\", " ")
-  filename = string.gsub(filename, "~", "")
-  filename = string.gsub(filename, ":", "")
-  return filename
-end
-
 local function provider_filename()
   return {
-    get_filename,
-    padding = { left = 0, right = 1 },
+    "filename",
+    path = 3,
     cond = buffer_not_empty,
     color = { fg = "#dbbc7f" },
   }
@@ -249,7 +233,6 @@ Lualine.config = function()
   insert_component(left, provider_mode)
 
   -- File
-  insert_component(left, provider_filetype)
   insert_component(left, provider_filename)
 
   -- Right section
