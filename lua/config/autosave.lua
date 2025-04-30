@@ -9,7 +9,7 @@ function AutoSave.save()
   if
     not api.nvim_get_option_value("modified", { buf = bufnr })
     or not api.nvim_get_option_value("modifiable", { buf = bufnr })
-    or api.nvim_buf_get_name(bufnr) == ""
+    or #api.nvim_buf_get_name(bufnr) == 0
   then
     return
   end
@@ -35,7 +35,7 @@ function AutoSave.save_all()
       not api.nvim_buf_is_loaded(bufnr)
       or not api.nvim_get_option_value("modified", { buf = bufnr })
       or not api.nvim_get_option_value("modifiable", { buf = bufnr })
-      or api.nvim_buf_get_name(bufnr) == ""
+      or #api.nvim_buf_get_name(bufnr) == 0
     then
       return
     end

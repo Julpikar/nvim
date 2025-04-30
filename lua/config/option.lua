@@ -19,7 +19,8 @@ o.updatetime = 1000
 o.undofile = true
 o.undolevels = 9999
 
--- Window split
+-- Window
+o.winborder = "single"
 o.splitright = true
 o.splitbelow = true
 

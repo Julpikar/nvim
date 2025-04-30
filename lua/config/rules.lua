@@ -4,47 +4,46 @@ local fn = vim.fn
 
 local Rules = {}
 
-local exclude_buftype = { "help", "nofile", "prompt", "terminal" }
-local exclude_filetype = { "NeogitPopup", "NeogitStatus" }
+local empty_lines_ns = api.nvim_create_namespace("EmptyLineNS")
+local trailing_whitespace_ns = api.nvim_create_namespace("TrailingWhiteNS")
 
-local rules = {
-  { "\\s\\+$", "Trailing whitespace!" },
-}
-
-local function rule_violations()
-  fn.clearmatches()
-
-  -- trailing empty lines
-  local trailing_empty_lines_regex = "\\($\\n\\s*\\)\\+\\%$"
-  fn.matchadd("SpellBad", trailing_empty_lines_regex)
-
-  local rules_namespace = api.nvim_create_namespace("RulesNamespace")
-  local bufnr = api.nvim_get_current_buf()
-  local lines = api.nvim_buf_get_lines(bufnr, 0, -1, false)
+local function check_empty_lines(lines)
   local diagnostics = {}
+  for i = #lines, 1, -1 do
+    if not lines[i]:match("^%s*$") then
+      return diagnostics
+    end
+    table.insert(diagnostics, {
+      lnum = i - 1,
+      col = 0,
+      message = "Empty line",
+      severity = vim.diagnostic.severity.INFO,
+    })
+  end
+  return diagnostics
+end
 
-  for i, line in ipairs(lines) do
-    -- Other rules
-    for j = 1, #rules, 1 do
-      local pattern, msg = unpack(rules[j])
-      local m, s, e = unpack(fn.matchstrpos(line, pattern))
-      if s >= 0 then
-        table.insert(diagnostics, {
-          lnum = i - 1,
-          col = s,
-          end_col = e,
-          message = msg,
-          severity = vim.diagnostic.severity.HINT,
-        })
-      end
+local function check_trailing_whitespace(lines)
+  local diagnostics = {}
+  for i = #lines, 1, -1 do
+    local _, start_col, end_col = unpack(fn.matchstrpos(lines[i], "\\s\\+$"))
+    if start_col >= 0 then
+      table.insert(diagnostics, {
+        lnum = i - 1,
+        col = start_col,
+        end_col = end_col,
+        message = "Trailing whitespace",
+        severity = vim.diagnostic.severity.INFO,
+      })
     end
   end
-
-  vim.diagnostic.set(rules_namespace, bufnr, diagnostics, {})
+  return diagnostics
 end
 
 function Rules.show_violations()
   local bufnr = api.nvim_get_current_buf()
+  local exclude_buftype = { "help", "nofile", "prompt", "terminal" }
+  local exclude_filetype = { "NeogitPopup", "NeogitStatus" }
   if
     not api.nvim_get_option_value("modifiable", { buf = bufnr })
     or vim.tbl_contains(exclude_buftype, bo.buftype)
@@ -53,26 +52,19 @@ function Rules.show_violations()
     return
   end
 
-  rule_violations()
-end
+  local lines = api.nvim_buf_get_lines(bufnr, 0, -1, false)
 
-local function remove_by_cmd(command)
-  local view = vim.fn.winsaveview()
-  vim.cmd("silent keepjumps keeppatterns " .. command)
-  vim.fn.winrestview(view)
-end
-
-function Rules.cleanup()
-  local bufnr = api.nvim_get_current_buf()
-  if not api.nvim_get_option_value("modifiable", { buf = bufnr }) then
-    return
+  vim.diagnostic.reset(empty_lines_ns, bufnr)
+  local empty_lines = check_empty_lines(lines)
+  if #empty_lines ~= 0 then
+    vim.diagnostic.set(empty_lines_ns, bufnr, empty_lines, {})
   end
 
-  -- trailing whitespace
-  remove_by_cmd("%s/\\s\\+$//e")
-
-  -- trailing empty lines
-  remove_by_cmd("%s/\\($\\n\\s*\\)\\+\\%$//e")
+  vim.diagnostic.reset(trailing_whitespace_ns, bufnr)
+  local trailing_whitespaces = check_trailing_whitespace(lines)
+  if #trailing_whitespaces ~= 0 then
+    vim.diagnostic.set(trailing_whitespace_ns, bufnr, trailing_whitespaces, {})
+  end
 end
 
 return Rules

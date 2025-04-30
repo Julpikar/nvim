@@ -125,16 +125,18 @@ Lualine.opts = {
         icon = "",
         symbols = { done = "", separator = " 󰇙 " },
         separator = "󰇙",
+        color = { fg = "#e69875" },
       },
       { "diagnostics", symbols = { error = "E:", warn = "W:", info = "I:", hint = "H:" }, separator = "󰇙" },
       { "diff", separator = "󰇙", cond = hide_in_width },
-      { "branch", icon = "branch:", separator = "󰇙" },
+      { "branch", icon = "branch:", separator = "󰇙", color = { fg = "#e69875" } },
       {
         "location",
         separator = "󰇙",
         cond = function()
           return buffer_not_empty() or hide_in_width()
         end,
+        color = { fg = "#d699b6" },
       },
       {
         "progress",
@@ -142,6 +144,7 @@ Lualine.opts = {
         cond = function()
           return buffer_not_empty() or hide_in_width()
         end,
+        color = { fg = "#d699b6" },
       },
       { "fileformat" },
     },

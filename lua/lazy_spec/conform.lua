@@ -8,8 +8,9 @@ Conform.opts = {
     cpp = { "clang_format" },
     json = { "clang_format" },
     lua = { "stylua" },
+    ["_"] = { "trim_whitelines", "trim_whitespace" },
   },
-  -- default_format_opts = { lsp_format = "fallback" },
+  default_format_opts = { lsp_format = "fallback" },
   formatters = {
     ["clang_format"] = {
       prepend_args = {

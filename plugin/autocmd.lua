@@ -6,13 +6,22 @@ local nvim_create_autocmd = vim.api.nvim_create_autocmd
 local config_augroup = nvim_create_augroup("config_augroup", { clear = true })
 local throttle_wrap = require("shared.throttle").throttle_wrap
 
-local save_throttle = throttle_wrap(function()
+local quick_save_throttle = throttle_wrap(function()
   require("config.autosave").save()
 end, 500)
 
-nvim_create_autocmd({ "InsertLeave", "FocusLost", "TextChanged" }, {
+nvim_create_autocmd({ "InsertLeave", "FocusLost" }, {
   group = config_augroup,
-  callback = save_throttle,
+  callback = quick_save_throttle,
+})
+
+local slow_save_throttle = throttle_wrap(function()
+  require("config.autosave").save()
+end, 1500)
+
+nvim_create_autocmd({ "TextChanged" }, {
+  group = config_augroup,
+  callback = slow_save_throttle,
 })
 
 nvim_create_autocmd("VimLeave", {
@@ -64,11 +73,4 @@ end, 500)
 nvim_create_autocmd({ "BufEnter", "BufWritePost", "TermOpen" }, {
   group = config_augroup,
   callback = show_violations_throttle,
-})
-
-nvim_create_autocmd({ "BufWrite" }, {
-  group = config_augroup,
-  callback = function()
-    require("config.rules").cleanup()
-  end,
 })

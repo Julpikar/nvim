@@ -53,7 +53,19 @@ Blink.opts = {
   completion = {
     list = { selection = { preselect = true, auto_insert = true } },
     menu = {
-      draw = { gap = 2, columns = { { "kind_icon" }, { "label", "label_description" }, { "source_name" } } },
+      border = "none",
+      draw = {
+        padding = { 0, 1 },
+        gap = 2,
+        columns = { { "kind_icon" }, { "label" }, { "source_name" } },
+        components = {
+          kind_icon = {
+            text = function(ctx)
+              return " " .. ctx.kind_icon .. ctx.icon_gap .. " "
+            end,
+          },
+        },
+      },
     },
     documentation = { auto_show = false },
   },
@@ -62,17 +74,6 @@ Blink.opts = {
   -- elsewhere in your config, without redefining it, due to `opts_extend`
   sources = {
     default = { "lsp", "buffer", "snippets", "path" },
-    providers = {
-      buffer = {
-        opts = {
-          get_bufnrs = function()
-            return vim.tbl_filter(function(bufnr)
-              return vim.bo[bufnr].buftype == ""
-            end, vim.api.nvim_list_bufs())
-          end,
-        },
-      },
-    },
   },
   snippets = { preset = "luasnip" },
 

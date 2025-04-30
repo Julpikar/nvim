@@ -17,7 +17,7 @@ local Gitsign = {
       changedelete = { text = "▎" },
     },
   },
-  lazy = true,
+  event = "VeryLazy",
 }
 
 return Gitsign
