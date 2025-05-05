@@ -21,7 +21,13 @@ Conform.opts = {
   },
 }
 
+Conform.config = function(_, opts)
+  require("conform").setup(opts)
+  vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
+end
+
 Conform.keys = {
+  { "gq" },
   {
     "<leader>lf",
     mode = { "n", "v" },

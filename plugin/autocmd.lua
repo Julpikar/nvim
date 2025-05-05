@@ -4,24 +4,24 @@ local nvim_create_augroup = vim.api.nvim_create_augroup
 local nvim_create_autocmd = vim.api.nvim_create_autocmd
 
 local config_augroup = nvim_create_augroup("config_augroup", { clear = true })
-local throttle_wrap = require("shared.throttle").throttle_wrap
+local debounce_wrap = require("shared.debounce").debounce_wrap
 
-local quick_save_throttle = throttle_wrap(function()
+local quick_save = debounce_wrap(function()
   require("config.autosave").save()
 end, 500)
 
 nvim_create_autocmd({ "InsertLeave", "FocusLost" }, {
   group = config_augroup,
-  callback = quick_save_throttle,
+  callback = quick_save,
 })
 
-local slow_save_throttle = throttle_wrap(function()
+local slow_save = debounce_wrap(function()
   require("config.autosave").save()
 end, 1500)
 
-nvim_create_autocmd({ "TextChanged" }, {
+nvim_create_autocmd({ "TextChanged", "FocusLost" }, {
   group = config_augroup,
-  callback = slow_save_throttle,
+  callback = slow_save,
 })
 
 nvim_create_autocmd("VimLeave", {
@@ -29,6 +29,15 @@ nvim_create_autocmd("VimLeave", {
   callback = function()
     require("config.autosave").save_all()
   end,
+})
+
+local show_violations = debounce_wrap(function()
+  require("config.rules").show_violations()
+end, 500)
+
+nvim_create_autocmd({ "BufEnter", "BufWritePost", "TermOpen" }, {
+  group = config_augroup,
+  callback = show_violations,
 })
 
 nvim_create_autocmd("BufWinEnter", {
@@ -64,13 +73,4 @@ nvim_create_autocmd("LspAttach", {
     local root, method = rooter.find_lsp_root()
     rooter.set_pwd(root, method)
   end,
-})
-
-local show_violations_throttle = throttle_wrap(function()
-  require("config.rules").show_violations()
-end, 500)
-
-nvim_create_autocmd({ "BufEnter", "BufWritePost", "TermOpen" }, {
-  group = config_augroup,
-  callback = show_violations_throttle,
 })

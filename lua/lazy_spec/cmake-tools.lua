@@ -1,7 +1,7 @@
 local CmakeTools = {
   "Civitasv/cmake-tools.nvim",
   opts = {},
-  cmd = "CMakeRun",
+  cmd = { "CMakeBuild", "CMakeGenerate", "CMakeRun" },
 }
 
 return CmakeTools

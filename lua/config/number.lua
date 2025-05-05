@@ -1,113 +1,67 @@
-local o = vim.o
+local buftype_exclude = { "nofile", "prompt" }
 
-local mode = false
-local focus = true
-local enable_number = true
-local buftype_exclude = { "terminal" }
-local filetype_exclude = {
-  "DiffviewFiles",
-  "fzf",
-  "lazy",
-  "log",
-  "mason",
-  "NeogitStatus",
-  "neo-tree",
-  "neo-tree-popup",
-  "Outline",
-  "OverseerList",
-  "qf",
-  "TelescopePrompt",
-  "toggleterm",
-  "trouble",
-}
+local filetype_exclude = {}
 
-local function relative_number_off()
-  o.relativenumber = false
-  o.number = true
+local number_state = { number = false, rnumber = false }
+
+local function save_current_state()
+  number_state.number = vim.o.number
+  number_state.rnumber = vim.o.relativenumber
 end
 
-local function number_set_toggle()
-  if mode == true then
-    mode = false
-    o.relativenumber = true
-  else
-    mode = true
-    relative_number_off()
-  end
+local function load_last_state()
+  vim.o.number = number_state.number
+  vim.o.relativenumber = number_state.rnumber
 end
 
-local function reset_number()
-  if focus == false then
-    relative_number_off()
-  elseif mode == false then
-    o.relativenumber = true
-  else
-    relative_number_off()
-  end
+local function exclude_number()
+  return vim.tbl_contains(buftype_exclude, vim.o.buftype) or vim.tbl_contains(filetype_exclude, vim.o.filetype)
+end
 
-  if vim.tbl_contains(filetype_exclude, o.filetype or vim.tbl_contains(buftype_exclude, o.buftype)) then
-    vim.o.relativenumber = false
-    vim.o.number = false
-  end
+local function disable_number()
+  vim.o.number = false
+  vim.o.relativenumber = false
+end
+
+local function set_rnumber()
+  vim.o.number = false
+  vim.o.relativenumber = true
 end
 
 local function set_number()
-  mode = true
-  reset_number()
+  vim.o.relativenumber = false
+  vim.o.number = true
 end
 
-local function set_relative()
-  mode = false
-  reset_number()
-end
-
-local function win_on_focus()
-  focus = true
-  reset_number()
-end
-
-local function win_not_focus()
-  focus = false
-  reset_number()
-end
-
-local function number_set_enable()
-  local number_enable_augroup = vim.api.nvim_create_augroup("EnableNumber", {
-    clear = true,
-  })
-  local nvim_create_autocmd = vim.api.nvim_create_autocmd
-  nvim_create_autocmd({ "InsertEnter", "WinLeave" }, { callback = set_number, group = number_enable_augroup })
-  nvim_create_autocmd({ "InsertLeave", "WinEnter" }, { callback = set_relative, group = number_enable_augroup })
-  nvim_create_autocmd({ "BufNewFile", "BufReadPost" }, { callback = reset_number, group = number_enable_augroup })
-  nvim_create_autocmd("FocusLost", { callback = win_not_focus, group = number_enable_augroup })
-  nvim_create_autocmd("FocusGained", { callback = win_on_focus, group = number_enable_augroup })
-
-  enable_number = true
-  o.relativenumber = true
-  o.number = true
-end
-
-local function number_set_disable()
-  enable_number = false
-  o.number = false
-  vim.api.nvim_del_augroup_by_name("EnableNumber")
-end
-
-local function number_switch_on_off()
-  if enable_number == true then
-    number_set_disable()
-  else
-    number_set_enable()
+local function toggle_rnumber()
+  if exclude_number() then
+    disable_number()
+    return
   end
+
+  set_rnumber()
 end
 
-local nvim_create_user_command = vim.api.nvim_create_user_command
-nvim_create_user_command("NumberToggle", number_set_toggle, { bang = true, nargs = 0 })
-nvim_create_user_command("NumberEnable", number_set_enable, { bang = true, nargs = 0 })
-nvim_create_user_command("NumberDisable", number_set_disable, { bang = true, nargs = 0 })
-nvim_create_user_command("NumberOnOff", number_switch_on_off, { bang = true, nargs = 0 })
-if enable_number then
-  number_set_enable()
-else
-  number_set_disable()
+local function toggle_number()
+  if exclude_number() then
+    disable_number()
+    return
+  end
+
+  set_number()
 end
+
+local function toggle_focuslost()
+  save_current_state()
+  set_number()
+end
+
+local number_augroup = vim.api.nvim_create_augroup("Number", {})
+
+vim.api.nvim_create_autocmd({ "WinLeave", "InsertEnter" }, { group = number_augroup, callback = toggle_number })
+vim.api.nvim_create_autocmd(
+  { "VimEnter", "WinEnter", "InsertLeave" },
+  { group = number_augroup, callback = toggle_rnumber }
+)
+vim.api.nvim_create_autocmd("FocusLost", { group = number_augroup, callback = toggle_focuslost })
+vim.api.nvim_create_autocmd("FocusGained", { group = number_augroup, callback = load_last_state })

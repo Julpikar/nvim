@@ -20,7 +20,6 @@ local Blink = {
 }
 
 ---@module 'blink.cmp'
----@type blink.cmp.Config
 Blink.opts = {
   -- 'default' (recommended) for mappings similar to built-in completions (C-y to accept)
   -- 'super-tab' for mappings similar to vscode (tab to accept)
@@ -73,7 +72,7 @@ Blink.opts = {
   -- Default list of enabled providers defined so that you can extend it
   -- elsewhere in your config, without redefining it, due to `opts_extend`
   sources = {
-    default = { "lsp", "buffer", "snippets", "path" },
+    default = { "snippets", "buffer", "lsp", "path" },
   },
   snippets = { preset = "luasnip" },
 

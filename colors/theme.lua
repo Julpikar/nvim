@@ -339,7 +339,7 @@ end
 -- fzf.lua
 set_hl(0, "FzfLuaBorder", { fg = "#7fbbb3" })
 set_hl(0, "FzfLuaTitle", { fg = "#e69875" })
-set_hl(0, "FzfLuaPreviewTitle", { fg = "#7fbbb3" })
+set_hl(0, "FzfLuaPreviewTitle", { fg = "#e69875" })
 set_hl(0, "FzfLuaHeaderText", { fg = "#e69875" })
 set_hl(0, "FzfLuaFzfSeparator", { fg = "#e69875" })
 set_hl(0, "FzfLuaFzfPointer", { fg = "#d699b6" })
