@@ -128,8 +128,8 @@ Lualine.opts = {
         color = { fg = "#e69875" },
       },
       { "diagnostics", symbols = { error = "E:", warn = "W:", info = "I:", hint = "H:" }, separator = "󰇙" },
-      { "diff", separator = "󰇙", cond = hide_in_width },
       { "branch", icon = "branch:", separator = "󰇙", color = { fg = "#e69875" } },
+      { "diff", separator = "󰇙", cond = hide_in_width },
       {
         "location",
         separator = "󰇙",

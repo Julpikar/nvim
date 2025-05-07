@@ -65,3 +65,8 @@ vim.api.nvim_create_autocmd(
 )
 vim.api.nvim_create_autocmd("FocusLost", { group = number_augroup, callback = toggle_focuslost })
 vim.api.nvim_create_autocmd("FocusGained", { group = number_augroup, callback = load_last_state })
+
+vim.keymap.set("n", "<leader>n", function()
+  vim.o.number = not vim.o.number
+  vim.o.relativenumber = not vim.o.relativenumber
+end, { desc = "Invert Style Number" })
