@@ -37,7 +37,7 @@ vim.lsp.config("*", {
   root_markers = { ".git" },
 })
 
-vim.lsp.enable({ "clangd", "gopls", "luals", "neocmake" })
+vim.lsp.enable({ "basedpyright", "clangd", "gopls", "luals", "cmake" })
 
 vim.lsp.enable("sqls", {
   on_attach = function(client, bufnr)

@@ -6,8 +6,10 @@ Conform.opts = {
   formatters_by_ft = {
     c = { "clang_format" },
     cpp = { "clang_format" },
+    cmake = { "cmake_format" },
     json = { "clang_format" },
     lua = { "stylua" },
+    yaml = { "yamlfmt" },
     ["_"] = { "trim_whitelines", "trim_whitespace" },
   },
   default_format_opts = { lsp_format = "fallback" },

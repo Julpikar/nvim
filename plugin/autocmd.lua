@@ -19,7 +19,7 @@ local slow_save = debounce_wrap(function()
   require("config.autosave").save()
 end, 1500)
 
-nvim_create_autocmd({ "TextChanged", "FocusLost" }, {
+nvim_create_autocmd({ "TextChanged" }, {
   group = config_augroup,
   callback = slow_save,
 })
