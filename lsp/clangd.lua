@@ -7,7 +7,6 @@ local Clangd = {
     ".clang-format",
     "compile_commands.json",
     "compile_flags.txt",
-    ".git",
   },
   capabilities = {
     textDocument = {

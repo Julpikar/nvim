@@ -1,7 +1,7 @@
 local Gopls = {
   cmd = { "gopls" },
   filetypes = { "go", "gomod" },
-  root_markers = { "go.mod", ".git" },
+  root_markers = { "go.mod" },
 }
 
 local mod_cache = nil

@@ -9,6 +9,7 @@ Conform.opts = {
     cmake = { "cmake_format" },
     json = { "clang_format" },
     lua = { "stylua" },
+    toml = { "taplo" },
     yaml = { "yamlfmt" },
     ["_"] = { "trim_whitelines", "trim_whitespace" },
   },

@@ -1,7 +1,7 @@
 local Cmake = {
   cmd = { "cmake-language-server" },
   filetypes = { "cmake" },
-  root_markers = { "out", "cmake", ".git" },
+  root_markers = { "cmake", "out" },
   init_options = {
     buildDirectory = "out",
   },

@@ -14,7 +14,6 @@ local LuaLS = { -- Command and arguments to start the server.
     "stylua.toml",
     "selene.toml",
     "selene.yml",
-    ".git",
   },
   -- Specific settings to send to the server. The schema for this is
   -- defined by the server. For example the schema for lua-language-server
