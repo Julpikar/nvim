@@ -3,51 +3,53 @@ local Lualine = {
 }
 
 local colors = {
-  bg = "#2d353b",
+  bg_c = "#343f44",
+  bg_b = "#475258",
+  inactive = "#2D353B",
   fg = "#d3c6aa",
   yellow = "#dbbc7f",
   purple = "#d699b6",
   red = "#e67e80",
   blue = "#7fbbb3",
   grey = "#9da9a0",
-  grey1 = "#7a8478",
+  orange = "#e69875",
 }
 
 local theme = {
   normal = {
-    a = { bg = colors.fg, fg = colors.bg, gui = "bold" },
-    b = { bg = colors.bg, fg = colors.fg },
-    c = { bg = colors.bg, fg = colors.fg },
+    a = { bg = colors.orange, fg = colors.bg_c, gui = "bold" },
+    b = { bg = colors.bg_b, fg = colors.fg },
+    c = { bg = colors.bg_c, fg = colors.fg },
   },
   insert = {
-    a = { bg = colors.blue, fg = colors.bg, gui = "bold" },
-    b = { bg = colors.bg, fg = colors.blue },
-    c = { bg = colors.bg, fg = colors.fg },
+    a = { bg = colors.blue, fg = colors.bg_c, gui = "bold" },
+    b = { bg = colors.bg_b, fg = colors.fg },
+    c = { bg = colors.bg_c, fg = colors.fg },
   },
   visual = {
-    a = { bg = colors.purple, fg = colors.bg, gui = "bold" },
-    b = { bg = colors.bg, fg = colors.purple },
-    c = { bg = colors.bg, fg = colors.fg },
+    a = { bg = colors.purple, fg = colors.bg_c, gui = "bold" },
+    b = { bg = colors.bg_b, fg = colors.fg },
+    c = { bg = colors.bg_c, fg = colors.fg },
   },
   replace = {
-    a = { bg = colors.red, fg = colors.bg, gui = "bold" },
-    b = { bg = colors.bg, fg = colors.red },
-    c = { bg = colors.bg, fg = colors.fg },
+    a = { bg = colors.red, fg = colors.bg_c, gui = "bold" },
+    b = { bg = colors.bg_b, fg = colors.fg },
+    c = { bg = colors.bg_c, fg = colors.fg },
   },
   command = {
-    a = { bg = colors.yellow, fg = colors.bg, gui = "bold" },
-    b = { bg = colors.bg, fg = colors.yellow },
-    c = { bg = colors.bg, fg = colors.fg },
+    a = { bg = colors.yellow, fg = colors.bg_c, gui = "bold" },
+    b = { bg = colors.bg_b, fg = colors.fg },
+    c = { bg = colors.bg_c, fg = colors.fg },
   },
   terminal = {
-    a = { bg = colors.grey, fg = colors.bg, gui = "bold" },
-    b = { bg = colors.bg, fg = colors.grey },
-    c = { bg = colors.bg, fg = colors.fg },
+    a = { bg = colors.grey, fg = colors.bg_c, gui = "bold" },
+    b = { bg = colors.bg_b, fg = colors.grey },
+    c = { bg = colors.bg_c, fg = colors.fg },
   },
   inactive = {
-    a = { bg = colors.bg, fg = colors.grey1, gui = "bold" },
-    b = { bg = colors.bg, fg = colors.grey1 },
-    c = { bg = colors.bg, fg = colors.grey1 },
+    a = { bg = colors.inactive, fg = colors.inactive },
+    b = { bg = colors.inactive, fg = colors.inactive },
+    c = { bg = colors.inactive, fg = colors.inactive },
   },
 }
 local function shorten_path(path, sep, max_len)
@@ -112,12 +114,11 @@ Lualine.opts = {
   },
   sections = {
     lualine_a = {
-      {
-        provider_cwd,
-        cond = hide_in_width,
-      },
+      { provider_cwd, separator = { right = "" }, cond = hide_in_width },
     },
-    lualine_b = { "mode" },
+    lualine_b = {
+      { "mode", separator = { right = "" } },
+    },
     lualine_c = {},
     lualine_x = {
       {
@@ -125,10 +126,10 @@ Lualine.opts = {
         icon = "",
         symbols = { done = "", separator = " 󰇙 " },
         separator = "󰇙",
-        color = { fg = "#e69875" },
+        color = { fg = colors.orange },
       },
       { "diagnostics", symbols = { error = "E:", warn = "W:", info = "I:", hint = "H:" }, separator = "󰇙" },
-      { "branch", icon = "branch:", separator = "󰇙", color = { fg = "#e69875" } },
+      { "branch", icon = "branch:", separator = "󰇙", color = { fg = colors.orange } },
       { "diff", separator = "󰇙", cond = hide_in_width },
       {
         "location",

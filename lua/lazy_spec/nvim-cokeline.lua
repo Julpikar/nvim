@@ -10,13 +10,23 @@ Cokeline.init = function()
 end
 
 local color = {
+  bg_base = "#2e383c",
   fg_focused = "#d3c6aa",
-  fg_unfocused = "#7a8478",
+  fg_unfocused = "#9da9a0",
   bg_focused = "#272e33",
-  bg_unfocused = "#323d43",
-  red = "#e67e80",
-  yellow = "#dbbc7f",
-  blue = "#7fbbb3",
+  bg_unfocused = "#414b50",
+}
+
+local mode = vim.fn.mode
+
+local color_mode = {
+  ["n"] = { "#e69875", "#463a37" },
+  ["v"] = { "#d699b6", "#4a394d" },
+  ["V"] = { "#d699b6", "#4a394d" },
+  ["i"] = { "#7fbbb3", "#384b55" },
+  ["r"] = { "#e67e80", "#493b40" },
+  ["R"] = { "#e67e80", "#493b40" },
+  ["t"] = { "#dbbc7f", "#45443c" },
 }
 
 Cokeline.opts = {
@@ -25,16 +35,44 @@ Cokeline.opts = {
       return buffer.is_focused and color.fg_focused or color.fg_unfocused
     end,
     bg = function(buffer)
-      return buffer.is_focused and color.bg_focused or color.bg_unfocused
+      local c = color_mode[mode()]
+      return (buffer.is_focused and c ~= nil) and c[2] or color.bg_unfocused
     end,
   },
   components = {
     {
       text = function(buffer)
-        return (buffer.index ~= 1) and "▏" or ""
+        return buffer.is_first and "" or ""
       end,
+      fg = color.bg_unfocused,
+      bg = color.bg_focused,
+    },
+    {
+      text = "",
       fg = function(buffer)
-        return buffer.is_focused and color.fg_focused or color.fg_unfocused
+        local c = color_mode[mode()]
+        return (buffer.is_focused and c ~= nil) and c[1] or color.fg_unfocused
+      end,
+      bg = color.bg_base,
+    },
+    {
+      text = function(buffer)
+        return buffer.is_hovered and "  " or " " .. buffer.devicon.icon .. " "
+      end,
+      fg = color.bg_focused,
+      bg = function(buffer)
+        local c = color_mode[mode()]
+        return (buffer.is_focused and c ~= nil) and c[1] or color.fg_unfocused
+      end,
+      on_click = function(_, _, _, _, buffer)
+        buffer:delete()
+      end,
+    },
+    {
+      text = "",
+      fg = function(buffer)
+        local c = color_mode[mode()]
+        return (buffer.is_focused and c ~= nil) and c[1] or color.fg_unfocused
       end,
     },
     {
@@ -42,7 +80,7 @@ Cokeline.opts = {
         local mappings = require("cokeline.mappings")
         local is_picking_focus = mappings.is_picking_focus()
         local is_picking_close = mappings.is_picking_close()
-        return (is_picking_focus or is_picking_close) and (" " .. buffer.pick_letter) or ""
+        return (is_picking_focus or is_picking_close) and " " .. buffer.pick_letter or ""
       end,
       fg = function(buffer)
         local mappings = require("cokeline.mappings")
@@ -50,6 +88,7 @@ Cokeline.opts = {
         local is_picking_close = mappings.is_picking_close()
         return (is_picking_focus and color.yellow) or (is_picking_close and color.red)
       end,
+
       italic = function()
         local mappings = require("cokeline.mappings")
         local is_picking_focus = mappings.is_picking_focus()
@@ -68,7 +107,7 @@ Cokeline.opts = {
         local mappings = require("cokeline.mappings")
         local is_picking_focus = mappings.is_picking_focus()
         local is_picking_close = mappings.is_picking_close()
-        return (is_picking_focus or is_picking_close) and (buffer.filename:sub(#buffer.pick_letter + 1) .. " ")
+        return (is_picking_focus or is_picking_close) and (" " .. buffer.filename:sub(#buffer.pick_letter + 1) .. " ")
           or " " .. buffer.filename .. " "
       end,
       fg = function(buffer)
@@ -91,21 +130,51 @@ Cokeline.opts = {
       end,
     },
     {
-      text = " ",
+      text = "",
       fg = function(buffer)
-        local mappings = require("cokeline.mappings")
-        local is_picking_focus = mappings.is_picking_focus()
-        local is_picking_close = mappings.is_picking_close()
-        return (is_picking_focus and color.fg_unfocused)
-          or (is_picking_close and color.blue)
-          or (buffer.is_focused and color.blue or color.fg_unfocused)
+        local c = color_mode[mode()]
+        return (buffer.is_focused and c ~= nil) and c[2] or color.bg_unfocused
       end,
-      on_click = function(_, _, _, _, buffer)
-        buffer:delete()
-      end,
+      bg = color.bg_base,
     },
-    {
-      text = " ",
+  },
+  tabs = {
+    placement = "right",
+    components = {
+      {
+        text = "",
+        fg = function(tabpage)
+          local c = color_mode[mode()]
+          return (tabpage.is_active and c ~= nil) and c[1] or color.fg_unfocused
+        end,
+        bg = color.bg_base,
+      },
+      {
+        text = function(tabpage)
+          return " " .. tabpage.number .. " "
+        end,
+        fg = color.bg_focused,
+        bg = function(tabpage)
+          local c = color_mode[mode()]
+          return (tabpage.is_active and c ~= nil) and c[1] or color.fg_unfocused
+        end,
+      },
+      {
+        text = "",
+        fg = function(tabpage)
+          local c = color_mode[mode()]
+          return (tabpage.is_active and c ~= nil) and c[1] or color.fg_unfocused
+        end,
+      },
+      {
+        text = function(tabpage)
+          return tabpage.is_last and "   " or ""
+        end,
+        fg = function(tabpage)
+          local c = color_mode[mode()]
+          return c ~= nil and c[1] or color.fg_unfocused
+        end,
+      },
     },
   },
 }

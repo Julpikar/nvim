@@ -8,7 +8,7 @@ local debounce_wrap = require("shared.debounce").debounce_wrap
 
 local quick_save = debounce_wrap(function()
   require("config.autosave").save()
-end, 500)
+end, 300)
 
 nvim_create_autocmd({ "InsertLeave", "FocusLost" }, {
   group = config_augroup,
