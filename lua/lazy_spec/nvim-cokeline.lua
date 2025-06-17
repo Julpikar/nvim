@@ -11,22 +11,25 @@ end
 
 local color = {
   bg_base = "#2e383c",
+  bg_space = "#272e33",
   fg_focused = "#d3c6aa",
   fg_unfocused = "#9da9a0",
-  bg_focused = "#272e33",
+  bg_focused = "#475258",
   bg_unfocused = "#414b50",
+  picking_close = "#e69875",
+  picking_focus = "#dbbc7f",
 }
 
 local mode = vim.fn.mode
 
 local color_mode = {
-  ["n"] = { "#e69875", "#463a37" },
-  ["v"] = { "#d699b6", "#4a394d" },
-  ["V"] = { "#d699b6", "#4a394d" },
-  ["i"] = { "#7fbbb3", "#384b55" },
-  ["r"] = { "#e67e80", "#493b40" },
-  ["R"] = { "#e67e80", "#493b40" },
-  ["t"] = { "#dbbc7f", "#45443c" },
+  ["n"] = { "#e69875", "#475258" },
+  ["v"] = { "#d699b6", "#475258" },
+  ["V"] = { "#d699b6", "#475258" },
+  ["i"] = { "#7fbbb3", "#475258" },
+  ["r"] = { "#e67e80", "#475258" },
+  ["R"] = { "#e67e80", "#475258" },
+  ["t"] = { "#dbbc7f", "#475258" },
 }
 
 Cokeline.opts = {
@@ -36,7 +39,7 @@ Cokeline.opts = {
     end,
     bg = function(buffer)
       local c = color_mode[mode()]
-      return (buffer.is_focused and c ~= nil) and c[2] or color.bg_unfocused
+      return (buffer.is_focused and c ~= nil) and color.bg_focused or color.bg_unfocused
     end,
   },
   components = {
@@ -45,7 +48,7 @@ Cokeline.opts = {
         return buffer.is_first and "" or ""
       end,
       fg = color.bg_unfocused,
-      bg = color.bg_focused,
+      bg = color.bg_space,
     },
     {
       text = "",
@@ -59,7 +62,7 @@ Cokeline.opts = {
       text = function(buffer)
         return buffer.is_hovered and "  " or " " .. buffer.devicon.icon .. " "
       end,
-      fg = color.bg_focused,
+      fg = color.bg_space,
       bg = function(buffer)
         local c = color_mode[mode()]
         return (buffer.is_focused and c ~= nil) and c[1] or color.fg_unfocused
@@ -86,7 +89,7 @@ Cokeline.opts = {
         local mappings = require("cokeline.mappings")
         local is_picking_focus = mappings.is_picking_focus()
         local is_picking_close = mappings.is_picking_close()
-        return (is_picking_focus and color.yellow) or (is_picking_close and color.red)
+        return (is_picking_focus and color.picking_focus) or (is_picking_close and color.picking_close)
       end,
 
       italic = function()
@@ -133,7 +136,7 @@ Cokeline.opts = {
       text = "",
       fg = function(buffer)
         local c = color_mode[mode()]
-        return (buffer.is_focused and c ~= nil) and c[2] or color.bg_unfocused
+        return (buffer.is_focused and c ~= nil) and color.bg_focused or color.bg_unfocused
       end,
       bg = color.bg_base,
     },
@@ -153,7 +156,7 @@ Cokeline.opts = {
         text = function(tabpage)
           return " " .. tabpage.number .. " "
         end,
-        fg = color.bg_focused,
+        fg = color.bg_space,
         bg = function(tabpage)
           local c = color_mode[mode()]
           return (tabpage.is_active and c ~= nil) and c[1] or color.fg_unfocused
@@ -165,6 +168,7 @@ Cokeline.opts = {
           local c = color_mode[mode()]
           return (tabpage.is_active and c ~= nil) and c[1] or color.fg_unfocused
         end,
+        bg = color.bg_focused,
       },
       {
         text = function(tabpage)
@@ -174,6 +178,7 @@ Cokeline.opts = {
           local c = color_mode[mode()]
           return c ~= nil and c[1] or color.fg_unfocused
         end,
+        bg = color.bg_focused,
       },
     },
   },

@@ -78,7 +78,7 @@ local function provider_cwd()
   local path, _ = root.find_lsp_root() or root.find_pattern_root()
   if path ~= nil then
     local shortened_path = shorten_path(path, "/", 40)
-    return "  " .. shortened_path
+    return shortened_path
   else
     return ""
   end
