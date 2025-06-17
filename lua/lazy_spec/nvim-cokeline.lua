@@ -23,13 +23,13 @@ local color = {
 local mode = vim.fn.mode
 
 local color_mode = {
-  ["n"] = { "#e69875", "#475258" },
-  ["v"] = { "#d699b6", "#475258" },
-  ["V"] = { "#d699b6", "#475258" },
-  ["i"] = { "#7fbbb3", "#475258" },
-  ["r"] = { "#e67e80", "#475258" },
-  ["R"] = { "#e67e80", "#475258" },
-  ["t"] = { "#dbbc7f", "#475258" },
+  ["n"] = "#a7c080",
+  ["v"] = "#d699b6",
+  ["V"] = "#d699b6",
+  ["i"] = "#7fbbb3",
+  ["r"] = "#e67e80",
+  ["R"] = "#e67e80",
+  ["t"] = "#dbbc7f",
 }
 
 Cokeline.opts = {
@@ -54,7 +54,7 @@ Cokeline.opts = {
       text = "",
       fg = function(buffer)
         local c = color_mode[mode()]
-        return (buffer.is_focused and c ~= nil) and c[1] or color.fg_unfocused
+        return (buffer.is_focused and c ~= nil) and c or color.fg_unfocused
       end,
       bg = color.bg_base,
     },
@@ -65,7 +65,7 @@ Cokeline.opts = {
       fg = color.bg_space,
       bg = function(buffer)
         local c = color_mode[mode()]
-        return (buffer.is_focused and c ~= nil) and c[1] or color.fg_unfocused
+        return (buffer.is_focused and c ~= nil) and c or color.fg_unfocused
       end,
       on_click = function(_, _, _, _, buffer)
         buffer:delete()
@@ -75,7 +75,7 @@ Cokeline.opts = {
       text = "",
       fg = function(buffer)
         local c = color_mode[mode()]
-        return (buffer.is_focused and c ~= nil) and c[1] or color.fg_unfocused
+        return (buffer.is_focused and c ~= nil) and c or color.fg_unfocused
       end,
     },
     {
@@ -148,7 +148,7 @@ Cokeline.opts = {
         text = "",
         fg = function(tabpage)
           local c = color_mode[mode()]
-          return (tabpage.is_active and c ~= nil) and c[1] or color.fg_unfocused
+          return (tabpage.is_active and c ~= nil) and c or color.fg_unfocused
         end,
         bg = color.bg_base,
       },
@@ -159,14 +159,14 @@ Cokeline.opts = {
         fg = color.bg_space,
         bg = function(tabpage)
           local c = color_mode[mode()]
-          return (tabpage.is_active and c ~= nil) and c[1] or color.fg_unfocused
+          return (tabpage.is_active and c ~= nil) and c or color.fg_unfocused
         end,
       },
       {
         text = "",
         fg = function(tabpage)
           local c = color_mode[mode()]
-          return (tabpage.is_active and c ~= nil) and c[1] or color.fg_unfocused
+          return (tabpage.is_active and c ~= nil) and c or color.fg_unfocused
         end,
         bg = color.bg_focused,
       },
@@ -176,7 +176,7 @@ Cokeline.opts = {
         end,
         fg = function(tabpage)
           local c = color_mode[mode()]
-          return c ~= nil and c[1] or color.fg_unfocused
+          return c ~= nil and c or color.fg_unfocused
         end,
         bg = color.bg_focused,
       },

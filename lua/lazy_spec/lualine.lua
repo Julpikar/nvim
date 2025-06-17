@@ -13,11 +13,12 @@ local colors = {
   blue = "#7fbbb3",
   grey = "#9da9a0",
   orange = "#e69875",
+  green = "#a7c080",
 }
 
 local theme = {
   normal = {
-    a = { bg = colors.orange, fg = colors.bg_c, gui = "bold" },
+    a = { bg = colors.green, fg = colors.bg_c, gui = "bold" },
     b = { bg = colors.bg_b, fg = colors.fg },
     c = { bg = colors.bg_c, fg = colors.fg },
   },
@@ -137,7 +138,7 @@ Lualine.opts = {
         cond = function()
           return buffer_not_empty() or hide_in_width()
         end,
-        color = { fg = "#d699b6" },
+        color = { fg = colors.purple },
       },
       {
         "progress",
@@ -145,7 +146,7 @@ Lualine.opts = {
         cond = function()
           return buffer_not_empty() or hide_in_width()
         end,
-        color = { fg = "#d699b6" },
+        color = { fg = colors.purple },
       },
       { "fileformat" },
     },
